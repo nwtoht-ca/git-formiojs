@@ -271,7 +271,7 @@ var _default = [{
 }, {
   type: 'checkbox',
   key: 'block',
-  label: 'Block Button',
+  label: 'Blocky Button',
   input: true,
   weight: 155,
   tooltip: 'This control should span the full width of the bounding container.'

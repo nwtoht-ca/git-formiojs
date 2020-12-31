@@ -23,7 +23,7 @@ var _default = [{
   weight: 350,
   label: 'Shortcut',
   key: 'shortcut',
-  tooltip: 'Shortcut for this component.',
+  tooltip: 'Shortcut for this here component.',
   dataSrc: 'custom',
   valueProperty: 'value',
   customDefaultValue: function customDefaultValue() {
