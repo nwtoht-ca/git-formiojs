@@ -13,8 +13,7 @@ var _default = {
   resources: {
     en: {
       translation: {
-        alertMessageWithLabel: '{{label}}: {{message}}',
-        alertMessage: '{{message}}',
+        alertMessage: '{{label}}: {{message}}',
         complete: 'Submission Complete',
         error: 'Please fix the following errors before submitting.',
         submitError: 'Please check the form and correct all errors before submitting.',

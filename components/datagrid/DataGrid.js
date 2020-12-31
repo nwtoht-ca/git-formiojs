@@ -22,12 +22,6 @@ require("core-js/modules/es.object.entries");
 
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
-require("core-js/modules/es.regexp.to-string");
-
 require("core-js/modules/web.dom-collections.for-each");
 
 Object.defineProperty(exports, "__esModule", {
@@ -150,6 +144,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
 
     _this = _super.call.apply(_super, [this].concat(args));
     _this.type = 'datagrid';
+    _this.tabIndex = 0;
     return _this;
   }
 
@@ -282,6 +277,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         allowReorder: this.allowReorder,
         builder: this.builderMode,
         canAddColumn: this.canAddColumn,
+        tabIndex: this.tabIndex,
         placeholder: this.renderTemplate('builderPlaceholder', {
           position: this.componentComponents.length
         })
@@ -489,6 +485,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       var _this6 = this;
 
       var components = {};
+      this.tabIndex = 0;
       this.component.components.map(function (col, colIndex) {
         var options = _lodash.default.clone(_this6.options);
 
@@ -510,6 +507,11 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         component.parentDisabled = !!_this6.disabled;
         component.rowIndex = rowIndex;
         component.inDataGrid = true;
+
+        if (columnComponent.tabindex && parseInt(columnComponent.tabindex) > _this6.tabIndex) {
+          _this6.tabIndex = parseInt(columnComponent.tabindex);
+        }
+
         components[col.key] = component;
       });
       return components;

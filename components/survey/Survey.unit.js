@@ -4,19 +4,11 @@ require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.from");
-
 require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.slice");
 
 require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/web.dom-collections.for-each");
 

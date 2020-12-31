@@ -697,7 +697,7 @@ describe('Webform tests', function () {
 
         _powerAssert.default.equal(formWithPattern.errors[0].messages[0].message, 'Text Field is required');
 
-        _powerAssert.default.equal(formWithPattern.element.querySelector('[ref="errorRef"]').textContent, 'Text Field is required');
+        _powerAssert.default.equal(formWithPattern.element.querySelector('[ref="errorRef"]').textContent, 'Text Field: Text Field is required');
 
         done();
       }, 500);

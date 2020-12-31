@@ -24,12 +24,6 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
-require("core-js/modules/es.regexp.to-string");
-
 require("core-js/modules/es.string.includes");
 
 require("core-js/modules/web.dom-collections.for-each");
@@ -207,14 +201,6 @@ var Wizard = /*#__PURE__*/function (_Webform) {
         showSubmit: true,
         showCancel: !this.options.readOnly
       });
-
-      if (!this.isSecondInit) {
-        var _this$options, _this$options$breadcr;
-
-        this.isClickableDefined = (_this$options = this.options) === null || _this$options === void 0 ? void 0 : (_this$options$breadcr = _this$options.breadcrumbSettings) === null || _this$options$breadcr === void 0 ? void 0 : _this$options$breadcr.hasOwnProperty('clickable');
-        this.isSecondInit = true;
-      }
-
       this.options.breadcrumbSettings = _lodash.default.defaults(this.options.breadcrumbSettings, {
         clickable: true
       });
@@ -364,7 +350,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
           currentPage = page;
         }
       });
-      return this.isClickableDefined ? this.options.breadcrumbSettings.clickable : _lodash.default.get(currentPage.component, 'breadcrumbClickable', true);
+      return _lodash.default.get(currentPage.component, 'breadcrumbClickable', true);
     }
   }, {
     key: "isAllowPrevious",

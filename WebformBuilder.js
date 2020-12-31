@@ -40,17 +40,11 @@ require("core-js/modules/es.object.keys");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
 require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.match");
 
 require("core-js/modules/es.string.replace");
 
@@ -162,17 +156,15 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     _this.repeatablePaths = [];
     _this.sideBarScroll = _lodash.default.get(_this.options, 'sideBarScroll', true);
     _this.sideBarScrollOffset = _lodash.default.get(_this.options, 'sideBarScrollOffset', 0);
-    var componentInfo = {};
-
-    for (var type in _Components.default.components) {
-      var component = _Components.default.components[type];
-
-      if (component.builderInfo) {
-        component.type = type;
-        componentInfo[type] = component.builderInfo;
-      }
-    }
-
+    _this.fieldsList = {
+      title: 'Result fields',
+      key: 'searchFields',
+      weight: 0,
+      subgroups: [],
+      default: true,
+      components: {},
+      componentOrder: []
+    };
     _this.dragDropEnabled = true; // Setup the builder options.
 
     _this.builder = _lodash.default.defaultsDeep({}, _this.options.builder, _this.defaultGroups); // Turn off if explicitely said to do so...
@@ -216,14 +208,14 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       return group.key;
     });
 
-    for (var _type in _Components.default.components) {
-      var _component = _Components.default.components[_type];
+    for (var type in _Components.default.components) {
+      var component = _Components.default.components[type];
 
-      if (_component.builderInfo) {
-        _this.schemas[_type] = _component.builderInfo.schema;
-        _component.type = _type;
-        var builderInfo = _component.builderInfo;
-        builderInfo.key = _component.type;
+      if (component.builderInfo && component.builderInfo.schema) {
+        _this.schemas[type] = component.builderInfo.schema;
+        component.type = type;
+        var builderInfo = component.builderInfo;
+        builderInfo.key = component.type;
 
         _this.addBuilderComponentInfo(builderInfo);
       }
@@ -231,28 +223,31 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     // Add the components in each group.
 
 
-    for (var _group in _this.groups) {
+    var _loop2 = function _loop2(_group) {
       var info = _this.groups[_group];
 
       for (var key in info.components) {
         var comp = info.components[key];
 
-        if (comp) {
-          if (comp.schema) {
-            _this.schemas[key] = comp.schema;
-          }
-
-          info.components[key] = comp === true ? componentInfo[key] : comp;
-          info.components[key].key = key;
+        if (comp === true && _Components.default.components[key] && _Components.default.components[key].builderInfo) {
+          comp = _Components.default.components[key].builderInfo;
         }
-      }
-    } // Need to create a component order for each group.
+
+        if (comp && comp.schema) {
+          _this.schemas[key] = comp.schema;
+          info.components[key] = comp;
+          info.components[key].key = key;
+          _this.fieldsList.components[key] = info.components[key];
+        } else {
+          // Do not include this component in the components array.
+          delete info.components[key];
+        }
+      } // Order the compoennts.
 
 
-    var _loop2 = function _loop2(_group2) {
-      if (_this.groups[_group2] && _this.groups[_group2].components) {
-        _this.groups[_group2].componentOrder = Object.keys(_this.groups[_group2].components).map(function (key) {
-          return _this.groups[_group2].components[key];
+      if (info.components) {
+        info.componentOrder = Object.keys(info.components).map(function (key) {
+          return info.components[key];
         }).filter(function (component) {
           return component && !component.ignore && !component.ignoreForForm;
         }).sort(function (a, b) {
@@ -263,8 +258,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
     };
 
-    for (var _group2 in _this.groups) {
-      _loop2(_group2);
+    for (var _group in _this.groups) {
+      _loop2(_group);
     }
 
     _this.options.hooks = _this.options.hooks || {};
@@ -548,6 +543,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
               isNew: true
             })
           });
+          _this2.fieldsList.components[component.key] = subgroup.components[component.key];
         }, true);
 
         _this2.groups.resource.subgroups.push(subgroup);
@@ -709,11 +705,11 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           });
         }
 
-        _this4.addEventListener(_this4.refs['sidebar-search'], 'input', _lodash.default.debounce(function (e) {
+        _this4.addEventListener(_this4.refs['sidebar-search'], 'input', function (e) {
           var searchString = e.target.value;
 
           _this4.searchFields(searchString);
-        }, 300));
+        });
 
         if (_this4.dragDropEnabled) {
           _this4.initDragula();
@@ -726,11 +722,9 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "searchFields",
-    value: function searchFields() {
+    value: function searchFields(searchString) {
       var _this5 = this;
 
-      var searchString = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var searchValue = searchString.toLowerCase();
       var sidebar = this.refs['sidebar'];
       var sidebarGroups = this.refs['sidebar-groups'];
 
@@ -738,75 +732,42 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         return;
       }
 
-      var filterGroupBy = function filterGroupBy(group) {
-        var searchValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      if (searchString) {
+        var filteredComponentsOrder = [];
 
-        var result = _lodash.default.toPlainObject(group);
+        for (var type in this.fieldsList.components) {
+          var builderInfo = this.fieldsList.components[type];
 
-        var _result$subgroups = result.subgroups,
-            subgroups = _result$subgroups === void 0 ? [] : _result$subgroups,
-            components = result.components;
-        var filteredOrder = [];
-
-        for (var key in components) {
-          var isMatchedToTitle = components[key].title.toLowerCase().match(searchValue);
-          var isMatchedToKey = components[key].key.toLowerCase().match(searchValue);
-
-          if (isMatchedToTitle || isMatchedToKey) {
-            filteredOrder.push(components[key].key);
+          if (builderInfo.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+            filteredComponentsOrder.push(type);
           }
         }
 
-        result.componentOrder = filteredOrder;
-
-        if (searchValue) {
-          result.default = true;
-        }
-
-        if (filteredOrder.length || subgroups.length) {
-          return result;
-        }
-
-        return null;
-      };
-
-      var filterGroupOrder = function filterGroupOrder(groupOrder, searchValue) {
-        var result = _lodash.default.cloneDeep(groupOrder);
-
-        return result.filter(function (key) {
-          return filterGroupBy(_this5.groups[key], searchValue);
+        this.fieldsList.componentOrder = filteredComponentsOrder;
+        sidebarGroups.innerHTML = this.renderTemplate('builderSidebarGroup', {
+          group: this.fieldsList,
+          groupKey: 'searchFields',
+          groupId: "builder-sidebar-".concat(this.id),
+          subgroups: []
         });
-      };
+      } else {
+        sidebarGroups.innerHTML = this.groupOrder.map(function (groupKey) {
+          return _this5.renderTemplate('builderSidebarGroup', {
+            group: _this5.groups[groupKey],
+            groupKey: groupKey,
+            groupId: sidebar.id || sidebarGroups.id,
+            subgroups: _this5.groups[groupKey].subgroups.map(function (group) {
+              return _this5.renderTemplate('builderSidebarGroup', {
+                group: group,
+                groupKey: group.key,
+                groupId: "group-container-".concat(groupKey),
+                subgroups: []
+              });
+            })
+          });
+        }).join('');
+      }
 
-      var filterSubgroups = function filterSubgroups(groups, searchValue) {
-        var result = _lodash.default.clone(groups);
-
-        return result.map(function (subgroup) {
-          return filterGroupBy(subgroup, searchValue);
-        }).filter(function (subgroup) {
-          return !_lodash.default.isNull(subgroup);
-        });
-      };
-
-      var toTemplate = function toTemplate(groupKey) {
-        return {
-          group: filterGroupBy(_this5.groups[groupKey], searchValue),
-          groupKey: groupKey,
-          groupId: sidebar.id || sidebarGroups.id,
-          subgroups: filterSubgroups(_this5.groups[groupKey].subgroups, searchValue).map(function (group) {
-            return _this5.renderTemplate('builderSidebarGroup', {
-              group: group,
-              groupKey: group.key,
-              groupId: "group-container-".concat(groupKey),
-              subgroups: []
-            });
-          })
-        };
-      };
-
-      sidebarGroups.innerHTML = filterGroupOrder(this.groupOrder, searchValue).map(function (groupKey) {
-        return _this5.renderTemplate('builderSidebarGroup', toTemplate(groupKey));
-      }).join('');
       this.loadRefs(this.element, {
         'sidebar-groups': 'single',
         'sidebar-anchor': 'multiple',
@@ -898,7 +859,9 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         if (groupComponents.hasOwnProperty(key)) {
           info = (0, _utils.fastCloneDeep)(groupComponents[key].schema);
         }
-      } else if (group.slice(0, group.indexOf('-')) === 'resource') {
+      }
+
+      if (group.slice(0, group.indexOf('-')) === 'resource') {
         // This is an existing resource field.
         var resourceGroups = this.groups.resource.subgroups;
 
@@ -909,24 +872,10 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         if (resourceGroup && resourceGroup.components.hasOwnProperty(key)) {
           info = (0, _utils.fastCloneDeep)(resourceGroup.components[key].schema);
         }
-      } else if (group === 'searchFields') {
-        //Search components go into this group
-        var _resourceGroups = this.groups.resource.subgroups;
-
-        for (var ix = 0; ix < _resourceGroups.length; ix++) {
-          var _resourceGroup = _resourceGroups[ix];
-
-          if (_resourceGroup.components.hasOwnProperty(key)) {
-            info = (0, _utils.fastCloneDeep)(_resourceGroup.components[key].schema);
-            break;
-          }
-        }
       }
 
       if (info) {
-        if (!info.key) {
-          info.key = _lodash.default.camelCase(info.key || info.title || info.label || info.placeholder || info.type);
-        }
+        info.key = _lodash.default.camelCase(info.key || info.title || info.label || info.placeholder || info.type);
       }
 
       return info;
@@ -1661,6 +1610,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         groupInfo.components[component.key] = component;
       }
 
+      this.fieldsList.components[component.key] = component;
       return component;
     }
   }, {

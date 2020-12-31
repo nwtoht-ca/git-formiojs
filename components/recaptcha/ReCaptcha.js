@@ -10,9 +10,7 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.promise");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -28,6 +26,12 @@ var _get3 = _interopRequireDefault(require("lodash/get"));
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -120,8 +124,13 @@ var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
                 action: actionName
               }).then(function (token) {
                 return _this.sendVerificationRequest(token);
-              }).then(function (verificationResult) {
-                _this.setValue(verificationResult);
+              }).then(function (_ref) {
+                var verificationResult = _ref.verificationResult,
+                    token = _ref.token;
+
+                _this.setValue(_objectSpread(_objectSpread({}, verificationResult), {}, {
+                  token: token
+                }));
 
                 return resolve(verificationResult);
               });
@@ -148,7 +157,44 @@ var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "sendVerificationRequest",
     value: function sendVerificationRequest(token) {
-      return _Formio.default.makeStaticRequest("".concat(_Formio.default.projectUrl, "/recaptcha?recaptchaToken=").concat(token));
+      return _Formio.default.makeStaticRequest("".concat(_Formio.default.projectUrl, "/recaptcha?recaptchaToken=").concat(token)).then(function (verificationResult) {
+        return {
+          verificationResult: verificationResult,
+          token: token
+        };
+      });
+    }
+  }, {
+    key: "checkComponentValidity",
+    value: function checkComponentValidity(data, dirty, row) {
+      var _this3 = this;
+
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+      data = data || this.rootValue;
+      row = row || this.data;
+      var _options$async = options.async,
+          async = _options$async === void 0 ? false : _options$async; // Verification could be async only
+
+      if (!async) {
+        return _get2(_getPrototypeOf(ReCaptchaComponent.prototype), "checkComponentValidity", this).call(this, data, dirty, row, options);
+      }
+
+      var componentData = row[this.component.key];
+
+      if (!componentData || !componentData.token) {
+        this.setCustomValidity('ReCaptcha: Token is not specified in submission');
+        return Promise.resolve(false);
+      }
+
+      return this.hook('validateReCaptcha', componentData.token, function () {
+        return Promise.resolve(true);
+      }).then(function (success) {
+        return success;
+      }).catch(function (err) {
+        _this3.setCustomValidity(err.message || err);
+
+        return false;
+      });
     }
   }, {
     key: "setValue",

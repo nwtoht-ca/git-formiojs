@@ -10,8 +10,6 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
@@ -77,8 +75,7 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       var _this = this;
 
       this.loadRefs(element, {
-        input: 'multiple',
-        formCheck: 'single'
+        input: 'multiple'
       });
       this.input = this.refs.input[0];
 
@@ -170,20 +167,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       }
 
       return false;
-    }
-  }, {
-    key: "updateValue",
-    value: function updateValue(value, flags) {
-      var checkBoxChecked = 'checkbox-checked';
-      var val = this.getValue();
-
-      if (val) {
-        this.addClass(this.refs.formCheck, checkBoxChecked);
-      } else {
-        this.removeClass(this.refs.formCheck, checkBoxChecked);
-      }
-
-      _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
     }
   }, {
     key: "getValueAsString",

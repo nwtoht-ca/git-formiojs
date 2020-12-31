@@ -19,7 +19,7 @@ var azure = function azure(formio) {
   return {
     uploadFile: function uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId) {
       return _xhr.default.upload(formio, 'azure', function (xhr, response) {
-        xhr.openAndSetHeaders('PUT', response.url);
+        xhr.open('PUT', response.url);
         xhr.setRequestHeader('Content-Type', file.type);
         xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
         return file;

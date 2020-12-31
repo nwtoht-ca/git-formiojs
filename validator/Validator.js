@@ -105,7 +105,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       required: {
         key: 'validate.required',
         method: 'validateRequired',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('required'), {
             field: component.errorLabel,
@@ -143,7 +142,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       unique: {
         key: 'validate.unique',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('unique'), {
             field: component.errorLabel,
@@ -221,7 +219,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       multiple: {
         key: 'validate.multiple',
-        hasLabel: true,
         message: function message(component) {
           var shouldBeArray = (0, _utils.boolValue)(component.component.multiple) || Array.isArray(component.emptyValue);
           var isRequired = component.component.validate.required;
@@ -256,7 +253,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       select: {
         key: 'validate.select',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('select'), {
             field: component.errorLabel,
@@ -354,7 +350,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       min: {
         key: 'validate.min',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('min'), {
             field: component.errorLabel,
@@ -375,7 +370,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       max: {
         key: 'validate.max',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('max'), {
             field: component.errorLabel,
@@ -446,7 +440,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minLength: {
         key: 'validate.minLength',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minLength'), {
             field: component.errorLabel,
@@ -466,7 +459,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxLength: {
         key: 'validate.maxLength',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxLength'), {
             field: component.errorLabel,
@@ -486,7 +478,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxWords: {
         key: 'validate.maxWords',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxWords'), {
             field: component.errorLabel,
@@ -506,7 +497,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minWords: {
         key: 'validate.minWords',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minWords'), {
             field: component.errorLabel,
@@ -525,7 +515,6 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       email: {
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_email'), {
             field: component.errorLabel,
@@ -543,7 +532,6 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       url: {
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_url'), {
             field: component.errorLabel,
@@ -561,7 +549,6 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       date: {
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_date'), {
             field: component.errorLabel,
@@ -573,7 +560,6 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       day: {
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_day'), {
             field: component.errorLabel,
@@ -658,7 +644,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       pattern: {
         key: 'validate.pattern',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(_lodash.default.get(component, 'component.validate.patternMessage', component.errorMessage('pattern'), {
             field: component.errorLabel,
@@ -701,7 +686,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       mask: {
         key: 'inputMask',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('mask'), {
             field: component.errorLabel,
@@ -763,7 +747,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxDate: {
         key: 'maxDate',
-        hasLabel: true,
         message: function message(component, setting) {
           var date = (0, _utils.getDateSetting)(setting);
           return component.t(component.errorMessage('maxDate'), {
@@ -791,7 +774,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minDate: {
         key: 'minDate',
-        hasLabel: true,
         message: function message(component, setting) {
           var date = (0, _utils.getDateSetting)(setting);
           return component.t(component.errorMessage('minDate'), {
@@ -819,7 +801,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minYear: {
         key: 'minYear',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minYear'), {
             field: component.errorLabel,
@@ -840,7 +821,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxYear: {
         key: 'maxYear',
-        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxYear'), {
             field: component.errorLabel,
@@ -862,7 +842,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       calendar: {
         key: 'validate.calendar',
         messageText: '',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage(this.validators.calendar.messageText), {
             field: component.errorLabel,
@@ -913,7 +892,6 @@ var ValidationChecker = /*#__PURE__*/function () {
       time: {
         key: 'validate.time',
         messageText: 'Invalid time',
-        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage(this.validators.time.messageText), {
             field: component.errorLabel
@@ -979,7 +957,6 @@ var ValidationChecker = /*#__PURE__*/function () {
           path: (0, _utils.getArrayFromComponentPath)(component.path || ''),
           context: {
             validator: validatorName,
-            hasLabel: validator.hasLabel,
             setting: setting,
             key: component.key,
             label: component.label,
@@ -1078,7 +1055,6 @@ var ValidationChecker = /*#__PURE__*/function () {
               row: row,
               error: result
             });
-            result.context.hasLabel = false;
           });
         }
 

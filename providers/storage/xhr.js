@@ -13,7 +13,7 @@ require("core-js/modules/es.string.trim");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.setXhrHeaders = void 0;
+exports.default = void 0;
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -21,23 +21,6 @@ var _trim2 = _interopRequireDefault(require("lodash/trim"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var setXhrHeaders = function setXhrHeaders(formio, xhr) {
-  var headers = formio.options.headers;
-
-  if (headers) {
-    var ValidHeaders = {
-      'Content-Disposition': true
-    };
-
-    for (var header in headers) {
-      if (ValidHeaders[header]) {
-        xhr.setRequestHeader(header, headers[header]);
-      }
-    }
-  }
-};
-
-exports.setXhrHeaders = setXhrHeaders;
 var XHR = {
   trim: function trim(text) {
     return (0, _trim2.default)(text, '/');
@@ -67,12 +50,7 @@ var XHR = {
 
           if (typeof progressCallback === 'function') {
             xhr.upload.onprogress = progressCallback;
-          }
-
-          xhr.openAndSetHeaders = function () {
-            xhr.open.apply(xhr, arguments);
-            setXhrHeaders(formio, xhr);
-          }; // Fire on network error.
+          } // Fire on network error.
 
 
           xhr.onerror = function (err) {

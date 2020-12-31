@@ -4,8 +4,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 require("core-js/modules/es.object.assign");
 
-require("core-js/modules/es.object.get-prototype-of");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });

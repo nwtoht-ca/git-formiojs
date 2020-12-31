@@ -18,8 +18,6 @@ require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.object.assign");
 
-require("core-js/modules/es.object.get-prototype-of");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.string.includes");
@@ -658,7 +656,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         } // Create the form.
 
 
-        this._form = _lodash.default.cloneDeep(form);
+        this._form = flags !== null && flags !== void 0 && flags.keepAsReference ? form : _lodash.default.cloneDeep(form);
 
         if (this.onSetForm) {
           this.onSetForm(this._form, form);
@@ -1273,14 +1271,13 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
           if (err.messages && err.messages.length) {
             var component = err.component;
             err.messages.forEach(function (_ref, index) {
-              var message = _ref.message,
-                  context = _ref.context;
-              var text = context !== null && context !== void 0 && context.hasLabel ? _this15.t('alertMessage', {
-                message: message
-              }) : _this15.t('alertMessageWithLabel', {
+              var message = _ref.message;
+
+              var text = _this15.t('alertMessage', {
                 label: _this15.t(component.label),
                 message: message
               });
+
               createListItem(text, index);
             });
           } else if (err) {

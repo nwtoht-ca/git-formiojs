@@ -40,8 +40,6 @@ require("core-js/modules/es.object.keys");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
@@ -1630,6 +1628,12 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "dataReady",
     get: function get() {
+      // If the root submission has been set, and we are still not attached, then assume
+      // that our data is ready.
+      if (this.root && this.root.submissionSet && !this.attached) {
+        return _nativePromiseOnly.default.resolve();
+      }
+
       return this.itemsLoaded;
     }
   }, {

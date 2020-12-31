@@ -34,8 +34,6 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.constructor");
 
 require("core-js/modules/es.regexp.exec");

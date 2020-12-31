@@ -20,12 +20,6 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
-require("core-js/modules/es.regexp.to-string");
-
 require("core-js/modules/es.string.includes");
 
 require("core-js/modules/web.dom-collections.for-each");
@@ -254,11 +248,13 @@ var WizardBuilder = /*#__PURE__*/function (_WebformBuilder) {
     key: "rebuild",
     value: function rebuild() {
       var page = this.currentPage;
-      this.webform.form = {
+      this.webform.setForm({
         display: 'form',
         type: 'form',
         components: page ? [page] : []
-      };
+      }, {
+        keepAsReference: true
+      });
       return this.redraw();
     }
   }, {

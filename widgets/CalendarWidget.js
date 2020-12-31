@@ -8,13 +8,7 @@ require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
@@ -40,10 +34,6 @@ var _moment = _interopRequireDefault(require("moment"));
 var _lodash = _interopRequireDefault(require("lodash"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -251,9 +241,7 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
           if (_this3._input) {
             var dateValue = _this3._input.value; // Create a new flatpickr.
 
-            _this3.calendar = new Flatpickr(_this3._input, _objectSpread(_objectSpread({}, _this3.settings), {}, {
-              disableMobile: true
-            }));
+            _this3.calendar = new Flatpickr(_this3._input, _this3.settings);
 
             if (dateValue) {
               _this3.calendar.setDate(dateValue, false, _this3.settings.altFormat);

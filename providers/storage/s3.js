@@ -23,7 +23,7 @@ var s3 = function s3(formio) {
         response.data.key = _xhr.default.path([response.data.key, dir, fileName]);
 
         if (response.signed) {
-          xhr.openAndSetHeaders('PUT', response.signed);
+          xhr.open('PUT', response.signed);
           xhr.setRequestHeader('Content-Type', file.type);
           return file;
         } else {
@@ -34,7 +34,7 @@ var s3 = function s3(formio) {
           }
 
           fd.append('file', file);
-          xhr.openAndSetHeaders('POST', response.url);
+          xhr.open('POST', response.url);
           return fd;
         }
       }, file, fileName, dir, progressCallback, groupPermissions, groupId).then(function (response) {

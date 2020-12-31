@@ -86,10 +86,6 @@ var _default = [{
         '===': [{
           var: 'data.editor'
         }, 'quill']
-      }, {
-        '===': [{
-          var: 'data.editor'
-        }, 'ckeditor']
       }]
     }
   }

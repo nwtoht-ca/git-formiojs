@@ -9,8 +9,6 @@ exports.default = void 0;
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
-var _xhr = require("./xhr");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var dropbox = function dropbox(formio) {
@@ -51,7 +49,6 @@ var dropbox = function dropbox(formio) {
 
         xhr.onabort = reject;
         xhr.open('POST', "".concat(formio.formUrl, "/storage/dropbox"));
-        (0, _xhr.setXhrHeaders)(formio, xhr);
         var token = formio.getToken();
 
         if (token) {

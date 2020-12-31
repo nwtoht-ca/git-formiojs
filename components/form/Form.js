@@ -8,21 +8,11 @@ require("core-js/modules/es.array.for-each");
 
 require("core-js/modules/es.array.join");
 
-require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.number.parse-int");
-
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.replace");
 
@@ -145,24 +135,10 @@ var FormComponent = /*#__PURE__*/function (_Component) {
 
 
       if (this.component.revision || this.component.revision === 0) {
-        this.setFormRevision(this.component.revision);
+        this.formSrc += "/v/".concat(this.component.revision);
       }
 
       return this.createSubForm();
-    }
-  }, {
-    key: "setFormRevision",
-    value: function setFormRevision(rev) {
-      // Remove current revisions from src if it is
-      this.formSrc = this.formSrc.replace(/\/v\/\d*/, '');
-      var revNumber = Number.parseInt(rev);
-
-      if (!isNaN(revNumber)) {
-        this.subFormRevision = rev;
-        this.formSrc += "/v/".concat(rev);
-      } else {
-        this.subFormRevision = undefined;
-      }
     }
   }, {
     key: "getComponent",
@@ -388,7 +364,9 @@ var FormComponent = /*#__PURE__*/function (_Component) {
 
 
         (0, _utils.eachComponent)(form.components, function (component) {
-          _this2.hideSubmitButton(component);
+          if (component.type === 'button' && (component.action === 'submit' || !component.action)) {
+            component.hidden = true;
+          }
         }); // If the subform is already created then destroy the old one.
 
         if (_this2.subForm) {
@@ -432,15 +410,6 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       });
       return this.subFormReady;
     }
-  }, {
-    key: "hideSubmitButton",
-    value: function hideSubmitButton(component) {
-      var isSubmitButton = component.type === 'button' && (component.action === 'submit' || !component.action);
-
-      if (isSubmitButton) {
-        component.hidden = true;
-      }
-    }
     /**
      * Load the subform.
      */
@@ -452,9 +421,10 @@ var FormComponent = /*#__PURE__*/function (_Component) {
 
       if (this.builderMode || this.isHidden()) {
         return _nativePromiseOnly.default.resolve();
-      }
+      } // Determine if we already have a loaded form object.
 
-      if (this.hasLoadedForm && !this.isRevisionChanged) {
+
+      if (this.formObj && this.formObj.components && Array.isArray(this.formObj.components) && this.formObj.components.length) {
         // Pass config down to sub forms.
         if (this.root && this.root.form && this.root.form.config && !this.formObj.config) {
           this.formObj.config = this.root.form.config;
@@ -604,10 +574,10 @@ var FormComponent = /*#__PURE__*/function (_Component) {
     value: function beforeSubmit() {
       var _this6 = this;
 
-      var submission = this.dataValue;
-      var isAlreadySubmitted = submission && submission._id && submission.form; // This submission has already been submitted, so just return the reference data.
+      var submission = this.dataValue; // This submission has already been submitted, so just return the reference data.
+      // All wizards are submitted at the end of the form.
 
-      if (isAlreadySubmitted && !this.subForm.wizard) {
+      if (submission && submission._id && submission.form && !this.subForm.wizard) {
         this.dataValue = submission;
         return _nativePromiseOnly.default.resolve(this.dataValue);
       }
@@ -630,8 +600,6 @@ var FormComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "setValue",
     value: function setValue(submission) {
-      var _this7 = this;
-
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       var changed = _get(_getPrototypeOf(FormComponent.prototype), "setValue", this).call(this, submission, flags);
@@ -639,34 +607,17 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       this.valueChanged = true;
 
       if (this.subForm) {
-        var _this$subForm$form;
-
-        var shouldLoadOriginalRevision = this.useOriginalRevision && _lodash.default.isNumber(submission._fvid) && _lodash.default.isNumber((_this$subForm$form = this.subForm.form) === null || _this$subForm$form === void 0 ? void 0 : _this$subForm$form._vid) && submission._fvid !== this.subForm.form._vid;
-
-        if (shouldLoadOriginalRevision) {
-          this.setFormRevision(submission._fvid);
-          this.createSubForm().then(function () {
-            _this7.attach(_this7.element);
-          });
+        if (submission && submission._id && this.subForm.formio && _lodash.default.isEmpty(submission.data)) {
+          var formUrl = submission.form ? "".concat(this.subForm.formio.formsUrl, "/").concat(submission.form) : this.formSrc;
+          var submissionUrl = "".concat(formUrl, "/submission/").concat(submission._id);
+          this.subForm.setUrl(submissionUrl, this.options);
+          this.subForm.loadSubmission();
         } else {
-          this.setSubFormValue(submission, flags);
+          this.subForm.setValue(submission, flags);
         }
       }
 
       return changed;
-    }
-  }, {
-    key: "setSubFormValue",
-    value: function setSubFormValue(submission, flags) {
-      var shouldLoadSubmissionById = submission && submission._id && this.subForm.formio && _lodash.default.isEmpty(submission.data);
-
-      if (shouldLoadSubmissionById) {
-        var submissionUrl = "".concat(this.subForm.formio.formsUrl, "/").concat(submission.form, "/submission/").concat(submission._id);
-        this.subForm.setUrl(submissionUrl, this.options);
-        this.subForm.loadSubmission();
-      } else {
-        this.subForm.setValue(submission, flags);
-      }
     }
   }, {
     key: "isEmpty",
@@ -805,19 +756,12 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       return this.subFormReady || _nativePromiseOnly.default.resolve();
     }
   }, {
-    key: "useOriginalRevision",
-    get: function get() {
-      var _this$component, _this$formObj;
-
-      return ((_this$component = this.component) === null || _this$component === void 0 ? void 0 : _this$component.useOriginalRevision) && !!((_this$formObj = this.formObj) !== null && _this$formObj !== void 0 && _this$formObj.revisions);
-    }
-  }, {
     key: "currentForm",
     get: function get() {
       return this._currentForm;
     },
     set: function set(instance) {
-      var _this8 = this;
+      var _this7 = this;
 
       this._currentForm = instance;
 
@@ -826,18 +770,8 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       }
 
       this.subForm.getComponents().forEach(function (component) {
-        component.currentForm = _this8;
+        component.currentForm = _this7;
       });
-    }
-  }, {
-    key: "hasLoadedForm",
-    get: function get() {
-      return this.formObj && this.formObj.components && Array.isArray(this.formObj.components) && this.formObj.components.length;
-    }
-  }, {
-    key: "isRevisionChanged",
-    get: function get() {
-      return _lodash.default.isNumber(this.subFormRevision) && _lodash.default.isNumber(this.formObj._vid) && this.formObj._vid !== this.subFormRevision;
     }
   }, {
     key: "shouldSubmit",
@@ -861,7 +795,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       return _get(_getPrototypeOf(FormComponent.prototype), "visible", this);
     },
     set: function set(value) {
-      var _this9 = this;
+      var _this8 = this;
 
       if (this._visible !== value) {
         this._visible = value;
@@ -870,7 +804,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         if (!this.subForm && value) {
           this.createSubForm();
           this.subFormReady.then(function () {
-            _this9.updateSubFormVisibility();
+            _this8.updateSubFormVisibility();
           });
           this.redraw();
           return;
@@ -886,7 +820,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       return _get(_getPrototypeOf(FormComponent.prototype), "parentVisible", this);
     },
     set: function set(value) {
-      var _this10 = this;
+      var _this9 = this;
 
       if (this._parentVisible !== value) {
         this._parentVisible = value;
@@ -895,7 +829,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         if (!this.subForm && value) {
           this.createSubForm();
           this.subFormReady.then(function () {
-            _this10.updateSubFormVisibility();
+            _this9.updateSubFormVisibility();
           });
           this.redraw();
           return;

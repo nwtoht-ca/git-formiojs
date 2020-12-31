@@ -197,7 +197,7 @@ var ComponentModal = /*#__PURE__*/function () {
     key: "showDialog",
     value: function showDialog() {
       this.dialogElement = this.component.ce('div');
-      var dialogContent = "\n      <h3 ref=\"dialogHeader\">".concat(this.component.t('Do you want to clear changes?'), "</h3>\n      <div style=\"display:flex; justify-content: flex-end;\">\n        <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.component.t('Cancel'), "</button>\n        <button ref=\"dialogYesButton\" class=\"btn btn-danger\">").concat(this.component.t('Yes, delete it'), "</button>\n      </div>\n    ");
+      var dialogContent = "\n      <h3 ref=\"dialogHeader\">".concat(this.component.t('Do you want to clear changes?'), "</h3>\n      <div style=\"display:flex; justify-content: flex-end;\">\n        <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.component.t('Cancel'), "</button>\n        <button ref=\"dialogYesButton\" class=\"btn btn-primary\">").concat(this.component.t('Yes, delete it'), "</button>\n      </div>\n    ");
       this.dialogElement.innerHTML = dialogContent;
       this.dialogElement.refs = {};
       this.component.loadRefs.call(this.dialogElement, this.dialogElement, {

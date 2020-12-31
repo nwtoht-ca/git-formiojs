@@ -32,8 +32,6 @@ require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.flags");
@@ -76,8 +74,6 @@ var _Element2 = _interopRequireDefault(require("../../../Element"));
 var _ComponentModal = _interopRequireDefault(require("../componentModal/ComponentModal"));
 
 var _widgets = _interopRequireDefault(require("../../../widgets"));
-
-var _uploadAdapter = require("../../../providers/storage/uploadAdapter");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -974,15 +970,10 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "getModalPreviewTemplate",
     value: function getModalPreviewTemplate() {
       var dataValue = this.component.type === 'password' ? this.dataValue.replace(/./g, '•') : this.dataValue;
-      var message = this.error ? {
-        level: 'error',
-        message: this.error.message
-      } : '';
       return this.renderTemplate('modalPreview', {
         previewText: this.getValueAsString(dataValue, {
           modalPreview: true
-        }) || this.t('Click to set value'),
-        messages: message && this.renderTemplate('message', message)
+        }) || this.t('Click to set value')
       });
     }
   }, {
@@ -1454,18 +1445,13 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function setPristine(pristine) {
       this.pristine = pristine;
     }
-  }, {
-    key: "setDirty",
-    value: function setDirty(dirty) {
-      this.dirty = dirty;
-    }
-  }, {
-    key: "removeValue",
-
     /**
      * Removes a value out of the data array and rebuild the rows.
      * @param {number} index - The index of the data element to remove.
      */
+
+  }, {
+    key: "removeValue",
     value: function removeValue(index) {
       this.splice(index);
       this.redraw();
@@ -1876,7 +1862,6 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function setErrorClasses(elements, dirty, hasErrors, hasMessages) {
       var _this13 = this;
 
-      var element = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.element;
       this.clearErrorClasses();
       elements.forEach(function (element) {
         return _this13.removeClass(_this13.performInputMapping(element), 'is-invalid');
@@ -1890,14 +1875,14 @@ var Component = /*#__PURE__*/function (_Element) {
         });
 
         if (dirty && this.options.highlightErrors) {
-          this.addClass(element, this.options.componentErrorClass);
+          this.addClass(this.element, this.options.componentErrorClass);
         } else {
-          this.addClass(element, 'has-error');
+          this.addClass(this.element, 'has-error');
         }
       }
 
       if (hasMessages) {
-        this.addClass(element, 'has-message');
+        this.addClass(this.element, 'has-message');
       }
     }
   }, {
@@ -1983,16 +1968,11 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "addCKE",
     value: function addCKE(element, settings, onChange) {
       settings = _lodash.default.isEmpty(settings) ? {} : settings;
-      settings.base64Upload = this.component.isUploadEnabled ? false : true;
+      settings.base64Upload = true;
       settings.mediaEmbed = {
         previewsInData: true
       };
       settings = _lodash.default.merge(this.wysiwygDefault.ckeditor, _lodash.default.get(this.options, 'editors.ckeditor.settings', {}), settings);
-
-      if (this.component.isUploadEnabled) {
-        settings.extraPlugins.push((0, _uploadAdapter.getFormioUploadAdapterPlugin)(this.fileService, this));
-      }
-
       return _Formio.default.requireLibrary('ckeditor', isIEBrowser ? 'CKEDITOR' : 'ClassicEditor', _lodash.default.get(this.options, 'editors.ckeditor.src', CKEDITOR_URL), true).then(function () {
         if (!element.parentNode) {
           return _nativePromiseOnly.default.reject();
@@ -2620,11 +2600,9 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function checkValidity(data, dirty, row, silentCheck) {
       data = data || this.rootValue;
       row = row || this.data;
-      var isValid = this.checkComponentValidity(data, dirty, row, {
+      return this.checkComponentValidity(data, dirty, row, {
         silentCheck: silentCheck
       });
-      this.checkModal();
-      return isValid;
     }
   }, {
     key: "checkAsyncValidity",
@@ -2681,24 +2659,11 @@ var Component = /*#__PURE__*/function (_Element) {
         isDirty = true;
       }
 
-      this.setDirty(isDirty);
-
       if (this.component.validateOn === 'blur' && flags.fromSubmission) {
         return true;
       }
 
-      var isValid = this.checkComponentValidity(data, isDirty, row);
-      this.checkModal();
-      return isValid;
-    }
-  }, {
-    key: "checkModal",
-    value: function checkModal(isValid, dirty) {
-      if (!this.component.modalEdit || !this.componentModal) {
-        return;
-      }
-
-      this.setOpenModalElement();
+      return this.checkComponentValidity(data, isDirty, row);
     }
   }, {
     key: "isEmpty",
@@ -2727,11 +2692,10 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "clearErrorClasses",
     value: function clearErrorClasses() {
-      var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.element;
-      this.removeClass(element, this.options.componentErrorClass);
-      this.removeClass(element, 'alert alert-danger');
-      this.removeClass(element, 'has-error');
-      this.removeClass(element, 'has-message');
+      this.removeClass(this.element, this.options.componentErrorClass);
+      this.removeClass(this.element, 'alert alert-danger');
+      this.removeClass(this.element, 'has-error');
+      this.removeClass(this.element, 'has-message');
     }
   }, {
     key: "setInputWidgetErrorClasses",
@@ -3259,14 +3223,12 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "labelWidth",
     get: function get() {
-      var width = this.component.labelWidth;
-      return width >= 0 ? width : 30;
+      return this.component.labelWidth || 30;
     }
   }, {
     key: "labelMargin",
     get: function get() {
-      var margin = this.component.labelMargin;
-      return margin >= 0 ? margin : 3;
+      return this.component.labelMargin || 3;
     }
   }, {
     key: "isAdvancedLabel",
@@ -3378,16 +3340,6 @@ var Component = /*#__PURE__*/function (_Element) {
       return (0, _ismobilejs.default)();
     }
   }, {
-    key: "isPristine",
-    get: function get() {
-      return this.pristine;
-    }
-  }, {
-    key: "isDirty",
-    get: function get() {
-      return this.dirty;
-    }
-  }, {
     key: "name",
     get: function get() {
       return this.t(this.component.label || this.component.placeholder || this.key);
@@ -3455,8 +3407,7 @@ var Component = /*#__PURE__*/function (_Element) {
           image: {
             toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
             styles: ['full', 'alignLeft', 'alignCenter', 'alignRight']
-          },
-          extraPlugins: []
+          }
         },
         default: {}
       };

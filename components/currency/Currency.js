@@ -14,13 +14,7 @@ require("core-js/modules/es.number.is-nan");
 
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 

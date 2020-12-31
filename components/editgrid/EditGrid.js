@@ -122,7 +122,7 @@ var EditGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   _createClass(EditGridComponent, [{
     key: "defaultDialogTemplate",
     get: function get() {
-      return "\n    <h3 ref=\"dialogHeader\">".concat(this.t('Do you want to clear data?'), "</h3>\n    <div style=\"display:flex; justify-content: flex-end;\">\n      <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.t('Cancel'), "</button>\n      <button ref=\"dialogYesButton\" class=\"btn btn-danger\">").concat(this.t('Yes, delete it'), "</button>\n    </div>\n  ");
+      return "\n    <h3 ref=\"dialogHeader\">".concat(this.t('Do you want to clear data?'), "</h3>\n    <div style=\"display:flex; justify-content: flex-end;\">\n      <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.t('Cancel'), "</button>\n      <button ref=\"dialogYesButton\" class=\"btn btn-primary\">").concat(this.t('Yes, delete it'), "</button>\n    </div>\n  ");
     }
     /**
      * Returns true if the component has nested components which don't trigger changes on the root level

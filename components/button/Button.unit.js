@@ -1,20 +1,10 @@
 "use strict";
 
-require("core-js/modules/es.array.from");
-
 require("core-js/modules/es.array.includes");
-
-require("core-js/modules/es.array.slice");
 
 require("core-js/modules/es.function.name");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.to-string");
-
 require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/es.string.trim");
 

@@ -42,7 +42,7 @@ var _default = {
     (0, _utils.eachComponent)(container, function (comp) {
       formKeys[comp.key] = true;
 
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(comp.type) || comp.tree || comp.arrayTree) {
+      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
         return true;
       }
     }, true); // Recurse into all child components.

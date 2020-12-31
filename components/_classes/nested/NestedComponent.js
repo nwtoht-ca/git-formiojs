@@ -4,10 +4,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 require("core-js/modules/es.array.concat");
 
-require("core-js/modules/es.array.every");
-
-require("core-js/modules/es.array.filter");
-
 require("core-js/modules/es.array.find-index");
 
 require("core-js/modules/es.array.for-each");
@@ -27,12 +23,6 @@ require("core-js/modules/es.number.constructor");
 require("core-js/modules/es.number.parse-int");
 
 require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.construct");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
@@ -587,33 +577,9 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       flags = flags || {};
       row = row || this.data;
       components = components && _lodash.default.isArray(components) ? components : this.getComponents();
-      var isValid = components.reduce(function (valid, comp) {
+      return components.reduce(function (valid, comp) {
         return comp.checkData(data, flags, row) && valid;
       }, _get(_getPrototypeOf(NestedComponent.prototype), "checkData", this).call(this, data, flags, row));
-      this.checkModal(isValid, this.isDirty);
-      return isValid;
-    }
-  }, {
-    key: "checkModal",
-    value: function checkModal(isValid, dirty) {
-      if (!this.component.modalEdit || !this.componentModal) {
-        return;
-      }
-
-      var messages = this.errors;
-      this.clearErrorClasses(this.refs.openModalWrapper);
-      this.error = '';
-
-      if (!isValid && (dirty || !this.isPristine && !!messages.length)) {
-        this.error = {
-          component: this.component,
-          level: 'hidden',
-          message: this.t('Fix the errors')
-        };
-        this.setErrorClasses([this.refs.openModal], dirty, !isValid, !!messages.length, this.refs.openModalWrapper);
-      }
-
-      this.setOpenModalElement();
     }
   }, {
     key: "checkConditions",
@@ -709,11 +675,9 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
         return true;
       }
 
-      var isValid = this.getComponents().reduce(function (check, comp) {
+      return this.getComponents().reduce(function (check, comp) {
         return comp.checkValidity(data, dirty, row, silentCheck) && check;
       }, _get(_getPrototypeOf(NestedComponent.prototype), "checkValidity", this).call(this, data, dirty, row, silentCheck));
-      this.checkModal(isValid, dirty);
-      return isValid;
     }
   }, {
     key: "checkAsyncValidity",
@@ -992,28 +956,12 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       return 'container';
     }
   }, {
-    key: "isPristine",
-    get: function get() {
-      return this.pristine && this.getComponents().every(function (c) {
-        return c.isPristine;
-      });
-    }
-  }, {
-    key: "isDirty",
-    get: function get() {
-      return this.dirty && this.getComponents().every(function (c) {
-        return c.isDirty;
-      });
-    }
-  }, {
     key: "errors",
     get: function get() {
       var thisErrors = this.error ? [this.error] : [];
       return this.getComponents().reduce(function (errors, comp) {
         return errors.concat(comp.errors || []);
-      }, thisErrors).filter(function (err) {
-        return err.level !== 'hidden';
-      });
+      }, thisErrors);
     }
   }, {
     key: "dataReady",

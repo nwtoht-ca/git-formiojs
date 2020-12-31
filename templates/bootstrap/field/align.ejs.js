@@ -26,7 +26,7 @@ __p += '\n    <div class="field-label\n      ' +
 ((__t = (ctx.label.className)) == null ? '' : __t) +
 '"></label>\n    </div>\n  ';
  } ;
-__p += '\n\n  <div class="field-content" style="' +
+__p += '\n\n  <div class="filed-content" style="' +
 ((__t = (ctx.contentStyles)) == null ? '' : __t) +
 '">\n    ' +
 ((__t = (ctx.element)) == null ? '' : __t) +
