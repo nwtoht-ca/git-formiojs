@@ -6,10 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = [{
   key: 'multiple',
-  customConditional: function customConditional(_ref) {
-    var data = _ref.data;
-    return !data.enableManualMode;
-  }
+  ignore: true
 }, {
   type: 'address',
   label: 'Default Value',
@@ -18,8 +15,8 @@ var _default = [{
   placeholder: 'Default Value',
   tooltip: 'The will be the value for this field, before user interaction. Having a default value will override the placeholder text.',
   input: true,
-  customDefaultValue: function customDefaultValue(_ref2) {
-    var instance = _ref2.instance;
+  customDefaultValue: function customDefaultValue(_ref) {
+    var instance = _ref.instance;
     return instance.manualModeEnabled ? {
       mode: 'autocomplete',
       address: {}

@@ -564,7 +564,7 @@ describe('Validator Tests', function () {
 
     component.dataValue = '12';
 
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), fail);
+    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
 
     component.dataValue = undefined;
 

@@ -1,16 +1,28 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
 
+require("core-js/modules/es.array.iterator");
+
 require("core-js/modules/es.function.name");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.promise");
+require("core-js/modules/es.reflect.get");
+
+require("core-js/modules/es.string.iterator");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -27,11 +39,7 @@ var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39,33 +47,27 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _get2(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get2 = Reflect.get; } else { _get2 = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get2(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
   _inherits(ReCaptchaComponent, _Component);
-
-  var _super = _createSuper(ReCaptchaComponent);
 
   function ReCaptchaComponent() {
     _classCallCheck(this, ReCaptchaComponent);
 
-    return _super.apply(this, arguments);
+    return _possibleConstructorReturn(this, _getPrototypeOf(ReCaptchaComponent).apply(this, arguments));
   }
 
   _createClass(ReCaptchaComponent, [{
@@ -124,13 +126,8 @@ var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
                 action: actionName
               }).then(function (token) {
                 return _this.sendVerificationRequest(token);
-              }).then(function (_ref) {
-                var verificationResult = _ref.verificationResult,
-                    token = _ref.token;
-
-                _this.setValue(_objectSpread(_objectSpread({}, verificationResult), {}, {
-                  token: token
-                }));
+              }).then(function (verificationResult) {
+                _this.setValue(verificationResult);
 
                 return resolve(verificationResult);
               });
@@ -157,51 +154,15 @@ var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "sendVerificationRequest",
     value: function sendVerificationRequest(token) {
-      return _Formio.default.makeStaticRequest("".concat(_Formio.default.projectUrl, "/recaptcha?recaptchaToken=").concat(token)).then(function (verificationResult) {
-        return {
-          verificationResult: verificationResult,
-          token: token
-        };
-      });
-    }
-  }, {
-    key: "checkComponentValidity",
-    value: function checkComponentValidity(data, dirty, row) {
-      var _this3 = this;
-
-      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-      data = data || this.rootValue;
-      row = row || this.data;
-      var _options$async = options.async,
-          async = _options$async === void 0 ? false : _options$async; // Verification could be async only
-
-      if (!async) {
-        return _get2(_getPrototypeOf(ReCaptchaComponent.prototype), "checkComponentValidity", this).call(this, data, dirty, row, options);
-      }
-
-      var componentData = row[this.component.key];
-
-      if (!componentData || !componentData.token) {
-        this.setCustomValidity('ReCaptcha: Token is not specified in submission');
-        return Promise.resolve(false);
-      }
-
-      return this.hook('validateReCaptcha', componentData.token, function () {
-        return Promise.resolve(true);
-      }).then(function (success) {
-        return success;
-      }).catch(function (err) {
-        _this3.setCustomValidity(err.message || err);
-
-        return false;
-      });
+      return _Formio.default.makeStaticRequest("".concat(_Formio.default.projectUrl, "/recaptcha?recaptchaToken=").concat(token));
     }
   }, {
     key: "setValue",
     value: function setValue(value) {
-      var changed = this.hasChanged(value, this.dataValue);
+      var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      flags.changed = flags.changed || this.hasChanged(value, this.dataValue);
       this.dataValue = value;
-      return changed;
+      return flags.changed;
     }
   }, {
     key: "getValue",
@@ -228,7 +189,7 @@ var ReCaptchaComponent = /*#__PURE__*/function (_Component) {
         title: 'reCAPTCHA',
         group: 'premium',
         icon: 'refresh',
-        documentation: '/userguide/#recaptcha',
+        documentation: 'http://help.form.io/userguide/#recaptcha',
         weight: 40,
         schema: ReCaptchaComponent.schema()
       };

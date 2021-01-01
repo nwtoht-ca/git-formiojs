@@ -227,7 +227,6 @@ export interface ElementInfo {
   component: ExtendedComponentSchema;
   changeEvent: string;
   attr: any;
-  content: string;
 }
 
 export interface BuilderInfo {

@@ -4,8 +4,6 @@ require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.includes");
-
 require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.map");
@@ -41,10 +39,6 @@ var _default = {
     var formKeys = {};
     (0, _utils.eachComponent)(container, function (comp) {
       formKeys[comp.key] = true;
-
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
-        return true;
-      }
     }, true); // Recurse into all child components.
 
     (0, _utils.eachComponent)([component], function (component) {
@@ -57,13 +51,8 @@ var _default = {
 
       if (newKey !== component.key) {
         component.key = newKey;
+        formKeys[newKey] = true;
         changed = true;
-      }
-
-      formKeys[newKey] = true;
-
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
-        return true;
       }
     }, true);
     return changed;

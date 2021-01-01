@@ -1,10 +1,20 @@
 "use strict";
 
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
+
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.filter");
 
+require("core-js/modules/es.array.from");
+
 require("core-js/modules/es.array.includes");
+
+require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.join");
 
@@ -32,6 +42,8 @@ require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
+require("core-js/modules/es.string.iterator");
+
 require("core-js/modules/es.string.match");
 
 require("core-js/modules/es.string.replace");
@@ -39,6 +51,8 @@ require("core-js/modules/es.string.replace");
 require("core-js/modules/es.string.split");
 
 require("core-js/modules/es.string.trim");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -61,23 +75,19 @@ var _Rules = _interopRequireDefault(require("./Rules"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -127,19 +137,6 @@ var ValidationChecker = /*#__PURE__*/function () {
           return !component.isEmpty(value);
         }
       },
-      onlyAvailableItems: {
-        key: 'validate.onlyAvailableItems',
-        method: 'validateValueAvailability',
-        message: function message(component) {
-          return component.t(component.errorMessage('valueIsNotAvailable'), {
-            field: component.errorLabel,
-            data: component.data
-          });
-        },
-        check: function check(component, setting) {
-          return !(0, _utils.boolValue)(setting);
-        }
-      },
       unique: {
         key: 'validate.unique',
         message: function message(component) {
@@ -154,10 +151,10 @@ var ValidationChecker = /*#__PURE__*/function () {
           // Skip if setting is falsy
           if (!(0, _utils.boolValue)(setting)) {
             return true;
-          } // Skip if value is empty object or falsy
+          } // Skip if value is empty
 
 
-          if (!value || _lodash.default.isObjectLike(value) && _lodash.default.isEmpty(value)) {
+          if (!value || _lodash.default.isEmpty(value)) {
             return true;
           } // Skip if we don't have a database connection
 
@@ -191,7 +188,7 @@ var ValidationChecker = /*#__PURE__*/function () {
                   query[path] = {
                     $all: value
                   };
-                } else if (_lodash.default.isObject(value) || _lodash.default.isNumber(value)) {
+                } else if (_lodash.default.isObject(value)) {
                   query[path] = {
                     $eq: value
                   };
@@ -359,13 +356,12 @@ var ValidationChecker = /*#__PURE__*/function () {
         },
         check: function check(component, setting, value) {
           var min = parseFloat(setting);
-          var parsedValue = parseFloat(value);
 
-          if (Number.isNaN(min) || Number.isNaN(parsedValue)) {
+          if (Number.isNaN(min) || !_lodash.default.isNumber(value)) {
             return true;
           }
 
-          return parsedValue >= min;
+          return parseFloat(value) >= min;
         }
       },
       max: {
@@ -379,13 +375,12 @@ var ValidationChecker = /*#__PURE__*/function () {
         },
         check: function check(component, setting, value) {
           var max = parseFloat(setting);
-          var parsedValue = parseFloat(value);
 
-          if (Number.isNaN(max) || Number.isNaN(parsedValue)) {
+          if (Number.isNaN(max) || !_lodash.default.isNumber(value)) {
             return true;
           }
 
-          return parsedValue <= max;
+          return parseFloat(value) <= max;
         }
       },
       minSelectedCount: {
@@ -652,7 +647,6 @@ var ValidationChecker = /*#__PURE__*/function () {
           }));
         },
         check: function check(component, setting, value) {
-          if (component.isEmpty(value)) return true;
           var pattern = setting;
 
           if (!pattern) {
@@ -710,7 +704,7 @@ var ValidationChecker = /*#__PURE__*/function () {
 
           inputMask = inputMask ? (0, _utils.getInputMask)(inputMask) : null;
 
-          if (value && inputMask && !component.skipMaskValidation) {
+          if (value && inputMask) {
             return (0, _utils.matchInputMask)(value, inputMask);
           }
 
@@ -888,19 +882,6 @@ var ValidationChecker = /*#__PURE__*/function () {
             }
           }
         }
-      },
-      time: {
-        key: 'validate.time',
-        messageText: 'Invalid time',
-        message: function message(component) {
-          return component.t(component.errorMessage(this.validators.time.messageText), {
-            field: component.errorLabel
-          });
-        },
-        check: function check(component, setting, value) {
-          if (component.isEmpty(value)) return true;
-          return (0, _moment.default)(value, component.component.format).isValid();
-        }
       }
     };
   }
@@ -938,9 +919,9 @@ var ValidationChecker = /*#__PURE__*/function () {
     }
   }, {
     key: "validate",
-    value: function validate(component, validatorName, value, data, index, row, async, conditionallyVisible) {
+    value: function validate(component, validatorName, value, data, index, row, async) {
       // Skip validation for conditionally hidden components
-      if (!conditionallyVisible) {
+      if (!component.conditionallyVisible()) {
         return false;
       }
 
@@ -952,9 +933,11 @@ var ValidationChecker = /*#__PURE__*/function () {
 
       var processResult = function processResult(result) {
         return result ? {
-          message: (0, _utils.unescapeHTML)(_lodash.default.get(result, 'message', result)),
+          message: _lodash.default.get(result, 'message', result),
           level: _lodash.default.get(result, 'level') === 'warning' ? 'warning' : 'error',
-          path: (0, _utils.getArrayFromComponentPath)(component.path || ''),
+          path: (component.path || '').replace(/[[\]]/g, '.').replace(/\.\./g, '.').split('.').map(function (part) {
+            return _lodash.default.defaultTo(_lodash.default.toNumber(part), part);
+          }),
           context: {
             validator: validatorName,
             setting: setting,
@@ -1009,9 +992,8 @@ var ValidationChecker = /*#__PURE__*/function () {
 
       var validateCustom = _lodash.default.get(component, 'component.validate.custom');
 
-      var customErrorMessage = _lodash.default.get(component, 'component.validate.customMessage');
+      var customErrorMessage = _lodash.default.get(component, 'component.validate.customMessage'); // Run primary validators
 
-      var conditionallyVisible = component.conditionallyVisible(); // Run primary validators
 
       var resultsOrPromises = (0, _lodash.default)(component.validators).chain().map(function (validatorName) {
         if (!_this3.validators.hasOwnProperty(validatorName)) {
@@ -1028,20 +1010,20 @@ var ValidationChecker = /*#__PURE__*/function () {
 
 
         if (validatorName === 'required' && !values.length) {
-          return [_this3.validate(component, validatorName, null, data, 0, row, async, conditionallyVisible)];
+          return [_this3.validate(component, validatorName, null, data, 0, row, async)];
         }
 
         return _lodash.default.map(values, function (value, index) {
-          return _this3.validate(component, validatorName, value, data, index, row, async, conditionallyVisible);
+          return _this3.validate(component, validatorName, value, data, index, row, async);
         });
       }).flatten().value(); // Run the "unique" pseudo-validator
 
       component.component.validate = component.component.validate || {};
       component.component.validate.unique = component.component.unique;
-      resultsOrPromises.push(this.validate(component, 'unique', component.validationValue, data, 0, data, async, conditionallyVisible)); // Run the "multiple" pseudo-validator
+      resultsOrPromises.push(this.validate(component, 'unique', component.validationValue, data, 0, data, async)); // Run the "multiple" pseudo-validator
 
       component.component.validate.multiple = component.component.multiple;
-      resultsOrPromises.push(this.validate(component, 'multiple', component.validationValue, data, 0, data, async, conditionallyVisible)); // Define how results should be formatted
+      resultsOrPromises.push(this.validate(component, 'multiple', component.validationValue, data, 0, data, async)); // Define how results should be formatted
 
       var formatResults = function formatResults(results) {
         // Condense to a single flat array

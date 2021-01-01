@@ -1,12 +1,22 @@
 "use strict";
 
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
+
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.for-each");
 
+require("core-js/modules/es.array.from");
+
 require("core-js/modules/es.array.includes");
+
+require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.map");
 
@@ -18,11 +28,33 @@ require("core-js/modules/es.array.splice");
 
 require("core-js/modules/es.function.name");
 
-require("core-js/modules/es.object.entries");
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-descriptors");
 
 require("core-js/modules/es.object.get-prototype-of");
 
+require("core-js/modules/es.object.keys");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
+
+require("core-js/modules/es.reflect.set");
+
+require("core-js/modules/es.regexp.constructor");
+
+require("core-js/modules/es.regexp.exec");
+
+require("core-js/modules/es.regexp.to-string");
+
+require("core-js/modules/es.string.iterator");
+
+require("core-js/modules/es.string.replace");
+
 require("core-js/modules/web.dom-collections.for-each");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -35,11 +67,13 @@ var _dragula = _interopRequireDefault(require("dragula/dist/dragula"));
 
 var _NestedArrayComponent2 = _interopRequireDefault(require("../_classes/nestedarray/NestedArrayComponent"));
 
+var _Component = _interopRequireDefault(require("../_classes/component/Component"));
+
 var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest(); }
+function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -47,27 +81,27 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -79,6 +113,8 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -87,20 +123,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   _inherits(DataGridComponent, _NestedArrayComponent);
-
-  var _super = _createSuper(DataGridComponent);
 
   _createClass(DataGridComponent, null, [{
     key: "schema",
@@ -126,7 +150,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         title: 'Data Grid',
         icon: 'th',
         group: 'data',
-        documentation: '/userguide/#datagrid',
+        documentation: 'http://help.form.io/userguide/#datagrid',
         weight: 30,
         schema: DataGridComponent.schema()
       };
@@ -134,6 +158,8 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }]);
 
   function DataGridComponent() {
+    var _getPrototypeOf2;
+
     var _this;
 
     _classCallCheck(this, DataGridComponent);
@@ -142,9 +168,8 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       args[_key2] = arguments[_key2];
     }
 
-    _this = _super.call.apply(_super, [this].concat(args));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(DataGridComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.type = 'datagrid';
-    _this.tabIndex = 0;
     return _this;
   }
 
@@ -154,11 +179,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       this.components = this.components || []; // Add new values based on minLength.
 
       this.rows = [];
-
-      if (this.initRows) {
-        this.createRows(true);
-      }
-
+      this.createRows(true);
       this.visibleColumns = {};
       this.checkColumns();
     }
@@ -205,7 +226,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         return groupIndexes.concat(last + size);
       }, [0]);
       return groups.reduce(function (gidxs, group, idx) {
-        return _objectSpread(_objectSpread({}, gidxs), {}, _defineProperty({}, indexes[idx], group));
+        return _objectSpread({}, gidxs, _defineProperty({}, indexes[idx], group));
       }, {});
     }
     /**
@@ -234,6 +255,13 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       this.dataValue = _lodash.default.range(n).map(function () {
         return {};
       });
+    }
+  }, {
+    key: "hasAddButton",
+    value: function hasAddButton() {
+      var maxLength = _lodash.default.get(this.component, 'validate.maxLength');
+
+      return !this.component.disableAddingRemovingRows && !this.options.readOnly && !this.disabled && this.fullMode && !this.options.preview && (!maxLength || this.dataValue.length < maxLength);
     }
   }, {
     key: "hasExtraColumn",
@@ -277,7 +305,6 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         allowReorder: this.allowReorder,
         builder: this.builderMode,
         canAddColumn: this.canAddColumn,
-        tabIndex: this.tabIndex,
         placeholder: this.renderTemplate('builderPlaceholder', {
           position: this.componentComponents.length
         })
@@ -381,9 +408,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
 
       dataValue.splice(movedBelow ? oldPosition : oldPosition + 1, 1); //need to re-build rows to re-calculate indexes and other indexed fields for component instance (like rows for ex.)
 
-      this.setValue(dataValue, {
-        isReordered: true
-      });
+      this.setValue(dataValue);
       this.redraw();
     }
   }, {
@@ -395,45 +420,26 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         this.dataValue.push({});
       }
 
-      var row;
-      var dataValue = this.dataValue;
-      var defaultValue = this.defaultValue;
-
-      if (this.initEmpty && defaultValue[index]) {
-        row = defaultValue[index];
-        dataValue[index] = row;
-      } else {
-        row = dataValue[index];
-      }
-
-      this.rows[index] = this.createRowComponents(row, index);
+      this.rows[index] = this.createRowComponents(this.dataValue[index], index);
       this.checkConditions();
-      this.triggerChange();
       this.redraw();
     }
   }, {
     key: "removeRow",
     value: function removeRow(index) {
+      var _this4 = this;
+
       this.splice(index);
 
       var _this$rows$splice = this.rows.splice(index, 1),
           _this$rows$splice2 = _slicedToArray(_this$rows$splice, 1),
           row = _this$rows$splice2[0];
 
-      this.removeRowComponents(row);
-      this.setValue(this.dataValue, {
-        isReordered: true
-      });
-      this.redraw();
-    }
-  }, {
-    key: "removeRowComponents",
-    value: function removeRowComponents(row) {
-      var _this4 = this;
-
       _lodash.default.each(row, function (component) {
         return _this4.removeComponent(component);
       });
+
+      this.redraw();
     }
   }, {
     key: "getRowValues",
@@ -441,39 +447,27 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       return this.dataValue;
     }
   }, {
-    key: "setRowComponentsData",
-    value: function setRowComponentsData(rowIndex, rowData) {
-      _lodash.default.each(this.rows[rowIndex], function (component) {
-        component.data = rowData;
-      });
-    }
-  }, {
     key: "createRows",
-    value: function createRows(init, rebuild) {
+    value: function createRows(init) {
       var _this5 = this;
 
       var added = false;
       var rowValues = this.getRowValues(); // Create any missing rows.
 
       rowValues.forEach(function (row, index) {
-        if (!rebuild && _this5.rows[index]) {
-          _this5.setRowComponentsData(index, row);
+        if (_this5.rows[index]) {
+          _lodash.default.each(_this5.rows[index], function (component) {
+            return component.data = row;
+          });
         } else {
           _this5.rows[index] = _this5.createRowComponents(row, index);
           added = true;
         }
       }); // Delete any extra rows.
 
-      var removedRows = this.rows.splice(rowValues.length);
-      var removed = !!removedRows.length; // Delete components of extra rows (to make sure that this.components contain only components of exisiting rows)
+      this.rows.splice(rowValues.length);
 
-      if (removed) {
-        removedRows.forEach(function (row) {
-          return _this5.removeRowComponents(row);
-        });
-      }
-
-      if (!init && (added || removed)) {
+      if (!init && added) {
         this.redraw();
       }
 
@@ -485,33 +479,22 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       var _this6 = this;
 
       var components = {};
-      this.tabIndex = 0;
       this.component.components.map(function (col, colIndex) {
         var options = _lodash.default.clone(_this6.options);
 
         options.name += "[".concat(rowIndex, "]");
         options.row = "".concat(rowIndex, "-").concat(colIndex);
-        var columnComponent;
 
-        if (_this6.builderMode) {
-          col.id = col.id + rowIndex;
-          columnComponent = col;
-        } else {
-          columnComponent = _objectSpread(_objectSpread({}, col), {}, {
-            id: col.id + rowIndex
-          });
-        }
-
-        var component = _this6.createComponent(columnComponent, options, row);
+        var component = _this6.createComponent(col, options, row);
 
         component.parentDisabled = !!_this6.disabled;
-        component.rowIndex = rowIndex;
-        component.inDataGrid = true;
 
-        if (columnComponent.tabindex && parseInt(columnComponent.tabindex) > _this6.tabIndex) {
-          _this6.tabIndex = parseInt(columnComponent.tabindex);
+        if (component.path && col.key) {
+          component.path = component.path.replace(new RegExp("\\.".concat(col.key, "$")), "[".concat(rowIndex, "].").concat(col.key));
         }
 
+        component.rowIndex = rowIndex;
+        component.inDataGrid = true;
         components[col.key] = component;
       });
       return components;
@@ -526,7 +509,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
 
   }, {
     key: "checkValidity",
-    value: function checkValidity(data, dirty, row, silentCheck) {
+    value: function checkValidity(data, dirty, row) {
       data = data || this.rootValue;
       row = row || this.data;
 
@@ -535,13 +518,68 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         return true;
       }
 
-      if (!this.checkComponentValidity(data, dirty, row, {
-        silentCheck: silentCheck
-      })) {
+      if (!this.checkComponentValidity(data, dirty, row)) {
         return false;
       }
 
-      return this.checkRows('checkValidity', data, dirty, true, silentCheck);
+      return this.checkRows('checkValidity', data, dirty, this.dataValue);
+    }
+    /**
+     * Checks the data within each cell of the datagrid.
+     *
+     * @param data
+     * @param flags
+     * @return {*}
+     */
+
+  }, {
+    key: "checkData",
+    value: function checkData(data, flags, row) {
+      data = data || this.rootValue;
+      row = row || this.data;
+
+      _Component.default.prototype.checkData.call(this, data, flags, row);
+
+      return this.checkRows('checkData', data, flags, this.dataValue);
+    }
+    /**
+     * Checks all rows within the datagrid.
+     *
+     * @param method
+     * @param data
+     * @param opts
+     * @return {*|boolean}
+     */
+
+  }, {
+    key: "checkRows",
+    value: function checkRows(method, data, opts, rowData) {
+      var _this7 = this;
+
+      return this.rows.reduce(function (valid, row, index) {
+        return _this7.checkRow(method, data, rowData[index], row, opts) && valid;
+      }, true);
+    }
+    /**
+     * Checks validity of each row according to a specific method.
+     *
+     * @param method
+     * @param rowData
+     * @param row
+     * @param opts
+     * @return {boolean}
+     */
+
+  }, {
+    key: "checkRow",
+    value: function checkRow(method, data, rowData, row, opts) {
+      var valid = true;
+
+      _lodash.default.each(row, function (col) {
+        valid = col[method](data, opts, rowData) && valid;
+      });
+
+      return valid;
     }
   }, {
     key: "checkColumns",
@@ -588,19 +626,18 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "checkComponentConditions",
     value: function checkComponentConditions(data, flags, row) {
-      var isVisible = this.visible; // If table isn't visible, don't bother calculating columns.
-
+      // If table isn't visible, don't bother calculating columns.
       if (!_get(_getPrototypeOf(DataGridComponent.prototype), "checkComponentConditions", this).call(this, data, flags, row)) {
         return false;
       }
 
       var _this$checkColumns = this.checkColumns(data, flags),
           rebuild = _this$checkColumns.rebuild,
-          show = _this$checkColumns.show; // Check if a rebuild is needed or the visibility changes.
+          show = _this$checkColumns.show; // If a rebuild is needed, then rebuild the table.
 
 
-      if (rebuild || !isVisible) {
-        this.createRows(false, rebuild);
+      if (rebuild) {
+        this.redraw();
       } // Return if this table should show.
 
 
@@ -609,7 +646,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "setValue",
     value: function setValue(value) {
-      var _this7 = this;
+      var _this8 = this;
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -630,18 +667,13 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       // NOTE: Removing this will break "Public Configurations" in portal. ;)
 
 
-      if (value && !value.length && !this.initEmpty) {
+      if (value && !value.length) {
         value.push({});
       }
 
-      var isSettingSubmission = flags.fromSubmission && !_lodash.default.isEqual(value, this.emptyValue);
-      var changed = this.hasChanged(value, this.dataValue);
+      flags.changed = flags.changed || this.hasChanged(value, this.dataValue);
       this.dataValue = value;
-
-      if (this.initRows || isSettingSubmission) {
-        this.createRows();
-      }
-
+      this.createRows();
       this.rows.forEach(function (row, rowIndex) {
         if (value.length <= rowIndex) {
           return;
@@ -650,20 +682,20 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         _lodash.default.each(row, function (col) {
           col.rowIndex = rowIndex;
 
-          _this7.setNestedValue(col, value[rowIndex], flags);
+          _this8.setNestedValue(col, value[rowIndex], flags);
         });
       });
-      this.updateOnChange(flags, changed);
-      return changed;
+      this.updateOnChange(flags);
+      return flags.changed;
     }
   }, {
     key: "restoreComponentsContext",
     value: function restoreComponentsContext() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.rows.forEach(function (row, index) {
         return _lodash.default.forIn(row, function (component) {
-          return component.data = _this8.dataValue[index];
+          return component.data = _this9.dataValue[index];
         });
       });
     }
@@ -678,36 +710,6 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
           remainingPath = _path2.slice(1);
 
       var result = [];
-
-      if (_lodash.default.isNumber(key) && remainingPath.length) {
-        var compKey = remainingPath.pop();
-        result = this.rows[key][compKey]; // If the component is inside a Layout Component, try to find it among all the row's components
-
-        if (!result) {
-          Object.entries(this.rows[key]).forEach(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-                comp = _ref4[1];
-
-            if ('getComponent' in comp) {
-              var possibleResult = comp.getComponent([compKey], fn);
-
-              if (possibleResult) {
-                result = possibleResult;
-              }
-            }
-          });
-        }
-
-        if (result && _lodash.default.isFunction(fn)) {
-          fn(result, this.getComponents());
-        }
-
-        if (remainingPath.length && 'getComponent' in result) {
-          return result.getComponent(remainingPath, fn);
-        }
-
-        return result;
-      }
 
       if (!_lodash.default.isString(key)) {
         return result;
@@ -757,19 +759,9 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       return DataGridComponent.schema();
     }
   }, {
-    key: "initEmpty",
-    get: function get() {
-      return this.component.initEmpty || this.component.noFirstRow;
-    }
-  }, {
-    key: "initRows",
-    get: function get() {
-      return this.builderMode || this.path === 'defaultValue' || !this.initEmpty;
-    }
-  }, {
     key: "emptyValue",
     get: function get() {
-      return this.initEmpty ? [] : [{}];
+      return [{}];
     }
   }, {
     key: "addAnotherPosition",
@@ -788,13 +780,6 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "defaultValue",
     get: function get() {
-      var isBuilderMode = this.builderMode;
-      var isEmptyInit = this.initEmpty; // Ensure we have one and only one row in builder mode.
-
-      if (isBuilderMode || isEmptyInit && !this.dataValue.length) {
-        return isEmptyInit && !isBuilderMode ? [] : [{}];
-      }
-
       var value = _get(_getPrototypeOf(DataGridComponent.prototype), "defaultValue", this);
 
       var defaultValue;
@@ -838,18 +823,6 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
     key: "allowReorder",
     get: function get() {
       return !this.options.readOnly && _lodash.default.get(this.component, 'reorder', false);
-    }
-  }, {
-    key: "iteratableRows",
-    get: function get() {
-      var _this9 = this;
-
-      return this.rows.map(function (row, index) {
-        return {
-          components: row,
-          data: _this9.dataValue[index]
-        };
-      });
     }
   }, {
     key: "canAddColumn",

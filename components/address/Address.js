@@ -1,6 +1,10 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
 
@@ -8,19 +12,33 @@ require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.for-each");
 
+require("core-js/modules/es.array.iterator");
+
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.function.name");
 
+require("core-js/modules/es.object.get-own-property-descriptor");
+
 require("core-js/modules/es.object.get-prototype-of");
 
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
+
 require("core-js/modules/es.regexp.exec");
+
+require("core-js/modules/es.regexp.to-string");
+
+require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/es.string.search");
 
 require("core-js/modules/web.dom-collections.for-each");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -43,25 +61,15 @@ var _Container = _interopRequireDefault(require("../container/Container"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -71,23 +79,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var AddressComponentMode = {
   Autocomplete: 'autocomplete',
@@ -100,12 +104,10 @@ var ChildConditional = 'show = _.get(instance, \'parent.manualMode\', false);';
 var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
   _inherits(AddressComponent, _ContainerComponent);
 
-  var _super = _createSuper(AddressComponent);
-
   function AddressComponent() {
     _classCallCheck(this, AddressComponent);
 
-    return _super.apply(this, arguments);
+    return _possibleConstructorReturn(this, _getPrototypeOf(AddressComponent).apply(this, arguments));
   }
 
   _createClass(AddressComponent, [{
@@ -149,11 +151,11 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
               region = map.region;
 
           if (key) {
-            _lodash.default.set(_providerOptions, 'params.key', key);
+            _providerOptions.apiKey = key;
           }
 
           if (region) {
-            _lodash.default.set(_providerOptions, 'params.region', region);
+            _providerOptions.region = region;
           }
 
           this.provider = this.initializeProvider(_provider, _providerOptions);
@@ -199,23 +201,23 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
     value: function setValue(value) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      var changed = _Field.default.prototype.setValue.call(this, value, flags);
+      _Field.default.prototype.setValue.call(this, value, flags);
 
       if (this.manualMode) {
         this.restoreComponentsContext();
       }
 
-      if (changed || !_lodash.default.isEmpty(value) && flags.fromSubmission) {
+      if (flags.changed) {
         this.redraw();
       }
 
-      return changed;
+      return flags.changed;
     }
   }, {
-    key: "renderElement",
-    value: function renderElement(value) {
-      return this.renderTemplate(this.templateName, {
-        children: this.hasChildren ? this.renderComponents() : '',
+    key: "render",
+    value: function render() {
+      return _get(_getPrototypeOf(AddressComponent.prototype), "render", this).call(this, this.renderTemplate(this.templateName, {
+        children: this.builderMode || this.manualModeEnabled ? this.renderComponents() : '',
         nestedKey: this.nestedKey,
         inputAttributes: this.searchInputAttributes,
         ref: {
@@ -223,46 +225,12 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
           removeValueIcon: AddressComponent.removeValueIconRef,
           searchInput: AddressComponent.searchInputRef
         },
-        displayValue: this.getDisplayValue(value),
+        displayValue: this.getDisplayValue(),
         mode: {
           autocomplete: this.autocompleteMode,
           manual: this.manualMode
         }
-      });
-    }
-  }, {
-    key: "renderRow",
-    value: function renderRow(value, index) {
-      return this.renderTemplate(this.rowTemplateName, {
-        index: index,
-        disabled: this.disabled,
-        element: "".concat(this.renderElement(value, index))
-      });
-    }
-  }, {
-    key: "renderGrid",
-    value: function renderGrid() {
-      return this.renderTemplate(this.gridTemplateName, {
-        rows: this.address.map(this.renderRow.bind(this)).join(''),
-        disabled: this.disabled,
-        addAnother: this.addAnother
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.isMultiple) {
-        return _get(_getPrototypeOf(AddressComponent.prototype), "render", this).call(this, this.renderGrid());
-      }
-
-      return _get(_getPrototypeOf(AddressComponent.prototype), "render", this).call(this, this.renderElement());
-    }
-  }, {
-    key: "addRow",
-    value: function addRow() {
-      this.address = this.address.concat(this.emptyValue);
-
-      _get(_getPrototypeOf(AddressComponent.prototype), "redraw", this).call(this);
+      }));
     }
   }, {
     key: "attach",
@@ -281,80 +249,56 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
         }
       }
 
-      this.loadRefs(element, (_this$loadRefs = {}, _defineProperty(_this$loadRefs, AddressComponent.addRowButtonRef, 'single'), _defineProperty(_this$loadRefs, AddressComponent.modeSwitcherRef, 'single'), _defineProperty(_this$loadRefs, AddressComponent.removeRowButtonRef, 'multiple'), _defineProperty(_this$loadRefs, AddressComponent.removeValueIconRef, 'multiple'), _defineProperty(_this$loadRefs, AddressComponent.searchInputRef, 'multiple'), _this$loadRefs));
-      this.searchInput.forEach(function (element, index) {
-        if (!_this2.builderMode && element && _this2.provider) {
-          (0, _autocompleter.default)({
-            input: element,
-            debounceWaitMs: 300,
-            fetch: function fetch(text, update) {
-              var query = text;
+      this.loadRefs(element, (_this$loadRefs = {}, _defineProperty(_this$loadRefs, AddressComponent.modeSwitcherRef, 'single'), _defineProperty(_this$loadRefs, AddressComponent.removeValueIconRef, 'single'), _defineProperty(_this$loadRefs, AddressComponent.searchInputRef, 'single'), _this$loadRefs));
 
-              _this2.provider.search(query).then(update);
-            },
-            render: function render(address) {
-              var div = _this2.ce('div');
+      if (!this.builderMode && this.searchInput && this.provider) {
+        (0, _autocompleter.default)({
+          input: this.searchInput,
+          debounceWaitMs: 300,
+          fetch: function fetch(text, update) {
+            var query = text;
 
-              div.textContent = _this2.getDisplayValue(address);
-              return div;
-            },
-            onSelect: function onSelect(address) {
-              if (_this2.isMultiple) {
-                _this2.address[index] = address;
-                _this2.address = _toConsumableArray(_this2.address);
-              } else {
-                _this2.address = address;
-              }
+            _this2.provider.search(query).then(update);
+          },
+          render: function render(address) {
+            var div = _this2.ce('div');
 
-              _this2.triggerChange({
-                modified: true
-              });
+            div.textContent = _this2.getDisplayValue(address);
+            return div;
+          },
+          onSelect: function onSelect(address) {
+            _this2.address = address;
 
-              if (element) {
-                element.value = _this2.getDisplayValue(_this2.isMultiple ? _this2.address[index] : _this2.address);
-              }
+            _this2.triggerChange({
+              modified: true
+            });
 
-              _this2.updateRemoveIcon(index);
-            }
-          });
-
-          _this2.addEventListener(element, 'blur', function () {
-            if (!element) {
-              return;
+            if (_this2.searchInput) {
+              _this2.searchInput.value = _this2.getDisplayValue();
             }
 
-            if (element.value) {
-              element.value = _this2.getDisplayValue(_this2.isMultiple ? _this2.address[index] : _this2.address);
-            }
-          });
+            _this2.updateRemoveIcon();
+          }
+        });
+        this.addEventListener(this.searchInput, 'blur', function () {
+          if (!_this2.searchInput) {
+            return;
+          }
 
-          _this2.addEventListener(element, 'keyup', function () {
-            if (!element) {
-              return;
-            }
+          if (_this2.searchInput.value) {
+            _this2.searchInput.value = _this2.getDisplayValue();
+          }
+        });
+        this.addEventListener(this.searchInput, 'keyup', function () {
+          if (!_this2.searchInput) {
+            return;
+          }
 
-            if (!element.value) {
-              _this2.clearAddress(element, index);
-            }
-          });
-        }
-      });
-
-      if (this.addRowButton) {
-        this.addEventListener(this.addRowButton, 'click', function (event) {
-          event.preventDefault();
-
-          _this2.addRow();
+          if (!_this2.searchInput.value) {
+            _this2.clearAddress();
+          }
         });
       }
-
-      this.removeRowButton.forEach(function (removeRowButton, index) {
-        _this2.addEventListener(removeRowButton, 'click', function (event) {
-          event.preventDefault();
-
-          _this2.removeValue(index);
-        });
-      });
 
       if (this.modeSwitcher) {
         this.addEventListener(this.modeSwitcher, 'change', function () {
@@ -379,31 +323,22 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
         });
       }
 
-      if (!this.builderMode) {
-        this.removeValueIcon.forEach(function (removeValueIcon, index) {
-          _this2.updateRemoveIcon(index);
+      if (!this.builderMode && this.removeValueIcon) {
+        this.updateRemoveIcon();
 
-          var removeValueHandler = function removeValueHandler() {
-            var _this2$searchInput;
+        var removeValueHandler = function removeValueHandler() {
+          _this2.clearAddress();
 
-            var searchInput = (_this2$searchInput = _this2.searchInput) === null || _this2$searchInput === void 0 ? void 0 : _this2$searchInput[index];
+          _this2.focus();
+        };
 
-            _this2.clearAddress(searchInput, index);
+        this.addEventListener(this.removeValueIcon, 'click', removeValueHandler);
+        this.addEventListener(this.removeValueIcon, 'keydown', function (_ref) {
+          var key = _ref.key;
 
-            if (searchInput) {
-              searchInput.focus();
-            }
-          };
-
-          _this2.addEventListener(removeValueIcon, 'click', removeValueHandler);
-
-          _this2.addEventListener(removeValueIcon, 'keydown', function (_ref) {
-            var key = _ref.key;
-
-            if (key === 'Enter') {
-              removeValueHandler();
-            }
-          });
+          if (key === 'Enter') {
+            removeValueHandler();
+          }
         });
       }
 
@@ -430,24 +365,18 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
     }
   }, {
     key: "clearAddress",
-    value: function clearAddress(element, index) {
-      var _this$address;
-
+    value: function clearAddress() {
       if (!this.isEmpty()) {
         this.triggerChange();
       }
 
-      if ((_this$address = this.address) !== null && _this$address !== void 0 && _this$address[index]) {
-        this.address[index] = this.emptyValue;
-      } else {
-        this.address = this.emptyValue;
+      this.dataValue = this.emptyValue;
+
+      if (this.searchInput) {
+        this.searchInput.value = '';
       }
 
-      if (element) {
-        element.value = '';
-      }
-
-      this.updateRemoveIcon(index);
+      this.updateRemoveIcon();
     }
   }, {
     key: "getDisplayValue",
@@ -458,28 +387,23 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
   }, {
     key: "validateMultiple",
     value: function validateMultiple() {
-      return this.isMultiple;
+      // Address component can't be multivalue.
+      return false;
     }
   }, {
     key: "updateRemoveIcon",
-    value: function updateRemoveIcon(index) {
-      var _this$removeValueIcon;
-
-      var removeValueIcon = (_this$removeValueIcon = this.removeValueIcon) === null || _this$removeValueIcon === void 0 ? void 0 : _this$removeValueIcon[index];
-
-      if (removeValueIcon) {
-        var value = this.isMultiple ? this.address[index] : this.address;
-
-        if (this.isEmpty(value) || this.disabled) {
-          this.addClass(removeValueIcon, RemoveValueIconHiddenClass);
+    value: function updateRemoveIcon() {
+      if (this.removeValueIcon) {
+        if (this.isEmpty() || this.disabled) {
+          this.addClass(this.removeValueIcon, RemoveValueIconHiddenClass);
         } else {
-          this.removeClass(removeValueIcon, RemoveValueIconHiddenClass);
+          this.removeClass(this.removeValueIcon, RemoveValueIconHiddenClass);
         }
       }
     }
   }, {
     key: "getValueAsString",
-    value: function getValueAsString(value, options) {
+    value: function getValueAsString(value) {
       if (!value) {
         return '';
       }
@@ -523,17 +447,17 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
               component = _ref6[0],
               componentValue = _ref6[1];
 
-          return component.getValueAsString(componentValue, options);
+          return component.getValueAsString(componentValue);
         }).join(', ');
       }
 
-      return _get(_getPrototypeOf(AddressComponent.prototype), "getValueAsString", this).call(this, address, options);
+      return _get(_getPrototypeOf(AddressComponent.prototype), "getValueAsString", this).call(this, address);
     }
   }, {
     key: "focus",
     value: function focus() {
-      if (this.searchInput && this.searchInput[0]) {
-        this.searchInput[0].focus();
+      if (this.searchInput) {
+        this.searchInput.focus();
       }
     }
   }, {
@@ -547,13 +471,7 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
   }, {
     key: "mode",
     get: function get() {
-      var _this$dataValue$mode, _this$dataValue;
-
-      if (!this.manualModeEnabled) {
-        return AddressComponentMode.Autocomplete;
-      }
-
-      return (_this$dataValue$mode = (_this$dataValue = this.dataValue) === null || _this$dataValue === void 0 ? void 0 : _this$dataValue.mode) !== null && _this$dataValue$mode !== void 0 ? _this$dataValue$mode : AddressComponentMode.Autocomplete;
+      return this.manualModeEnabled ? this.dataValue ? this.dataValue.mode : this.dataValue : AddressComponentMode.Autocomplete;
     },
     set: function set(value) {
       if (this.manualModeEnabled) {
@@ -573,34 +491,19 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
   }, {
     key: "manualModeEnabled",
     get: function get() {
-      return !this.isMultiple && Boolean(this.component.enableManualMode);
-    }
-  }, {
-    key: "isMultiple",
-    get: function get() {
-      return Boolean(this.component.multiple);
+      return Boolean(this.component.enableManualMode);
     }
   }, {
     key: "address",
     get: function get() {
-      if (this.isMultiple) {
-        return _lodash.default.isArray(this.dataValue) ? this.dataValue : [this.dataValue];
-      } // Manual mode is not implementing for multiple value
-
-
       return this.manualModeEnabled && this.dataValue ? this.dataValue.address : this.dataValue;
     },
     set: function set(value) {
-      if (this.manualModeEnabled && !this.isMultiple) {
+      if (this.manualModeEnabled) {
         this.dataValue.address = value;
       } else {
         this.dataValue = value;
       }
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      return this.isMultiple ? [this.emptyValue] : this.emptyValue;
     }
   }, {
     key: "defaultSchema",
@@ -621,16 +524,6 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
     key: "searchInput",
     get: function get() {
       return this.refs ? this.refs[AddressComponent.searchInputRef] || null : null;
-    }
-  }, {
-    key: "addRowButton",
-    get: function get() {
-      return this.refs ? this.refs[AddressComponent.addRowButtonRef] || null : null;
-    }
-  }, {
-    key: "removeRowButton",
-    get: function get() {
-      return this.refs ? this.refs[AddressComponent.removeRowButtonRef] || null : null;
     }
   }, {
     key: "searchInputAttributes",
@@ -659,26 +552,6 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
     key: "templateName",
     get: function get() {
       return 'address';
-    }
-  }, {
-    key: "gridTemplateName",
-    get: function get() {
-      return 'multiValueTable';
-    }
-  }, {
-    key: "rowTemplateName",
-    get: function get() {
-      return 'multiValueRow';
-    }
-  }, {
-    key: "hasChildren",
-    get: function get() {
-      return !this.isMultiple && (this.builderMode || this.manualModeEnabled);
-    }
-  }, {
-    key: "addAnother",
-    get: function get() {
-      return this.t(this.component.addAnother || 'Add Another');
     }
   }], [{
     key: "schema",
@@ -750,7 +623,7 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
         title: 'Address',
         group: 'advanced',
         icon: 'home',
-        documentation: '/userguide/#address',
+        documentation: 'http://help.form.io/userguide/#address',
         weight: 35,
         schema: AddressComponent.schema()
       };
@@ -769,16 +642,6 @@ var AddressComponent = /*#__PURE__*/function (_ContainerComponent) {
     key: "searchInputRef",
     get: function get() {
       return 'searchInput';
-    }
-  }, {
-    key: "addRowButtonRef",
-    get: function get() {
-      return 'addButton';
-    }
-  }, {
-    key: "removeRowButtonRef",
-    get: function get() {
-      return 'removeRow';
     }
   }]);
 

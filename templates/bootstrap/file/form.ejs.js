@@ -106,9 +106,7 @@ __p += '\n    <div class="fileSelector">\n      <button class="btn btn-primary" 
 ((__t = (ctx.t('Camera'))) == null ? '' : __t) +
 '</button>\n    </div>\n  ';
  } else if (!ctx.self.cameraMode) { ;
-__p += '\n    <div class="fileSelector" ref="fileDrop" ' +
-((__t = (ctx.fileDropHidden ? 'hidden' : '')) == null ? '' : __t) +
-'>\n      <i class="' +
+__p += '\n    <div class="fileSelector" ref="fileDrop">\n      <i class="' +
 ((__t = (ctx.iconClass('cloud-upload'))) == null ? '' : __t) +
 '"></i> ' +
 ((__t = (ctx.t('Drop files to attach,'))) == null ? '' : __t) +
@@ -153,12 +151,6 @@ __p += '\n          <div class="progress">\n            <div class="progress-bar
 '% ' +
 ((__t = (ctx.t('Complete'))) == null ? '' : __t) +
 '</span>\n            </div>\n          </div>\n        ';
- } else if (status.status === 'error') { ;
-__p += '\n          <div class="alert alert-danger bg-' +
-((__t = (status.status)) == null ? '' : __t) +
-'">' +
-((__t = (ctx.t(status.message))) == null ? '' : __t) +
-'</div>\n        ';
  } else { ;
 __p += '\n          <div class="bg-' +
 ((__t = (status.status)) == null ? '' : __t) +

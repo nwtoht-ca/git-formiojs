@@ -1,8 +1,14 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
+
+require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.find");
 
@@ -22,23 +28,31 @@ require("core-js/modules/es.array.reduce");
 
 require("core-js/modules/es.array.slice");
 
-require("core-js/modules/es.array.some");
-
 require("core-js/modules/es.array.splice");
 
 require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.number.to-fixed");
 
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-descriptors");
+
 require("core-js/modules/es.object.get-prototype-of");
 
+require("core-js/modules/es.object.keys");
+
 require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
 
 require("core-js/modules/es.regexp.constructor");
 
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
+
+require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/es.string.replace");
 
@@ -98,6 +112,8 @@ require("core-js/modules/es.typed-array.to-string");
 
 require("core-js/modules/web.dom-collections.for-each");
 
+require("core-js/modules/web.dom-collections.iterator");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -111,9 +127,13 @@ var _downloadjs = _interopRequireDefault(require("downloadjs"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
+var _Formio = _interopRequireDefault(require("../../Formio"));
+
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -127,23 +147,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var Camera;
 var webViewCamera = navigator.camera || Camera; // canvas.toBlob polyfill.
@@ -172,12 +188,10 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 var FileComponent = /*#__PURE__*/function (_Field) {
   _inherits(FileComponent, _Field);
 
-  var _super = _createSuper(FileComponent);
-
   function FileComponent() {
     _classCallCheck(this, FileComponent);
 
-    return _super.apply(this, arguments);
+    return _possibleConstructorReturn(this, _getPrototypeOf(FileComponent).apply(this, arguments));
   }
 
   _createClass(FileComponent, [{
@@ -204,15 +218,10 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       });
       this.cameraMode = false;
       this.statuses = [];
-      this.fileDropHidden = false;
     }
   }, {
     key: "loadImage",
     value: function loadImage(fileInfo) {
-      if (this.component.privateDownload) {
-        fileInfo.private = true;
-      }
-
       return this.fileService.downloadFile(fileInfo).then(function (result) {
         return result.url;
       });
@@ -239,8 +248,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
         files: this.dataValue || [],
         statuses: this.statuses,
         disabled: this.disabled,
-        support: this.support,
-        fileDropHidden: this.fileDropHidden
+        support: this.support
       }));
     }
   }, {
@@ -405,9 +413,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
         fileStatusRemove: 'multiple',
         fileImage: 'multiple',
         fileType: 'multiple'
-      }); // Ensure we have an empty input refs. We need this for the setValue method to redraw the control when it is set.
-
-      this.refs.input = [];
+      });
 
       var superAttach = _get(_getPrototypeOf(FileComponent.prototype), "attach", this).call(this, element);
 
@@ -435,12 +441,6 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       if (this.refs.fileBrowse) {
         this.addEventListener(this.refs.fileBrowse, 'click', function (event) {
           event.preventDefault();
-
-          if (!_this5.component.multiple && _this5.statuses.some(function (fileUpload) {
-            return fileUpload.status === 'progress';
-          })) {
-            return;
-          }
 
           _this5.browseFiles(_this5.browseOptions).then(function (files) {
             _this5.upload(files);
@@ -484,18 +484,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
           webViewCamera.getPicture(function (success) {
             window.resolveLocalFileSystemURL(success, function (fileEntry) {
               fileEntry.file(function (file) {
-                var reader = new FileReader();
-
-                reader.onloadend = function (evt) {
-                  var blob = new Blob([new Uint8Array(evt.target.result)], {
-                    type: file.type
-                  });
-                  blob.name = file.name;
-
-                  _this5.upload([blob]);
-                };
-
-                reader.readAsArrayBuffer(file);
+                _this5.upload([file]);
               });
             });
           }, function (err) {
@@ -512,18 +501,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
           webViewCamera.getPicture(function (success) {
             window.resolveLocalFileSystemURL(success, function (fileEntry) {
               fileEntry.file(function (file) {
-                var reader = new FileReader();
-
-                reader.onloadend = function (evt) {
-                  var blob = new Blob([new Uint8Array(evt.target.result)], {
-                    type: file.type
-                  });
-                  blob.name = file.name;
-
-                  _this5.upload([blob]);
-                };
-
-                reader.readAsArrayBuffer(file);
+                _this5.upload([file]);
               });
             });
           }, function (err) {
@@ -556,7 +534,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       }
 
       this.refs.fileType.forEach(function (fileType, index) {
-        _this5.dataValue[index].fileType = _this5.dataValue[index].fileType || _this5.component.fileTypes[0].label;
+        _this5.dataValue[index].fileType = _this5.component.fileTypes[0].label;
 
         _this5.addEventListener(fileType, 'change', function (event) {
           event.preventDefault();
@@ -584,8 +562,6 @@ var FileComponent = /*#__PURE__*/function (_Field) {
           }).catch(function () {
             return _this5.filesReadyReject();
           });
-        } else {
-          this.filesReadyResolve();
         }
       }
 
@@ -783,40 +759,16 @@ var FileComponent = /*#__PURE__*/function (_Field) {
                 _this6$component$opti = _this6$component.options,
                 options = _this6$component$opti === void 0 ? {} : _this6$component$opti;
 
-            var url = _this6.interpolate(_this6.component.url, {
-              file: fileUpload
-            });
-
-            var groupKey = null;
-            var groupPermissions = null; //Iterate through form components to find group resource if one exists
-
-            _this6.root.everyComponent(function (element) {
-              var _element$component, _element$component2;
-
-              if ((_element$component = element.component) !== null && _element$component !== void 0 && _element$component.submissionAccess || (_element$component2 = element.component) !== null && _element$component2 !== void 0 && _element$component2.defaultPermission) {
-                groupPermissions = !element.component.submissionAccess ? [{
-                  type: element.component.defaultPermission,
-                  roles: []
-                }] : element.component.submissionAccess;
-                groupPermissions.forEach(function (permission) {
-                  groupKey = ['admin', 'write', 'create'].includes(permission.type) ? element.component.key : null;
-                });
-              }
-            });
+            var url = _this6.interpolate(_this6.component.url);
 
             var fileKey = _this6.component.fileKey || 'file';
-            var groupResourceId = groupKey ? _this6.currentForm.submission.data[groupKey]._id : null;
-            var filePromise = fileService.uploadFile(storage, file, fileName, dir, function (evt) {
+            fileService.uploadFile(storage, file, fileName, dir, function (evt) {
               fileUpload.status = 'progress';
               fileUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
               delete fileUpload.message;
 
               _this6.redraw();
-            }, url, options, fileKey, groupPermissions, groupResourceId, function () {
-              _this6.fileDropHidden = true;
-
-              _this6.emit('fileUploadingStart', filePromise);
-            }).then(function (fileInfo) {
+            }, url, options, fileKey).then(function (fileInfo) {
               var index = _this6.statuses.indexOf(fileUpload);
 
               if (index !== -1) {
@@ -831,22 +783,15 @@ var FileComponent = /*#__PURE__*/function (_Field) {
 
               _this6.dataValue.push(fileInfo);
 
-              _this6.fileDropHidden = false;
-
               _this6.redraw();
 
               _this6.triggerChange();
-
-              _this6.emit('fileUploadingEnd', filePromise);
             }).catch(function (response) {
               fileUpload.status = 'error';
               fileUpload.message = response;
               delete fileUpload.progress;
-              _this6.fileDropHidden = false;
 
               _this6.redraw();
-
-              _this6.emit('fileUploadingEnd', filePromise);
             });
           }
         });
@@ -884,20 +829,9 @@ var FileComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "focus",
     value: function focus() {
-      if ('beforeFocus' in this.parent) {
-        this.parent.beforeFocus(this);
-      }
-
       if (this.refs.fileBrowse) {
         this.refs.fileBrowse.focus();
       }
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this.stopVideo();
-
-      _get(_getPrototypeOf(FileComponent.prototype), "destroy", this).call(this);
     }
   }, {
     key: "dataReady",
@@ -927,16 +861,27 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       return this.component.fileTypes && Array.isArray(this.component.fileTypes) && this.component.fileTypes.length !== 0 && (this.component.fileTypes[0].label !== '' || this.component.fileTypes[0].value !== '');
     }
   }, {
-    key: "fileDropHidden",
+    key: "fileService",
     get: function get() {
-      return this._fileBrowseHidden;
-    },
-    set: function set(value) {
-      if (typeof value !== 'boolean' || this.component.multiple) {
-        return;
+      if (this.options.fileService) {
+        return this.options.fileService;
       }
 
-      this._fileBrowseHidden = value;
+      if (this.options.formio) {
+        return this.options.formio;
+      }
+
+      if (this.root && this.root.formio) {
+        return this.root.formio;
+      }
+
+      var formio = new _Formio.default(); // If a form is loaded, then make sure to set the correct formUrl.
+
+      if (this.root && this.root._form && this.root._form._id) {
+        formio.formUrl = "".concat(formio.projectUrl, "/form/").concat(this.root._form._id);
+      }
+
+      return formio;
     }
   }, {
     key: "cameraMode",
@@ -1004,7 +949,7 @@ var FileComponent = /*#__PURE__*/function (_Field) {
         title: 'File',
         group: 'premium',
         icon: 'file',
-        documentation: '/userguide/#file',
+        documentation: 'http://help.form.io/userguide/#file',
         weight: 100,
         schema: FileComponent.schema()
       };

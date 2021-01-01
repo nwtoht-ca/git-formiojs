@@ -22,19 +22,6 @@ var _default = [{
     return context.data.enableRowGroups ? true : context.data.disableAddingRemovingRows;
   }
 }, {
-  weight: 406,
-  type: 'textarea',
-  input: true,
-  key: 'conditionalAddButton',
-  label: 'Conditional Add Button',
-  placeholder: 'show = ...',
-  tooltip: 'Specify condition when Add Button should be displayed.',
-  editor: 'ace',
-  as: 'js',
-  wysiwyg: {
-    minLines: 3
-  }
-}, {
   type: 'checkbox',
   label: 'Allow Reorder',
   key: 'reorder',
@@ -148,12 +135,5 @@ var _default = [{
       var: 'data.enableRowGroups'
     }
   }
-}, {
-  label: 'Initialize Empty',
-  type: 'checkbox',
-  input: true,
-  key: 'initEmpty',
-  tooltip: 'The DataGrid will have no visible rows when initialized.',
-  weight: 450
 }];
 exports.default = _default;

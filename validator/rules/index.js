@@ -42,8 +42,6 @@ var minYear = require('./MinYear');
 
 var maxYear = require('./MaxYear');
 
-var time = require('./Time');
-
 module.exports = {
   custom: custom,
   date: date,
@@ -65,6 +63,5 @@ module.exports = {
   unique: unique,
   url: url,
   minYear: minYear,
-  maxYear: maxYear,
-  time: time
+  maxYear: maxYear
 };

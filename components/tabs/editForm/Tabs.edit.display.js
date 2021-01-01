@@ -14,6 +14,9 @@ var _default = [{
   key: 'description',
   ignore: true
 }, {
+  key: 'hideLabel',
+  ignore: true
+}, {
   key: 'autofocus',
   ignore: true
 }, {
@@ -24,9 +27,6 @@ var _default = [{
   ignore: true
 }, {
   key: 'disabled',
-  ignore: true
-}, {
-  key: 'tableView',
   ignore: true
 }, {
   key: 'components',

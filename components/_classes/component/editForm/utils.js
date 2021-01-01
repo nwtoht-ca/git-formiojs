@@ -28,13 +28,13 @@ var EditFormUtils = {
       if (objValue.key === srcValue.key) {
         // Create complete objects by including missing keys.
         _lodash.default.each(objValue, function (value, prop) {
-          if (objValue.overrideEditForm || !srcValue.hasOwnProperty(prop)) {
+          if (!srcValue.hasOwnProperty(prop)) {
             srcValue[prop] = value;
           }
         });
 
         _lodash.default.each(srcValue, function (value, prop) {
-          if (srcValue.overrideEditForm || !objValue.hasOwnProperty(prop)) {
+          if (!objValue.hasOwnProperty(prop)) {
             objValue[prop] = value;
           }
         });
@@ -82,7 +82,7 @@ var EditFormUtils = {
         },
         key: "".concat(property, "-js"),
         customConditional: function customConditional() {
-          return !_Evaluator.default.noeval || _Evaluator.default.protectedEval;
+          return !_Evaluator.default.noeval;
         },
         components: [{
           type: 'textarea',
@@ -90,7 +90,6 @@ var EditFormUtils = {
           rows: 5,
           editor: 'ace',
           hideLabel: true,
-          as: 'javascript',
           input: true
         }, {
           type: 'htmlelement',

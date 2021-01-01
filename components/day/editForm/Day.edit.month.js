@@ -9,7 +9,7 @@ var _default = [{
   type: 'select',
   datasrc: 'values',
   key: 'fields.month.type',
-  label: 'Type of input',
+  title: 'Type',
   data: {
     values: [{
       label: 'Number',

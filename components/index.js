@@ -15,8 +15,6 @@ var _Columns = _interopRequireDefault(require("./columns/Columns"));
 
 var _Component = _interopRequireDefault(require("./_classes/component/Component"));
 
-var _ComponentModal = _interopRequireDefault(require("./_classes/componentModal/ComponentModal"));
-
 var _Container = _interopRequireDefault(require("./container/Container"));
 
 var _Content = _interopRequireDefault(require("./content/Content"));
@@ -105,7 +103,6 @@ var _default = {
   address: _Address.default,
   base: _Component.default,
   component: _Component.default,
-  componentmodal: _ComponentModal.default,
   button: _Button.default,
   checkbox: _Checkbox.default,
   columns: _Columns.default,

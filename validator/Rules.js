@@ -1,5 +1,19 @@
 "use strict";
 
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.array.filter");
+
+require("core-js/modules/es.array.for-each");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-descriptors");
+
+require("core-js/modules/es.object.keys");
+
+require("core-js/modules/web.dom-collections.for-each");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -34,7 +48,7 @@ var Rules = /*#__PURE__*/function () {
   }, {
     key: "addRules",
     value: function addRules(rules) {
-      Rules.rules = _objectSpread(_objectSpread({}, Rules.rules), rules);
+      Rules.rules = _objectSpread({}, Rules.rules, {}, rules);
     }
   }, {
     key: "getRule",

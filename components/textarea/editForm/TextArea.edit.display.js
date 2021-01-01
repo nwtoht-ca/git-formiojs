@@ -57,9 +57,26 @@ var _default = [{
     }, {
       label: 'Quill',
       value: 'quill'
+    }, {
+      label: 'TinyMCE',
+      value: 'tiny'
     }]
   },
   weight: 415
+}, {
+  type: 'textfield',
+  input: true,
+  key: 'tinyApiKey',
+  label: 'TinyMCE Api Key',
+  weight: 415.2,
+  placeholder: 'If you have a TinyMCE APi Key, enter it here.',
+  conditional: {
+    json: {
+      '===': [{
+        var: 'data.editor'
+      }, 'tiny']
+    }
+  }
 }, {
   type: 'checkbox',
   input: true,
@@ -167,11 +184,11 @@ var _default = [{
   type: 'textfield',
   key: 'fileKey',
   input: true,
-  label: 'File form-data Key',
-  tooltip: 'Key name that you would like to modify for the file while calling API request.',
+  label: 'File form-data Key',
+  tooltip: 'Key name that you would like to modify for the file while calling API request.',
   rows: 5,
   weight: 415.6,
-  placeholder: 'Enter the key name of a file for form data.',
+  placeholder: 'Enter the key name of a file for form data.',
   conditional: {
     json: {
       and: [{
@@ -249,6 +266,10 @@ var _default = [{
         '===': [{
           var: 'data.editor'
         }, 'quill']
+      }, {
+        '===': [{
+          var: 'data.editor'
+        }, 'tiny']
       }]
     }
   },

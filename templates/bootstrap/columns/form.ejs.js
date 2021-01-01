@@ -6,21 +6,13 @@ var __t, __p = '', __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 
  ctx.component.columns.forEach(function(column, index) { ;
-__p += '\n<div class="\n    col-' +
-((__t = (column.size)) == null ? '' : __t) +
-'-' +
+__p += '\n<div class="\n    col-md-' +
 ((__t = (column.width)) == null ? '' : __t) +
-'\n    col-' +
-((__t = (column.size)) == null ? '' : __t) +
-'-offset-' +
+'\n    col-md-offset-' +
 ((__t = (column.offset)) == null ? '' : __t) +
-'\n    col-' +
-((__t = (column.size)) == null ? '' : __t) +
-'-push-' +
+'\n    col-md-push-' +
 ((__t = (column.push)) == null ? '' : __t) +
-'\n    col-' +
-((__t = (column.size)) == null ? '' : __t) +
-'-pull-' +
+'\n    col-md-pull-' +
 ((__t = (column.pull)) == null ? '' : __t) +
 '\n  " ref="' +
 ((__t = (ctx.columnKey)) == null ? '' : __t) +

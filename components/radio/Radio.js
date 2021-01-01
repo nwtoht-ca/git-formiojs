@@ -1,10 +1,14 @@
 "use strict";
 
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
+
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.find");
-
-require("core-js/modules/es.array.find-index");
 
 require("core-js/modules/es.array.for-each");
 
@@ -12,11 +16,17 @@ require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.function.name");
 
+require("core-js/modules/es.object.get-own-property-descriptor");
+
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
+require("core-js/modules/es.reflect.get");
+
 require("core-js/modules/es.regexp.to-string");
+
+require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/web.dom-collections.for-each");
 
@@ -31,17 +41,21 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 var _Field2 = _interopRequireDefault(require("../_classes/field/Field"));
 
-var _utils = require("../../utils/utils");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -51,20 +65,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var RadioComponent = /*#__PURE__*/function (_Field) {
   _inherits(RadioComponent, _Field);
-
-  var _super = _createSuper(RadioComponent);
 
   _createClass(RadioComponent, null, [{
     key: "schema",
@@ -93,7 +95,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
         group: 'basic',
         icon: 'dot-circle-o',
         weight: 80,
-        documentation: '/userguide/#radio',
+        documentation: 'http://help.form.io/userguide/#radio',
         schema: RadioComponent.schema()
       };
     }
@@ -104,19 +106,12 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
 
     _classCallCheck(this, RadioComponent);
 
-    _this = _super.call(this, component, options, data);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RadioComponent).call(this, component, options, data));
     _this.previousValue = _this.dataValue || null;
     return _this;
   }
 
   _createClass(RadioComponent, [{
-    key: "init",
-    value: function init() {
-      _get(_getPrototypeOf(RadioComponent.prototype), "init", this).call(this);
-
-      this.validators = this.validators.concat(['select', 'onlyAvailableItems']);
-    }
-  }, {
     key: "render",
     value: function render() {
       return _get(_getPrototypeOf(RadioComponent.prototype), "render", this).call(this, this.renderTemplate('radio', {
@@ -146,16 +141,10 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
         _this2.addShortcut(input, _this2.component.values[index].shortcut);
 
         if (_this2.isRadio) {
-          var dataValue = _this2.dataValue;
-
-          if (!_lodash.default.isString(_this2.dataValue)) {
-            dataValue = _lodash.default.toString(_this2.dataValue);
-          }
-
-          input.checked = dataValue === input.value;
+          input.checked = _this2.dataValue === input.value;
 
           _this2.addEventListener(input, 'keyup', function (event) {
-            if (event.key === ' ' && dataValue === input.value) {
+            if (event.key === ' ' && _this2.dataValue === input.value) {
               event.preventDefault();
 
               _this2.updateValue(null, {
@@ -177,8 +166,6 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
           _this3.removeShortcut(input, _this3.component.values[index].shortcut);
         });
       }
-
-      _get(_getPrototypeOf(RadioComponent.prototype), "detach", this).call(this);
     }
   }, {
     key: "getValue",
@@ -196,26 +183,6 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       return value;
     }
   }, {
-    key: "validateValueAvailability",
-    value: function validateValueAvailability(setting, value) {
-      var _this4 = this;
-
-      if (!(0, _utils.boolValue)(setting) || !value) {
-        return true;
-      }
-
-      var values = this.component.values;
-
-      if (values) {
-        return values.findIndex(function (_ref) {
-          var optionValue = _ref.value;
-          return _this4.normalizeValue(optionValue) === value;
-        }) !== -1;
-      }
-
-      return false;
-    }
-  }, {
     key: "getValueAsString",
     value: function getValueAsString(value) {
       if (!value) {
@@ -223,7 +190,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       }
 
       if (!_lodash.default.isString(value)) {
-        value = _lodash.default.toString(value);
+        return _lodash.default.toString(value);
       }
 
       var option = _lodash.default.find(this.component.values, function (v) {
@@ -243,28 +210,28 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "updateValue",
     value: function updateValue(value, flags) {
-      var _this5 = this;
+      var _this4 = this;
 
-      var changed = _get(_getPrototypeOf(RadioComponent.prototype), "updateValue", this).call(this, value, flags);
+      _get(_getPrototypeOf(RadioComponent.prototype), "updateValue", this).call(this, value, flags);
 
-      if (changed && this.refs.wrapper) {
+      if (flags.changed && this.refs.wrapper) {
         //add/remove selected option class
         var _value = this.dataValue;
         var optionSelectedClass = 'radio-selected';
         this.refs.wrapper.forEach(function (wrapper, index) {
-          var input = _this5.refs.input[index];
+          var input = _this4.refs.input[index];
 
           if (input && input.value.toString() === _value.toString()) {
             //add class to container when selected
-            _this5.addClass(wrapper, optionSelectedClass);
+            _this4.addClass(wrapper, optionSelectedClass);
           } else {
-            _this5.removeClass(wrapper, optionSelectedClass);
+            _this4.removeClass(wrapper, optionSelectedClass);
           }
         });
       }
 
       if (!flags || !flags.modified || !this.isRadio) {
-        return changed;
+        return flags.changed;
       } // If they clicked on the radio that is currently selected, it needs to reset the value.
 
 
@@ -277,7 +244,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       }
 
       this.previousValue = this.dataValue;
-      return changed;
+      return flags.changed;
     }
     /**
      * Normalize values coming into updateValue.
@@ -289,11 +256,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "normalizeValue",
     value: function normalizeValue(value) {
-      var dataType = this.component.dataType || 'auto';
-
-      if (value === this.emptyValue) {
-        return value;
-      }
+      var dataType = _lodash.default.get(this.component, 'dataType', 'auto');
 
       switch (dataType) {
         case 'auto':

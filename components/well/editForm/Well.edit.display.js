@@ -14,6 +14,9 @@ var _default = [{
   key: 'description',
   ignore: true
 }, {
+  key: 'hideLabel',
+  ignore: true
+}, {
   key: 'autofocus',
   ignore: true
 }, {
@@ -21,9 +24,6 @@ var _default = [{
   ignore: true
 }, {
   key: 'tabindex',
-  ignore: true
-}, {
-  key: 'tableView',
   ignore: true
 }];
 exports.default = _default;

@@ -29,9 +29,6 @@ var _default = [{
   key: 'tabindex',
   ignore: true
 }, {
-  key: 'tableView',
-  ignore: true
-}, {
   type: 'textfield',
   input: true,
   key: 'tag',
