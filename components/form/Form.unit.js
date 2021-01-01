@@ -6,15 +6,7 @@ var _Form = _interopRequireDefault(require("./Form"));
 
 var _chai = require("chai");
 
-var _powerAssert = _interopRequireDefault(require("power-assert"));
-
 var _fixtures = require("./fixtures");
-
-var _Webform = _interopRequireDefault(require("../../Webform"));
-
-var _formModalEdit = _interopRequireDefault(require("./fixtures/formModalEdit"));
-
-var _formtest = require("../../../test/formtest");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -113,49 +105,6 @@ describe('Form Component', function () {
         (0, _chai.expect)(formcmp.parentVisible).to.be.false;
         done();
       }, done).catch(done);
-    });
-  });
-  describe('Modal Edit', function () {
-    it('Should render preview when modalEdit', function (done) {
-      var formElement = document.createElement('div');
-      var form = new _Webform.default(formElement);
-      form.setForm(_formModalEdit.default).then(function () {
-        var preview = form.element.querySelector('[ref="openModal"]');
-        (0, _powerAssert.default)(preview, 'Should contain element to open a modal window');
-        done();
-      }).catch(done);
-    });
-  });
-  describe('Conditional rendering', function () {
-    it('Should render and set submission to conditional form component', function (done) {
-      var formElement = document.createElement('div');
-      var form = new _Webform.default(formElement);
-      form.setForm(_formtest.formComponentWithConditionalRenderingForm).then(function () {
-        form.setSubmission({
-          data: {
-            checkbox: true,
-            form: {
-              data: {
-                textField: 'test'
-              }
-            }
-          }
-        }).then(function () {
-          setTimeout(function () {
-            var checkbox = formElement.querySelector('input[name="data[checkbox]"]');
-            var textField = formElement.querySelector('input[name="data[textField]"]');
-            (0, _chai.expect)(checkbox).to.not.be.null;
-
-            _powerAssert.default.equal(checkbox.checked, true);
-
-            (0, _chai.expect)(textField).to.not.be.null;
-
-            _powerAssert.default.equal(textField.value, 'test');
-
-            done();
-          }, 250);
-        });
-      }).catch(done);
     });
   });
 });

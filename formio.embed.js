@@ -16,6 +16,7 @@ require("core-js/modules/es.string.split");
 
 require("core-js/modules/web.dom-collections.for-each");
 
+/*global Formio*/
 var scripts = document.getElementsByTagName('script');
 var thisScript = null;
 var i = scripts.length;
@@ -28,11 +29,8 @@ while (i--) {
 }
 
 if (thisScript) {
-  var _require = require('./formio.form'),
-      Form = _require.Form,
-      Formio = _require.Formio;
+  var Form = require('./formio.form').Form;
 
-  Formio.loadModules();
   var query = {};
   var scriptSrc = thisScript.src.replace(/^([^?]+).*/, '$1').split('/');
   scriptSrc.pop();

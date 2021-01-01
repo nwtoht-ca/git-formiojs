@@ -24,13 +24,9 @@ require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.array.slice");
 
-require("core-js/modules/es.array.some");
-
 require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.number.to-fixed");
 
 require("core-js/modules/es.object.assign");
 
@@ -51,8 +47,6 @@ require("core-js/modules/es.string.match");
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.starts-with");
 
 require("core-js/modules/web.dom-collections.for-each");
 
@@ -75,8 +69,6 @@ var _exportNames = {
   checkCondition: true,
   checkTrigger: true,
   setActionProperty: true,
-  unescapeHTML: true,
-  convertStringToHTMLElement: true,
   uniqueName: true,
   guid: true,
   getDateSetting: true,
@@ -112,15 +104,6 @@ var _exportNames = {
   fastCloneDeep: true,
   interpolate: true,
   isInputComponent: true,
-  getArrayFromComponentPath: true,
-  hasInvalidComponent: true,
-  getStringFromComponentPath: true,
-  round: true,
-  getIEBrowserVersion: true,
-  getComponentPathWithoutIndicies: true,
-  getComponentPath: true,
-  getDataParentComponent: true,
-  _: true,
   jsonLogic: true,
   moment: true,
   Evaluator: true
@@ -138,8 +121,6 @@ exports.checkJsonConditional = checkJsonConditional;
 exports.checkCondition = checkCondition;
 exports.checkTrigger = checkTrigger;
 exports.setActionProperty = setActionProperty;
-exports.unescapeHTML = unescapeHTML;
-exports.convertStringToHTMLElement = convertStringToHTMLElement;
 exports.uniqueName = uniqueName;
 exports.guid = guid;
 exports.getDateSetting = getDateSetting;
@@ -173,20 +154,6 @@ exports.getContextComponents = getContextComponents;
 exports.sanitize = sanitize;
 exports.fastCloneDeep = fastCloneDeep;
 exports.isInputComponent = isInputComponent;
-exports.getArrayFromComponentPath = getArrayFromComponentPath;
-exports.hasInvalidComponent = hasInvalidComponent;
-exports.getStringFromComponentPath = getStringFromComponentPath;
-exports.round = round;
-exports.getIEBrowserVersion = getIEBrowserVersion;
-exports.getComponentPathWithoutIndicies = getComponentPathWithoutIndicies;
-exports.getComponentPath = getComponentPath;
-exports.getDataParentComponent = getDataParentComponent;
-Object.defineProperty(exports, "_", {
-  enumerable: true,
-  get: function get() {
-    return _lodash.default;
-  }
-});
 Object.defineProperty(exports, "jsonLogic", {
   enumerable: true,
   get: function get() {
@@ -228,7 +195,6 @@ var _formUtils = require("./formUtils");
 Object.keys(_formUtils).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _formUtils[key]) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
@@ -271,14 +237,6 @@ _jsonLogicJs.default.add_operation('relativeMaxDate', function (relativeMaxDate)
   return (0, _momentTimezone.default)().add(relativeMaxDate, 'days').toISOString();
 });
 
-function setPathToComponentAndPerentSchema(component) {
-  component.path = getComponentPath(component);
-  var dataParent = getDataParentComponent(component);
-
-  if (dataParent && _typeof(dataParent) === 'object') {
-    dataParent.path = getComponentPath(dataParent);
-  }
-}
 /**
  * Evaluate a method.
  *
@@ -286,8 +244,6 @@ function setPathToComponentAndPerentSchema(component) {
  * @param args
  * @return {*}
  */
-
-
 function evaluate(func, args, ret, tokenize) {
   var returnVal = null;
   var component = args.component ? args.component : {
@@ -496,11 +452,7 @@ function checkCustomConditional(component, custom, row, data, form, variable, on
     custom = "var ".concat(variable, " = true; ").concat(custom, "; return ").concat(variable, ";");
   }
 
-  var value = instance && instance.evaluate ? instance.evaluate(custom, {
-    row: row,
-    data: data,
-    form: form
-  }) : evaluate(custom, {
+  var value = instance && instance.evaluate ? instance.evaluate(custom) : evaluate(custom, {
     row: row,
     data: data,
     form: form
@@ -541,32 +493,12 @@ function checkJsonConditional(component, json, row, data, form, onError) {
 
 
 function checkCondition(component, row, data, form, instance) {
-  var customConditional = component.customConditional,
-      conditional = component.conditional;
-
-  if (customConditional) {
-    return checkCustomConditional(component, customConditional, row, data, form, 'show', true, instance);
-  } else if (conditional && conditional.when) {
-    // If no component's instance passed (happens only in 6.x server), calculate its path based on the schema
-    if (!instance) {
-      instance = _lodash.default.cloneDeep(component);
-      setPathToComponentAndPerentSchema(instance);
-    }
-
-    var dataParent = getDataParentComponent(instance);
-    var parentPathWithoutIndicies = dataParent !== null && dataParent !== void 0 && dataParent.path ? getComponentPathWithoutIndicies(dataParent.path) : null;
-
-    if (dataParent && conditional.when.startsWith(parentPathWithoutIndicies)) {
-      var newRow = {};
-
-      _lodash.default.set(newRow, parentPathWithoutIndicies, row);
-
-      row = newRow;
-    }
-
-    return checkSimpleConditional(component, conditional, row, data);
-  } else if (conditional && conditional.json) {
-    return checkJsonConditional(component, conditional.json, row, data, form, true);
+  if (component.customConditional) {
+    return checkCustomConditional(component, component.customConditional, row, data, form, 'show', true, instance);
+  } else if (component.conditional && component.conditional.when) {
+    return checkSimpleConditional(component, component.conditional, row, data);
+  } else if (component.conditional && component.conditional.json) {
+    return checkJsonConditional(component, component.conditional.json, row, data, form, true);
   } // Default to show.
 
 
@@ -644,33 +576,6 @@ function setActionProperty(component, action, result, row, data, instance) {
   }
 
   return component;
-}
-/**
- * Unescape HTML characters like &lt, &gt, &amp and etc.
- * @param str
- * @returns {string}
- */
-
-
-function unescapeHTML(str) {
-  if (typeof window === 'undefined' || !('DOMParser' in window)) {
-    return str;
-  }
-
-  var doc = new window.DOMParser().parseFromString(str, 'text/html');
-  return doc.documentElement.textContent;
-}
-/**
- * Make HTML element from string
- * @param str
- * @param selector
- * @returns {HTMLElement}
- */
-
-
-function convertStringToHTMLElement(str, selector) {
-  var doc = new window.DOMParser().parseFromString(str, 'text/html');
-  return doc.body.querySelector(selector);
 }
 /**
  * Make a filename guaranteed to be unique.
@@ -892,8 +797,8 @@ function momentDate(value, format, timezone) {
  */
 
 
-function formatDate(value, format, timezone, flatPickrInputFormat) {
-  var momentDate = (0, _momentTimezone.default)(value, flatPickrInputFormat || undefined);
+function formatDate(value, format, timezone) {
+  var momentDate = (0, _momentTimezone.default)(value);
 
   if (timezone === currentTimezone()) {
     // See if our format contains a "z" timezone character.
@@ -919,7 +824,7 @@ function formatDate(value, format, timezone, flatPickrInputFormat) {
 
   loadZones();
 
-  if (_momentTimezone.default.zonesLoaded && timezone) {
+  if (_momentTimezone.default.zonesLoaded) {
     return momentDate.tz(timezone).format("".concat(convertFormatToMoment(format), " z"));
   } else {
     return momentDate.format(convertFormatToMoment(format));
@@ -1186,11 +1091,6 @@ function fieldData(data, component) {
     // Convert old single field data in submissions to multiple
     if (component.multiple && !Array.isArray(data[component.key])) {
       data[component.key] = [data[component.key]];
-    } // Fix for checkbox type radio submission values in tableView
-
-
-    if (component.type === 'checkbox' && component.inputType === 'radio') {
-      return data[component.name] === component.value;
     }
 
     return data[component.key];
@@ -1374,7 +1274,7 @@ function getContextComponents(context) {
     if (component.key !== context.data.key) {
       values.push({
         label: "".concat(component.label || component.key, " (").concat(path, ")"),
-        value: path
+        value: component.key
       });
     }
   });
@@ -1389,11 +1289,7 @@ function getContextComponents(context) {
 
 
 function sanitize(string, options) {
-  if (typeof _dompurify.default.sanitize !== 'function') {
-    return string;
-  } // Dompurify configuration
-
-
+  // Dompurify configuration
   var sanitizeOptions = {
     ADD_ATTR: ['ref', 'target'],
     USE_PROFILES: {
@@ -1425,11 +1321,6 @@ function sanitize(string, options) {
 
   if (options.sanitizeConfig && options.sanitizeConfig.allowedUriRegex) {
     sanitizeOptions.ALLOWED_URI_REGEXP = options.sanitizeConfig.allowedUriRegex;
-  } // Allow to extend the existing array of elements that are safe for URI-like values
-
-
-  if (options.sanitizeConfig && Array.isArray(options.sanitizeConfig.addUriSafeAttr) && options.sanitizeConfig.addUriSafeAttr.length > 0) {
-    sanitizeOptions.ADD_URI_SAFE_ATTR = options.sanitizeConfig.addUriSafeAttr;
   }
 
   return _dompurify.default.sanitize(string, sanitizeOptions);
@@ -1464,106 +1355,3 @@ function isInputComponent(componentJson) {
       return true;
   }
 }
-
-function getArrayFromComponentPath(pathStr) {
-  if (!pathStr || !_lodash.default.isString(pathStr)) {
-    if (!_lodash.default.isArray(pathStr)) {
-      return [pathStr];
-    }
-
-    return pathStr;
-  }
-
-  return pathStr.replace(/[[\]]/g, '.').replace(/\.\./g, '.').replace(/(^\.)|(\.$)/g, '').split('.').map(function (part) {
-    return _lodash.default.defaultTo(_lodash.default.toNumber(part), part);
-  });
-}
-
-function hasInvalidComponent(component) {
-  return component.getComponents().some(function (comp) {
-    if (_lodash.default.isArray(comp.components)) {
-      return hasInvalidComponent(comp);
-    }
-
-    return comp.error;
-  });
-}
-
-function getStringFromComponentPath(path) {
-  if (!_lodash.default.isArray(path)) {
-    return path;
-  }
-
-  var strPath = '';
-  path.forEach(function (part, i) {
-    if (_lodash.default.isNumber(part)) {
-      strPath += "[".concat(part, "]");
-    } else {
-      strPath += i === 0 ? part : ".".concat(part);
-    }
-  });
-  return strPath;
-}
-
-function round(number, precision) {
-  if (_lodash.default.isNumber(number)) {
-    return number.toFixed(precision);
-  }
-
-  return number;
-}
-/**
- * Check for Internet Explorer browser version
- *
- * @return {(number|null)}
- */
-
-
-function getIEBrowserVersion() {
-  if (typeof document === 'undefined' || !('documentMode' in document)) {
-    return null;
-  }
-
-  return document['documentMode'];
-}
-
-function getComponentPathWithoutIndicies() {
-  var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  return path.replace(/\[\d+\]/, '');
-}
-/**
- * Returns a path to the component which based on its schema
- * @param {*} component is a component's schema containing link to its parent's schema in the 'parent' property
- */
-
-
-function getComponentPath(component) {
-  var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-  if (!component || !component.key) {
-    return path;
-  }
-
-  path = component.input === true ? "".concat(component.key).concat(path ? '.' : '').concat(path) : path;
-  return getComponentPath(component.parent, path);
-}
-/**
- * Returns a parent component of the passed component instance skipping all the Layout components
- * @param {*} componentInstance
- * @return {(Component|undefined)}
- */
-
-
-function getDataParentComponent(componentInstance) {
-  if (!componentInstance) {
-    return;
-  }
-
-  var parent = componentInstance.parent;
-
-  if (parent && (parent.isInputComponent || parent.input)) {
-    return parent;
-  } else {
-    return getDataParentComponent(parent);
-  }
-} // Export lodash to save space with other libraries.

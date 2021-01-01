@@ -26,9 +26,6 @@ var _default = [{
   key: 'disabled',
   ignore: true
 }, {
-  key: 'tableView',
-  ignore: true
-}, {
   weight: 150,
   type: 'datagrid',
   input: true,
@@ -41,29 +38,6 @@ var _default = [{
     type: 'hidden',
     key: 'components',
     defaultValue: []
-  }, {
-    type: 'select',
-    key: 'size',
-    defaultValue: 'md',
-    label: 'Size',
-    data: {
-      values: [{
-        label: 'xs',
-        value: 'xs'
-      }, {
-        label: 'sm',
-        value: 'sm'
-      }, {
-        label: 'md',
-        value: 'md'
-      }, {
-        label: 'lg',
-        value: 'lg'
-      }, {
-        label: 'xl',
-        value: 'xl'
-      }]
-    }
   }, {
     type: 'number',
     key: 'width',

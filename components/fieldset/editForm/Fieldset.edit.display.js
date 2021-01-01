@@ -20,9 +20,6 @@ var _default = [{
   key: 'autofocus',
   ignore: true
 }, {
-  key: 'tableView',
-  ignore: true
-}, {
   key: 'label',
   hidden: true,
   calculateValue: function calculateValue(context) {

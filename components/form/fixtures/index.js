@@ -3,12 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "formModalEdit", {
-  enumerable: true,
-  get: function get() {
-    return _formModalEdit2.default;
-  }
-});
 Object.defineProperty(exports, "comp1", {
   enumerable: true,
   get: function get() {
@@ -27,8 +21,6 @@ Object.defineProperty(exports, "comp3", {
     return _comp6.default;
   }
 });
-
-var _formModalEdit2 = _interopRequireDefault(require("./formModalEdit"));
 
 var _comp4 = _interopRequireDefault(require("./comp1"));
 

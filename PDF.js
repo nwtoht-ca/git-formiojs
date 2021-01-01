@@ -1,14 +1,30 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.find");
+
+require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.function.name");
 
+require("core-js/modules/es.object.get-own-property-descriptor");
+
 require("core-js/modules/es.object.get-prototype-of");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
+
+require("core-js/modules/es.string.iterator");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -25,11 +41,7 @@ var _utils = require("./utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -37,35 +49,29 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var PDF = /*#__PURE__*/function (_Webform) {
   _inherits(PDF, _Webform);
-
-  var _super = _createSuper(PDF);
 
   function PDF(element, options) {
     var _this;
 
     _classCallCheck(this, PDF);
 
-    _this = _super.call(this, element, options);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PDF).call(this, element, options));
     _this.components = [];
     return _this;
   }
@@ -87,25 +93,7 @@ var PDF = /*#__PURE__*/function (_Webform) {
         return _this2.setValue(submission, {
           fromIframe: true
         });
-      }, true);
-      this.on('iframe-getIframePositions', function (query) {
-        var iframe = document.getElementById("iframe-".concat(query.formId));
-
-        if (iframe) {
-          var iframeBoundingClientRect = iframe.getBoundingClientRect();
-
-          _this2.postMessage({
-            name: 'iframePositions',
-            data: {
-              formId: query.formId,
-              iframe: {
-                top: iframeBoundingClientRect.top
-              },
-              scrollY: window.scrollY || window.pageYOffset
-            }
-          });
-        }
-      }); // Trigger when this form is ready.
+      }, true); // Trigger when this form is ready.
 
       this.on('iframe-ready', function () {
         return _this2.iframeReadyResolve();
@@ -114,18 +102,7 @@ var PDF = /*#__PURE__*/function (_Webform) {
   }, {
     key: "render",
     value: function render() {
-      this.submitButton = this.addComponent({
-        input: true,
-        type: 'button',
-        action: 'submit',
-        internal: true,
-        label: 'Submit',
-        key: 'submit',
-        ref: 'button',
-        hidden: this.isSubmitButtonHidden()
-      });
       return this.renderTemplate('pdf', {
-        submitButton: this.submitButton.render(),
         classes: 'formio-form-pdf',
         children: this.renderComponents()
       });
@@ -133,24 +110,7 @@ var PDF = /*#__PURE__*/function (_Webform) {
   }, {
     key: "redraw",
     value: function redraw() {
-      this.postMessage({
-        name: 'redraw'
-      });
-      return this.builderMode ? _nativePromiseOnly.default.resolve() : _get(_getPrototypeOf(PDF.prototype), "redraw", this).call(this);
-    }
-  }, {
-    key: "rebuild",
-    value: function rebuild() {
-      if (this.builderMode && this.component.components) {
-        this.destroyComponents();
-        this.addComponents();
-        return _nativePromiseOnly.default.resolve();
-      }
-
-      this.postMessage({
-        name: 'redraw'
-      });
-      return _get(_getPrototypeOf(PDF.prototype), "rebuild", this).call(this);
+      return _get(_getPrototypeOf(PDF.prototype), "redraw", this).call(this);
     }
   }, {
     key: "attach",
@@ -159,17 +119,11 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
       return _get(_getPrototypeOf(PDF.prototype), "attach", this).call(this, element).then(function () {
         _this3.loadRefs(element, {
-          button: 'single',
-          buttonMessageContainer: 'single',
-          buttonMessage: 'single',
+          submitButton: 'single',
           zoomIn: 'single',
           zoomOut: 'single',
           iframeContainer: 'single'
-        });
-
-        _this3.submitButton.refs = _objectSpread({}, _this3.refs);
-
-        _this3.submitButton.attachButton(); // Reset the iframeReady promise.
+        }); // Reset the iframeReady promise.
 
 
         _this3.iframeReady = new _nativePromiseOnly.default(function (resolve, reject) {
@@ -191,9 +145,6 @@ var PDF = /*#__PURE__*/function (_Webform) {
         _this3.appendChild(_this3.refs.iframeContainer, _this3.iframeElement); // Post the form to the iframe
 
 
-        _this3.form.base = _Formio.default.getBaseUrl();
-        _this3.form.projectUrl = _Formio.default.getProjectUrl();
-
         _this3.postMessage({
           name: 'form',
           data: _this3.form
@@ -201,12 +152,19 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
 
         var submitButton = _this3.components.find(function (c) {
-          return c.element === _this3.refs.button;
+          return c.element === _this3.refs.submitButton;
         });
 
-        if (submitButton) {
-          _this3.refs.button.classList.toggle('hidden', !submitButton.visible);
-        }
+        _this3.refs.submitButton.classList.toggle('hidden', !submitButton.visible); // Submit the form if they click the submit button.
+
+
+        _this3.addEventListener(_this3.refs.submitButton, 'click', function () {
+          _this3.postMessage({
+            name: 'getErrors'
+          });
+
+          return _this3.submit();
+        });
 
         _this3.addEventListener(_this3.refs.zoomIn, 'click', function (event) {
           event.preventDefault();
@@ -272,9 +230,6 @@ var PDF = /*#__PURE__*/function (_Webform) {
       var _this5 = this;
 
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      this.postMessage({
-        name: 'getErrors'
-      });
       return this.getSubmission().then(function () {
         return _get(_getPrototypeOf(PDF.prototype), "submitForm", _this5).call(_this5, options);
       });
@@ -299,10 +254,6 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
       if (this.builderMode) {
         params.push('builder=1');
-      }
-
-      if (this.options.hideLoader) {
-        params.push("hide-loader=".concat(this.options.hideLoader));
       }
 
       if (params.length) {
@@ -330,7 +281,7 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
         _this6.postMessage({
           name: 'form',
-          data: _this6.form
+          data: form
         });
       });
     }
@@ -348,7 +299,7 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      var changed = _get(_getPrototypeOf(PDF.prototype), "setValue", this).call(this, submission, flags);
+      _get(_getPrototypeOf(PDF.prototype), "setValue", this).call(this, submission, flags);
 
       if (!flags || !flags.fromIframe) {
         this.once('iframe-ready', function () {
@@ -359,13 +310,14 @@ var PDF = /*#__PURE__*/function (_Webform) {
         });
       }
 
-      return changed;
+      return flags.changed;
     }
   }, {
     key: "setSubmission",
     value: function setSubmission(submission) {
       var _this8 = this;
 
+      submission.readOnly = !!this.options.readOnly;
       return _get(_getPrototypeOf(PDF.prototype), "setSubmission", this).call(this, submission).then(function () {
         if (_this8.formio) {
           _this8.formio.getDownloadUrl().then(function (url) {
@@ -413,14 +365,6 @@ var PDF = /*#__PURE__*/function (_Webform) {
           _this9.iframeElement.contentWindow.postMessage(JSON.stringify(message), '*');
         }
       });
-    }
-  }, {
-    key: "focusOnComponent",
-    value: function focusOnComponent(key) {
-      this.postMessage({
-        name: 'focusErroredField',
-        data: key
-      });
     } // Do not clear the iframe.
 
   }, {
@@ -429,40 +373,18 @@ var PDF = /*#__PURE__*/function (_Webform) {
   }, {
     key: "showErrors",
     value: function showErrors(error, triggerEvent) {
-      var helpBlock = document.getElementById('submit-error');
-
-      if (!helpBlock && this.errors.length) {
-        var p = this.ce('p', {
-          class: 'help-block'
-        });
-        this.setContent(p, this.t('submitError'));
-        p.addEventListener('click', function () {
-          window.scrollTo(0, 0);
-        });
-        var div = this.ce('div', {
-          id: 'submit-error',
-          class: 'has-error'
-        });
-        this.appendTo(p, div);
-        this.appendTo(div, this.element);
-      }
-
-      if (!this.errors.length && helpBlock) {
-        helpBlock.remove();
-      }
+      var p = this.ce('p');
+      p.classList.add('help-block');
+      this.setContent(p, this.t('submitError'));
+      p.addEventListener('click', function () {
+        window.scrollTo(0, 0);
+      });
+      var div = this.ce('div');
+      div.classList.add('has-error');
+      this.appendTo(p, div);
+      this.appendTo(div, this.element);
 
       _get(_getPrototypeOf(PDF.prototype), "showErrors", this).call(this, error, triggerEvent);
-    }
-  }, {
-    key: "isSubmitButtonHidden",
-    value: function isSubmitButtonHidden() {
-      var hidden = false;
-      (0, _utils.eachComponent)(this.component.components, function (component) {
-        if (component.type === 'button' && (component.action === 'submit' || !component.action)) {
-          hidden = component.hidden || false;
-        }
-      });
-      return hidden;
     }
   }]);
 

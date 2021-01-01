@@ -8,8 +8,6 @@ require("core-js/modules/es.array.from");
 
 require("core-js/modules/es.array.includes");
 
-require("core-js/modules/es.array.index-of");
-
 require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.join");
@@ -83,8 +81,6 @@ var _pad = _interopRequireDefault(require("lodash/pad"));
 
 var _fastJsonPatch = require("fast-json-patch");
 
-var _lodash = _interopRequireDefault(require("lodash"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -136,18 +132,14 @@ function eachComponent(components, fn, includeAll, path, parent) {
       delete component.parent.componentMap;
       delete component.parent.columns;
       delete component.parent.rows;
-    } // there's no need to add other layout components here because we expect that those would either have columns, rows or components
+    }
 
-
-    var layoutTypes = ['htmlelement', 'content'];
-    var isLayoutComponent = hasColumns || hasRows || hasComps || layoutTypes.indexOf(component.type) > -1;
-
-    if (includeAll || component.tree || !isLayoutComponent) {
-      noRecurse = fn(component, newPath, components);
+    if (includeAll || component.tree || !hasColumns && !hasRows && !hasComps) {
+      noRecurse = fn(component, newPath);
     }
 
     var subPath = function subPath() {
-      if (component.key && !['panel', 'table', 'well', 'columns', 'fieldset', 'tabs', 'form'].includes(component.type) && (['datagrid', 'container', 'editgrid', 'address'].includes(component.type) || component.tree)) {
+      if (component.key && !['panel', 'table', 'well', 'columns', 'fieldset', 'tabs', 'form'].includes(component.type) && (['datagrid', 'container', 'editgrid'].includes(component.type) || component.tree)) {
         return newPath;
       } else if (component.key && component.type === 'form') {
         return "".concat(newPath, ".data");
@@ -255,9 +247,6 @@ function findComponents(components, query) {
 }
 /**
  * This function will find a component in a form and return the component AND THE PATH to the component in the form.
- * Path to the component is stored as an array of nested components and their indexes.The Path is being filled recursively
- * when you iterating through the nested structure.
- * If the component is not found the callback won't be called and function won't return anything.
  *
  * @param components
  * @param key
@@ -276,8 +265,7 @@ function findComponent(components, key, path, fn) {
   }
 
   components.forEach(function (component, index) {
-    var newPath = path.slice(); // Add an index of the component it iterates through in nested structure
-
+    var newPath = path.slice();
     newPath.push(index);
     if (!component) return;
 
@@ -311,8 +299,7 @@ function findComponent(components, key, path, fn) {
     }
 
     if (component.key === key) {
-      //Final callback if the component is found
-      fn(component, newPath, components);
+      fn(component, newPath);
     }
   });
 }
@@ -546,7 +533,7 @@ function getValue(submission, key) {
   var search = function search(data) {
     if ((0, _isPlainObject.default)(data)) {
       if ((0, _has.default)(data, key)) {
-        return _lodash.default.get(data, key);
+        return data[key];
       }
 
       var value = null;

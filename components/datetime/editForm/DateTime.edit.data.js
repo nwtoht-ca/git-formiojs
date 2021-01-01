@@ -19,7 +19,7 @@ var _default = [{
   weight: 28,
   input: true,
   key: 'customOptions',
-  label: 'Flatpickr options',
+  label: 'Flatpikr options',
   tooltip: 'A raw JSON object to use as options for the Date / Time component (Flatpickr).',
   defaultValue: {}
 }];

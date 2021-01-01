@@ -22,12 +22,5 @@ var _default = [{
       value: 'html5'
     }]
   }
-}, {
-  weight: 1230,
-  type: 'checkbox',
-  label: 'Unique Options',
-  tooltip: 'Display only unique dropdown options.',
-  key: 'uniqueOptions',
-  input: true
 }];
 exports.default = _default;

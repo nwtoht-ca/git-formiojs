@@ -11,9 +11,7 @@ var _TextField = _interopRequireDefault(require("../textfield/TextField.form"));
 
 var _TextAreaEdit = _interopRequireDefault(require("./editForm/TextArea.edit.display"));
 
-var _TextAreaEdit2 = _interopRequireDefault(require("./editForm/TextArea.edit.layout"));
-
-var _TextAreaEdit3 = _interopRequireDefault(require("./editForm/TextArea.edit.validation"));
+var _TextAreaEdit2 = _interopRequireDefault(require("./editForm/TextArea.edit.validation"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27,9 +25,6 @@ function _default() {
     components: _TextAreaEdit.default
   }, {
     key: 'validation',
-    components: _TextAreaEdit3.default
-  }, {
-    key: 'layout',
     components: _TextAreaEdit2.default
   }]].concat(extend));
 }

@@ -42,9 +42,7 @@ __p += '\n      <th>\n        ';
  if (!ctx.builder && ctx.hasAddButton && ctx.hasTopSubmit) { ;
 __p += '\n        <button class="btn btn-primary formio-button-add-row" ref="' +
 ((__t = (ctx.datagridKey)) == null ? '' : __t) +
-'-addRow" tabindex="' +
-((__t = (ctx.tabIndex)) == null ? '' : __t) +
-'">\n          <i class="' +
+'-addRow">\n          <i class="' +
 ((__t = (ctx.iconClass('plus'))) == null ? '' : __t) +
 '"></i>' +
 ((__t = (ctx.t(ctx.component.addAnother || 'Add Another'))) == null ? '' : __t) +
@@ -92,9 +90,7 @@ __p += '\n        ';
  if (!ctx.builder && ctx.hasRemoveButtons) { ;
 __p += '\n        <td>\n          <button type="button" class="btn btn-secondary formio-button-remove-row" ref="' +
 ((__t = (ctx.datagridKey)) == null ? '' : __t) +
-'-removeRow" tabindex="' +
-((__t = (ctx.tabIndex)) == null ? '' : __t) +
-'">\n            <i class="' +
+'-removeRow">\n            <i class="' +
 ((__t = (ctx.iconClass('remove-circle'))) == null ? '' : __t) +
 '"></i>\n          </button>\n        </td>\n        ';
  } ;
@@ -116,9 +112,7 @@ __p += '\n  <tfoot>\n    <tr>\n      <td colspan="' +
 ((__t = (ctx.numColumns + 1)) == null ? '' : __t) +
 '">\n        <button class="btn btn-primary formio-button-add-row" ref="' +
 ((__t = (ctx.datagridKey)) == null ? '' : __t) +
-'-addRow" tabindex="' +
-((__t = (ctx.tabIndex)) == null ? '' : __t) +
-'">\n          <i class="' +
+'-addRow">\n          <i class="' +
 ((__t = (ctx.iconClass('plus'))) == null ? '' : __t) +
 '"></i> ' +
 ((__t = (ctx.t(ctx.component.addAnother || 'Add Another'))) == null ? '' : __t) +

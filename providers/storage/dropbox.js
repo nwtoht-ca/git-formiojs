@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var dropbox = function dropbox(formio) {
   return {
-    uploadFile: function uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId) {
+    uploadFile: function uploadFile(file, fileName, dir, progressCallback) {
       return new _nativePromiseOnly.default(function (resolve, reject) {
         // Send the file with data.
         var xhr = new XMLHttpRequest();
@@ -38,8 +38,6 @@ var dropbox = function dropbox(formio) {
             response.storage = 'dropbox';
             response.size = file.size;
             response.type = file.type;
-            response.groupId = groupId;
-            response.groupPermissions = groupPermissions;
             response.url = response.path_lower;
             resolve(response);
           } else {

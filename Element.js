@@ -108,13 +108,6 @@ var Element = /*#__PURE__*/function () {
       maxListeners: 0
     });
     this.defaultMask = null;
-    /**
-     * Conditional to show or hide helplinks in editForm
-     *
-     * @type {*|boolean}
-     */
-
-    this.helplinks = this.helplinks = this.options.helplinks === 'false' ? false : this.options.helplinks || 'https://help.form.io';
   }
   /**
    * Register for a new event within this component.
@@ -178,22 +171,6 @@ var Element = /*#__PURE__*/function () {
       }
 
       return this.events.onAny(cb);
-    }
-    /**
-     * Removes the listener that will be fired when any event is emitted.
-     *
-     * @param cb
-     * @returns {this}
-     */
-
-  }, {
-    key: "offAny",
-    value: function offAny(cb) {
-      if (!this.events) {
-        return;
-      }
-
-      return this.events.offAny(cb);
     }
     /**
      * Removes all listeners for a certain event.
@@ -502,20 +479,20 @@ var Element = /*#__PURE__*/function () {
     /**
      * Translate a text using the i18n system.
      *
-     * @param {string|Array<string>} text - The i18n identifier.
+     * @param {string} text - The i18n identifier.
      * @param {Object} params - The i18n parameters to use for translation.
      */
 
   }, {
     key: "t",
-    value: function t(text) {
-      var _this$i18next;
-
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
-      return (_this$i18next = this.i18next).t.apply(_this$i18next, [text].concat(args));
+    value: function t(text, params) {
+      params = params || {};
+      params.nsSeparator = '::';
+      params.keySeparator = '.|.';
+      params.pluralSeparator = '._.';
+      params.contextSeparator = '._.';
+      var translated = this.i18next.t(text, params);
+      return translated || text;
     }
     /**
      * Alias to create a text node.
@@ -584,14 +561,14 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "addClass",
     value: function addClass(element, className) {
-      if (!element || !(element instanceof HTMLElement)) {
+      if (!element) {
         return this;
       } // Allow templates to intercept.
 
 
       var classes = element.getAttribute('class');
 
-      if (!(classes !== null && classes !== void 0 && classes.includes(className))) {
+      if (!(classes === null || classes === void 0 ? void 0 : classes.includes(className))) {
         element.setAttribute('class', "".concat(classes, " ").concat(className));
       }
 
@@ -609,7 +586,7 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "removeClass",
     value: function removeClass(element, className) {
-      if (!element || !className || !(element instanceof HTMLElement)) {
+      if (!element || !className) {
         return this;
       } // Allow templates to intercept.
 

@@ -243,10 +243,7 @@ var _default = [{
   dataSrc: 'url',
   lazyLoad: false,
   onSetItems: function onSetItems(component, form) {
-    var newItems = form.type === 'resource' ? [{
-      label: '{Entire Object}',
-      key: 'data'
-    }] : [];
+    var newItems = [];
     (0, _utils.eachComponent)(form.components, function (component, path) {
       if (component.input) {
         newItems.push({
@@ -309,14 +306,6 @@ var _default = [{
       value: 'object'
     }]
   }
-}, {
-  type: 'textfield',
-  input: true,
-  key: 'idPath',
-  weight: 12,
-  label: 'ID Path',
-  placeholder: 'id',
-  tooltip: 'Path to the select option id.'
 }, {
   type: 'textfield',
   input: true,
@@ -519,41 +508,7 @@ var _default = [{
     json: {
       in: [{
         var: 'data.dataSrc'
-      }, ['url', 'resource', 'values']]
-    }
-  }
-}, {
-  type: 'select',
-  input: true,
-  key: 'refreshOnBlur',
-  label: 'Refresh Options On Blur',
-  weight: 19,
-  tooltip: 'Refresh data when another field is blured.',
-  dataSrc: 'custom',
-  valueProperty: 'value',
-  data: {
-    custom: function custom(context) {
-      var values = [];
-      values.push({
-        label: 'Any Change',
-        value: 'data'
-      });
-      context.utils.eachComponent(context.instance.options.editForm.components, function (component, path) {
-        if (component.key !== context.data.key) {
-          values.push({
-            label: component.label || component.key,
-            value: path
-          });
-        }
-      });
-      return values;
-    }
-  },
-  conditional: {
-    json: {
-      in: [{
-        var: 'data.dataSrc'
-      }, ['url', 'resource', 'values']]
+      }, ['url', 'resource']]
     }
   }
 }, {
@@ -568,7 +523,7 @@ var _default = [{
     json: {
       in: [{
         var: 'data.dataSrc'
-      }, ['url', 'resource', 'values']]
+      }, ['url', 'resource']]
     }
   }
 }, {
@@ -679,12 +634,5 @@ var _default = [{
   label: 'Choices.js options',
   tooltip: 'A raw JSON object to use as options for the Select component (Choices JS).',
   defaultValue: {}
-}, {
-  type: 'checkbox',
-  input: true,
-  weight: 29,
-  key: 'useExactSearch',
-  label: 'Use exact search',
-  tooltip: 'Disables search algorithm threshold.'
 }];
 exports.default = _default;

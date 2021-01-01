@@ -14,10 +14,10 @@ var _default = [{
   key: 'description',
   ignore: true
 }, {
-  key: 'autofocus',
+  key: 'hideLabel',
   ignore: true
 }, {
-  key: 'tableView',
+  key: 'autofocus',
   ignore: true
 }, {
   key: 'label',
@@ -105,20 +105,6 @@ var _default = [{
         '!==': [{
           var: 'data.breadcrumb'
         }, 'none']
-      }
-    }
-  }, {
-    input: true,
-    type: 'checkbox',
-    label: 'Allow Previous',
-    key: 'allowPrevious',
-    defaultValue: false,
-    tooltip: 'Determines if the breadcrumb bar is clickable or not for visited tabs.',
-    conditional: {
-      json: {
-        '===': [{
-          var: 'data.breadcrumbClickable'
-        }, false]
       }
     }
   }, {

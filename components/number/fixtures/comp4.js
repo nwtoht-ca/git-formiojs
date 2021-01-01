@@ -5,16 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _default = {
-  'label': 'Number',
-  'mask': false,
-  'spellcheck': true,
-  'tableView': true,
-  'delimiter': true,
-  'requireDecimal': true,
-  'inputFormat': 'plain',
-  'key': 'number',
-  'type': 'number',
-  'decimalLimit': 2,
-  'input': true
+  label: 'Number',
+  multiple: true,
+  mask: false,
+  tableView: true,
+  alwaysEnabled: false,
+  type: 'number',
+  input: true,
+  key: 'number',
+  delimiter: true,
+  requireDecimal: true,
+  encrypted: false,
+  decimalLimit: 2
 };
 exports.default = _default;

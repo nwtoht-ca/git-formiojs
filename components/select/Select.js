@@ -1,6 +1,10 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
 
@@ -8,9 +12,9 @@ require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.find");
 
-require("core-js/modules/es.array.find-index");
-
 require("core-js/modules/es.array.for-each");
+
+require("core-js/modules/es.array.from");
 
 require("core-js/modules/es.array.includes");
 
@@ -22,17 +26,11 @@ require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.array.reduce");
 
-require("core-js/modules/es.array.reduce-right");
-
-require("core-js/modules/es.array.some");
-
-require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.number.is-finite");
-
-require("core-js/modules/es.number.is-nan");
-
 require("core-js/modules/es.object.assign");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-descriptors");
 
 require("core-js/modules/es.object.get-prototype-of");
 
@@ -40,15 +38,19 @@ require("core-js/modules/es.object.keys");
 
 require("core-js/modules/es.object.to-string");
 
+require("core-js/modules/es.reflect.get");
+
+require("core-js/modules/es.reflect.set");
+
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.string.iterator");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.starts-with");
 
@@ -75,31 +77,31 @@ var _Form = _interopRequireDefault(require("../../Form"));
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
-var _utils = require("../../utils/utils");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -111,29 +113,19 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var SelectComponent = /*#__PURE__*/function (_Field) {
   _inherits(SelectComponent, _Field);
-
-  var _super = _createSuper(SelectComponent);
 
   function SelectComponent() {
     _classCallCheck(this, SelectComponent);
 
-    return _super.apply(this, arguments);
+    return _possibleConstructorReturn(this, _getPrototypeOf(SelectComponent).apply(this, arguments));
   }
 
   _createClass(SelectComponent, [{
@@ -143,7 +135,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
       _get(_getPrototypeOf(SelectComponent.prototype), "init", this).call(this);
 
-      this.validators = this.validators.concat(['select', 'onlyAvailableItems']); // Trigger an update.
+      this.validators = this.validators.concat(['select']); // Trigger an update.
 
       var updateArgs = [];
 
@@ -189,14 +181,9 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
       });
     }
   }, {
-    key: "isEntireObjectDisplay",
-    value: function isEntireObjectDisplay() {
-      return this.component.dataSrc === 'resource' && this.valueProperty === 'data';
-    }
-  }, {
     key: "itemTemplate",
     value: function itemTemplate(data) {
-      if (_lodash.default.isEmpty(data)) {
+      if (!data) {
         return '';
       } // If they wish to show the value in read only mode, then just return the itemValue here.
 
@@ -215,19 +202,12 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         return this.t(data);
       }
 
-      if (data.data) {
-        // checking additional fields in the template for the selected Entire Object option
-        var hasNestedFields = /item\.data\.\w*/g.test(this.component.template);
-        data.data = this.isEntireObjectDisplay() && _lodash.default.isObject(data.data) && !hasNestedFields ? JSON.stringify(data.data) : data.data;
-      }
-
-      var template = this.sanitize(this.component.template ? this.interpolate(this.component.template, {
+      var template = this.component.template ? this.interpolate(this.component.template, {
         item: data
-      }) : data.label);
+      }) : data.label;
 
       if (template) {
         var label = template.replace(/<\/?[^>]+(>|$)/g, '');
-        if (!label || !this.t(label)) return;
         return template.replace(label, this.t(label));
       } else {
         return JSON.stringify(data);
@@ -244,24 +224,11 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     key: "addOption",
     value: function addOption(value, label) {
       var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      var id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : (0, _utils.getRandomComponentId)();
-      if (_lodash.default.isNil(label)) return;
-      var idPath = this.component.idPath ? this.component.idPath.split('.').reduceRight(function (obj, key) {
-        return _defineProperty({}, key, obj);
-      }, id) : {};
-
-      var option = _objectSpread({
-        value: this.getOptionValue(value),
+      var id = arguments.length > 3 ? arguments[3] : undefined;
+      var option = {
+        value: _lodash.default.isObject(value) ? value : _lodash.default.isNull(value) ? this.emptyValue : String(value),
         label: label
-      }, idPath);
-
-      var skipOption = this.component.uniqueOptions ? !!this.selectOptions.find(function (selectOption) {
-        return _lodash.default.isEqual(selectOption.value, option.value);
-      }) : false;
-
-      if (skipOption) {
-        return;
-      }
+      };
 
       if (value) {
         this.selectOptions.push(option);
@@ -285,19 +252,18 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     key: "addValueOptions",
     value: function addValueOptions(items) {
       items = items || [];
-      var added = false;
 
       if (!this.selectOptions.length) {
-        // Add the currently selected choices if they don't already exist.
-        var currentChoices = Array.isArray(this.dataValue) ? this.dataValue : [this.dataValue];
-        added = this.addCurrentChoices(currentChoices, items);
-
-        if (!added && !this.component.multiple) {
+        if (this.choices) {
+          // Add the currently selected choices if they don't already exist.
+          var currentChoices = Array.isArray(this.dataValue) ? this.dataValue : [this.dataValue];
+          return this.addCurrentChoices(currentChoices, items);
+        } else if (!this.component.multiple) {
           this.addPlaceholder();
         }
       }
 
-      return added;
+      return false;
     }
   }, {
     key: "disableInfiniteScroll",
@@ -371,21 +337,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         this.downloadedResources.serverCount = items.serverCount || this.downloadedResources.serverCount;
       } else {
         this.downloadedResources = items || [];
-        this.selectOptions = []; // If there is new select option with same id as already selected, set the new one
-
-        if (!_lodash.default.isEmpty(this.dataValue) && this.component.idPath) {
-          var selectedOptionId = _lodash.default.get(this.dataValue, this.component.idPath, null);
-
-          var newOptionWithSameId = !_lodash.default.isNil(selectedOptionId) && items.find(function (item) {
-            var itemId = _lodash.default.get(item, _this2.component.idPath);
-
-            return itemId === selectedOptionId;
-          });
-
-          if (newOptionWithSameId) {
-            this.setValue(newOptionWithSameId);
-          }
-        }
+        this.selectOptions = [];
       } // Add the value options.
 
 
@@ -399,37 +351,14 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
 
       _lodash.default.each(items, function (item, index) {
-        // preventing references of the components inside the form to the parent form when building forms
-        if (_this2.root && _this2.root.options.editForm && _this2.root.options.editForm._id && _this2.root.options.editForm._id === item._id) return;
-
-        _this2.addOption(_this2.itemValue(item), _this2.itemTemplate(item), {}, _lodash.default.get(item, _this2.component.idPath, String(index)));
+        _this2.addOption(_this2.itemValue(item), _this2.itemTemplate(item), {}, String(index));
       });
 
       if (this.choices) {
         this.choices.setChoices(this.selectOptions, 'value', 'label', true);
-
-        if (this.overlayOptions) {
-          var optionsDropdown = this.choices.dropdown.element;
-          optionsDropdown.style.position = 'fixed';
-
-          var recalculatePosition = function recalculatePosition() {
-            var _this2$element$getBou = _this2.element.getBoundingClientRect(),
-                top = _this2$element$getBou.top,
-                height = _this2$element$getBou.height,
-                width = _this2$element$getBou.width;
-
-            optionsDropdown.style.top = "".concat(top + height, "px");
-            optionsDropdown.style.width = "".concat(width, "px");
-          };
-
-          recalculatePosition();
-          ['scroll', 'resize'].forEach(function (eventType) {
-            return _this2.addEventListener(window, eventType, recalculatePosition);
-          });
-        }
-      } else if (this.loading) {// Re-attach select input.
-        // this.appendTo(this.refs.input[0], this.selectContainer);
-      } // We are no longer loading.
+      } else if (this.loading) {} // Re-attach select input.
+      // this.appendTo(this.refs.input[0], this.selectContainer);
+      // We are no longer loading.
 
 
       this.isScrollLoading = false;
@@ -565,10 +494,8 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     }
   }, {
     key: "refresh",
-    value: function refresh(value, _ref2) {
-      var instance = _ref2.instance;
-
-      if (this.component.clearOnRefresh && instance && !instance.pristine) {
+    value: function refresh() {
+      if (this.component.clearOnRefresh) {
         this.setValue(this.emptyValue);
       }
 
@@ -576,7 +503,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         this.activated = false;
         this.loading = true;
         this.setItems([]);
-        return;
       }
 
       this.updateItems(null, true);
@@ -587,10 +513,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     /* eslint-disable max-statements */
     value: function updateItems(searchInput, forceUpdate) {
       var _this4 = this;
-
-      this.itemsLoaded = new _nativePromiseOnly.default(function (resolve) {
-        _this4.itemsLoadedResolve = resolve;
-      });
 
       if (!this.component.data) {
         console.warn("Select component ".concat(this.key, " does not have data configuration."));
@@ -627,7 +549,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
             var resourceUrl = this.options.formio ? this.options.formio.formsUrl : "".concat(_Formio.default.getProjectUrl(), "/form");
             resourceUrl += "/".concat(this.component.data.resource, "/submission");
 
-            if (forceUpdate || this.additionalResourcesAvailable || !this.serverCount) {
+            if (forceUpdate || this.additionalResourcesAvailable) {
               try {
                 this.loadItems(resourceUrl, searchInput, this.requestHeaders);
               } catch (err) {
@@ -642,7 +564,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
         case 'url':
           {
-            if (!forceUpdate && !this.active && !this.calculatedValue) {
+            if (!forceUpdate && !this.active) {
               // If we are lazyLoading, wait until activated.
               return;
             }
@@ -752,112 +674,42 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "activate",
     value: function activate() {
-      if (this.loading || !this.active) {
-        this.setLoadingItem();
-      }
-
       if (this.active) {
         return;
       }
 
       this.activated = true;
-      this.triggerUpdate();
-    }
-  }, {
-    key: "setLoadingItem",
-    value: function setLoadingItem() {
-      var addToCurrentList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       if (this.choices) {
-        if (addToCurrentList) {
-          this.choices.setChoices([{
-            value: "".concat(this.id, "-loading"),
-            label: 'Loading...',
-            disabled: true
-          }], 'value', 'label');
-        } else {
-          this.choices.setChoices([{
-            value: '',
-            label: "<i class=\"".concat(this.iconClass('refresh'), "\" style=\"font-size:1.3em;\"></i>"),
-            disabled: true
-          }], 'value', 'label', true);
-        }
+        this.choices.setChoices([{
+          value: '',
+          label: "<i class=\"".concat(this.iconClass('refresh'), "\" style=\"font-size:1.3em;\"></i>"),
+          disabled: true
+        }], 'value', 'label', true);
       } else if (this.component.dataSrc === 'url' || this.component.dataSrc === 'resource') {
         this.addOption('', this.t('loading...'));
       }
+
+      this.triggerUpdate();
     }
   }, {
     key: "render",
     value: function render() {
       var info = this.inputInfo;
-      var styles = this.overlayOptions ? {
-        position: 'fixed',
-        display: 'block',
-        width: '400px',
-        height: '100%',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        'z-index': 2
-      } : null;
       info.attr = info.attr || {};
       info.multiple = this.component.multiple;
       return _get(_getPrototypeOf(SelectComponent.prototype), "render", this).call(this, this.wrapElement(this.renderTemplate('select', {
         input: info,
         selectOptions: '',
-        styles: styles,
         index: null
       })));
     }
   }, {
     key: "wrapElement",
     value: function wrapElement(element) {
-      return this.component.addResource && !this.options.readOnly ? this.renderTemplate('resourceAdd', {
+      return this.component.addResource ? this.renderTemplate('resourceAdd', {
         element: element
       }) : element;
-    }
-  }, {
-    key: "choicesOptions",
-    value: function choicesOptions() {
-      var useSearch = this.component.hasOwnProperty('searchEnabled') ? this.component.searchEnabled : true;
-      var placeholderValue = this.t(this.component.placeholder);
-      var customOptions = this.component.customOptions || {};
-
-      if (typeof customOptions == 'string') {
-        try {
-          customOptions = JSON.parse(customOptions);
-        } catch (err) {
-          console.warn(err.message);
-          customOptions = {};
-        }
-      }
-
-      return _objectSpread({
-        removeItemButton: this.component.disabled ? false : _lodash.default.get(this.component, 'removeItemButton', true),
-        itemSelectText: '',
-        classNames: {
-          containerOuter: 'choices form-group formio-choices',
-          containerInner: this.transform('class', 'form-control ui fluid selection dropdown')
-        },
-        addItemText: false,
-        placeholder: !!this.component.placeholder,
-        placeholderValue: placeholderValue,
-        noResultsText: this.t('No results found'),
-        noChoicesText: this.t('No choices to choose from'),
-        searchPlaceholderValue: this.t('Type to search'),
-        shouldSort: false,
-        position: this.component.dropdown || 'auto',
-        searchEnabled: useSearch,
-        searchChoices: !this.component.searchField,
-        searchFields: _lodash.default.get(this, 'component.searchFields', ['label']),
-        fuseOptions: this.component.useExactSearch ? {} : Object.assign({}, _lodash.default.get(this, 'component.fuseOptions', {}), {
-          include: 'score',
-          threshold: _lodash.default.get(this, 'component.searchThreshold', 0.3)
-        }),
-        valueComparer: _lodash.default.isEqual,
-        resetScrollPosition: false
-      }, customOptions);
     }
     /* eslint-disable max-statements */
 
@@ -893,11 +745,9 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
           modified: true
         });
       });
-      this.attachRefreshOnBlur();
 
       if (this.component.widget === 'html5') {
-        this.triggerUpdate(null, true);
-        this.setItems(this.selectOptions || []);
+        this.triggerUpdate();
         this.focusableElement = input;
         this.addEventListener(input, 'focus', function () {
           return _this5.update();
@@ -912,6 +762,45 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         return;
       }
 
+      var useSearch = this.component.hasOwnProperty('searchEnabled') ? this.component.searchEnabled : true;
+      var placeholderValue = this.t(this.component.placeholder);
+      var customOptions = this.component.customOptions || {};
+
+      if (typeof customOptions == 'string') {
+        try {
+          customOptions = JSON.parse(customOptions);
+        } catch (err) {
+          console.warn(err.message);
+          customOptions = {};
+        }
+      }
+
+      var choicesOptions = _objectSpread({
+        removeItemButton: this.component.disabled ? false : _lodash.default.get(this.component, 'removeItemButton', true),
+        itemSelectText: '',
+        classNames: {
+          containerOuter: 'choices form-group formio-choices',
+          containerInner: this.transform('class', 'form-control ui fluid selection dropdown')
+        },
+        addItemText: false,
+        placeholder: !!this.component.placeholder,
+        placeholderValue: placeholderValue,
+        noResultsText: this.t('No results found'),
+        noChoicesText: this.t('No choices to choose from'),
+        searchPlaceholderValue: this.t('Type to search'),
+        shouldSort: false,
+        position: this.component.dropdown || 'auto',
+        searchEnabled: useSearch,
+        searchChoices: !this.component.searchField,
+        searchFields: _lodash.default.get(this, 'component.searchFields', ['label']),
+        fuseOptions: Object.assign({}, _lodash.default.get(this, 'component.fuseOptions', {}), {
+          include: 'score',
+          threshold: _lodash.default.get(this, 'component.searchThreshold', 0.3)
+        }),
+        valueComparer: _lodash.default.isEqual,
+        resetScrollPosition: false
+      }, customOptions);
+
       var tabIndex = input.tabIndex;
       this.addPlaceholder();
       input.setAttribute('dir', this.i18next.dir());
@@ -920,8 +809,12 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         this.choices.destroy();
       }
 
-      var choicesOptions = this.choicesOptions();
       this.choices = new _ChoicesWrapper.default(input, choicesOptions);
+      this.addEventListener(input, 'hideDropdown', function () {
+        _this5.choices.input.element.value = '';
+
+        _this5.updateItems(null, true);
+      });
 
       if (this.selectOptions && this.selectOptions.length) {
         this.choices.setChoices(this.selectOptions, 'value', 'label', true);
@@ -933,7 +826,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         this.focusableElement = this.choices.containerInner.element;
         this.choices.containerOuter.element.setAttribute('tabIndex', '-1');
 
-        if (choicesOptions.searchEnabled) {
+        if (useSearch) {
           this.addEventListener(this.choices.containerOuter.element, 'focus', function () {
             return _this5.focusableElement.focus();
           });
@@ -942,9 +835,24 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
       if (this.isInfiniteScrollProvided) {
         this.scrollList = this.choices.choiceList.element;
-        this.addEventListener(this.scrollList, 'scroll', function () {
-          return _this5.onScroll();
-        });
+
+        this.onScroll = function () {
+          var isLoadingAvailable = !_this5.isScrollLoading && _this5.additionalResourcesAvailable && _this5.scrollList.scrollTop + _this5.scrollList.clientHeight >= _this5.scrollList.scrollHeight;
+
+          if (isLoadingAvailable) {
+            _this5.isScrollLoading = true;
+
+            _this5.choices.setChoices([{
+              value: "".concat(_this5.id, "-loading"),
+              label: 'Loading...',
+              disabled: true
+            }], 'value', 'label');
+
+            _this5.triggerUpdate(_this5.choices.input.element.value);
+          }
+        };
+
+        this.addEventListener(this.scrollList, 'scroll', this.onScroll);
       }
 
       this.focusableElement.setAttribute('tabIndex', tabIndex); // If a search field is provided, then add an event listener to update items on search.
@@ -964,34 +872,26 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
           });
         }
 
-        this.addEventListener(input, 'choice', function () {
-          if (_this5.component.multiple && _this5.component.dataSrc === 'resource' && _this5.isFromSearch) {
-            _this5.triggerUpdate();
-          }
-
-          _this5.isFromSearch = false;
-        });
         this.addEventListener(input, 'search', function (event) {
           return _this5.triggerUpdate(event.detail.value);
         });
         this.addEventListener(input, 'stopSearch', function () {
           return _this5.triggerUpdate();
         });
-        this.addEventListener(input, 'hideDropdown', function () {
-          _this5.choices.input.element.value = '';
-
-          _this5.updateItems(null, true);
-        });
       }
 
       this.addEventListener(input, 'showDropdown', function () {
-        return _this5.update();
+        if (_this5.dataValue) {
+          _this5.triggerUpdate();
+        }
+
+        _this5.update();
       });
 
-      if (choicesOptions.placeholderValue && this.choices._isSelectOneElement) {
-        this.addPlaceholderItem(choicesOptions.placeholderValue);
+      if (placeholderValue && this.choices._isSelectOneElement) {
+        this.addPlaceholderItem(placeholderValue);
         this.addEventListener(input, 'removeItem', function () {
-          _this5.addPlaceholderItem(choicesOptions.placeholderValue);
+          _this5.addPlaceholderItem(placeholderValue);
         });
       } // Add value options.
 
@@ -1012,16 +912,11 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
           var formUrl = "".concat(projectUrl, "/form/").concat(_this5.component.data.resource);
           new _Form.default(formioForm, formUrl, {}).ready.then(function (form) {
             form.on('submit', function (submission) {
-              // If valueProperty is set, replace the submission with the corresponding value
-              var value = _this5.valueProperty ? _lodash.default.get(submission, _this5.valueProperty) : submission;
-
               if (_this5.component.multiple) {
-                value = [].concat(_toConsumableArray(_this5.dataValue), [value]);
+                submission = [].concat(_toConsumableArray(_this5.dataValue), [submission]);
               }
 
-              _this5.setValue(value);
-
-              _this5.triggerUpdate();
+              _this5.setValue(submission);
 
               dialog.close();
             });
@@ -1033,31 +928,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
       this.disabled = this.shouldDisabled;
       this.triggerUpdate();
       return superAttach;
-    }
-  }, {
-    key: "onScroll",
-    value: function onScroll() {
-      if (this.isLoadingAvailable) {
-        this.isScrollLoading = true;
-        this.setLoadingItem(true);
-        this.triggerUpdate(this.choices.input.element.value);
-      }
-    }
-  }, {
-    key: "attachRefreshOnBlur",
-    value: function attachRefreshOnBlur() {
-      var _this6 = this;
-
-      if (this.component.refreshOnBlur) {
-        this.on('blur', function (instance) {
-          _this6.checkRefreshOn([{
-            instance: instance,
-            value: instance.dataValue
-          }], {
-            fromBlur: true
-          });
-        });
-      }
     }
   }, {
     key: "addPlaceholderItem",
@@ -1096,7 +966,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
      * @param {Array} items
      */
     value: function addCurrentChoices(values, items, keyValue) {
-      var _this7 = this;
+      var _this6 = this;
 
       if (!values) {
         return false;
@@ -1115,7 +985,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         // 'label' and 'value' properties. This assumption allows
         // us to read correct value from the item.
 
-        var isSelectOptions = items === _this7.selectOptions;
+        var isSelectOptions = items === _this6.selectOptions;
 
         if (items && items.length) {
           _lodash.default.each(items, function (choice) {
@@ -1124,7 +994,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
               return false;
             }
 
-            var itemValue = keyValue ? choice.value : _this7.itemValue(choice, isSelectOptions);
+            var itemValue = keyValue ? choice.value : _this6.itemValue(choice, isSelectOptions);
             found |= _lodash.default.isEqual(itemValue, value);
             return found ? false : true;
           });
@@ -1133,8 +1003,8 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
         if (!found) {
           notFoundValuesToAdd.push({
-            value: _this7.itemValue(value),
-            label: _this7.itemTemplate(value)
+            value: _this6.itemValue(value),
+            label: _this6.itemTemplate(value)
           });
           return true;
         }
@@ -1144,10 +1014,10 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
       if (notFoundValuesToAdd.length) {
         if (this.choices) {
-          this.choices.setChoices(notFoundValuesToAdd, 'value', 'label');
+          this.choices.setChoices(notFoundValuesToAdd, 'value', 'label', true);
         } else {
           notFoundValuesToAdd.map(function (notFoundValue) {
-            _this7.addOption(notFoundValue.value, notFoundValue.label);
+            _this6.addOption(notFoundValue.value, notFoundValue.label);
           });
         }
       }
@@ -1211,64 +1081,43 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "normalizeSingleValue",
     value: function normalizeSingleValue(value) {
-      if (_lodash.default.isNil(value)) {
-        return;
-      } //check if value equals to default emptyValue
+      var dataType = _lodash.default.get(this.component, 'dataType', 'auto');
 
-
-      if (_lodash.default.isObject(value) && Object.keys(value).length === 0) {
-        return value;
-      }
-
-      var displayEntireObject = this.isEntireObjectDisplay();
-      var dataType = this.component.dataType || 'auto';
-      var normalize = {
-        value: value,
-        number: function number() {
-          var numberValue = Number(this.value);
-          var isEquivalent = value.toString() === numberValue.toString();
-
-          if (!Number.isNaN(numberValue) && Number.isFinite(numberValue) && value !== '' && isEquivalent) {
-            this.value = numberValue;
+      switch (dataType) {
+        case 'auto':
+          if (!isNaN(parseFloat(value)) && isFinite(value)) {
+            value = +value;
           }
 
-          return this;
-        },
-        boolean: function boolean() {
-          if (_lodash.default.isString(this.value) && (this.value.toLowerCase() === 'true' || this.value.toLowerCase() === 'false')) {
-            this.value = this.value.toLowerCase() === 'true';
+          if (value === 'true') {
+            value = true;
           }
 
-          return this;
-        },
-        string: function string() {
-          this.value = String(this.value);
-          return this;
-        },
-        object: function object() {
-          if (_lodash.default.isObject(this.value) && displayEntireObject) {
-            this.value = JSON.stringify(this.value);
+          if (value === 'false') {
+            value = false;
           }
 
-          return this;
-        },
-        auto: function auto() {
-          if (_lodash.default.isObject(this.value)) {
-            this.value = this.object().value;
+          break;
+
+        case 'number':
+          value = +value;
+          break;
+
+        case 'string':
+          if (_typeof(value) === 'object') {
+            value = JSON.stringify(value);
           } else {
-            this.value = this.string().number().boolean().value;
+            value = value.toString();
           }
 
-          return this;
-        }
-      };
+          break;
 
-      try {
-        return normalize[dataType]().value;
-      } catch (err) {
-        console.warn('Failed to normalize value', err);
-        return value;
+        case 'boolean':
+          value = !!value;
+          break;
       }
+
+      return value;
     }
     /**
      * Normalize values coming into updateValue.
@@ -1280,11 +1129,11 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "normalizeValue",
     value: function normalizeValue(value) {
-      var _this8 = this;
+      var _this7 = this;
 
       if (this.component.multiple && Array.isArray(value)) {
         return value.map(function (singleValue) {
-          return _this8.normalizeSingleValue(singleValue);
+          return _this7.normalizeSingleValue(singleValue);
         });
       }
 
@@ -1295,7 +1144,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     value: function setValue(value) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var previousValue = this.dataValue;
-      var changed = this.updateValue(value, flags);
+      this.updateValue(value, flags);
       value = this.dataValue;
       var hasPreviousValue = Array.isArray(previousValue) ? previousValue.length : previousValue;
       var hasValue = Array.isArray(value) ? value.length : value; // Undo typing when searching to set the value.
@@ -1316,7 +1165,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
 
 
       if (this.loading) {
-        return changed;
+        return flags.changed;
       } // Determine if we need to perform an initial lazyLoad api call if searchField is provided.
 
 
@@ -1325,13 +1174,13 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         this.lazyLoadInit = true;
         var searchProperty = this.component.searchField || this.component.valueProperty;
         this.triggerUpdate(_lodash.default.get(value.data || value, searchProperty, value), true);
-        return changed;
+        return flags.changed;
       } // Add the value options.
 
 
       this.addValueOptions();
-      this.setChoicesValue(value, hasPreviousValue, flags);
-      return changed;
+      this.setChoicesValue(value, hasPreviousValue);
+      return flags.changed;
     }
   }, {
     key: "isInitApiCallNeeded",
@@ -1341,7 +1190,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "setChoicesValue",
     value: function setChoicesValue(value, hasPreviousValue) {
-      var flags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var hasValue = Array.isArray(value) ? value.length : value;
       hasPreviousValue = hasPreviousValue === undefined ? true : hasPreviousValue;
 
@@ -1357,7 +1205,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
           }
 
           this.choices.setChoiceByValue(value);
-        } else if (hasPreviousValue || flags.resetValue) {
+        } else if (hasPreviousValue) {
           this.choices.removeActiveItems();
         }
       } else {
@@ -1382,99 +1230,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
           });
         }
       }
-    }
-  }, {
-    key: "validateValueAvailability",
-    value: function validateValueAvailability(setting, value) {
-      var _this9 = this;
-
-      if (!(0, _utils.boolValue)(setting) || !value) {
-        return true;
-      }
-
-      var values = this.getOptionsValues();
-
-      if (values) {
-        if (_lodash.default.isObject(value)) {
-          var compareComplexValues = function compareComplexValues(optionValue) {
-            var normalizedOptionValue = _this9.normalizeSingleValue(optionValue);
-
-            if (!_lodash.default.isObject(normalizedOptionValue)) {
-              return false;
-            }
-
-            try {
-              return JSON.stringify(normalizedOptionValue) === JSON.stringify(value);
-            } catch (err) {
-              console.warn.error('Error while comparing items', err);
-              return false;
-            }
-          };
-
-          return values.findIndex(function (optionValue) {
-            return compareComplexValues(optionValue);
-          }) !== -1;
-        }
-
-        return values.findIndex(function (optionValue) {
-          return _this9.normalizeSingleValue(optionValue) === value;
-        }) !== -1;
-      }
-
-      return false;
-    }
-    /**
-     * Performs required transformations on the initial value to use in selectOptions
-     * @param {*} value
-     */
-
-  }, {
-    key: "getOptionValue",
-    value: function getOptionValue(value) {
-      return _lodash.default.isObject(value) && this.isEntireObjectDisplay() ? this.normalizeSingleValue(value) : _lodash.default.isObject(value) ? value : _lodash.default.isNull(value) ? this.emptyValue : String(this.normalizeSingleValue(value));
-    }
-    /**
-     * If component has static values (values, json) or custom values, returns an array of them
-     * @returns {Array<*>|undefiened}
-     */
-
-  }, {
-    key: "getOptionsValues",
-    value: function getOptionsValues() {
-      var _this10 = this;
-
-      var rawItems = [];
-
-      switch (this.component.dataSrc) {
-        case 'values':
-          rawItems = this.component.data.values;
-          break;
-
-        case 'json':
-          rawItems = this.component.data.json;
-          break;
-
-        case 'custom':
-          rawItems = this.getCustomItems();
-          break;
-      }
-
-      if (typeof rawItems === 'string') {
-        try {
-          rawItems = JSON.parse(rawItems);
-        } catch (err) {
-          console.warn(err.message);
-          rawItems = [];
-        }
-      }
-
-      if (!Array.isArray(rawItems)) {
-        return;
-      }
-
-      return rawItems.map(function (item) {
-        return _this10.getOptionValue(_this10.itemValue(item));
-      });
     }
     /**
      * Deletes the value of the component.
@@ -1506,75 +1261,22 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
      */
 
   }, {
-    key: "isBooleanOrNumber",
-    value: function isBooleanOrNumber(value) {
-      return typeof value === 'number' || typeof value === 'boolean';
-    }
-  }, {
-    key: "getNormalizedValues",
-    value: function getNormalizedValues() {
-      var _this11 = this;
-
-      if (!this.component || !this.component.data || !this.component.data.values) {
-        return;
-      }
-
-      return this.component.data.values.map(function (value) {
-        return {
-          label: value.label,
-          value: String(_this11.normalizeSingleValue(value.value))
-        };
-      });
-    }
-  }, {
     key: "asString",
     value: function asString(value) {
-      var _this12 = this;
+      var _this8 = this;
 
-      value = value || this.getValue(); //need to convert values to strings to be able to compare values with available options that are strings
-
-      var convertToString = function convertToString(data, valueProperty) {
-        if (valueProperty) {
-          if (Array.isArray(data)) {
-            data.forEach(function (item) {
-              return item[valueProperty] = item[valueProperty].toString();
-            });
-          } else {
-            data[valueProperty] = data[valueProperty].toString();
-          }
-
-          return data;
-        }
-
-        if (_this12.isBooleanOrNumber(data)) {
-          data = data.toString();
-        }
-
-        if (Array.isArray(data) && data.some(function (item) {
-          return _this12.isBooleanOrNumber(item);
-        })) {
-          data = data.map(function (item) {
-            if (_this12.isBooleanOrNumber(item)) {
-              item = item.toString();
-            }
-          });
-        }
-
-        return data;
-      };
-
-      value = convertToString(value);
+      value = value || this.getValue();
 
       if (['values', 'custom'].includes(this.component.dataSrc)) {
-        var _ref3 = this.component.dataSrc === 'values' ? {
-          items: convertToString(this.getNormalizedValues(), 'value'),
+        var _ref = this.component.dataSrc === 'values' ? {
+          items: this.component.data.values,
           valueProperty: 'value'
         } : {
-          items: convertToString(this.getCustomItems(), this.valueProperty),
+          items: this.getCustomItems(),
           valueProperty: this.valueProperty
         },
-            items = _ref3.items,
-            valueProperty = _ref3.valueProperty;
+            items = _ref.items,
+            valueProperty = _ref.valueProperty;
 
         value = this.component.multiple && Array.isArray(value) ? _lodash.default.filter(items, function (item) {
           return value.includes(item.value);
@@ -1588,7 +1290,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
       if (Array.isArray(value)) {
         var _items = [];
         value.forEach(function (item) {
-          return _items.push(_this12.itemTemplate(item));
+          return _items.push(_this8.itemTemplate(item));
         });
         return _items.length > 0 ? _items.join('<br />') : '-';
       }
@@ -1609,8 +1311,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
     key: "focus",
     value: function focus() {
       if (this.focusableElement) {
-        _get(_getPrototypeOf(SelectComponent.prototype), "focus", this).call(this);
-
         this.focusableElement.focus();
       }
     }
@@ -1628,12 +1328,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "dataReady",
     get: function get() {
-      // If the root submission has been set, and we are still not attached, then assume
-      // that our data is ready.
-      if (this.root && this.root.submissionSet && !this.attached) {
-        return _nativePromiseOnly.default.resolve();
-      }
-
       return this.itemsLoaded;
     }
   }, {
@@ -1644,38 +1338,11 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "emptyValue",
     get: function get() {
-      if (this.component.multiple) {
-        return [];
-      } // if select has JSON data source type, we are defining if empty value would be an object or a string by checking JSON's first item
-
-
-      if (this.component.dataSrc === 'json' && this.component.data.json) {
-        var firstItem = this.component.data.json[0];
-        var firstValue;
-
-        if (this.valueProperty) {
-          firstValue = _lodash.default.get(firstItem, this.valueProperty);
-        } else {
-          firstValue = firstItem;
-        }
-
-        if (firstValue && typeof firstValue === 'string') {
-          return '';
-        } else {
-          return {};
-        }
-      }
-
       if (this.valueProperty) {
         return '';
       }
 
       return {};
-    }
-  }, {
-    key: "overlayOptions",
-    get: function get() {
-      return this.parent && this.parent.component && this.parent.component.type === 'table';
     }
   }, {
     key: "valueProperty",
@@ -1723,7 +1390,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "requestHeaders",
     get: function get() {
-      var _this13 = this;
+      var _this9 = this;
 
       // Create the headers object.
       var headers = new _Formio.default.Headers(); // Add custom headers to the url.
@@ -1732,7 +1399,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         try {
           _lodash.default.each(this.component.data.headers, function (header) {
             if (header.key) {
-              headers.set(header.key, _this13.interpolate(header.value));
+              headers.set(header.key, _this9.interpolate(header.value));
             }
           });
         } catch (err) {
@@ -1785,11 +1452,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
       return !this.component.lazyLoad || this.activated || this.options.readOnly;
     }
   }, {
-    key: "isLoadingAvailable",
-    get: function get() {
-      return !this.isScrollLoading && this.additionalResourcesAvailable;
-    }
-  }, {
     key: "disabled",
     set: function set(disabled) {
       _set(_getPrototypeOf(SelectComponent.prototype), "disabled", disabled, this, true);
@@ -1835,7 +1497,6 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         type: 'select',
         label: 'Select',
         key: 'select',
-        idPath: 'id',
         data: {
           values: [],
           json: '',
@@ -1857,14 +1518,12 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         template: '<span>{{ item.label }}</span>',
         selectFields: '',
         searchThreshold: 0.3,
-        uniqueOptions: false,
         tableView: true,
         fuseOptions: {
           include: 'score',
           threshold: 0.3
         },
-        customOptions: {},
-        useExactSearch: false
+        customOptions: {}
       }].concat(extend));
     }
   }, {
@@ -1875,7 +1534,7 @@ var SelectComponent = /*#__PURE__*/function (_Field) {
         group: 'basic',
         icon: 'th-list',
         weight: 70,
-        documentation: '/userguide/#select',
+        documentation: 'http://help.form.io/userguide/#select',
         schema: SelectComponent.schema()
       };
     }

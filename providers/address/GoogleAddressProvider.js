@@ -1,21 +1,43 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
+
+require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.object.get-prototype-of");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.string.iterator");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.GoogleAddressProvider = void 0;
 
-var _AddressProvider2 = require("./AddressProvider");
+var _Formio = _interopRequireDefault(require("../../Formio"));
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
+var _AddressProvider2 = require("./AddressProvider");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -25,77 +47,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var GoogleAddressProvider = /*#__PURE__*/function (_AddressProvider) {
   _inherits(GoogleAddressProvider, _AddressProvider);
 
-  var _super = _createSuper(GoogleAddressProvider);
-
-  function GoogleAddressProvider() {
-    _classCallCheck(this, GoogleAddressProvider);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(GoogleAddressProvider, [{
-    key: "makeRequest",
-    value: function makeRequest() {
-      var _this = this;
-
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return new _nativePromiseOnly.default(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', _this.getRequestUrl(options), true);
-
-        xhr.onload = function () {
-          return resolve(JSON.parse(xhr.response));
-        };
-
-        xhr.onerror = reject;
-        xhr.send();
-      });
-    }
-  }, {
-    key: "getRequestUrl",
-    value: function getRequestUrl() {
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var params = options.params;
-      return "https://maps.googleapis.com/maps/api/geocode/json?".concat(this.serialize(params));
-    }
-  }, {
-    key: "defaultOptions",
-    get: function get() {
-      return {
-        params: {
-          sensor: 'false'
-        }
-      };
-    }
-  }, {
-    key: "queryProperty",
-    get: function get() {
-      return 'address';
-    }
-  }, {
-    key: "responseProperty",
-    get: function get() {
-      return 'results';
-    }
-  }, {
-    key: "displayValueProperty",
-    get: function get() {
-      return 'formatted_address';
-    }
-  }], [{
+  _createClass(GoogleAddressProvider, null, [{
     key: "name",
     get: function get() {
       return 'google';
@@ -104,6 +59,56 @@ var GoogleAddressProvider = /*#__PURE__*/function (_AddressProvider) {
     key: "displayName",
     get: function get() {
       return 'Google Maps';
+    }
+  }]);
+
+  function GoogleAddressProvider() {
+    var _this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, GoogleAddressProvider);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(GoogleAddressProvider).call(this, options));
+    var src = 'https://maps.googleapis.com/maps/api/js?v=3&libraries=places&callback=googleMapsCallback';
+
+    if (options.apiKey) {
+      src += "&key=".concat(options.apiKey);
+    }
+
+    if (options.region) {
+      src += "&region=".concat(options.region);
+    }
+
+    _Formio.default.requireLibrary('googleMaps', 'google.maps.places', src);
+
+    return _this;
+  }
+
+  _createClass(GoogleAddressProvider, [{
+    key: "search",
+    value: function search(query) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var requestOptions = this.getRequestOptions(options);
+      var params = requestOptions.params = requestOptions.params || {};
+      params[this.queryProperty] = query;
+      return _Formio.default.libraryReady('googleMaps').then(function () {
+        var service = new google.maps.places.PlacesService(document.createElement('div'));
+        return new _nativePromiseOnly.default(function (resolve, reject) {
+          service.textSearch(params, function (results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              resolve(results);
+            } else {
+              reject();
+            }
+          });
+        });
+      });
+    }
+  }, {
+    key: "displayValueProperty",
+    get: function get() {
+      return 'formatted_address';
     }
   }]);
 

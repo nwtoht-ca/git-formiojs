@@ -1,6 +1,10 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
 
@@ -10,19 +14,25 @@ require("core-js/modules/es.array.includes");
 
 require("core-js/modules/es.array.index-of");
 
+require("core-js/modules/es.array.iterator");
+
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.array.reduce");
 
-require("core-js/modules/es.array.splice");
-
 require("core-js/modules/es.function.name");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
 
 require("core-js/modules/es.regexp.constructor");
 
@@ -30,11 +40,15 @@ require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
 
+require("core-js/modules/es.string.iterator");
+
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.search");
 
 require("core-js/modules/es.string.split");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -42,8 +56,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash"));
-
-var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
 var _Field2 = _interopRequireDefault(require("../_classes/field/Field"));
 
@@ -53,79 +65,35 @@ var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var ButtonComponent = /*#__PURE__*/function (_Field) {
   _inherits(ButtonComponent, _Field);
 
-  var _super = _createSuper(ButtonComponent);
-
-  _createClass(ButtonComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _Input.default.schema.apply(_Input.default, [{
-        type: 'button',
-        label: 'Submit',
-        key: 'submit',
-        size: 'md',
-        leftIcon: '',
-        rightIcon: '',
-        block: false,
-        action: 'submit',
-        persistent: false,
-        disableOnInvalid: false,
-        theme: 'primary',
-        dataGridLabel: true
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Button',
-        group: 'basic',
-        icon: 'stop',
-        documentation: '/userguide/#button',
-        weight: 110,
-        schema: ButtonComponent.schema()
-      };
-    }
-  }]);
-
-  function ButtonComponent(component, options, data) {
-    var _this;
-
+  function ButtonComponent() {
     _classCallCheck(this, ButtonComponent);
 
-    _this = _super.call(this, component, options, data);
-    _this.filesUploading = [];
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(ButtonComponent).apply(this, arguments));
   }
 
   _createClass(ButtonComponent, [{
@@ -158,7 +126,7 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "attachButton",
     value: function attachButton() {
-      var _this2 = this;
+      var _this = this;
 
       this.addShortcut(this.refs.button);
       var onChange = null;
@@ -166,123 +134,91 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
 
       if (this.component.action === 'submit') {
         this.on('submitButton', function () {
-          _this2.disabled = true;
+          _this.disabled = true;
         }, true);
-        this.on('submitDone', function (message) {
-          var resultMessage = _lodash.default.isString(message) ? message : _this2.t('complete');
-          _this2.loading = false;
-          _this2.disabled = false;
+        this.on('submitDone', function () {
+          _this.loading = false;
+          _this.disabled = false;
 
-          _this2.addClass(_this2.refs.button, 'btn-success submit-success');
+          _this.addClass(_this.refs.button, 'btn-success submit-success');
 
-          _this2.removeClass(_this2.refs.button, 'btn-danger submit-fail');
+          _this.removeClass(_this.refs.button, 'btn-danger submit-fail');
 
-          _this2.addClass(_this2.refs.buttonMessageContainer, 'has-success');
+          _this.addClass(_this.refs.buttonMessageContainer, 'has-success');
 
-          _this2.removeClass(_this2.refs.buttonMessageContainer, 'has-error');
+          _this.removeClass(_this.refs.buttonMessageContainer, 'has-error');
 
-          _this2.setContent(_this2.refs.buttonMessage, resultMessage);
+          _this.setContent(_this.refs.buttonMessage, _this.t('complete'));
         }, true);
-        this.on('submitError', function (message) {
-          var resultMessage = _lodash.default.isString(message) ? message : _this2.t(_this2.errorMessage('submitError'));
-          _this2.loading = false;
-          _this2.disabled = false;
-          _this2.hasError = true;
+        this.on('submitError', function () {
+          _this.loading = false;
+          _this.disabled = false;
 
-          _this2.removeClass(_this2.refs.button, 'btn-success submit-success');
+          _this.removeClass(_this.refs.button, 'btn-success submit-success');
 
-          _this2.addClass(_this2.refs.button, 'btn-danger submit-fail');
+          _this.addClass(_this.refs.button, 'btn-danger submit-fail');
 
-          _this2.removeClass(_this2.refs.buttonMessageContainer, 'has-success');
+          _this.removeClass(_this.refs.buttonMessageContainer, 'has-success');
 
-          _this2.addClass(_this2.refs.buttonMessageContainer, 'has-error');
+          _this.addClass(_this.refs.buttonMessageContainer, 'has-error');
 
-          _this2.setContent(_this2.refs.buttonMessage, resultMessage);
-        }, true);
-        this.on('fileUploadingStart', function (filePromise) {
-          _this2.filesUploading.push(filePromise);
-
-          _this2.disabled = true;
-
-          _this2.setDisabled(_this2.refs.button, _this2.disabled);
-        }, true);
-        this.on('fileUploadingEnd', function (filePromise) {
-          var index = _this2.filesUploading.indexOf(filePromise);
-
-          if (index !== -1) {
-            _this2.filesUploading.splice(index, 1);
-          }
-
-          _this2.disabled = _this2.shouldDisabled ? true : false;
-
-          _this2.setDisabled(_this2.refs.button, _this2.disabled);
+          _this.setContent(_this.refs.buttonMessage, _this.t(_this.errorMessage('error')));
         }, true);
 
         onChange = function onChange(value, isValid) {
-          _this2.removeClass(_this2.refs.button, 'btn-success submit-success');
+          _this.removeClass(_this.refs.button, 'btn-success submit-success');
 
-          if (isValid) {
-            _this2.removeClass(_this2.refs.button, 'btn-danger submit-fail');
+          _this.removeClass(_this.refs.button, 'btn-danger submit-fail');
 
-            if (_this2.hasError) {
-              _this2.hasError = false;
+          if (isValid && _this.hasError) {
+            _this.hasError = false;
 
-              _this2.setContent(_this2.refs.buttonMessage, '');
+            _this.setContent(_this.refs.buttonMessage, '');
 
-              _this2.removeClass(_this2.refs.buttonMessageContainer, 'has-success');
+            _this.removeClass(_this.refs.buttonMessageContainer, 'has-success');
 
-              _this2.removeClass(_this2.refs.buttonMessageContainer, 'has-error');
-            }
+            _this.removeClass(_this.refs.buttonMessageContainer, 'has-error');
           }
         };
 
         onError = function onError() {
-          _this2.hasError = true;
+          _this.hasError = true;
 
-          _this2.removeClass(_this2.refs.button, 'btn-success submit-success');
+          _this.removeClass(_this.refs.button, 'btn-success submit-success');
 
-          _this2.addClass(_this2.refs.button, 'btn-danger submit-fail');
+          _this.addClass(_this.refs.button, 'btn-danger submit-fail');
 
-          _this2.removeClass(_this2.refs.buttonMessageContainer, 'has-success');
+          _this.removeClass(_this.refs.buttonMessageContainer, 'has-success');
 
-          _this2.addClass(_this2.refs.buttonMessageContainer, 'has-error');
+          _this.addClass(_this.refs.buttonMessageContainer, 'has-error');
 
-          _this2.setContent(_this2.refs.buttonMessage, _this2.t(_this2.errorMessage('submitError')));
+          _this.setContent(_this.refs.buttonMessage, _this.t(_this.errorMessage('error')));
         };
       }
 
       if (this.component.action === 'url') {
         this.on('requestButton', function () {
-          _this2.disabled = true;
+          _this.disabled = true;
         }, true);
         this.on('requestDone', function () {
-          _this2.loading = false;
-          _this2.disabled = false;
+          _this.loading = false;
+          _this.disabled = false;
         }, true);
       }
 
-      this.on('change', function (value, flags) {
-        var isValid = value.isValid;
-        var isSilent = flags && flags.silent; //check root validity only if disableOnInvalid is set and when it is not possible to make submission because of validation errors
+      this.on('change', function (value) {
+        _this.loading = false;
+        _this.disabled = _this.shouldDisabled || _this.component.disableOnInvalid && !value.isValid;
 
-        if (flags && flags.noValidate && (_this2.component.disableOnInvalid || _this2.hasError)) {
-          isValid = flags.rootValidity || (_this2.root ? _this2.root.checkValidity(_this2.root.data, null, null, true) : true);
-          flags.rootValidity = isValid;
-        }
-
-        _this2.loading = false;
-        _this2.isDisabledOnInvalid = _this2.component.disableOnInvalid && (isSilent || !isValid);
-        _this2.disabled = _this2.shouldDisabled;
-
-        _this2.setDisabled(_this2.refs.button, _this2.disabled);
+        _this.setDisabled(_this.refs.button, _this.disabled);
 
         if (onChange) {
-          onChange(value, isValid);
+          onChange(value, value.isValid);
         }
       }, true);
       this.on('error', function () {
-        _this2.loading = false;
-        _this2.disabled = false;
+        _this.loading = false;
+        _this.disabled = false;
 
         if (onError) {
           onError();
@@ -290,7 +226,6 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       }, true);
       this.addEventListener(this.refs.button, 'click', this.onClick.bind(this));
       this.disabled = this.shouldDisabled;
-      this.setDisabled(this.refs.button, this.disabled);
 
       function getUrlParameter(name) {
         name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
@@ -305,11 +240,11 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       } // If this is an OpenID Provider initiated login, perform the click event immediately
 
 
-      if (this.component.action === 'oauth' && this.oauthConfig && !this.oauthConfig.error) {
+      if (this.component.action === 'oauth' && this.component.oauth && this.component.oauth.authURI) {
         var iss = getUrlParameter('iss');
 
-        if (iss && this.oauthConfig.authURI.indexOf(iss) === 0) {
-          this.openOauth(this.oauthConfig);
+        if (iss && this.component.oauth.authURI.indexOf(iss) === 0) {
+          this.openOauth();
         }
       }
     }
@@ -335,8 +270,6 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       if (element && this.refs.button) {
         this.removeShortcut(this.refs.button);
       }
-
-      _get(_getPrototypeOf(ButtonComponent.prototype), "detach", this).call(this);
     }
   }, {
     key: "onClick",
@@ -429,32 +362,33 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
           } // Display Alert if OAuth config is missing
 
 
-          if (!this.oauthConfig) {
-            this.root.setAlert('danger', 'OAuth not configured. You must configure oauth for your project before it will work.');
+          if (!this.component.oauth) {
+            this.root.setAlert('danger', 'You must assign this button to an OAuth action before it will work.');
             break;
           } // Display Alert if oAuth has an error is missing
 
 
-          if (this.oauthConfig.error) {
-            this.root.setAlert('danger', "The Following Error Has Occured ".concat(this.oauthConfig.error));
+          if (this.component.oauth.error) {
+            this.root.setAlert('danger', "The Following Error Has Occured".concat(this.component.oauth.error));
             break;
           }
 
-          this.openOauth(this.oauthConfig);
+          this.openOauth(this.component.oauth);
           break;
       }
     }
   }, {
     key: "openOauth",
-    value: function openOauth(settings) {
-      var _this3 = this;
+    value: function openOauth() {
+      var _this2 = this;
 
       if (!this.root.formio) {
         console.warn('You must attach a Form API url to your form in order to use OAuth buttons.');
         return;
       }
-      /*eslint-disable camelcase */
 
+      var settings = this.component.oauth;
+      /*eslint-disable camelcase */
 
       var params = {
         response_type: 'code',
@@ -492,44 +426,34 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
             if (_params.error) {
               alert(_params.error_description || _params.error);
 
-              _this3.root.setAlert('danger', _params.error_description || _params.error);
+              _this2.root.setAlert('danger', _params.error_description || _params.error);
 
               return;
             } // TODO: check for error response here
 
 
             if (settings.state !== _params.state) {
-              _this3.root.setAlert('danger', 'OAuth state does not match. Please try logging in again.');
+              _this2.root.setAlert('danger', 'OAuth state does not match. Please try logging in again.');
 
               return;
-            } // Depending on where the settings came from, submit to either the submission endpoint (old) or oauth endpoint (new).
-
-
-            var requestPromise = _nativePromiseOnly.default.resolve();
-
-            if (_lodash.default.has(_this3, 'root.form.config.oauth') && _this3.root.form.config.oauth[_this3.component.oauthProvider]) {
-              _params.provider = settings.provider;
-              _params.redirectURI = window.location.origin;
-              requestPromise = _this3.root.formio.makeRequest('oauth', "".concat(_this3.root.formio.projectUrl, "/oauth2"), 'POST', _params);
-            } else {
-              var submission = {
-                data: {},
-                oauth: {}
-              };
-              submission.oauth[settings.provider] = _params;
-              submission.oauth[settings.provider].redirectURI = window.location.origin || "".concat(window.location.protocol, "//").concat(window.location.host);
-              requestPromise = _this3.root.formio.saveSubmission(submission);
             }
 
-            requestPromise.then(function (result) {
-              _this3.root.onSubmit(result, true);
+            var submission = {
+              data: {},
+              oauth: {}
+            };
+            submission.oauth[settings.provider] = _params;
+            submission.oauth[settings.provider].redirectURI = window.location.origin || "".concat(window.location.protocol, "//").concat(window.location.host);
+
+            _this2.root.formio.saveSubmission(submission).then(function (result) {
+              _this2.root.onSubmit(result, true);
             }).catch(function (err) {
-              _this3.root.onSubmissionError(err);
+              _this2.root.onSubmissionError(err);
             });
           }
         } catch (error) {
           if (error.name !== 'SecurityError') {
-            _this3.root.setAlert('danger', error.message || error);
+            _this2.root.setAlert('danger', error.message || error);
           }
         }
 
@@ -548,14 +472,14 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "triggerReCaptcha",
     value: function triggerReCaptcha() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (!this.root) {
         return;
       }
 
       var recaptchaComponent = this.root.components.find(function (component) {
-        return component.component.type === 'recaptcha' && component.component.eventType === 'buttonClick' && component.component.buttonKey === _this4.component.key;
+        return component.component.type === 'recaptcha' && component.component.eventType === 'buttonClick' && component.component.buttonKey === _this3.component.key;
       });
 
       if (recaptchaComponent) {
@@ -605,11 +529,6 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       this.setLoading(this.refs.button, loading);
     }
   }, {
-    key: "skipInEmail",
-    get: function get() {
-      return true;
-    }
-  }, {
     key: "emptyValue",
     get: function get() {
       return false;
@@ -632,26 +551,39 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       className += ' form-group';
       return className;
     }
-  }, {
-    key: "oauthConfig",
-    get: function get() {
-      if (_lodash.default.has(this, 'root.form.config.oauth') && this.component.oauthProvider) {
-        return this.root.form.config.oauth[this.component.oauthProvider];
-      } // Legacy oauth location.
-
-
-      if (this.component.oauth) {
-        return this.component.oauth;
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
+        extend[_key] = arguments[_key];
       }
 
-      return false;
+      return _Input.default.schema.apply(_Input.default, [{
+        type: 'button',
+        label: 'Submit',
+        key: 'submit',
+        size: 'md',
+        leftIcon: '',
+        rightIcon: '',
+        block: false,
+        action: 'submit',
+        persistent: false,
+        disableOnInvalid: false,
+        theme: 'primary',
+        dataGridLabel: true
+      }].concat(extend));
     }
   }, {
-    key: "shouldDisabled",
+    key: "builderInfo",
     get: function get() {
-      var _this$filesUploading;
-
-      return _get(_getPrototypeOf(ButtonComponent.prototype), "shouldDisabled", this) || !!((_this$filesUploading = this.filesUploading) !== null && _this$filesUploading !== void 0 && _this$filesUploading.length) || this.isDisabledOnInvalid;
+      return {
+        title: 'Button',
+        group: 'basic',
+        icon: 'stop',
+        documentation: 'http://help.form.io/userguide/#button',
+        weight: 110,
+        schema: ButtonComponent.schema()
+      };
     }
   }]);
 

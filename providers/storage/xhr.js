@@ -30,7 +30,7 @@ var XHR = {
       return !!item;
     }).map(XHR.trim).join('/');
   },
-  upload: function upload(formio, type, xhrCb, file, fileName, dir, progressCallback, groupPermissions, groupId) {
+  upload: function upload(formio, type, xhrCb, file, fileName, dir, progressCallback) {
     return new _nativePromiseOnly.default(function (resolve, reject) {
       // Send the pre response to sign the upload.
       var pre = new XMLHttpRequest(); // This only fires on a network error.
@@ -94,9 +94,7 @@ var XHR = {
       pre.send(JSON.stringify({
         name: XHR.path([dir, fileName]),
         size: file.size,
-        type: file.type,
-        groupPermissions: groupPermissions,
-        groupId: groupId
+        type: file.type
       }));
     });
   }

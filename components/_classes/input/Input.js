@@ -1,24 +1,38 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.symbol.description");
+
+require("core-js/modules/es.symbol.iterator");
 
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.find");
 
+require("core-js/modules/es.array.iterator");
+
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.function.name");
 
+require("core-js/modules/es.object.get-own-property-descriptor");
+
 require("core-js/modules/es.object.get-prototype-of");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.get");
 
 require("core-js/modules/es.regexp.exec");
 
+require("core-js/modules/es.string.iterator");
+
 require("core-js/modules/es.string.replace");
 
-require("core-js/modules/es.string.split");
-
 require("core-js/modules/es.string.trim");
+
+require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -31,11 +45,11 @@ var _utils = require("../../../utils/utils");
 
 var _widgets = _interopRequireDefault(require("../../../widgets"));
 
-var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
-
 var _lodash = _interopRequireDefault(require("lodash"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -43,35 +57,29 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var Input = /*#__PURE__*/function (_Multivalue) {
   _inherits(Input, _Multivalue);
-
-  var _super = _createSuper(Input);
 
   function Input(component, options, data) {
     var _this;
 
     _classCallCheck(this, Input);
 
-    _this = _super.call(this, component, options, data);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Input).call(this, component, options, data));
     _this.triggerUpdateValueAt = _lodash.default.debounce(_this.updateValueAt.bind(_assertThisInitialized(_this)), 100);
     return _this;
   }
@@ -101,11 +109,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
       });
     }
   }, {
-    key: "getWordCount",
-    value: function getWordCount(value) {
-      return value.trim().split(/\s+/).length;
-    }
-  }, {
     key: "renderElement",
     value: function renderElement(value, index) {
       // Double quotes cause the input value to close so replace them with html quote char.
@@ -115,10 +118,24 @@ var Input = /*#__PURE__*/function (_Multivalue) {
 
       var info = this.inputInfo;
       info.attr = info.attr || {};
-      info.attr.value = this.getValueAsString(this.formatValue(this.parseValue(value))).replace(/"/g, '&quot;');
+      info.attr.value = this.getValueAsString(this.formatValue(this.parseValue(value)));
 
       if (this.isMultipleMasksField) {
         info.attr.class += ' formio-multiple-mask-input';
+      } // This should be in the calendar widget but it doesn't have access to renderTemplate.
+
+
+      if (this.component.widget && this.component.widget.type === 'calendar') {
+        var calendarIcon = this.renderTemplate('icon', {
+          ref: 'icon',
+          className: this.iconClass(this.component.enableDate || this.component.widget.enableDate ? 'calendar' : 'time'),
+          styles: '',
+          content: ''
+        }).trim();
+
+        if (this.component.prefix !== calendarIcon) {
+          this.component.suffix = calendarIcon;
+        }
       }
 
       return this.isMultipleMasksField ? this.renderTemplate('multipleMasksInput', {
@@ -127,8 +144,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
         index: index,
         selectOptions: this.getMaskOptions() || []
       }) : this.renderTemplate('input', {
-        prefix: this.prefix,
-        suffix: this.suffix,
         input: info,
         value: this.formatValue(this.parseValue(value)),
         index: index
@@ -164,7 +179,7 @@ var Input = /*#__PURE__*/function (_Multivalue) {
         if (this.refs.wordcount && this.refs.wordcount[index]) {
           var maxWords = _lodash.default.parseInt(_lodash.default.get(this.component, 'validate.maxWords', 0), 10);
 
-          this.setCounter(this.t('words'), this.refs.wordcount[index], this.getWordCount(value), maxWords);
+          this.setCounter('words', this.refs.wordcount[index], _lodash.default.words(value).length, maxWords);
         }
       }
 
@@ -172,7 +187,7 @@ var Input = /*#__PURE__*/function (_Multivalue) {
         if (this.refs.charcount && this.refs.charcount[index]) {
           var maxChars = _lodash.default.parseInt(_lodash.default.get(this.component, 'validate.maxLength', 0), 10);
 
-          this.setCounter(this.t('characters'), this.refs.charcount[index], value.length, maxChars);
+          this.setCounter('characters', this.refs.charcount[index], value.length, maxChars);
         }
       }
     }
@@ -192,10 +207,10 @@ var Input = /*#__PURE__*/function (_Multivalue) {
     value: function updateValue(value, flags, index) {
       flags = flags || {};
 
-      var changed = _get(_getPrototypeOf(Input.prototype), "updateValue", this).call(this, value, flags);
+      _get(_getPrototypeOf(Input.prototype), "updateValue", this).call(this, value, flags);
 
       this.triggerUpdateValueAt(this.dataValue, flags, index);
-      return changed;
+      return flags.changed;
     }
   }, {
     key: "parseValue",
@@ -230,6 +245,11 @@ var Input = /*#__PURE__*/function (_Multivalue) {
       return null;
     }
   }, {
+    key: "getValueAsString",
+    value: function getValueAsString(value) {
+      return _get(_getPrototypeOf(Input.prototype), "getValueAsString", this).call(this, this.getWidgetValueAsString(value));
+    }
+  }, {
     key: "attachElement",
     value: function attachElement(element, index) {
       var _this2 = this;
@@ -241,12 +261,10 @@ var Input = /*#__PURE__*/function (_Multivalue) {
       } // Attach the widget.
 
 
-      var promise = _nativePromiseOnly.default.resolve();
-
       element.widget = this.createWidget(index);
 
       if (element.widget) {
-        promise = element.widget.attach(element);
+        element.widget.attach(element);
 
         if (this.refs.prefix && this.refs.prefix[index]) {
           element.widget.addPrefix(this.refs.prefix[index]);
@@ -272,8 +290,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
           }
         });
       }
-
-      return promise;
     }
     /**
      * Creates an instance of a widget for this component.
@@ -326,8 +342,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
           }
         }
       }
-
-      this.refs.input = [];
     }
   }, {
     key: "addFocusBlurEvents",
@@ -354,15 +368,11 @@ var Input = /*#__PURE__*/function (_Multivalue) {
           _this4.emit('blur', _this4);
 
           if (_this4.component.validateOn === 'blur') {
-            _this4.root.triggerChange({
-              fromBlur: true
-            }, {
+            _this4.root.triggerChange({}, {
               instance: _this4,
               component: _this4.component,
               value: _this4.dataValue,
-              flags: {
-                fromBlur: true
-              }
+              flags: {}
             });
           }
 
@@ -391,10 +401,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
 
       if (this.disabled) {
         attr.disabled = 'disabled';
-      }
-
-      if (this.component.autocomplete) {
-        attr.autocomplete = this.component.autocomplete;
       }
 
       _lodash.default.defaults(attr, this.component.attributes);
@@ -427,33 +433,9 @@ var Input = /*#__PURE__*/function (_Multivalue) {
     get: function get() {
       var maxWords = _lodash.default.parseInt(_lodash.default.get(this.component, 'validate.maxWords'), 10);
 
-      var wordCount = this.getWordCount(this.dataValue);
+      var wordCount = _lodash.default.words(this.dataValue).length;
+
       return maxWords - wordCount;
-    }
-  }, {
-    key: "prefix",
-    get: function get() {
-      return this.component.prefix;
-    }
-  }, {
-    key: "suffix",
-    get: function get() {
-      if (this.component.widget && this.component.widget.type === 'calendar') {
-        var calendarIcon = this.renderTemplate('icon', {
-          ref: 'icon',
-          // After font-awesome would be updated to v5.x, "clock-o" should be replaced with "clock"
-          className: this.iconClass(this.component.enableDate || this.component.widget.enableDate ? 'calendar' : 'clock-o'),
-          styles: '',
-          content: ''
-        }).trim();
-
-        if (this.component.prefix !== calendarIcon) {
-          // converting string to HTML markup to render correctly DateTime component in portal.form.io
-          return (0, _utils.convertStringToHTMLElement)(calendarIcon, '[ref="icon"]');
-        }
-      }
-
-      return this.component.suffix;
     }
   }], [{
     key: "schema",
