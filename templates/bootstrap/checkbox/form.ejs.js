@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default=function(ctx) {
 var __t, __p = '', __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
-__p += '<div class="form-check checkbox">\n  <label class="' +
+__p += '<div class="form-check checkbox" ref="formCheck">\n  <label class="' +
 ((__t = (ctx.input.labelClass)) == null ? '' : __t) +
 ' form-check-label">\n    <' +
 ((__t = (ctx.input.type)) == null ? '' : __t) +
