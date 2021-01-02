@@ -1,16 +1,10 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.find");
 
 require("core-js/modules/es.array.for-each");
 
@@ -18,37 +12,19 @@ require("core-js/modules/es.array.includes");
 
 require("core-js/modules/es.array.index-of");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.object.assign");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
-require("core-js/modules/es.object.get-own-property-descriptors");
-
-require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.string.includes");
 
-require("core-js/modules/es.string.iterator");
-
 require("core-js/modules/es.string.split");
 
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -59,9 +35,13 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _compareVersions = _interopRequireDefault(require("compare-versions"));
+
 var _EventEmitter = _interopRequireDefault(require("./EventEmitter"));
 
 var _i18next = _interopRequireDefault(require("i18next"));
+
+var _i18n = _interopRequireDefault(require("./i18n"));
 
 var _Formio = _interopRequireDefault(require("./Formio"));
 
@@ -77,8 +57,6 @@ var _formUtils = require("./utils/formUtils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -89,19 +67,23 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -145,6 +127,8 @@ function getOptions(options) {
 var Webform = /*#__PURE__*/function (_NestedDataComponent) {
   _inherits(Webform, _NestedDataComponent);
 
+  var _super = _createSuper(Webform);
+
   /**
    * Creates a new Form instance.
    *
@@ -172,7 +156,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       options = arguments[0];
     }
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Webform).call(this, null, getOptions(options)));
+    _this2 = _super.call(this, null, getOptions(options));
 
     _defineProperty(_assertThisInitialized(_this2), "executeShortcuts", function (event) {
       var target = event.target;
@@ -217,7 +201,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
      */
 
 
-    var i18n = require('./i18n').default;
+    var i18n = _i18n.default;
 
     if (options && options.i18n && !options.i18nReady) {
       // Support legacy way of doing translations.
@@ -423,8 +407,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
      */
     value: function addLanguage(code, lang) {
       var active = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-      _i18next.default.addResourceBundle(code, 'translation', lang, true, true);
+      this.i18next.addResourceBundle(code, 'translation', lang, true, true);
 
       if (active) {
         this.language = code;
@@ -440,22 +423,22 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
     value: function localize() {
       var _this3 = this;
 
-      if (_i18next.default.initialized) {
-        return _nativePromiseOnly.default.resolve(_i18next.default);
+      if (this.i18next.initialized) {
+        return _nativePromiseOnly.default.resolve(this.i18next);
       }
 
-      _i18next.default.initialized = true;
+      this.i18next.initialized = true;
       return new _nativePromiseOnly.default(function (resolve, reject) {
         try {
-          _i18next.default.init(_this3.options.i18n, function (err) {
+          _this3.i18next.init(_this3.options.i18n, function (err) {
             // Get language but remove any ;q=1 that might exist on it.
-            _this3.options.language = _i18next.default.language.split(';')[0];
+            _this3.options.language = _this3.i18next.language.split(';')[0];
 
             if (err) {
               return reject(err);
             }
 
-            resolve(_i18next.default);
+            resolve(_this3.i18next);
           });
         } catch (err) {
           return reject(err);
@@ -660,14 +643,39 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
      * @param {Object} form - The JSON schema of the form @see https://examples.form.io/example for an example JSON schema.
      * @returns {*}
      */
-    value: function setForm(form) {
-      var _this6 = this;
+    value: function setForm(form, flags) {
+      var _this$_form$component,
+          _this6 = this;
 
-      // Create the form.
-      this._form = form; // Allow the form to provide component overrides.
+      var isFormAlreadySet = this._form && ((_this$_form$component = this._form.components) === null || _this$_form$component === void 0 ? void 0 : _this$_form$component.length);
+
+      try {
+        // Do not set the form again if it has been already set
+        if (isFormAlreadySet && JSON.stringify(this._form) === JSON.stringify(form)) {
+          return _nativePromiseOnly.default.resolve();
+        } // Create the form.
+
+
+        this._form = flags !== null && flags !== void 0 && flags.keepAsReference ? form : _lodash.default.cloneDeep(form);
+
+        if (this.onSetForm) {
+          this.onSetForm(this._form, form);
+        }
+      } catch (err) {
+        console.warn(err); // If provided form is not a valid JSON object, do not set it too
+
+        return _nativePromiseOnly.default.resolve();
+      } // Allow the form to provide component overrides.
+
 
       if (form && form.settings && form.settings.components) {
         this.options.components = form.settings.components;
+      }
+
+      if ('schema' in form && (0, _compareVersions.default)(form.schema, '1.x') > 0) {
+        this.ready.then(function () {
+          _this6.setAlert('alert alert-danger', 'Form schema is for a newer version, please upgrade your renderer. Some functionality may not work.');
+        });
       } // See if they pass a module, and evaluate it if so.
 
 
@@ -705,7 +713,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
 
         setTimeout(function () {
-          _this6.onChange();
+          _this6.onChange(flags);
 
           _this6.formReadyResolve();
         }, 0);
@@ -731,10 +739,14 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       var _this7 = this;
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      flags = _objectSpread({}, flags, {
-        fromSubmission: true
+      flags = _objectSpread(_objectSpread({}, flags), {}, {
+        fromSubmission: _lodash.default.has(flags, 'fromSubmission') ? flags.fromSubmission : true
       });
-      return this.onSubmission = this.formReady.then(function () {
+      return this.onSubmission = this.formReady.then(function (resolveFlags) {
+        if (resolveFlags) {
+          flags = _objectSpread(_objectSpread({}, flags), resolveFlags);
+        }
+
         _this7.submissionSet = true;
 
         _this7.triggerChange(flags);
@@ -762,12 +774,12 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       }
 
       if (!this.formio) {
-        console.warn('Cannot save draft because there is no formio instance.');
+        console.warn(this.t('saveDraftInstanceError'));
         return;
       }
 
       if (!_Formio.default.getUser()) {
-        console.warn('Cannot save draft unless a user is authenticated.');
+        console.warn(this.t('saveDraftAuthError'));
         return;
       }
 
@@ -775,8 +787,11 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       draft.state = 'draft';
 
       if (!this.savingDraft) {
+        this.emit('saveDraftBegin');
         this.savingDraft = true;
         this.formio.saveSubmission(draft).then(function (sub) {
+          // Set id to submission to avoid creating new draft submission
+          _this8.submission._id = sub._id;
           _this8.savingDraft = false;
 
           _this8.emit('saveDraft', sub);
@@ -795,7 +810,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       var _this9 = this;
 
       if (!this.formio) {
-        console.warn('Cannot restore draft because there is no formio instance.');
+        console.warn(this.t('restoreDraftInstanceError'));
         return;
       }
 
@@ -806,7 +821,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
           owner: userId
         }
       }).then(function (submissions) {
-        if (submissions.length > 0) {
+        if (submissions.length > 0 && !_this9.options.skipDraftRestore) {
           var draft = (0, _utils.fastCloneDeep)(submissions[0]);
           return _this9.setSubmission(draft).then(function () {
             _this9.draftEnabled = true;
@@ -851,7 +866,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         this.options.submissionTimezone = submission.metadata.timezone;
       }
 
-      _get(_getPrototypeOf(Webform.prototype), "setValue", this).call(this, submission.data, flags);
+      var changed = _get(_getPrototypeOf(Webform.prototype), "setValue", this).call(this, submission.data, flags);
 
       if (!flags.sanitize) {
         this.mergeData(this.data, submission.data);
@@ -859,7 +874,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
       submission.data = this.data;
       this._submission = submission;
-      return flags.changed;
+      return changed;
     }
   }, {
     key: "getValue",
@@ -946,12 +961,18 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
   }, {
     key: "destroy",
     value: function destroy() {
+      var deleteFromGlobal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.off('submitButton');
       this.off('checkValidity');
       this.off('requestUrl');
       this.off('resetForm');
       this.off('deleteSubmission');
       this.off('refreshData');
+
+      if (deleteFromGlobal) {
+        delete _Formio.default.forms[this.id];
+      }
+
       return _get(_getPrototypeOf(Webform.prototype), "destroy", this).call(this);
     }
   }, {
@@ -972,7 +993,13 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
   }, {
     key: "getClassName",
     value: function getClassName() {
-      return 'formio-form';
+      var classes = 'formio-form';
+
+      if (this.options.readOnly) {
+        classes += ' formio-read-only';
+      }
+
+      return classes;
     }
   }, {
     key: "render",
@@ -1004,10 +1031,10 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         webform: 'single'
       });
       var childPromise = this.attachComponents(this.refs.webform);
-      this.addEventListener(this.element, 'keydown', this.executeShortcuts);
+      this.addEventListener(document, 'keydown', this.executeShortcuts);
       this.currentForm = this;
       return childPromise.then(function () {
-        _this13.emit('render');
+        _this13.emit('render', _this13.element);
 
         return _this13.setValue(_this13._submission, {
           noUpdateEvent: true
@@ -1034,17 +1061,19 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       });
 
       this.setPristine(true);
+      this.redraw();
     }
     /**
      * Sets a new alert to display in the error dialog of the form.
      *
      * @param {string} type - The type of alert to display. "danger", "success", "warning", etc.
      * @param {string} message - The message to show in the alert.
+     * @param {Object} options
      */
 
   }, {
     key: "setAlert",
-    value: function setAlert(type, message) {
+    value: function setAlert(type, message, options) {
       var _this14 = this;
 
       if (!type && this.submitted) {
@@ -1090,8 +1119,8 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
       if (message) {
         this.alert = this.ce('div', {
-          class: "alert alert-".concat(type),
-          role: 'alert'
+          class: options && options.classes || "alert alert-".concat(type),
+          id: "error-list-".concat(this.id)
         });
 
         if (message instanceof HTMLElement) {
@@ -1117,8 +1146,9 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
             _this14.focusOnComponent(key);
           });
 
-          _this14.addEventListener(el, 'keypress', function (e) {
+          _this14.addEventListener(el, 'keydown', function (e) {
             if (e.keyCode === 13) {
+              e.preventDefault();
               var key = e.currentTarget.dataset.componentKey;
 
               _this14.focusOnComponent(key);
@@ -1154,9 +1184,11 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
      * @returns {*}
      */
 
+    /* eslint-disable no-unused-vars */
+
   }, {
     key: "showErrors",
-    value: function showErrors(error, triggerEvent) {
+    value: function showErrors(error, triggerEvent, onChange) {
       var _this15 = this;
 
       this.loading = false;
@@ -1208,7 +1240,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       var ul = this.ce('ul');
       errors.forEach(function (err) {
         if (err) {
-          var createListItem = function createListItem(message) {
+          var createListItem = function createListItem(message, index) {
             var params = {
               ref: 'errorRef',
               tabIndex: 0,
@@ -1217,19 +1249,36 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
             var li = _this15.ce('li', params);
 
-            _this15.setContent(li, message);
+            var span = _this15.ce('span');
 
-            if (err.component && err.component.key) {
-              li.dataset.componentKey = err.component.key;
+            li.style.cursor = 'pointer';
+
+            _this15.setContent(span, (0, _utils.unescapeHTML)(message));
+
+            _this15.appendTo(span, li);
+
+            var messageFromIndex = !_lodash.default.isUndefined(index) && err.messages && err.messages[index];
+            var keyOrPath = messageFromIndex && messageFromIndex.path || err.component && err.component.key;
+
+            if (keyOrPath) {
+              var formattedKeyOrPath = (0, _utils.getStringFromComponentPath)(keyOrPath);
+              li.dataset.componentKey = formattedKeyOrPath;
             }
 
             _this15.appendTo(li, ul);
           };
 
           if (err.messages && err.messages.length) {
-            err.messages.forEach(function (_ref) {
+            var component = err.component;
+            err.messages.forEach(function (_ref, index) {
               var message = _ref.message;
-              return createListItem("".concat(err.component.label, ". ").concat(message));
+
+              var text = _this15.t('alertMessage', {
+                label: _this15.t(component.label),
+                message: message
+              });
+
+              createListItem(text, index);
             });
           } else if (err) {
             var _message = _lodash.default.isObject(err) ? err.message || '' : err;
@@ -1248,6 +1297,8 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
       return errors;
     }
+    /* eslint-enable no-unused-vars */
+
     /**
      * Called when the submission has completed, or if the submission needs to be sent to an external library.
      *
@@ -1268,7 +1319,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         noCheck: true
       });
       this.setAlert('success', "<p>".concat(this.t('complete'), "</p>"));
-      this.emit('submit', submission);
+      this.emit('submit', submission, saved);
 
       if (saved) {
         this.emit('submitDone', submission);
@@ -1305,6 +1356,8 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       if (error && error.silent) {
         this.emit('change', {
           isValid: true
+        }, {
+          silent: true
         });
         return false;
       }
@@ -1320,7 +1373,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
   }, {
     key: "onChange",
-    value: function onChange(flags, changed, modified) {
+    value: function onChange(flags, changed, modified, changes) {
       flags = flags || {};
       var isChangeEventEmitted = false; // For any change events, clear any custom errors for that component.
 
@@ -1335,6 +1388,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       var value = _lodash.default.clone(this.submission);
 
       flags.changed = value.changed = changed;
+      flags.changes = changes;
 
       if (modified && this.pristine) {
         this.pristine = false;
@@ -1353,7 +1407,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       }
 
       if (!flags || !flags.noEmit) {
-        this.emit('change', value);
+        this.emit('change', value, flags, modified);
         isChangeEventEmitted = true;
       } // The form is initialized after the first change event occurs.
 
@@ -1402,12 +1456,29 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
     value: function cancel(noconfirm) {
       var shouldReset = this.hook('beforeCancel', true);
 
-      if (shouldReset && (noconfirm || confirm('Are you sure you want to cancel?'))) {
+      if (shouldReset && (noconfirm || confirm(this.t('confirmCancel')))) {
         this.resetValue();
         return true;
       } else {
         return false;
       }
+    }
+  }, {
+    key: "setMetadata",
+    value: function setMetadata(submission) {
+      // Add in metadata about client submitting the form
+      submission.metadata = submission.metadata || {};
+
+      _lodash.default.defaults(submission.metadata, {
+        timezone: _lodash.default.get(this, '_submission.metadata.timezone', (0, _utils.currentTimezone)()),
+        offset: parseInt(_lodash.default.get(this, '_submission.metadata.offset', (0, _moment.default)().utcOffset()), 10),
+        origin: document.location.origin,
+        referrer: document.referrer,
+        browserName: navigator.appName,
+        userAgent: navigator.userAgent,
+        pathName: window.location.pathname,
+        onLine: navigator.onLine
+      });
     }
   }, {
     key: "submitForm",
@@ -1424,24 +1495,14 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
           });
         }
 
-        var submission = (0, _utils.fastCloneDeep)(_this17.submission || {}); // Add in metadata about client submitting the form
+        var submission = (0, _utils.fastCloneDeep)(_this17.submission || {});
 
-        submission.metadata = submission.metadata || {};
-
-        _lodash.default.defaults(submission.metadata, {
-          timezone: _lodash.default.get(_this17, '_submission.metadata.timezone', (0, _utils.currentTimezone)()),
-          offset: parseInt(_lodash.default.get(_this17, '_submission.metadata.offset', (0, _moment.default)().utcOffset()), 10),
-          referrer: document.referrer,
-          browserName: navigator.appName,
-          userAgent: navigator.userAgent,
-          pathName: window.location.pathname,
-          onLine: navigator.onLine
-        });
+        _this17.setMetadata(submission);
 
         submission.state = options.state || 'submitted';
         var isDraft = submission.state === 'draft';
 
-        _this17.hook('beforeSubmit', _objectSpread({}, submission, {
+        _this17.hook('beforeSubmit', _objectSpread(_objectSpread({}, submission), {}, {
           component: options.component
         }), function (err) {
           if (err) {
@@ -1464,7 +1525,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
             }
           });
 
-          _this17.hook('customValidation', _objectSpread({}, submission, {
+          _this17.hook('customValidation', _objectSpread(_objectSpread({}, submission), {}, {
             component: options.component
           }), function (err) {
             if (err) {
@@ -1486,7 +1547,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
             if (_this17._form && _this17._form.action) {
               var method = submission.data._id && _this17._form.action.includes(submission.data._id) ? 'PUT' : 'POST';
-              return _Formio.default.makeStaticRequest(_this17._form.action, method, submission.data, _this17.formio ? _this17.formio.options : {}).then(function (result) {
+              return _Formio.default.makeStaticRequest(_this17._form.action, method, submission, _this17.formio ? _this17.formio.options : {}).then(function (result) {
                 return resolve({
                   submission: result,
                   saved: true
@@ -1589,19 +1650,21 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       }
 
       if (API_URL && settings) {
-        try {
-          _Formio.default.makeStaticRequest(API_URL, settings.method, submission, {
-            headers: settings.headers
-          }).then(function () {
-            _this20.emit('requestDone');
+        _Formio.default.makeStaticRequest(API_URL, settings.method, submission, {
+          headers: settings.headers
+        }).then(function () {
+          _this20.emit('requestDone');
 
-            _this20.setAlert('success', '<p> Success </p>');
-          });
-        } catch (e) {
-          this.showErrors("".concat(e.statusText, " ").concat(e.status));
-          this.emit('error', "".concat(e.statusText, " ").concat(e.status));
-          console.error("".concat(e.statusText, " ").concat(e.status));
-        }
+          _this20.setAlert('success', '<p> Success </p>');
+        }).catch(function (e) {
+          _this20.showErrors("".concat(e.statusText ? e.statusText : '', " ").concat(e.status ? e.status : e));
+
+          _this20.emit('error', "".concat(e.statusText ? e.statusText : '', " ").concat(e.status ? e.status : e));
+
+          console.error("".concat(e.statusText ? e.statusText : '', " ").concat(e.status ? e.status : e));
+
+          _this20.setAlert('danger', "<p> ".concat(e.statusText ? e.statusText : '', " ").concat(e.status ? e.status : e, " </p>"));
+        });
       } else {
         this.emit('error', 'You should add a URL to this button.');
         this.setAlert('warning', 'You should add a URL to this button.');
@@ -1615,12 +1678,13 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         return;
       }
 
-      var recaptchaComponent = this.components.find(function (component) {
-        return component.component.type === 'recaptcha' && component.component.eventType === 'formLoad';
+      var recaptchaComponent = (0, _utils.searchComponents)(this.components, {
+        'component.type': 'recaptcha',
+        'component.eventType': 'formLoad'
       });
 
-      if (recaptchaComponent) {
-        recaptchaComponent.verify("".concat(this.form.name ? this.form.name : 'form', "Load"));
+      if (recaptchaComponent.length > 0) {
+        recaptchaComponent[0].verify("".concat(this.form.name ? this.form.name : 'form', "Load"));
       }
     }
   }, {
@@ -1631,12 +1695,12 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
       return new _nativePromiseOnly.default(function (resolve, reject) {
         _this21.options.language = lang;
 
-        if (_i18next.default.language === lang) {
+        if (_this21.i18next.language === lang) {
           return resolve();
         }
 
         try {
-          _i18next.default.changeLanguage(lang, function (err) {
+          _this21.i18next.changeLanguage(lang, function (err) {
             if (err) {
               return reject(err);
             }
@@ -1651,6 +1715,11 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
           return reject(err);
         }
       });
+    }
+  }, {
+    key: "componentComponents",
+    get: function get() {
+      return this.form.components;
     }
   }, {
     key: "src",

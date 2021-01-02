@@ -147,7 +147,7 @@ var _default = [{
 }, {
   type: 'textfield',
   input: true,
-  key: 'providerOptions.apiKey',
+  key: 'providerOptions.params.key',
   label: 'API Key',
   placeholder: 'Enter API Key',
   weight: 10,
@@ -165,7 +165,7 @@ var _default = [{
 }, {
   type: 'textfield',
   input: true,
-  key: 'providerOptions.region',
+  key: 'providerOptions.params.region',
   label: 'Region',
   placeholder: 'Enter Region',
   weight: 20,

@@ -53,6 +53,18 @@ Object.defineProperty(exports, "Providers", {
     return _providers.default;
   }
 });
+Object.defineProperty(exports, "Rules", {
+  enumerable: true,
+  get: function get() {
+    return _Rules.default;
+  }
+});
+Object.defineProperty(exports, "Widgets", {
+  enumerable: true,
+  get: function get() {
+    return _widgets.default;
+  }
+});
 Object.defineProperty(exports, "Formio", {
   enumerable: true,
   get: function get() {
@@ -62,7 +74,7 @@ Object.defineProperty(exports, "Formio", {
 Object.defineProperty(exports, "Form", {
   enumerable: true,
   get: function get() {
-    return _Form2.default;
+    return _Form.default;
   }
 });
 Object.defineProperty(exports, "Utils", {
@@ -86,20 +98,21 @@ var _providers = _interopRequireDefault(require("./providers"));
 
 var _Rules = _interopRequireDefault(require("./validator/Rules"));
 
+var _widgets = _interopRequireDefault(require("./widgets"));
+
 var _Formio = _interopRequireDefault(require("./Formio"));
 
-var _Form2 = _interopRequireDefault(require("./Form"));
+var _Form = _interopRequireDefault(require("./Form"));
 
 var _utils = _interopRequireDefault(require("./utils"));
+
+var _Evaluator = _interopRequireDefault(require("./utils/Evaluator"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 _Components.default.setComponents(_components.default);
-
-_Formio.default.Components = _Components.default;
-_Formio.default.Templates = _Templates.default;
 
 var registerPlugin = function registerPlugin(plugin) {
   // Sanity check.
@@ -171,6 +184,11 @@ var registerPlugin = function registerPlugin(plugin) {
 
         break;
 
+      case 'evaluator':
+        _Evaluator.default.registerEvaluator(plugin.evaluator);
+
+        break;
+
       default:
         console.log('Unknown plugin option', key);
     }
@@ -199,3 +217,25 @@ _Formio.default.use = function () {
     }
   });
 };
+
+_Formio.default.loadModules = function () {
+  var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "".concat(_Formio.default.getApiUrl(), "/externalModules.js");
+  var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'externalModules';
+
+  _Formio.default.requireLibrary(name, name, path, true).then(function (modules) {
+    _Formio.default.use(modules);
+  });
+}; // This is needed to maintain correct imports using the "dist" file.
+
+
+_Formio.default.Components = _Components.default;
+_Formio.default.Templates = _Templates.default;
+_Formio.default.Builders = _Builders.default;
+_Formio.default.Utils = _utils.default;
+_Formio.default.Form = _Form.default;
+_Formio.default.Displays = _Displays.default;
+_Formio.default.Providers = _providers.default;
+_Formio.default.Rules = _Rules.default;
+_Formio.default.Widgets = _widgets.default; // This is strange, but is needed for "premium" components to import correctly.
+
+_Formio.default.Formio = _Formio.default; // Export the components.

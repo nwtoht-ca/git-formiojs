@@ -1,26 +1,10 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -35,35 +19,39 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var SignatureComponent = /*#__PURE__*/function (_Input) {
   _inherits(SignatureComponent, _Input);
+
+  var _super = _createSuper(SignatureComponent);
 
   function SignatureComponent() {
     _classCallCheck(this, SignatureComponent);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SignatureComponent).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(SignatureComponent, [{
@@ -85,14 +73,14 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
   }, {
     key: "labelIsHidden",
     value: function labelIsHidden() {
-      return true;
+      return this.component.hideLabel;
     }
   }, {
     key: "setValue",
     value: function setValue(value) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      _get(_getPrototypeOf(SignatureComponent.prototype), "setValue", this).call(this, value, flags);
+      var changed = _get(_getPrototypeOf(SignatureComponent.prototype), "setValue", this).call(this, value, flags);
 
       if (value && this.refs.signatureImage && this.options.readOnly) {
         this.refs.signatureImage.setAttribute('src', value);
@@ -102,12 +90,16 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
       if (this.signaturePad) {
         if (!value) {
           this.signaturePad.clear();
-        } else if (flags.changed) {
+        } else if (changed) {
           this.triggerChange();
         }
       }
 
-      return flags.changed;
+      if (this.signaturePad && this.dataValue && this.signaturePad.isEmpty()) {
+        this.setDataToSigaturePad();
+      }
+
+      return changed;
     }
   }, {
     key: "showCanvas",
@@ -142,6 +134,10 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
           if (this.refs.refresh) {
             this.refs.refresh.classList.add('disabled');
           }
+
+          if (this.refs.signatureImage && this.dataValue) {
+            this.refs.signatureImage.setAttribute('src', this.dataValue);
+          }
         } else {
           this.signaturePad.on();
 
@@ -167,7 +163,7 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
         this.signaturePad.clear();
 
         if (this.dataValue) {
-          this.signaturePad.fromDataURL(this.dataValue);
+          this.setDataToSigaturePad();
         }
       }
     }
@@ -180,15 +176,11 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
       });
     }
   }, {
-    key: "setOpenModalElement",
-    value: function setOpenModalElement() {
-      var template = "\n      <label class=\"control-label\">".concat(this.component.label, "</label><br>\n      <button lang='en' class='btn btn-light btn-md open-modal-button' ref='openModal'>Click to Sign</button>\n    ");
-      this.componentModal.setOpenModalElement(template);
-    }
-  }, {
     key: "getModalPreviewTemplate",
     value: function getModalPreviewTemplate() {
-      return "\n      <label class=\"control-label\">".concat(this.component.label, "</label><br>\n      <img src=").concat(this.dataValue, " ref='openModal' />\n    ");
+      return this.renderTemplate('modalPreview', {
+        previewText: this.dataValue ? "<img src=".concat(this.dataValue, " ref='openModal' style=\"width: 100%;height: 100%;\" />") : this.t('Click to Sign')
+      });
     }
   }, {
     key: "attach",
@@ -203,8 +195,6 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
       });
 
       var superAttach = _get(_getPrototypeOf(SignatureComponent.prototype), "attach", this).call(this, element);
-
-      this.onDisabled();
 
       if (this.refs.refresh && this.options.readOnly) {
         this.refs.refresh.classList.add('disabled');
@@ -223,7 +213,8 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
           return _this.setValue(_this.signaturePad.toDataURL());
         };
 
-        this.refs.signatureImage.setAttribute('src', this.signaturePad.toDataURL()); // Ensure the signature is always the size of its container.
+        this.refs.signatureImage.setAttribute('src', this.signaturePad.toDataURL());
+        this.onDisabled(); // Ensure the signature is always the size of its container.
 
         if (this.refs.padBody) {
           if (!this.refs.padBody.style.maxWidth) {
@@ -280,6 +271,15 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
       this.refs.padBody.focus();
     }
   }, {
+    key: "setDataToSigaturePad",
+    value: function setDataToSigaturePad() {
+      this.signaturePad.fromDataURL(this.dataValue, {
+        ratio: 1,
+        width: this.refs.canvas.width,
+        height: this.refs.canvas.height
+      });
+    }
+  }, {
     key: "emptyValue",
     get: function get() {
       return '';
@@ -302,6 +302,11 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
     key: "className",
     get: function get() {
       return "".concat(_get(_getPrototypeOf(SignatureComponent.prototype), "className", this), " signature-pad");
+    }
+  }, {
+    key: "hasModalSaveButton",
+    get: function get() {
+      return false;
     }
   }], [{
     key: "schema",
@@ -331,7 +336,7 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
         group: 'advanced',
         icon: 'pencil',
         weight: 120,
-        documentation: 'http://help.form.io/userguide/#signature',
+        documentation: '/userguide/#signature',
         schema: SignatureComponent.schema()
       };
     }

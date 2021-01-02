@@ -1,28 +1,18 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.includes");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.array.map");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
 
 require("core-js/modules/es.regexp.exec");
 
@@ -30,15 +20,11 @@ require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
-require("core-js/modules/es.string.iterator");
-
 require("core-js/modules/es.string.repeat");
 
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -57,19 +43,11 @@ var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -79,8 +57,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var NumberComponent = /*#__PURE__*/function (_Input) {
   _inherits(NumberComponent, _Input);
+
+  var _super = _createSuper(NumberComponent);
 
   _createClass(NumberComponent, null, [{
     key: "schema",
@@ -108,7 +98,7 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
         title: 'Number',
         icon: 'hashtag',
         group: 'basic',
-        documentation: 'http://help.form.io/userguide/#number',
+        documentation: '/userguide/#number',
         weight: 30,
         schema: NumberComponent.schema()
       };
@@ -116,8 +106,6 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
   }]);
 
   function NumberComponent() {
-    var _getPrototypeOf2;
-
     var _this;
 
     _classCallCheck(this, NumberComponent);
@@ -126,7 +114,7 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
       args[_key2] = arguments[_key2];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(NumberComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _super.call.apply(_super, [this].concat(args));
     _this.validators = _this.validators.concat(['min', 'max']);
     var separators = (0, _utils.getNumberSeparators)(_this.options.language);
     _this.decimalSeparator = _this.options.decimalSeparator = _this.options.decimalSeparator || separators.decimalSeparator;
@@ -173,8 +161,13 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
         decimalSymbol: _lodash.default.get(this.component, 'decimalSymbol', this.decimalSeparator),
         decimalLimit: _lodash.default.get(this.component, 'decimalLimit', this.decimalLimit),
         allowNegative: _lodash.default.get(this.component, 'allowNegative', true),
-        allowDecimal: _lodash.default.get(this.component, 'allowDecimal', !(this.component.validate && this.component.validate.integer))
+        allowDecimal: this.isDecimalAllowed()
       });
+    }
+  }, {
+    key: "isDecimalAllowed",
+    value: function isDecimalAllowed() {
+      return _lodash.default.get(this.component, 'allowDecimal', !(this.component.validate && this.component.validate.integer));
     }
   }, {
     key: "parseNumber",
@@ -220,6 +213,10 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
   }, {
     key: "parseValue",
     value: function parseValue(input) {
+      if (typeof input === 'string') {
+        input = input.split(this.delimiter).join('').replace(this.decimalSeparator, '.');
+      }
+
       var value = parseFloat(input);
 
       if (!_lodash.default.isNaN(value)) {
@@ -247,23 +244,30 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
       var input = this.refs.input[0];
 
       if (input) {
-        input.focus();
+        _get(_getPrototypeOf(NumberComponent.prototype), "focus", this).call(this);
+
         input.setSelectionRange(0, input.value.length);
       }
     }
   }, {
     key: "getMaskedValue",
     value: function getMaskedValue(value) {
-      return (0, _vanillaTextMask.conformToMask)(value === null ? '0' : value.toString(), this.numberMask).conformedValue;
+      value = value === null ? '0' : value.toString();
+
+      if (value.includes('.') && '.' !== this.decimalSeparator) {
+        value = value.replace('.', this.decimalSeparator);
+      }
+
+      return (0, _vanillaTextMask.conformToMask)(this.formatValue(value), this.numberMask).conformedValue;
     }
   }, {
     key: "getValueAsString",
-    value: function getValueAsString(value) {
+    value: function getValueAsString(value, options) {
       if (!value && value !== 0) {
         return '';
       }
 
-      value = this.getWidgetValueAsString(value);
+      value = this.getWidgetValueAsString(value, options);
 
       if (Array.isArray(value)) {
         return value.map(this.getMaskedValue).join(', ');
@@ -279,7 +283,7 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
       _get(_getPrototypeOf(NumberComponent.prototype), "addFocusBlurEvents", this).call(this, element);
 
       this.addEventListener(element, 'blur', function () {
-        element.value = _this2.getValueAsString(_this2.formatValue(_this2.parseValue(_this2.dataValue)));
+        element.value = _this2.getValueAsString(_this2.formatValue(_this2.parseValue(element.value)));
       });
     }
   }, {
@@ -309,7 +313,7 @@ var NumberComponent = /*#__PURE__*/function (_Input) {
         info.attr.type = 'text';
       }
 
-      info.attr.inputmode = 'numeric';
+      info.attr.inputmode = this.isDecimalAllowed() ? 'decimal' : 'numeric';
       info.changeEvent = 'input';
       return info;
     }

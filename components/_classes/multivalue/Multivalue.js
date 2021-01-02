@@ -1,10 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
@@ -12,27 +8,13 @@ require("core-js/modules/es.array.find");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.array.map");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
-
-require("core-js/modules/es.string.iterator");
-
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -41,21 +23,17 @@ exports.default = void 0;
 
 var _Field2 = _interopRequireDefault(require("../field/Field"));
 
+var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
+
 var _lodash = _interopRequireDefault(require("lodash"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -67,19 +45,29 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var Multivalue = /*#__PURE__*/function (_Field) {
   _inherits(Multivalue, _Field);
+
+  var _super = _createSuper(Multivalue);
 
   function Multivalue() {
     _classCallCheck(this, Multivalue);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Multivalue).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Multivalue, [{
@@ -92,7 +80,7 @@ var Multivalue = /*#__PURE__*/function (_Field) {
     value: function render() {
       // If single value field.
       if (!this.useWrapper()) {
-        return _get(_getPrototypeOf(Multivalue.prototype), "render", this).call(this, "<div ref=\"element\">".concat(this.renderElement(this.dataValue), "</div>"));
+        return _get(_getPrototypeOf(Multivalue.prototype), "render", this).call(this, "<div ref=\"element\">\n          ".concat(this.renderElement(this.component.type !== 'hidden' ? this.dataValue : ''), "\n        </div>"));
       } // Make sure dataValue is in the correct array format.
 
 
@@ -137,10 +125,13 @@ var Multivalue = /*#__PURE__*/function (_Field) {
         mask: 'multiple',
         select: 'multiple'
       });
-      this.refs.input.forEach(this.attachElement.bind(this));
+      var promises = [];
+      this.refs.input.forEach(function (element, index) {
+        promises.push(_this.attachElement.call(_this, element, index));
+      });
 
       if (!this.component.multiple) {
-        return;
+        return _nativePromiseOnly.default.all(promises);
       }
 
       this.refs.removeRow.forEach(function (removeButton, index) {
@@ -158,7 +149,9 @@ var Multivalue = /*#__PURE__*/function (_Field) {
           _this.addValue();
         });
       });
-      return superAttach;
+      return superAttach.then(function () {
+        return _nativePromiseOnly.default.all(promises);
+      });
     }
   }, {
     key: "detach",
@@ -217,7 +210,9 @@ var Multivalue = /*#__PURE__*/function (_Field) {
             element.selectionStart = selectionStart;
             element.selectionEnd = selectionEnd;
           }
-        } // If a mask is present, delay the update to allow mask to update first.
+        }
+
+        _this2.saveCaretPosition(element, index); // If a mask is present, delay the update to allow mask to update first.
 
 
         if (element.mask) {
@@ -235,6 +230,19 @@ var Multivalue = /*#__PURE__*/function (_Field) {
 
       if (!this.attachMultiMask(index)) {
         this.setInputMask(element);
+      }
+    } // Saves current caret position to restore it after the component is redrawn
+
+  }, {
+    key: "saveCaretPosition",
+    value: function saveCaretPosition(element, index) {
+      var _this$root, _this$root$focusedCom;
+
+      if (((_this$root = this.root) === null || _this$root === void 0 ? void 0 : (_this$root$focusedCom = _this$root.focusedComponent) === null || _this$root$focusedCom === void 0 ? void 0 : _this$root$focusedCom.path) === this.path) {
+        this.root.currentSelection = {
+          selection: [element.selectionStart, element.selectionEnd],
+          index: index
+        };
       }
     }
   }, {
@@ -362,7 +370,7 @@ var Multivalue = /*#__PURE__*/function (_Field) {
   }, {
     key: "addAnother",
     get: function get() {
-      return this.t(this.component.addAnother || ' Add Another');
+      return this.t(this.component.addAnother || 'Add Another');
     }
   }]);
 

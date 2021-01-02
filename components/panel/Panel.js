@@ -1,28 +1,16 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.reduce");
-
-require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.regexp.exec");
 
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/es.string.replace");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -31,15 +19,13 @@ exports.default = void 0;
 
 var _NestedComponent2 = _interopRequireDefault(require("../_classes/nested/NestedComponent"));
 
+var _utils = require("../../utils/utils");
+
+var _Form = _interopRequireDefault(require("../form/Form"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -48,6 +34,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
@@ -58,24 +52,19 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 var PanelComponent = /*#__PURE__*/function (_NestedComponent) {
   _inherits(PanelComponent, _NestedComponent);
 
+  var _super = _createSuper(PanelComponent);
+
   _createClass(PanelComponent, [{
     key: "checkValidity",
-    value: function checkValidity(data, dirty, row) {
-      var _this2 = this;
-
+    value: function checkValidity(data, dirty, row, silentCheck) {
       if (!this.checkCondition(row, data)) {
         this.setCustomValidity('');
         return true;
       }
 
       return this.getComponents().reduce(function (check, comp) {
-        //change collapsed value only in case when the panel is collapsed to avoid additional redrawing that prevents validation messages
-        if (!comp.checkValidity(data, dirty, row) && _this2.collapsed) {
-          _this2.collapsed = false;
-        }
-
-        return comp.checkValidity(data, dirty, row) && check;
-      }, _get(_getPrototypeOf(PanelComponent.prototype), "checkValidity", this).call(this, data, dirty, row));
+        return comp.checkValidity(data, dirty, row, silentCheck) && check;
+      }, _get(_getPrototypeOf(PanelComponent.prototype), "checkValidity", this).call(this, data, dirty, row, silentCheck));
     }
   }, {
     key: "defaultSchema",
@@ -115,7 +104,7 @@ var PanelComponent = /*#__PURE__*/function (_NestedComponent) {
         title: 'Panel',
         icon: 'list-alt',
         group: 'layout',
-        documentation: 'http://help.form.io/userguide/#panels',
+        documentation: '/userguide/#panels',
         weight: 30,
         schema: PanelComponent.schema()
       };
@@ -123,8 +112,6 @@ var PanelComponent = /*#__PURE__*/function (_NestedComponent) {
   }]);
 
   function PanelComponent() {
-    var _getPrototypeOf2;
-
     var _this;
 
     _classCallCheck(this, PanelComponent);
@@ -133,10 +120,31 @@ var PanelComponent = /*#__PURE__*/function (_NestedComponent) {
       args[_key2] = arguments[_key2];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(PanelComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _super.call.apply(_super, [this].concat(args));
     _this.noField = true;
+
+    _this.on('componentError', function () {
+      //change collapsed value only when the panel is collapsed to avoid additional redrawing that prevents validation messages
+      if ((0, _utils.hasInvalidComponent)(_assertThisInitialized(_this)) && _this.collapsed) {
+        _this.collapsed = false;
+      }
+    });
+
     return _this;
   }
+
+  _createClass(PanelComponent, [{
+    key: "getComponent",
+    value: function getComponent(path, fn, originalPath) {
+      var _this$root;
+
+      if (((_this$root = this.root) === null || _this$root === void 0 ? void 0 : _this$root.parent) instanceof _Form.default) {
+        path = path.replace(this._parentPath, '');
+      }
+
+      return _get(_getPrototypeOf(PanelComponent.prototype), "getComponent", this).call(this, path, fn, originalPath);
+    }
+  }]);
 
   return PanelComponent;
 }(_NestedComponent2.default);

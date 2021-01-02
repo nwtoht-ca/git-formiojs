@@ -1,28 +1,16 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
-
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.array.includes");
 
 require("core-js/modules/es.array.map");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
 
 require("core-js/modules/es.regexp.exec");
 
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es.string.includes");
 
 require("core-js/modules/es.string.match");
 
@@ -30,14 +18,12 @@ require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
 
-require("core-js/modules/web.dom-collections.iterator");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _flatpickr = _interopRequireDefault(require("flatpickr"));
+var _Formio = _interopRequireDefault(require("../Formio"));
 
 var _InputWidget2 = _interopRequireDefault(require("./InputWidget"));
 
@@ -49,13 +35,7 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -67,8 +47,6 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -77,11 +55,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var DEFAULT_FORMAT = 'yyyy-MM-dd hh:mm a';
 var ISO_8601_FORMAT = 'yyyy-MM-ddTHH:mm:ssZ';
+var CDN_URL = 'https://cdn.form.io/';
 
 var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
   _inherits(CalendarWidget, _InputWidget);
+
+  var _super = _createSuper(CalendarWidget);
 
   _createClass(CalendarWidget, null, [{
     key: "defaultSettings",
@@ -121,7 +112,7 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
 
     _classCallCheck(this, CalendarWidget);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CalendarWidget).call(this, settings, component)); // Change the format to map to the settings.
+    _this = _super.call(this, settings, component); // Change the format to map to the settings.
 
     if (_this.settings.noCalendar) {
       _this.settings.format = _this.settings.format.replace(/yyyy-MM-dd /g, '');
@@ -167,10 +158,7 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
 
       var superAttach = _get(_getPrototypeOf(CalendarWidget.prototype), "attach", this).call(this, input);
 
-      if (input && !input.getAttribute('placeholder')) {
-        input.setAttribute('placeholder', this.settings.format);
-      }
-
+      this.setPlaceholder(input);
       var dateFormatInfo = (0, _utils.getLocaleDateFormatInfo)(this.settings.language);
       this.defaultFormat = {
         date: dateFormatInfo.dayFirst ? 'd/m/Y ' : 'm/d/Y ',
@@ -185,55 +173,142 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
       this.settings.disableWeekdays ? this.settings.disable.push(this.disableWeekdays) : '';
       this.settings.disableFunction ? this.settings.disable.push(this.disableFunction) : '';
       this.settings.maxDate = (0, _utils.getDateSetting)(this.settings.maxDate);
+      this.settings.wasDefaultValueChanged = false;
+      this.settings.defaultValue = '';
+      this.settings.manualInputValue = '';
+      this.settings.isManuallyOverriddenValue = false;
       this.settings.altFormat = (0, _utils.convertFormatToFlatpickr)(this.settings.format);
       this.settings.dateFormat = (0, _utils.convertFormatToFlatpickr)(this.settings.dateFormat);
 
       this.settings.onChange = function () {
-        return _this3.emit('update');
+        if (_this3.settings.allowInput) {
+          if (_this3.settings.isManuallyOverriddenValue && _this3.settings.enableTime) {
+            _this3.calendar._input.value = _this3.settings.manualInputValue;
+          } else {
+            _this3.settings.manualInputValue = '';
+          }
+
+          _this3.settings.isManuallyOverriddenValue = false;
+        }
+
+        _this3.emit('update');
+      };
+
+      this.settings.onOpen = function () {
+        return _this3.hook('onCalendarOpen');
       };
 
       this.settings.onClose = function () {
+        _this3.hook('onCalendarClose');
+
         _this3.closedOn = Date.now();
+
+        if (_this3.settings.allowInput && _this3.settings.enableTime) {
+          _this3.calendar._input.value = _this3.settings.manualInputValue || _this3.calendar._input.value;
+          _this3.settings.isManuallyOverriddenValue = false;
+        }
+
+        if (_this3.settings.wasDefaultValueChanged) {
+          _this3.calendar._input.value = _this3.settings.defaultValue;
+          _this3.settings.wasDefaultValueChanged = false;
+        }
 
         if (_this3.calendar) {
           _this3.emit('blur');
         }
       };
 
-      this.settings.formatDate = function (date, format) {
-        // Only format this if this is the altFormat and the form is readOnly.
-        if (_this3.settings.readOnly && format === _this3.settings.altFormat) {
-          if (_this3.settings.saveAs === 'text' || _this3.loadZones()) {
-            return _flatpickr.default.formatDate(date, format);
+      _Formio.default.requireLibrary('flatpickr-css', 'flatpickr-css', [{
+        type: 'styles',
+        src: "".concat(CDN_URL).concat(this.flatpickrType, "/flatpickr.min.css")
+      }], true);
+
+      return superAttach.then(function () {
+        return _Formio.default.requireLibrary('flatpickr', 'flatpickr', "".concat(CDN_URL).concat(_this3.flatpickrType, "/flatpickr.min.js"), true).then(function (Flatpickr) {
+          _this3.settings.formatDate = function (date, format) {
+            // Only format this if this is the altFormat and the form is readOnly.
+            if (_this3.settings.readOnly && format === _this3.settings.altFormat) {
+              if (_this3.settings.saveAs === 'text' || !_this3.settings.enableTime || _this3.loadZones()) {
+                return Flatpickr.formatDate(date, format);
+              }
+
+              return (0, _utils.formatOffset)(Flatpickr.formatDate.bind(Flatpickr), date, format, _this3.timezone);
+            }
+
+            return Flatpickr.formatDate(date, format);
+          };
+
+          if (_this3._input) {
+            var dateValue = _this3._input.value; // Create a new flatpickr.
+
+            _this3.calendar = new Flatpickr(_this3._input, _this3.settings);
+
+            if (dateValue) {
+              _this3.calendar.setDate(dateValue, false, _this3.settings.altFormat);
+            }
+
+            _this3.calendar.altInput.addEventListener('input', function (event) {
+              if (_this3.settings.allowInput) {
+                _this3.settings.manualInputValue = event.target.value;
+                _this3.settings.isManuallyOverriddenValue = true;
+              }
+
+              if (event.target.value === '' && _this3.calendar.selectedDates.length > 0) {
+                _this3.settings.wasDefaultValueChanged = true;
+                _this3.settings.defaultValue = event.target.value;
+
+                _this3.calendar.clear();
+              } else {
+                _this3.settings.wasDefaultValueChanged = false;
+              }
+            });
+
+            if (!_this3.settings.readOnly) {
+              // Enforce the input mask of the format.
+              _this3.setInputMask(_this3.calendar._input, (0, _utils.convertFormatToMask)(_this3.settings.format));
+            } // Make sure we commit the value after a blur event occurs.
+
+
+            _this3.addEventListener(_this3.calendar._input, 'blur', function (event) {
+              var _event$relatedTarget;
+
+              if (!((_event$relatedTarget = event.relatedTarget) !== null && _event$relatedTarget !== void 0 && _event$relatedTarget.className.split(/\s+/).includes('flatpickr-day'))) {
+                var inputValue = _this3.calendar.input.value;
+
+                var _dateValue = inputValue ? (0, _moment.default)(_this3.calendar.input.value, (0, _utils.convertFormatToMoment)(_this3.valueFormat)).toDate() : inputValue;
+
+                _this3.calendar.setDate(_dateValue, true, _this3.settings.altFormat);
+              }
+            }); // FJS-1103: When hit the enter button, the field not saving the year correctly
+
+
+            _this3.addEventListener(_this3.calendar.altInput, 'keydown', function (event) {
+              if (event.keyCode === 13) {
+                _this3.calendar.altInput.blur();
+
+                _this3.calendar.close();
+
+                event.stopPropagation();
+              }
+            });
           }
-
-          return (0, _utils.formatOffset)(_flatpickr.default.formatDate.bind(_flatpickr.default), date, format, _this3.timezone);
-        }
-
-        return _flatpickr.default.formatDate(date, format);
-      };
-
-      if (this._input) {
-        // Create a new flatpickr.
-        this.calendar = new _flatpickr.default(this._input, this.settings); // Enforce the input mask of the format.
-
-        this.setInputMask(this.calendar._input, (0, _utils.convertFormatToMask)(this.settings.format)); // Make sure we commit the value after a blur event occurs.
-
-        this.addEventListener(this.calendar._input, 'blur', function () {
-          return _this3.calendar.setDate(_this3.calendar._input.value, true, _this3.settings.altFormat);
         });
-      }
-
-      return superAttach;
+      });
     }
   }, {
     key: "addSuffix",
     value: function addSuffix(suffix) {
       var _this4 = this;
 
-      this.addEventListener(suffix, 'click', function () {
-        if (_this4.calendar && !_this4.calendar.isOpen && Date.now() - _this4.closedOn > 200) {
-          _this4.calendar.open();
+      this.addEventListener(suffix, 'click', function (event) {
+        event.stopPropagation();
+
+        if (_this4.calendar) {
+          if (!_this4.calendar.isOpen && Date.now() - _this4.closedOn > 200) {
+            _this4.calendar.open();
+          } else if (_this4.calendar.isOpen) {
+            _this4.calendar.close();
+          }
         }
       });
       return suffix;
@@ -251,14 +326,14 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
     value: function getDateValue(date, format) {
       return (0, _moment.default)(date).format((0, _utils.convertFormatToMoment)(format));
     }
+  }, {
+    key: "getValue",
+
     /**
      * Return the value of the selected date.
      *
      * @return {*}
      */
-
-  }, {
-    key: "getValue",
     value: function getValue() {
       // Standard output format.
       if (!this.calendar) {
@@ -288,6 +363,7 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
     key: "setValue",
     value: function setValue(value) {
       if (!this.calendar) {
+        value = value ? (0, _utils.formatDate)(value, (0, _utils.convertFormatToMoment)(this.settings.format), this.timezone, (0, _utils.convertFormatToMoment)(this.valueMomentFormat)) : value;
         return _get(_getPrototypeOf(CalendarWidget.prototype), "setValue", this).call(this, value);
       }
 
@@ -310,7 +386,27 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
         return this.getDateValue(value, format);
       }
 
-      return (0, _utils.formatDate)(value, format, this.timezone);
+      return (0, _utils.formatDate)(value, format, this.timezone, (0, _utils.convertFormatToMoment)(this.calendar ? this.valueFormat : this.settings.dateFormat));
+    }
+  }, {
+    key: "setPlaceholder",
+    value: function setPlaceholder(input) {
+      if (input && !input.getAttribute('placeholder')) {
+        input.setAttribute('placeholder', this.settings.format);
+      }
+    }
+  }, {
+    key: "setErrorClasses",
+    value: function setErrorClasses(hasErrors) {
+      if (!this.input) {
+        return;
+      }
+
+      if (hasErrors) {
+        this.input.className = "".concat(this.input.className, " is-invalid");
+      } else {
+        this.input.className = this.input.className.replace('is-invalid', '');
+      }
     }
   }, {
     key: "validationValue",
@@ -412,7 +508,7 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
           var dateMask = /\d{4}-\d{2}-\d{2}/g;
           var dates = item.match(dateMask);
 
-          if (dates.length) {
+          if (dates && dates.length) {
             return dates.length === 1 ? item.match(dateMask)[0] : {
               from: item.match(dateMask)[0],
               to: item.match(dateMask)[1]
@@ -447,6 +543,11 @@ var CalendarWidget = /*#__PURE__*/function (_InputWidget) {
     key: "dateFormat",
     get: function get() {
       return _lodash.default.get(this.settings, 'format', DEFAULT_FORMAT);
+    }
+  }, {
+    key: "flatpickrType",
+    get: function get() {
+      return 'flatpickr';
     }
   }]);
 

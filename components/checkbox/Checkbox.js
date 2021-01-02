@@ -1,49 +1,29 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
-
 require("core-js/modules/es.regexp.exec");
 
 require("core-js/modules/es.regexp.to-string");
 
-require("core-js/modules/es.string.iterator");
-
 require("core-js/modules/es.string.replace");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(require("lodash"));
-
 var _Field2 = _interopRequireDefault(require("../_classes/field/Field"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51,33 +31,33 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
-
-function _set(target, property, value, receiver, isStrict) { var s = set(target, property, value, receiver || target); if (!s && isStrict) { throw new Error('failed to set property'); } return value; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var CheckBoxComponent = /*#__PURE__*/function (_Field) {
   _inherits(CheckBoxComponent, _Field);
+
+  var _super = _createSuper(CheckBoxComponent);
 
   function CheckBoxComponent() {
     _classCallCheck(this, CheckBoxComponent);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CheckBoxComponent).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(CheckBoxComponent, [{
@@ -85,7 +65,7 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
     value: function render() {
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "render", this).call(this, this.renderTemplate('checkbox', {
         input: this.inputInfo,
-        checked: this.dataValue,
+        checked: this.checked,
         tooltip: this.interpolate(this.t(this.component.tooltip) || '').replace(/(?:\r\n|\r|\n)/g, '<br />')
       }));
     }
@@ -116,6 +96,8 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       if (element && this.input) {
         this.removeShortcut(this.input);
       }
+
+      _get(_getPrototypeOf(CheckBoxComponent.prototype), "detach", this).call(this);
     }
   }, {
     key: "isEmpty",
@@ -123,12 +105,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataValue;
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "isEmpty", this).call(this, value) || value === false;
     }
-    /**
-     *
-     * @param value {*}
-     * @returns {*}
-     */
-
   }, {
     key: "getValueAt",
     value: function getValueAt(index) {
@@ -205,7 +181,8 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "defaultValue",
     get: function get() {
-      return this.component.name ? '' : (this.component.defaultValue || false).toString() === 'true';
+      var name = this.component.name;
+      return name ? this.component[name] || this.emptyValue : (this.component.defaultValue || false).toString() === 'true';
     }
   }, {
     key: "labelClass",
@@ -252,36 +229,21 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "emptyValue",
     get: function get() {
-      return false;
-    }
-  }, {
-    key: "dataValue",
-    set: function set(value) {
-      var setValue = _set(_getPrototypeOf(CheckBoxComponent.prototype), "dataValue", value, this, true);
-
-      if (!this.key || !this.visible && this.component.clearOnHide && !this.rootPristine) {
-        return setValue;
-      }
-
-      if (this.component.name) {
-        _lodash.default.set(this._data, this.component.key, setValue === this.component.value);
-      }
-
-      return setValue;
-    },
-    get: function get() {
-      var getValue = _get(_getPrototypeOf(CheckBoxComponent.prototype), "dataValue", this);
-
-      if (this.component.name) {
-        _lodash.default.set(this._data, this.component.key, getValue === this.component.value);
-      }
-
-      return getValue;
+      return this.component.inputType === 'radio' ? null : false;
     }
   }, {
     key: "key",
     get: function get() {
       return this.component.name ? this.component.name : _get(_getPrototypeOf(CheckBoxComponent.prototype), "key", this);
+    }
+  }, {
+    key: "checked",
+    get: function get() {
+      if (this.component.name) {
+        return this.dataValue === this.component.value;
+      }
+
+      return !!this.dataValue;
     }
   }], [{
     key: "schema",
@@ -308,7 +270,7 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
         title: 'Checkbox',
         group: 'basic',
         icon: 'check-square',
-        documentation: 'http://help.form.io/userguide/#checkbox',
+        documentation: '/userguide/#checkbox',
         weight: 50,
         schema: CheckBoxComponent.schema()
       };

@@ -8,7 +8,7 @@ var _harness = _interopRequireDefault(require("../../../test/harness"));
 
 var _TextField = _interopRequireDefault(require("./TextField"));
 
-var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
+var _Formio = _interopRequireDefault(require("./../../Formio"));
 
 var _fixtures = require("./fixtures");
 
@@ -28,6 +28,13 @@ describe('TextField Component', function () {
   it('Should build a TextField component', function () {
     return _harness.default.testCreate(_TextField.default, _fixtures.comp1).then(function (component) {
       _harness.default.testElements(component, 'input[type="text"]', 1);
+    });
+  });
+  it('Should disable multiple mask selector if component is disabled', function (done) {
+    _harness.default.testCreate(_TextField.default, _fixtures.comp4).then(function (component) {
+      _harness.default.testElements(component, '[disabled]', 2);
+
+      done();
     });
   });
   it('Should provide required validation', function () {
@@ -58,6 +65,34 @@ describe('TextField Component', function () {
       return _harness.default.testValid(component, 'te st').then(function () {
         return component;
       });
+    });
+  });
+  it('Should correctly calculate remaining words', function (done) {
+    _harness.default.testCreate(_TextField.default, _fixtures.comp5).then(function (component) {
+      var inputEvent = new Event('input', {
+        bubbles: true,
+        cancelable: true
+      });
+      var element = component.refs.input[0];
+      element.value = 'paper format A4';
+      element.dispatchEvent(inputEvent);
+      setTimeout(function () {
+        _powerAssert.default.equal(component.refs.wordcount[0].textContent, '2 words remaining.');
+
+        element.value = 'Hey, guys! We are here!!';
+        element.dispatchEvent(inputEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(component.refs.wordcount[0].textContent, '0 words remaining.');
+
+          element.value = ' Some   test   text  111 ';
+          element.dispatchEvent(inputEvent);
+          setTimeout(function () {
+            _powerAssert.default.equal(component.refs.wordcount[0].textContent, '1 words remaining.');
+
+            done();
+          }, 300);
+        }, 275);
+      }, 250);
     });
   });
   it('Should provide maxWords validation', function () {
@@ -111,8 +146,47 @@ describe('TextField Component', function () {
         custom: 'valid = (input !== "Joe") ? true : "You cannot be Joe"'
       }
     })).then(function (component) {
-      return _nativePromiseOnly.default.all[(_harness.default.testInvalid(component, 'Joe', 'firstName', 'You cannot be Joe'), _harness.default.testValid(component, 'Tom'))];
+      return _harness.default.testInvalid(component, 'Joe', 'firstName', 'You cannot be Joe').then(function () {
+        return component;
+      });
+    }).then(function (component) {
+      return _harness.default.testValid(component, 'Tom').then(function () {
+        return component;
+      });
     });
+  });
+  it('Should provide one custom error message', function (done) {
+    var formJson = {
+      components: [{
+        label: 'Text Field',
+        tableView: true,
+        validate: {
+          pattern: '^[0-9]*$]',
+          customMessage: 'Custom Error Message',
+          minWords: 10
+        },
+        key: 'textField',
+        type: 'textfield',
+        input: true
+      }]
+    };
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, formJson).then(function (form) {
+      form.submission = {
+        data: {
+          textField: 'textField'
+        }
+      };
+      var textField = form.getComponent('textField');
+      setTimeout(function () {
+        _powerAssert.default.equal(textField.refs.messageContainer.children.length, 1);
+
+        _powerAssert.default.equal(textField.refs.messageContainer.children[0].innerHTML, 'Custom Error Message');
+
+        done();
+      }, 300);
+    }).catch(done);
   });
   it('Should provide json validation', function () {
     return _harness.default.testCreate(_TextField.default, _lodash.default.merge({}, _fixtures.comp2, {
@@ -126,7 +200,13 @@ describe('TextField Component', function () {
         }
       }
     })).then(function (component) {
-      return _nativePromiseOnly.default.all[(_harness.default.testInvalid(component, 'Tom', 'firstName', 'You must be Joe'), _harness.default.testValid(component, 'Joe'))];
+      return _harness.default.testInvalid(component, 'Tom', 'firstName', 'You must be Joe').then(function () {
+        return component;
+      });
+    }).then(function (component) {
+      return _harness.default.testValid(component, 'Joe').then(function () {
+        return component;
+      });
     });
   });
 });

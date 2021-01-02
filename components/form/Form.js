@@ -1,42 +1,24 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.string.iterator");
 
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
 
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -46,6 +28,8 @@ exports.default = void 0;
 var _lodash = _interopRequireDefault(require("lodash"));
 
 var _Component2 = _interopRequireDefault(require("../_classes/component/Component"));
+
+var _ComponentModal = _interopRequireDefault(require("../_classes/componentModal/ComponentModal"));
 
 var _eventemitter = _interopRequireDefault(require("eventemitter2"));
 
@@ -59,41 +43,39 @@ var _Form = _interopRequireDefault(require("../../Form"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
-
-function _set(target, property, value, receiver, isStrict) { var s = set(target, property, value, receiver || target); if (!s && isStrict) { throw new Error('failed to set property'); } return value; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var FormComponent = /*#__PURE__*/function (_Component) {
   _inherits(FormComponent, _Component);
+
+  var _super = _createSuper(FormComponent);
 
   function FormComponent() {
     _classCallCheck(this, FormComponent);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormComponent).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(FormComponent, [{
@@ -106,6 +88,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         settings: this.component.settings,
         components: this.component.components
       };
+      this.valueChanged = false;
       this.subForm = null;
       this.formSrc = '';
 
@@ -154,11 +137,32 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       if (this.component.revision || this.component.revision === 0) {
         this.formSrc += "/v/".concat(this.component.revision);
       }
+
+      return this.createSubForm();
+    }
+  }, {
+    key: "getComponent",
+    value: function getComponent(path, fn) {
+      path = (0, _utils.getArrayFromComponentPath)(path);
+
+      if (path[0] === 'data') {
+        path.shift();
+      }
+
+      var originalPathStr = "".concat(this.path, ".data.").concat((0, _utils.getStringFromComponentPath)(path));
+
+      if (this.subForm) {
+        return this.subForm.getComponent(path, fn, originalPathStr);
+      }
     }
   }, {
     key: "getSubOptions",
     value: function getSubOptions() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      options.parentPath = "".concat(this.path, ".data.");
+      options.events = this.createEmitter(); // Make sure to not show the submit button in wizards in the nested forms.
+
+      _lodash.default.set(options, 'buttonSettings.showSubmit', false);
 
       if (!this.options) {
         return options;
@@ -172,8 +176,8 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         options.project = this.options.project;
       }
 
-      if (this.options.readOnly) {
-        options.readOnly = this.options.readOnly;
+      if (this.options.readOnly || this.component.disabled) {
+        options.readOnly = this.options.readOnly || this.component.disabled;
       }
 
       if (this.options.breadcrumbSettings) {
@@ -212,9 +216,9 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         options.iconset = this.options.iconset;
       }
 
-      options.events = this.createEmitter(); // Make sure to not show the submit button in wizards in the nested forms.
-
-      _lodash.default.set(options, 'buttonSettings.showSubmit', false);
+      if (this.options.fileService) {
+        options.fileService = this.options.fileService;
+      }
 
       return options;
     }
@@ -265,23 +269,37 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       }
 
       return _get(_getPrototypeOf(FormComponent.prototype), "attach", this).call(this, element).then(function () {
-        return _this.createSubForm();
-      }).then(function () {
-        _this.empty(element);
+        return _this.subFormReady.then(function () {
+          _this.empty(element);
 
-        if (_this.options.builder) {
-          _this.setContent(element, _this.ce('div', {
-            class: 'text-muted text-center p-2'
-          }, _this.text(_this.formObj.title)));
+          if (_this.options.builder) {
+            _this.setContent(element, _this.ce('div', {
+              class: 'text-muted text-center p-2'
+            }, _this.text(_this.formObj.title)));
 
-          return;
-        }
+            return;
+          }
 
-        _this.setContent(element, _this.render());
+          _this.setContent(element, _this.render());
 
-        if (_this.subForm) {
-          _this.subForm.attach(element);
-        }
+          if (_this.subForm) {
+            _this.subForm.attach(element);
+
+            if (!_this.valueChanged && _this.dataValue.state !== 'submitted') {
+              _this.setDefaultValue();
+            } else {
+              _this.restoreValue();
+            }
+          }
+
+          if (!_this.builderMode && _this.component.modalEdit) {
+            var modalShouldBeOpened = _this.componentModal ? _this.componentModal.isOpened : false;
+            var currentValue = modalShouldBeOpened ? _this.componentModal.currentValue : _this.dataValue;
+            _this.componentModal = new _ComponentModal.default(_this, element, modalShouldBeOpened, currentValue);
+
+            _this.setOpenModalElement();
+          }
+        });
       });
     }
   }, {
@@ -343,13 +361,9 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         if (!form) {
           return;
         } // Iterate through every component and hide the submit button.
-        // Override defaultValue with respective parts from old dataValue.
 
 
-        var oldData = _this2.dataValue ? _this2.dataValue.data : {};
         (0, _utils.eachComponent)(form.components, function (component) {
-          component.defaultValue = _lodash.default.get(oldData, component.key, component.defaultValue);
-
           if (component.type === 'button' && (component.action === 'submit' || !component.action)) {
             component.hidden = true;
           }
@@ -382,8 +396,17 @@ var FormComponent = /*#__PURE__*/function (_Component) {
 
           _this2.restoreValue();
 
+          _this2.valueChanged = _this2.hasSetValue;
           return _this2.subForm;
         });
+      }).then(function (subForm) {
+        if (_this2.root && _this2.root.subWizards && (subForm === null || subForm === void 0 ? void 0 : subForm._form.display) === 'wizard') {
+          _this2.root.subWizards.push(_this2);
+
+          _this2.emit('subWizardsUpdated', subForm);
+        }
+
+        return subForm;
       });
       return this.subFormReady;
     }
@@ -440,7 +463,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         return visible;
       }
 
-      if (this.subForm && this.subForm.hasCondition()) {
+      if (this.subForm) {
         return this.subForm.checkConditions(this.dataValue.data);
       }
 
@@ -497,8 +520,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
 
       // If we wish to submit the form on next page, then do that here.
       if (this.shouldSubmit) {
-        var subFormReady = this.subFormReady || this.createSubForm();
-        return subFormReady.then(function () {
+        return this.subFormReady.then(function () {
           if (!_this4.subForm) {
             return _this4.dataValue;
           }
@@ -506,9 +528,12 @@ var FormComponent = /*#__PURE__*/function (_Component) {
           _this4.subForm.nosubmit = false;
           return _this4.subForm.submitForm().then(function (result) {
             _this4.subForm.loading = false;
+            _this4.subForm.showAllErrors = false;
             _this4.dataValue = result.submission;
             return _this4.dataValue;
           }).catch(function (err) {
+            _this4.subForm.showAllErrors = true;
+
             if (rejectOnError) {
               _this4.subForm.onSubmissionError(err);
 
@@ -531,6 +556,11 @@ var FormComponent = /*#__PURE__*/function (_Component) {
     value: function beforePage(next) {
       var _this5 = this;
 
+      // Should not submit child forms if we are going to the previous page
+      if (!next) {
+        return _get(_getPrototypeOf(FormComponent.prototype), "beforePage", this).call(this, next);
+      }
+
       return this.submitSubForm(true).then(function () {
         return _get(_getPrototypeOf(FormComponent.prototype), "beforePage", _this5).call(_this5, next);
       });
@@ -545,8 +575,9 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       var _this6 = this;
 
       var submission = this.dataValue; // This submission has already been submitted, so just return the reference data.
+      // All wizards are submitted at the end of the form.
 
-      if (submission && submission._id && submission.form) {
+      if (submission && submission._id && submission.form && !this.subForm.wizard) {
         this.dataValue = submission;
         return _nativePromiseOnly.default.resolve(this.dataValue);
       }
@@ -571,11 +602,14 @@ var FormComponent = /*#__PURE__*/function (_Component) {
     value: function setValue(submission) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      _get(_getPrototypeOf(FormComponent.prototype), "setValue", this).call(this, submission, flags);
+      var changed = _get(_getPrototypeOf(FormComponent.prototype), "setValue", this).call(this, submission, flags);
+
+      this.valueChanged = true;
 
       if (this.subForm) {
         if (submission && submission._id && this.subForm.formio && _lodash.default.isEmpty(submission.data)) {
-          var submissionUrl = "".concat(this.subForm.formio.formsUrl, "/").concat(submission.form, "/submission/").concat(submission._id);
+          var formUrl = submission.form ? "".concat(this.subForm.formio.formsUrl, "/").concat(submission.form) : this.formSrc;
+          var submissionUrl = "".concat(formUrl, "/submission/").concat(submission._id);
           this.subForm.setUrl(submissionUrl, this.options);
           this.subForm.loadSubmission();
         } else {
@@ -583,7 +617,28 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         }
       }
 
-      return flags.changed;
+      return changed;
+    }
+  }, {
+    key: "isEmpty",
+    value: function isEmpty() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataValue;
+      return value === null || _lodash.default.isEqual(value, this.emptyValue) || this.areAllComponentsEmpty(value.data) && !value._id;
+    }
+  }, {
+    key: "areAllComponentsEmpty",
+    value: function areAllComponentsEmpty(data) {
+      var res = true;
+
+      if (this.subForm) {
+        this.subForm.everyComponent(function (comp) {
+          res &= comp.isEmpty(_lodash.default.get(data, comp.key) || comp.dataValue);
+        });
+      } else {
+        res = false;
+      }
+
+      return res;
     }
   }, {
     key: "getValue",
@@ -721,7 +776,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "shouldSubmit",
     get: function get() {
-      return this.subFormReady && (!this.component.hasOwnProperty('reference') || this.component.reference) && !this.isHidden;
+      return this.subFormReady && (!this.component.hasOwnProperty('reference') || this.component.reference) && !this.isHidden();
     }
   }, {
     key: "errors",
@@ -740,9 +795,24 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       return _get(_getPrototypeOf(FormComponent.prototype), "visible", this);
     },
     set: function set(value) {
-      _set(_getPrototypeOf(FormComponent.prototype), "visible", value, this, true);
+      var _this8 = this;
 
-      this.updateSubFormVisibility();
+      if (this._visible !== value) {
+        this._visible = value;
+        this.clearOnHide(); // Form doesn't load if hidden. If it becomes visible, create the form.
+
+        if (!this.subForm && value) {
+          this.createSubForm();
+          this.subFormReady.then(function () {
+            _this8.updateSubFormVisibility();
+          });
+          this.redraw();
+          return;
+        }
+
+        this.updateSubFormVisibility();
+        this.redraw();
+      }
     }
   }, {
     key: "parentVisible",
@@ -750,9 +820,24 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       return _get(_getPrototypeOf(FormComponent.prototype), "parentVisible", this);
     },
     set: function set(value) {
-      _set(_getPrototypeOf(FormComponent.prototype), "parentVisible", value, this, true);
+      var _this9 = this;
 
-      this.updateSubFormVisibility();
+      if (this._parentVisible !== value) {
+        this._parentVisible = value;
+        this.clearOnHide(); // Form doesn't load if hidden. If it becomes visible, create the form.
+
+        if (!this.subForm && value) {
+          this.createSubForm();
+          this.subFormReady.then(function () {
+            _this9.updateSubFormVisibility();
+          });
+          this.redraw();
+          return;
+        }
+
+        this.updateSubFormVisibility();
+        this.redraw();
+      }
     }
   }], [{
     key: "schema",
@@ -779,7 +864,7 @@ var FormComponent = /*#__PURE__*/function (_Component) {
         title: 'Nested Form',
         icon: 'wpforms',
         group: 'premium',
-        documentation: 'http://help.form.io/userguide/#form',
+        documentation: '/userguide/#form',
         weight: 110,
         schema: FormComponent.schema()
       };

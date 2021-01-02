@@ -1,10 +1,6 @@
 'use strict';
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
@@ -12,9 +8,7 @@ require("core-js/modules/es.array.find-index");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.from");
-
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.array.includes");
 
 require("core-js/modules/es.array.map");
 
@@ -24,23 +18,15 @@ require("core-js/modules/es.array.slice");
 
 require("core-js/modules/es.array.splice");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
+require("core-js/modules/es.number.constructor");
+
+require("core-js/modules/es.number.parse-int");
 
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es.string.includes");
 
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -55,23 +41,11 @@ var _Components = _interopRequireDefault(require("../../Components"));
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
+var _utils = require("../../../utils/utils");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -83,8 +57,6 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -93,8 +65,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var NestedComponent = /*#__PURE__*/function (_Field) {
   _inherits(NestedComponent, _Field);
+
+  var _super = _createSuper(NestedComponent);
 
   _createClass(NestedComponent, null, [{
     key: "schema",
@@ -114,7 +98,7 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
 
     _classCallCheck(this, NestedComponent);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(NestedComponent).call(this, component, options, data));
+    _this = _super.call(this, component, options, data);
     _this.type = 'components';
     _this._collapsed = !!_this.component.collapsed;
     return _this;
@@ -139,7 +123,7 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
 
   }, {
     key: "everyComponent",
-    value: function everyComponent(fn) {
+    value: function everyComponent(fn, options) {
       var components = this.getComponents();
 
       _lodash.default.each(components, function (component, index) {
@@ -148,7 +132,7 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
         }
 
         if (typeof component.everyComponent === 'function') {
-          if (component.everyComponent(fn) === false) {
+          if (component.everyComponent(fn, options) === false) {
             return false;
           }
         }
@@ -171,7 +155,7 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
     value: function flattenComponents() {
       var result = {};
       this.everyComponent(function (component) {
-        result[component.key] = component;
+        result[component.component.flattenAs || component.key] = component;
       });
       return result;
     }
@@ -201,33 +185,47 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
 
   }, {
     key: "getComponent",
-    value: function getComponent(path, fn) {
-      path = Array.isArray(path) ? path : [path];
-
-      var _path = path,
-          _path2 = _toArray(_path),
-          key = _path2[0],
-          remainingPath = _path2.slice(1);
-
+    value: function getComponent(path, fn, originalPath) {
+      originalPath = originalPath || (0, _utils.getStringFromComponentPath)(path);
+      path = (0, _utils.getArrayFromComponentPath)(path);
+      var pathStr = originalPath;
+      var key = path.shift();
+      var remainingPath = path;
       var comp = null;
+      var possibleComp = null;
+
+      if (_lodash.default.isNumber(key)) {
+        key = remainingPath.shift();
+      }
 
       if (!_lodash.default.isString(key)) {
         return comp;
       }
 
       this.everyComponent(function (component, components) {
+        var matchPath = component.hasInput && component.path ? pathStr.includes(component.path) : true;
+
         if (component.component.key === key) {
-          comp = component;
+          possibleComp = component;
 
-          if (remainingPath.length > 0 && 'getComponent' in component) {
-            comp = component.getComponent(remainingPath, fn);
-          } else if (fn) {
-            fn(component, components);
+          if (matchPath) {
+            comp = component;
+
+            if (remainingPath.length > 0 && 'getComponent' in component) {
+              comp = component.getComponent(remainingPath, fn, originalPath);
+            } else if (fn) {
+              fn(component, components);
+            }
+
+            return false;
           }
-
-          return false;
         }
       });
+
+      if (!comp) {
+        comp = possibleComp;
+      }
+
       return comp;
     }
     /**
@@ -256,6 +254,32 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       return comp;
     }
     /**
+     * Return a path of component's value.
+     *
+     * @param {Object} component - The component instance.
+     * @return {string} - The component's value path.
+     */
+
+  }, {
+    key: "calculateComponentPath",
+    value: function calculateComponentPath(component) {
+      var path = '';
+
+      if (component.component.key) {
+        var thisPath = this;
+
+        while (thisPath && !thisPath.allowData && thisPath.parent) {
+          thisPath = thisPath.parent;
+        }
+
+        var rowIndex = component.row ? "[".concat(Number.parseInt(component.row), "]") : '';
+        path = thisPath.path ? "".concat(thisPath.path).concat(rowIndex, ".") : '';
+        path += component._parentPath && component.component.shouldIncludeSubFormPath ? component._parentPath : '';
+        path += component.component.key;
+        return path;
+      }
+    }
+    /**
      * Create a new component and add it to the components array.
      *
      * @param component
@@ -276,17 +300,16 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       options.root = this.root || this;
       options.skipInit = true;
 
+      if (!this.isInputComponent && this.component.shouldIncludeSubFormPath) {
+        component.shouldIncludeSubFormPath = true;
+      }
+
       var comp = _Components.default.create(component, options, data, true);
 
-      if (component.key) {
-        var thisPath = this;
+      var path = this.calculateComponentPath(comp);
 
-        while (thisPath && !thisPath.allowData && thisPath.parent) {
-          thisPath = thisPath.parent;
-        }
-
-        comp.path = thisPath.path ? "".concat(thisPath.path, ".") : '';
-        comp.path += component.key;
+      if (path) {
+        comp.path = path;
       }
 
       comp.init();
@@ -359,6 +382,11 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
     key: "addComponent",
     value: function addComponent(component, data, before, noAdd) {
       data = data || this.data;
+
+      if (this.options.parentPath) {
+        component.shouldIncludeSubFormPath = true;
+      }
+
       component = this.hook('addComponent', component, data, before, noAdd);
       var comp = this.createComponent(component, this.options, data, before ? before : null);
 
@@ -369,13 +397,20 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       return comp;
     }
   }, {
+    key: "beforeFocus",
+    value: function beforeFocus() {
+      if (this.parent && 'beforeFocus' in this.parent) {
+        this.parent.beforeFocus(this);
+      }
+    }
+  }, {
     key: "render",
     value: function render(children) {
       // If already rendering, don't re-render.
       return _get(_getPrototypeOf(NestedComponent.prototype), "render", this).call(this, children || this.renderTemplate(this.templateName, {
         children: this.renderComponents(),
         nestedKey: this.nestedKey,
-        collapsed: this.collapsed
+        collapsed: this.options.pdf ? false : this.collapsed
       }));
     }
   }, {
@@ -534,15 +569,14 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "checkData",
     value: function checkData(data, flags, row, components) {
-      // Do not check data for disabled components
-      if (this.shouldDisabled || this.builderMode) {
+      if (this.builderMode) {
         return true;
       }
 
       data = data || this.rootValue;
       flags = flags || {};
       row = row || this.data;
-      components = components || this.getComponents();
+      components = components && _lodash.default.isArray(components) ? components : this.getComponents();
       return components.reduce(function (valid, comp) {
         return comp.checkData(data, flags, row) && valid;
       }, _get(_getPrototypeOf(NestedComponent.prototype), "checkData", this).call(this, data, flags, row));
@@ -635,27 +669,33 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
     }
   }, {
     key: "checkValidity",
-    value: function checkValidity(data, dirty, row) {
+    value: function checkValidity(data, dirty, row, silentCheck) {
       if (!this.checkCondition(row, data)) {
         this.setCustomValidity('');
         return true;
       }
 
       return this.getComponents().reduce(function (check, comp) {
-        return comp.checkValidity(data, dirty, row) && check;
-      }, _get(_getPrototypeOf(NestedComponent.prototype), "checkValidity", this).call(this, data, dirty, row));
+        return comp.checkValidity(data, dirty, row, silentCheck) && check;
+      }, _get(_getPrototypeOf(NestedComponent.prototype), "checkValidity", this).call(this, data, dirty, row, silentCheck));
     }
   }, {
     key: "checkAsyncValidity",
-    value: function checkAsyncValidity(data, dirty, row) {
-      var promises = [_get(_getPrototypeOf(NestedComponent.prototype), "checkAsyncValidity", this).call(this, data, dirty, row)];
-      this.eachComponent(function (component) {
-        return promises.push(component.checkAsyncValidity(data, dirty, row));
-      });
-      return _nativePromiseOnly.default.all(promises).then(function (results) {
-        return results.reduce(function (valid, result) {
-          return valid && result;
-        }, true);
+    value: function checkAsyncValidity(data, dirty, row, silentCheck) {
+      var _this7 = this;
+
+      return this.ready.then(function () {
+        var promises = [_get(_getPrototypeOf(NestedComponent.prototype), "checkAsyncValidity", _this7).call(_this7, data, dirty, row, silentCheck)];
+
+        _this7.eachComponent(function (component) {
+          return promises.push(component.checkAsyncValidity(data, dirty, row, silentCheck));
+        });
+
+        return _nativePromiseOnly.default.all(promises).then(function (results) {
+          return results.reduce(function (valid, result) {
+            return valid && result;
+          }, true);
+        });
       });
     }
   }, {
@@ -677,6 +717,15 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       _get(_getPrototypeOf(NestedComponent.prototype), "detach", this).call(this);
     }
   }, {
+    key: "clear",
+    value: function clear() {
+      this.components.forEach(function (component) {
+        component.clear();
+      });
+
+      _get(_getPrototypeOf(NestedComponent.prototype), "clear", this).call(this);
+    }
+  }, {
     key: "destroy",
     value: function destroy() {
       this.destroyComponents();
@@ -686,11 +735,11 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "destroyComponents",
     value: function destroyComponents() {
-      var _this7 = this;
+      var _this8 = this;
 
       var components = this.getComponents().slice();
       components.forEach(function (comp) {
-        return _this7.removeComponent(comp, _this7.components);
+        return _this8.removeComponent(comp, _this8.components);
       });
       this.components = [];
     }
@@ -731,7 +780,7 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "setValue",
     value: function setValue(value) {
-      var _this8 = this;
+      var _this9 = this;
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -739,11 +788,9 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
         return false;
       }
 
-      flags.changed = flags.changed || this.hasChanged(value, this.dataValue);
-      this.getComponents().forEach(function (component) {
-        return _this8.setNestedValue(component, value, flags);
-      });
-      return flags.changed;
+      return this.getComponents().reduce(function (changed, component) {
+        return _this9.setNestedValue(component, value, flags, changed) || changed;
+      }, false);
     }
   }, {
     key: "defaultSchema",
@@ -768,16 +815,26 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
     set: function set(value) {
       this._collapsed = value;
       this.redraw();
+
+      if (!value && !this.pristine) {
+        this.checkValidity(this.data, true);
+      }
     }
   }, {
     key: "visible",
     set: function set(value) {
-      _set(_getPrototypeOf(NestedComponent.prototype), "visible", value, this, true);
-
+      // DO NOT CALL super here.  There is an issue where clearOnHide was getting triggered with
+      // subcomponents because the "parentVisible" flag was set to false when it should really be
+      // set to true.
+      var visibilityChanged = this._visible !== value;
+      this._visible = value;
       var isVisible = this.visible;
       var forceShow = this.options.show && this.options.show[this.component.key];
       var forceHide = this.options.hide && this.options.hide[this.component.key];
       this.components.forEach(function (component) {
+        // Set the parent visibility first since we may have nested components within nested components
+        // and they need to be able to determine their visibility based on the parent visibility.
+        component.parentVisible = isVisible;
         var conditionallyVisible = component.conditionallyVisible();
 
         if (forceShow || conditionallyVisible) {
@@ -790,9 +847,12 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
         if (!component.visible) {
           component.error = '';
         }
-
-        component.parentVisible = isVisible;
       });
+
+      if (visibilityChanged) {
+        this.clearOnHide();
+        this.redraw();
+      }
     },
     get: function get() {
       return _get(_getPrototypeOf(NestedComponent.prototype), "visible", this);
@@ -800,12 +860,12 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "parentVisible",
     set: function set(value) {
-      var _this9 = this;
+      var _this10 = this;
 
       _set(_getPrototypeOf(NestedComponent.prototype), "parentVisible", value, this, true);
 
       this.components.forEach(function (component) {
-        component.parentVisible = _this9.visible;
+        return component.parentVisible = _this10.visible;
       });
     },
     get: function get() {
@@ -826,12 +886,12 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "parentDisabled",
     set: function set(value) {
-      var _this10 = this;
+      var _this11 = this;
 
       _set(_getPrototypeOf(NestedComponent.prototype), "parentDisabled", value, this, true);
 
       this.components.forEach(function (component) {
-        component.parentDisabled = _this10.disabled;
+        component.parentDisabled = _this11.disabled;
       });
     },
     get: function get() {
@@ -873,11 +933,11 @@ var NestedComponent = /*#__PURE__*/function (_Field) {
       return this._data;
     },
     set: function set(value) {
-      var _this11 = this;
+      var _this12 = this;
 
       this._data = value;
       this.eachComponent(function (component) {
-        component.data = _this11.componentContext(component);
+        component.data = _this12.componentContext(component);
       });
     }
   }, {

@@ -1,40 +1,26 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.iterator");
-
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.function.name");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
+require("core-js/modules/es.regexp.constructor");
 
 require("core-js/modules/es.regexp.exec");
 
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.replace");
 
-require("core-js/modules/es.string.trim");
-
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -51,35 +37,39 @@ var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
   _inherits(TextAreaComponent, _TextFieldComponent);
+
+  var _super = _createSuper(TextAreaComponent);
 
   function TextAreaComponent() {
     _classCallCheck(this, TextAreaComponent);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TextAreaComponent).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TextAreaComponent, [{
@@ -107,18 +97,15 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
 
       if (this.options.readOnly || this.disabled) {
         return this.renderTemplate('well', {
-          children: '<div ref="input"></div>',
+          children: '<div ref="input" class="formio-editor-read-only-content"></div>',
           nestedKey: this.key,
           value: value
         });
-      } // Editors work better on divs.
-
-
-      if (this.component.editor || this.component.wysiwyg) {
-        return '<div ref="input"></div>';
       }
 
       return this.renderTemplate('input', {
+        prefix: this.prefix,
+        suffix: this.suffix,
         input: info,
         value: value,
         index: index
@@ -133,7 +120,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
      * @param newValue
      */
     value: function updateEditorValue(index, newValue) {
-      newValue = this.getConvertedValue(this.removeBlanks(newValue));
+      newValue = this.getConvertedValue(this.trimBlanks(newValue));
       var dataValue = this.dataValue;
 
       if (this.component.multiple && Array.isArray(dataValue)) {
@@ -146,7 +133,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       if (!_lodash.default.isEqual(newValue, dataValue) && (!_lodash.default.isEmpty(newValue) || !_lodash.default.isEmpty(dataValue))) {
         this.updateValue(newValue, {
           modified: !this.autoModified
-        });
+        }, index);
       }
 
       this.autoModified = false;
@@ -170,7 +157,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
         this.component.editor = 'ckeditor';
       }
 
-      var settings = _lodash.default.isEmpty(this.component.wysiwyg) ? this.wysiwygDefault : this.component.wysiwyg; // Keep track of when this editor is ready.
+      var settings = _lodash.default.isEmpty(this.component.wysiwyg) ? this.wysiwygDefault[this.component.editor] || this.wysiwygDefault.default : this.component.wysiwyg; // Keep track of when this editor is ready.
 
       this.editorsReady[index] = new _nativePromiseOnly.default(function (editorReady) {
         // Attempt to add a wysiwyg editor. In order to add one, it must be included on the global scope.
@@ -180,7 +167,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
               settings = {};
             }
 
-            settings.mode = _this2.component.as;
+            settings.mode = "ace/mode/".concat(_this2.component.as);
 
             _this2.addAce(element, settings, function (newValue) {
               return _this2.updateEditorValue(index, newValue);
@@ -201,7 +188,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
             // Normalize the configurations for quill.
             if (settings.hasOwnProperty('toolbarGroups') || settings.hasOwnProperty('toolbar')) {
               console.warn('The WYSIWYG settings are configured for CKEditor. For this renderer, you will need to use configurations for the Quill Editor. See https://quilljs.com/docs/configuration for more information.');
-              settings = _this2.wysiwygDefault;
+              settings = _this2.wysiwygDefault.quill;
             } // Add the quill editor.
 
 
@@ -212,22 +199,31 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
 
               if (_this2.component.isUploadEnabled) {
                 var _this = _this2;
-                quill.getModule('toolbar').addHandler('image', function () {
+
+                quill.getModule('uploader').options.handler = function () {
+                  var _this$imageHandler;
+
+                  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                  }
+
                   //we need initial 'this' because quill calls this method with its own context and we need some inner quill methods exposed in it
                   //we also need current component instance as we use some fields and methods from it as well
-                  _this.imageHandler.call(_this, this);
-                });
+                  (_this$imageHandler = _this.imageHandler).call.apply(_this$imageHandler, [_this, this].concat(args));
+                };
               }
 
               quill.root.spellcheck = _this2.component.spellcheck;
 
-              if (_this2.options.readOnly || _this2.component.disabled) {
+              if (_this2.options.readOnly || _this2.disabled) {
                 quill.disable();
               }
 
               var dataValue = _this2.dataValue;
               dataValue = _this2.component.multiple && Array.isArray(dataValue) ? dataValue[index] : dataValue;
-              quill.setContents(quill.clipboard.convert(_this2.setConvertedValue(dataValue, index)));
+              quill.setContents(quill.clipboard.convert({
+                html: _this2.setConvertedValue(dataValue, index)
+              }));
               editorReady(quill);
               return quill;
             }).catch(function (err) {
@@ -244,44 +240,33 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
               return _this2.updateEditorValue(index, newValue);
             }).then(function (editor) {
               _this2.editors[index] = editor;
-
-              if (_this2.options.readOnly || _this2.component.disabled) {
-                editor.isReadOnly = true;
-              }
-
-              var numRows = parseInt(_this2.component.rows, 10);
-
-              if (_lodash.default.isFinite(numRows) && _lodash.default.has(editor, 'ui.view.editable.editableElement')) {
-                // Default height is 21px with 10px margin + a 14px top margin.
-                var editorHeight = numRows * 31 + 14;
-                editor.ui.view.editable.editableElement.style.height = "".concat(editorHeight, "px");
-              }
-
               var dataValue = _this2.dataValue;
               dataValue = _this2.component.multiple && Array.isArray(dataValue) ? dataValue[index] : dataValue;
-              editor.data.set(_this2.setConvertedValue(dataValue, index));
+
+              var value = _this2.setConvertedValue(dataValue, index);
+
+              var isReadOnly = _this2.options.readOnly || _this2.disabled;
+
+              if ((0, _utils.getIEBrowserVersion)()) {
+                editor.on('instanceReady', function () {
+                  editor.setReadOnly(isReadOnly);
+                  editor.setData(value);
+                });
+              } else {
+                var numRows = parseInt(_this2.component.rows, 10);
+
+                if (_lodash.default.isFinite(numRows) && _lodash.default.has(editor, 'ui.view.editable.editableElement')) {
+                  // Default height is 21px with 10px margin + a 14px top margin.
+                  var editorHeight = numRows * 31 + 14;
+                  editor.ui.view.editable.editableElement.style.height = "".concat(editorHeight, "px");
+                }
+
+                editor.isReadOnly = isReadOnly;
+                editor.data.set(value);
+              }
+
               editorReady(editor);
               return editor;
-            });
-
-            break;
-
-          case 'tiny':
-            if (!settings) {
-              settings = {};
-            }
-
-            settings.mode = _this2.component.as || 'javascript';
-
-            _this2.addTiny(element, settings, function (newValue) {
-              return _this2.updateEditorValue(newValue);
-            }).then(function (tiny) {
-              _this2.editors[index] = tiny;
-              tiny.setContent(_this2.setConvertedValue(_this2.dataValue));
-              editorReady(tiny);
-              return tiny;
-            }).catch(function (err) {
-              return console.warn(err);
             });
 
             break;
@@ -305,57 +290,41 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
     }
   }, {
     key: "imageHandler",
-    value: function imageHandler(quillInstance) {
+    value: function imageHandler(moduleInstance, range, files) {
       var _this3 = this;
 
-      var fileInput = quillInstance.container.querySelector('input.ql-image[type=file]');
+      var quillInstance = moduleInstance.quill;
 
-      if (fileInput == null) {
-        fileInput = document.createElement('input');
-        fileInput.setAttribute('type', 'file');
-        fileInput.setAttribute('accept', 'image/*');
-        fileInput.classList.add('ql-image');
-        this.addEventListener(fileInput, 'change', function () {
-          var files = fileInput.files;
-          var range = quillInstance.quill.getSelection(true);
-
-          if (!files || !files.length) {
-            console.warn('No files selected');
-            return;
-          }
-
-          quillInstance.quill.enable(false);
-          var _this3$component = _this3.component,
-              uploadStorage = _this3$component.uploadStorage,
-              uploadUrl = _this3$component.uploadUrl,
-              uploadOptions = _this3$component.uploadOptions,
-              uploadDir = _this3$component.uploadDir,
-              fileKey = _this3$component.fileKey;
-          var requestData;
-
-          _this3.root.formio.uploadFile(uploadStorage, files[0], (0, _utils.uniqueName)(files[0].name), uploadDir || '', //should pass empty string if undefined
-          null, uploadUrl, uploadOptions, fileKey).then(function (result) {
-            requestData = result;
-            return _this3.root.formio.downloadFile(result);
-          }).then(function (result) {
-            quillInstance.quill.enable(true);
-            var Delta = Quill.import('delta');
-            quillInstance.quill.updateContents(new Delta().retain(range.index).delete(range.length).insert({
-              image: result.url
-            }, {
-              alt: JSON.stringify(requestData)
-            }), Quill.sources.USER);
-            fileInput.value = '';
-          }).catch(function (error) {
-            console.warn('Quill image upload failed');
-            console.warn(error);
-            quillInstance.quill.enable(true);
-          });
-        });
-        quillInstance.container.appendChild(fileInput);
+      if (!files || !files.length) {
+        console.warn('No files selected');
+        return;
       }
 
-      fileInput.click();
+      quillInstance.enable(false);
+      var _this$component = this.component,
+          uploadStorage = _this$component.uploadStorage,
+          uploadUrl = _this$component.uploadUrl,
+          uploadOptions = _this$component.uploadOptions,
+          uploadDir = _this$component.uploadDir,
+          fileKey = _this$component.fileKey;
+      var requestData;
+      this.fileService.uploadFile(uploadStorage, files[0], (0, _utils.uniqueName)(files[0].name), uploadDir || '', //should pass empty string if undefined
+      null, uploadUrl, uploadOptions, fileKey).then(function (result) {
+        requestData = result;
+        return _this3.fileService.downloadFile(result);
+      }).then(function (result) {
+        quillInstance.enable(true);
+        var Delta = Quill.import('delta');
+        quillInstance.updateContents(new Delta().retain(range.index).delete(range.length).insert({
+          image: result.url
+        }, {
+          alt: JSON.stringify(requestData)
+        }), Quill.sources.USER);
+      }).catch(function (error) {
+        console.warn('Quill image upload failed');
+        console.warn(error);
+        quillInstance.enable(true);
+      });
     }
   }, {
     key: "setValueAt",
@@ -380,20 +349,24 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
                 case 'quill':
                   if (_this4.component.isUploadEnabled) {
                     _this4.setAsyncConvertedValue(value).then(function (result) {
-                      editor.setContents(editor.clipboard.convert(result));
+                      var content = editor.clipboard.convert({
+                        html: result
+                      });
+                      editor.setContents(content);
                     });
                   } else {
-                    editor.setContents(editor.clipboard.convert(_this4.setConvertedValue(value, index)));
+                    var convertedValue = _this4.setConvertedValue(value, index);
+
+                    var content = editor.clipboard.convert({
+                      html: convertedValue
+                    });
+                    editor.setContents(content);
                   }
 
                   break;
 
                 case 'ckeditor':
                   editor.data.set(_this4.setConvertedValue(value, index));
-                  break;
-
-                case 'tiny':
-                  editor.setContent(_this4.setConvertedValue(value));
                   break;
               }
             }
@@ -469,8 +442,8 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
 
       if (images.length) {
         return this.setImagesUrl(images).then(function () {
-          value = htmlDoc.getElementsByTagName('body')[0].firstElementChild;
-          return new XMLSerializer().serializeToString(value);
+          value = htmlDoc.getElementsByTagName('body')[0].innerHTML;
+          return value;
         });
       } else {
         return _nativePromiseOnly.default.resolve(value);
@@ -490,7 +463,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
           console.warn(error);
         }
 
-        return _this6.root.formio.downloadFile(requestData).then(function (result) {
+        return _this6.fileService.downloadFile(requestData).then(function (result) {
           image.setAttribute('src', result.url);
         });
       }));
@@ -575,26 +548,26 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       update();
     }
   }, {
-    key: "removeBlanks",
-    value: function removeBlanks(value) {
-      if (!value) {
+    key: "trimBlanks",
+    value: function trimBlanks(value) {
+      if (!value || this.isPlain) {
         return value;
       }
 
-      var removeBlanks = function removeBlanks(input) {
-        if (typeof input !== 'string') {
-          return input;
-        }
-
-        return input.replace(/<p>&nbsp;<\/p>|<p><br><\/p>|<p><br>&nbsp;<\/p>/g, '').trim();
+      var trimBlanks = function trimBlanks(value) {
+        var nbsp = '<p>&nbsp;</p>';
+        var br = '<p><br></p>';
+        var brNbsp = '<p><br>&nbsp;</p>';
+        var regExp = new RegExp("^".concat(nbsp, "|").concat(nbsp, "$|^").concat(br, "|").concat(br, "$|^").concat(brNbsp, "|").concat(brNbsp, "$"), 'g');
+        return typeof value === 'string' ? value.replace(regExp, '') : value;
       };
 
       if (Array.isArray(value)) {
         value.forEach(function (input, index) {
-          value[index] = removeBlanks(input);
+          value[index] = trimBlanks(input);
         });
       } else {
-        value = removeBlanks(value);
+        value = trimBlanks(value);
       }
 
       return value;
@@ -612,13 +585,13 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
   }, {
     key: "hasChanged",
     value: function hasChanged(newValue, oldValue) {
-      return _get(_getPrototypeOf(TextAreaComponent.prototype), "hasChanged", this).call(this, this.removeBlanks(newValue), this.removeBlanks(oldValue));
+      return _get(_getPrototypeOf(TextAreaComponent.prototype), "hasChanged", this).call(this, this.trimBlanks(newValue), this.trimBlanks(oldValue));
     }
   }, {
     key: "isEmpty",
     value: function isEmpty() {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataValue;
-      return _get(_getPrototypeOf(TextAreaComponent.prototype), "isEmpty", this).call(this, this.removeBlanks(value));
+      return _get(_getPrototypeOf(TextAreaComponent.prototype), "isEmpty", this).call(this, this.trimBlanks(value));
     }
   }, {
     key: "getConvertedValue",
@@ -649,6 +622,8 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
         return _this7.removeEventListener(window, 'resize', updateSize);
       });
       this.updateSizes = [];
+
+      _get(_getPrototypeOf(TextAreaComponent.prototype), "detach", this).call(this);
     }
   }, {
     key: "getValue",
@@ -658,6 +633,38 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       }
 
       return this.dataValue;
+    }
+  }, {
+    key: "focus",
+    value: function focus() {
+      _get(_getPrototypeOf(TextAreaComponent.prototype), "focus", this).call(this);
+
+      switch (this.component.editor) {
+        case 'ckeditor':
+          {
+            var _this$editors$0$editi, _this$editors$0$editi2;
+
+            if ((_this$editors$0$editi = this.editors[0].editing) !== null && _this$editors$0$editi !== void 0 && (_this$editors$0$editi2 = _this$editors$0$editi.view) !== null && _this$editors$0$editi2 !== void 0 && _this$editors$0$editi2.focus) {
+              this.editors[0].editing.view.focus();
+            }
+
+            this.element.scrollIntoView();
+            break;
+          }
+
+        case 'ace':
+          {
+            this.editors[0].focus();
+            this.element.scrollIntoView();
+            break;
+          }
+
+        case 'quill':
+          {
+            this.editors[0].focus();
+            break;
+          }
+      }
     }
   }, {
     key: "defaultSchema",
@@ -711,8 +718,8 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
   }], [{
     key: "schema",
     value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
+      for (var _len2 = arguments.length, extend = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        extend[_key2] = arguments[_key2];
       }
 
       return _TextField.default.schema.apply(_TextField.default, [{
@@ -722,6 +729,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
         rows: 3,
         wysiwyg: false,
         editor: '',
+        fixedSize: true,
         inputFormat: 'html',
         validate: {
           minWords: '',
@@ -736,7 +744,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
         title: 'Text Area',
         group: 'basic',
         icon: 'font',
-        documentation: 'http://help.form.io/userguide/#textarea',
+        documentation: '/userguide/#textarea',
         weight: 20,
         schema: TextAreaComponent.schema()
       };

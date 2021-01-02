@@ -1,19 +1,5 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.object.get-own-property-descriptor");
-
-require("core-js/modules/es.object.get-own-property-descriptors");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/web.dom-collections.for-each");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -38,7 +24,7 @@ var jsonDocHTML = "\n  <p>Submission data is available as JsonLogic variables, w
 
 var settingComponent = _utils.default.javaScriptValue(title, jsProp, jsonProp, 110, jsDocHTML, jsonDocHTML);
 
-var _default = [_objectSpread({}, settingComponent, {
+var _default = [_objectSpread(_objectSpread({}, settingComponent), {}, {
   customConditional: function customConditional(context) {
     return context.instance.options.editForm.display === 'wizard';
   }

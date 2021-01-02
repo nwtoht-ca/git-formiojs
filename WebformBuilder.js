@@ -1,10 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
@@ -24,6 +20,8 @@ require("core-js/modules/es.array.index-of");
 
 require("core-js/modules/es.array.iterator");
 
+require("core-js/modules/es.array.join");
+
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.array.slice");
@@ -34,9 +32,7 @@ require("core-js/modules/es.array.splice");
 
 require("core-js/modules/es.function.name");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
-require("core-js/modules/es.object.get-own-property-descriptors");
+require("core-js/modules/es.map");
 
 require("core-js/modules/es.object.get-prototype-of");
 
@@ -44,11 +40,7 @@ require("core-js/modules/es.object.keys");
 
 require("core-js/modules/es.object.to-string");
 
-require("core-js/modules/es.reflect.get");
-
 require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
@@ -91,15 +83,17 @@ var _Templates = _interopRequireDefault(require("./templates/Templates"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -113,24 +107,30 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 require('./components/builder');
 
 var WebformBuilder = /*#__PURE__*/function (_Component) {
   _inherits(WebformBuilder, _Component);
+
+  var _super = _createSuper(WebformBuilder);
 
   // eslint-disable-next-line max-statements
   function WebformBuilder() {
@@ -149,23 +149,22 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
 
     options.skipInit = false;
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(WebformBuilder).call(this, null, options));
+    _this = _super.call(this, null, options);
     _this.element = element;
     _this.builderHeight = 0;
     _this.schemas = {};
+    _this.repeatablePaths = [];
     _this.sideBarScroll = _lodash.default.get(_this.options, 'sideBarScroll', true);
     _this.sideBarScrollOffset = _lodash.default.get(_this.options, 'sideBarScrollOffset', 0);
-    var componentInfo = {};
-
-    for (var type in _Components.default.components) {
-      var component = _Components.default.components[type];
-
-      if (component.builderInfo) {
-        component.type = type;
-        componentInfo[type] = component.builderInfo;
-      }
-    }
-
+    _this.fieldsList = {
+      title: 'Result fields',
+      key: 'searchFields',
+      weight: 0,
+      subgroups: [],
+      default: true,
+      components: {},
+      componentOrder: []
+    };
     _this.dragDropEnabled = true; // Setup the builder options.
 
     _this.builder = _lodash.default.defaultsDeep({}, _this.options.builder, _this.defaultGroups); // Turn off if explicitely said to do so...
@@ -209,14 +208,14 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       return group.key;
     });
 
-    for (var _type in _Components.default.components) {
-      var _component = _Components.default.components[_type];
+    for (var type in _Components.default.components) {
+      var component = _Components.default.components[type];
 
-      if (_component.builderInfo) {
-        _this.schemas[_type] = _component.builderInfo.schema;
-        _component.type = _type;
-        var builderInfo = _component.builderInfo;
-        builderInfo.key = _component.type;
+      if (component.builderInfo && component.builderInfo.schema) {
+        _this.schemas[type] = component.builderInfo.schema;
+        component.type = type;
+        var builderInfo = component.builderInfo;
+        builderInfo.key = component.type;
 
         _this.addBuilderComponentInfo(builderInfo);
       }
@@ -224,30 +223,33 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     // Add the components in each group.
 
 
-    for (var _group in _this.groups) {
+    var _loop2 = function _loop2(_group) {
       var info = _this.groups[_group];
 
       for (var key in info.components) {
         var comp = info.components[key];
 
-        if (comp) {
-          if (comp.schema) {
-            _this.schemas[key] = comp.schema;
-          }
-
-          info.components[key] = comp === true ? componentInfo[key] : comp;
-          info.components[key].key = key;
+        if (comp === true && _Components.default.components[key] && _Components.default.components[key].builderInfo) {
+          comp = _Components.default.components[key].builderInfo;
         }
-      }
-    } // Need to create a component order for each group.
+
+        if (comp && comp.schema) {
+          _this.schemas[key] = comp.schema;
+          info.components[key] = comp;
+          info.components[key].key = key;
+          _this.fieldsList.components[key] = info.components[key];
+        } else {
+          // Do not include this component in the components array.
+          delete info.components[key];
+        }
+      } // Order the compoennts.
 
 
-    var _loop2 = function _loop2(_group2) {
-      if (_this.groups[_group2] && _this.groups[_group2].components) {
-        _this.groups[_group2].componentOrder = Object.keys(_this.groups[_group2].components).map(function (key) {
-          return _this.groups[_group2].components[key];
+      if (info.components) {
+        info.componentOrder = Object.keys(info.components).map(function (key) {
+          return info.components[key];
         }).filter(function (component) {
-          return component && !component.ignore;
+          return component && !component.ignore && !component.ignoreForForm;
         }).sort(function (a, b) {
           return a.weight - b.weight;
         }).map(function (component) {
@@ -256,13 +258,15 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
     };
 
-    for (var _group2 in _this.groups) {
-      _loop2(_group2);
+    for (var _group in _this.groups) {
+      _loop2(_group);
     }
 
     _this.options.hooks = _this.options.hooks || {};
 
     _this.options.hooks.renderComponent = function (html, _ref) {
+      var _self$component;
+
       var self = _ref.self;
 
       if (self.type === 'form' && !self.key) {
@@ -275,7 +279,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
 
       return _this.renderTemplate('builderComponent', {
-        html: html
+        html: html,
+        disableBuilderActions: self === null || self === void 0 ? void 0 : (_self$component = self.component) === null || _self$component === void 0 ? void 0 : _self$component.disableBuilderActions
       });
     };
 
@@ -351,7 +356,12 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
     _this.options.hooks.attachDatagrid = function (element, component) {
       component.loadRefs(element, _defineProperty({}, "".concat(component.key, "-container"), 'single'));
-      component.attachComponents(component.refs["".concat(component.key, "-container")].parentNode, [], component.component.components); // Need to set up horizontal rearrangement of fields.
+      var dataGridContainer = component.refs["".concat(component.key, "-container")];
+
+      if (dataGridContainer) {
+        component.attachComponents(dataGridContainer.parentNode, [], component.component.components);
+      } // Need to set up horizontal rearrangement of fields.
+
     };
 
     _this.options.hooks.attachComponent = function (element, component) {
@@ -519,13 +529,13 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           }
 
           subgroup.componentOrder.push(component.key);
-          subgroup.components[component.key] = _lodash.default.merge((0, _utils.fastCloneDeep)(_Components.default.components[component.type].builderInfo), {
+          subgroup.components[component.key] = _lodash.default.merge((0, _utils.fastCloneDeep)(_Components.default.components[component.type] ? _Components.default.components[component.type].builderInfo : _Components.default.components['unknown'].builderInfo), {
             key: component.key,
             title: componentName,
             group: 'resource',
             subgroup: resourceKey
           }, {
-            schema: _objectSpread({}, component, {
+            schema: _objectSpread(_objectSpread({}, component), {}, {
               label: component.label,
               key: component.key,
               lockKey: true,
@@ -533,6 +543,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
               isNew: true
             })
           });
+          _this2.fieldsList.components[component.key] = subgroup.components[component.key];
         }, true);
 
         _this2.groups.resource.subgroups.push(subgroup);
@@ -603,7 +614,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       } // Some components are their own namespace.
 
 
-      if (['container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
+      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
         return component.key;
       } // Anything else, keep going up.
 
@@ -651,6 +662,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         _this4.loadRefs(element, {
           form: 'single',
           sidebar: 'single',
+          'sidebar-search': 'single',
+          'sidebar-groups': 'single',
           'container': 'multiple',
           'sidebar-anchor': 'multiple',
           'sidebar-group': 'multiple',
@@ -692,6 +705,12 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           });
         }
 
+        _this4.addEventListener(_this4.refs['sidebar-search'], 'input', function (e) {
+          var searchString = e.target.value;
+
+          _this4.searchFields(searchString);
+        });
+
         if (_this4.dragDropEnabled) {
           _this4.initDragula();
         }
@@ -702,9 +721,76 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "searchFields",
+    value: function searchFields(searchString) {
+      var _this5 = this;
+
+      var sidebar = this.refs['sidebar'];
+      var sidebarGroups = this.refs['sidebar-groups'];
+
+      if (!sidebar || !sidebarGroups) {
+        return;
+      }
+
+      if (searchString) {
+        var filteredComponentsOrder = [];
+
+        for (var type in this.fieldsList.components) {
+          var builderInfo = this.fieldsList.components[type];
+
+          if (builderInfo.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
+            filteredComponentsOrder.push(type);
+          }
+        }
+
+        this.fieldsList.componentOrder = filteredComponentsOrder;
+        sidebarGroups.innerHTML = this.renderTemplate('builderSidebarGroup', {
+          group: this.fieldsList,
+          groupKey: 'searchFields',
+          groupId: "builder-sidebar-".concat(this.id),
+          subgroups: []
+        });
+      } else {
+        sidebarGroups.innerHTML = this.groupOrder.map(function (groupKey) {
+          return _this5.renderTemplate('builderSidebarGroup', {
+            group: _this5.groups[groupKey],
+            groupKey: groupKey,
+            groupId: sidebar.id || sidebarGroups.id,
+            subgroups: _this5.groups[groupKey].subgroups.map(function (group) {
+              return _this5.renderTemplate('builderSidebarGroup', {
+                group: group,
+                groupKey: group.key,
+                groupId: "group-container-".concat(groupKey),
+                subgroups: []
+              });
+            })
+          });
+        }).join('');
+      }
+
+      this.loadRefs(this.element, {
+        'sidebar-groups': 'single',
+        'sidebar-anchor': 'multiple',
+        'sidebar-group': 'multiple',
+        'sidebar-container': 'multiple'
+      });
+      this.updateDragAndDrop();
+    }
+  }, {
+    key: "updateDragAndDrop",
+    value: function updateDragAndDrop() {
+      if (this.dragDropEnabled) {
+        this.initDragula();
+      }
+
+      if (this.refs.form) {
+        return this.webform.attach(this.refs.form);
+      }
+    }
+  }, {
     key: "initDragula",
     value: function initDragula() {
-      var _this5 = this;
+      var _this6 = this;
 
       var options = this.options;
 
@@ -742,7 +828,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           return !el.contains(target) && !target.classList.contains('no-drop');
         }
       }).on('drop', function (element, target, source, sibling) {
-        return _this5.onDrop(element, target, source, sibling);
+        return _this6.onDrop(element, target, source, sibling);
       });
     }
   }, {
@@ -789,7 +875,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
 
       if (info) {
-        info.key = _lodash.default.camelCase(info.title || info.label || info.placeholder || info.type);
+        info.key = _lodash.default.camelCase(info.key || info.title || info.label || info.placeholder || info.type);
       }
 
       return info;
@@ -847,7 +933,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "onDrop",
     value: function onDrop(element, target, source, sibling) {
-      var _this6 = this;
+      var _this$groups$group,
+          _this7 = this;
 
       if (!target) {
         return;
@@ -890,6 +977,25 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       if (!info) {
         return;
+      } // Show an error if siblings are disabled for a component and such a component already exists.
+
+
+      var draggableComponent = ((_this$groups$group = this.groups[group]) === null || _this$groups$group === void 0 ? void 0 : _this$groups$group.components[key]) || {};
+
+      if (draggableComponent.disableSiblings) {
+        var isCompAlreadyExists = false;
+        (0, _formUtils.eachComponent)(this.webform.components, function (component) {
+          if (component.key === draggableComponent.key) {
+            isCompAlreadyExists = true;
+            return;
+          }
+        }, true);
+
+        if (isCompAlreadyExists) {
+          this.webform.redraw();
+          this.webform.setAlert('danger', "You cannot add more than one ".concat(draggableComponent.key, " component to one page."));
+          return;
+        }
       }
 
       if (target !== source) {
@@ -931,7 +1037,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         parent.addChildComponent(info, element, target, source, sibling);
       }
 
-      if (isNew && !this.options.noNewEdit) {
+      if (isNew && !this.options.noNewEdit && !info.noNewEdit) {
         this.editComponent(info, target, isNew);
       } // Only rebuild the parts needing to be rebuilt.
 
@@ -960,21 +1066,55 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
 
       return rebuild.then(function () {
-        _this6.emit('addComponent', info, parent, path, index, isNew);
+        _this7.emit('addComponent', info, parent, path, index, isNew && !_this7.options.noNewEdit && !info.noNewEdit);
+
+        if (!isNew || _this7.options.noNewEdit || info.noNewEdit) {
+          _this7.emit('change', _this7.form);
+        }
       });
     }
   }, {
     key: "setForm",
     value: function setForm(form) {
-      var _this7 = this;
+      var _this8 = this;
 
-      this.emit('change', form);
-      return _get(_getPrototypeOf(WebformBuilder.prototype), "setForm", this).call(this, form).then(function (retVal) {
-        setTimeout(function () {
-          return _this7.builderHeight = _this7.refs.form.offsetHeight;
-        }, 200);
-        return retVal;
-      });
+      if (!form.components) {
+        form.components = [];
+      }
+
+      var isShowSubmitButton = !this.options.noDefaultSubmitButton && !form.components.length; // Ensure there is at least a submit button.
+
+      if (isShowSubmitButton) {
+        form.components.push({
+          type: 'button',
+          label: 'Submit',
+          key: 'submit',
+          size: 'md',
+          block: false,
+          action: 'submit',
+          disableOnInvalid: true,
+          theme: 'primary'
+        });
+      }
+
+      if (this.webform) {
+        var shouldRebuild = !this.webform.form.components || form.components.length !== this.webform.form.components.length;
+        return this.webform.setForm(form).then(function () {
+          if (_this8.refs.form) {
+            _this8.builderHeight = _this8.refs.form.offsetHeight;
+          }
+
+          if (!shouldRebuild) {
+            return _this8.form;
+          }
+
+          return _this8.rebuild().then(function () {
+            return _this8.form;
+          });
+        });
+      }
+
+      return _nativePromiseOnly.default.resolve(form);
     }
   }, {
     key: "populateRecaptchaSettings",
@@ -1004,7 +1144,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "removeComponent",
     value: function removeComponent(component, parent, original) {
-      var _this8 = this;
+      var _this9 = this;
 
       if (!parent) {
         return;
@@ -1019,7 +1159,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       if (!original) {
         original = parent.formioContainer.find(function (comp) {
-          return comp.key === component.key;
+          return comp.id === component.id;
         });
       }
 
@@ -1037,9 +1177,9 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         var rebuild = parent.formioComponent.rebuild() || _nativePromiseOnly.default.resolve();
 
         rebuild.then(function () {
-          _this8.emit('removeComponent', component, parent.formioComponent.schema, path, index);
+          _this9.emit('removeComponent', component, parent.formioComponent.schema, path, index);
 
-          _this8.emit('change', _this8.form);
+          _this9.emit('change', _this9.form);
         });
       }
 
@@ -1064,7 +1204,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       var defaultValueComponent = (0, _formUtils.getComponent)(this.editForm.components, 'defaultValue');
 
-      if (defaultValueComponent) {
+      if (defaultValueComponent && component.type !== 'hidden') {
         var defaultChanged = changed && (changed.component && changed.component.key === 'defaultValue' || changed.instance && defaultValueComponent.hasComponent && defaultValueComponent.hasComponent(changed.instance));
 
         if (!defaultChanged) {
@@ -1100,6 +1240,9 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
             newComp.build(defaultValueComponent.element);
           }
+        } else {
+          this.preview._data[changed.instance._data.key] = changed.value;
+          this.webform._data[changed.instance._data.key] = changed.value;
         }
       } // Called when we update a component.
 
@@ -1107,29 +1250,35 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       this.emit('updateComponent', component);
     }
   }, {
-    key: "highlightInvalidComponents",
-    value: function highlightInvalidComponents() {
-      var formKeys = {};
-      var repeatableKeys = [];
-      (0, _formUtils.eachComponent)(this.form.components, function (comp) {
+    key: "findRepeatablePaths",
+    value: function findRepeatablePaths() {
+      var repeatablePaths = [];
+      var keys = new Map();
+      (0, _formUtils.eachComponent)(this.form.components, function (comp, path) {
         if (!comp.key) {
           return;
         }
 
-        if (formKeys[comp.key] && !repeatableKeys.includes(comp.key)) {
-          repeatableKeys.push(comp.key);
+        if (keys.has(comp.key)) {
+          if (keys.get(comp.key).includes(path)) {
+            repeatablePaths.push(path);
+          } else {
+            keys.set(comp.key, [].concat(_toConsumableArray(keys.get(comp.key)), [path]));
+          }
+        } else {
+          keys.set(comp.key, [path]);
         }
-
-        formKeys[comp.key] = true;
       });
-      var components = this.webform.getComponents();
-      repeatableKeys.forEach(function (key) {
-        var instances = components.filter(function (comp) {
-          return comp.key === key;
-        });
-        instances.forEach(function (instance) {
-          return instance.setCustomValidity("API Key is not unique: ".concat(key));
-        });
+      return repeatablePaths;
+    }
+  }, {
+    key: "highlightInvalidComponents",
+    value: function highlightInvalidComponents() {
+      var repeatablePaths = this.findRepeatablePaths();
+      (0, _formUtils.eachComponent)(this.webform.getComponents(), function (comp, path) {
+        if (repeatablePaths.includes(path)) {
+          comp.setCustomValidity("API Key is not unique: ".concat(comp.key));
+        }
       });
     }
     /**
@@ -1143,7 +1292,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "saveComponent",
     value: function saveComponent(component, parent, isNew, original) {
-      var _this9 = this;
+      var _this10 = this;
 
       this.editForm.detach();
       var parentContainer = parent ? parent.formioContainer : this.container;
@@ -1153,7 +1302,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       if (!original) {
         original = parent.formioContainer.find(function (comp) {
-          return comp.key === component.key;
+          return comp.id === component.id;
         });
       }
 
@@ -1162,9 +1311,21 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       if (index !== -1) {
         var submissionData = this.editForm.submission.data;
         submissionData = submissionData.componentJson || submissionData;
+        var comp = null;
+        parentComponent.getComponents().forEach(function (component) {
+          if (component.component.key === original.key) {
+            comp = component;
+          }
+        });
+        var originalComp = comp.component;
+        var originalComponentSchema = comp.schema;
 
         if (parentContainer) {
           parentContainer[index] = submissionData;
+
+          if (comp) {
+            comp.component = submissionData;
+          }
         } else if (parentComponent && parentComponent.saveChildComponent) {
           parentComponent.saveChildComponent(submissionData);
         }
@@ -1172,18 +1333,13 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         var rebuild = parentComponent.rebuild() || _nativePromiseOnly.default.resolve();
 
         return rebuild.then(function () {
-          var schema = parentContainer ? parentContainer[index] : [];
-          parentComponent.getComponents().forEach(function (component) {
-            if (component.key === schema.key) {
-              schema = component.schema;
-            }
-          });
+          var schema = parentContainer ? parentContainer[index] : comp ? comp.schema : [];
 
-          _this9.emit('saveComponent', schema, component, parentComponent.schema, path, index, isNew);
+          _this10.emit('saveComponent', schema, originalComp, parentComponent.schema, path, index, isNew, originalComponentSchema);
 
-          _this9.emit('change', _this9.form);
+          _this10.emit('change', _this10.form);
 
-          _this9.highlightInvalidComponents();
+          _this10.highlightInvalidComponents();
         });
       }
 
@@ -1193,7 +1349,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "editComponent",
     value: function editComponent(component, parent, isNew, isJsonEdit, original) {
-      var _this10 = this;
+      var _this11 = this;
 
       if (!component.key) {
         return;
@@ -1224,7 +1380,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       editFormOptions.editForm = this.form;
       editFormOptions.editComponent = component;
-      this.editForm = new _Webform.default(_objectSpread({}, _lodash.default.omit(this.options, ['hooks', 'builder', 'events', 'attachMode', 'skipInit']), {
+      this.editForm = new _Webform.default(_objectSpread(_objectSpread({}, _lodash.default.omit(this.options, ['hooks', 'builder', 'events', 'attachMode', 'skipInit'])), {}, {
         language: this.options.language
       }, editFormOptions));
       this.editForm.form = isJsonEdit && !isCustom ? {
@@ -1253,7 +1409,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
 
       if (!ComponentClass.builderInfo.hasOwnProperty('preview') || ComponentClass.builderInfo.preview) {
-        this.preview = new _Webform.default(_lodash.default.omit(_objectSpread({}, this.options, {
+        this.preview = new _Webform.default(_lodash.default.omit(_objectSpread(_objectSpread({}, this.options), {}, {
           preview: true
         }), ['hooks', 'builder', 'events', 'attachMode', 'calculateValue']));
       }
@@ -1264,7 +1420,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       this.setContent(this.componentEdit, this.renderTemplate('builderEditForm', {
         componentInfo: ComponentClass.builderInfo,
         editForm: this.editForm.render(),
-        preview: this.preview ? this.preview.render() : false
+        preview: this.preview ? this.preview.render() : false,
+        helplinks: this.helplinks
       }));
       this.dialog = this.createModal(this.componentEdit, _lodash.default.get(this.options, 'dialogAttr', {})); // This is the attach step.
 
@@ -1281,84 +1438,90 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
             // Ensure this component has a key.
             if (isNew) {
               if (!event.data.keyModified) {
-                _this10.editForm.everyComponent(function (component) {
+                _this11.editForm.everyComponent(function (component) {
                   if (component.key === 'key' && component.parent.component.key === 'tabs') {
-                    component.setValue(_lodash.default.camelCase(event.data.title || event.data.label || event.data.placeholder || event.data.type));
+                    component.setValue(_lodash.default.camelCase(event.data.title || event.data.label || event.data.placeholder || event.data.type).replace(/^[0-9]*/, ''));
                     return false;
                   }
                 });
               }
 
-              if (_this10.form) {
-                // Set a unique key for this component.
-                _builder.default.uniquify(_this10.findNamespaceRoot(parent.formioComponent.component), event.data);
+              if (_this11.form) {
+                var formComponents = _this11.findNamespaceRoot(parent.formioComponent.component); // excluding component which key uniqueness is to be checked to prevent the comparing of the same keys
+
+
+                formComponents = formComponents.filter(function (comp) {
+                  return editFormOptions.editComponent.id !== comp.id;
+                }); // Set a unique key for this component.
+
+                _builder.default.uniquify(formComponents, event.data);
               }
             }
           } // Update the component.
 
 
-          _this10.updateComponent(event.data.componentJson || event.data, event.changed);
+          _this11.updateComponent(event.data.componentJson || event.data, event.changed);
         }
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="cancelButton"]'), 'click', function (event) {
         event.preventDefault();
 
-        _this10.editForm.detach();
+        _this11.editForm.detach();
 
-        _this10.emit('cancelComponent', component);
+        _this11.emit('cancelComponent', component);
 
-        _this10.dialog.close();
+        _this11.dialog.close();
 
-        _this10.highlightInvalidComponents();
+        _this11.highlightInvalidComponents();
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="removeButton"]'), 'click', function (event) {
         event.preventDefault(); // Since we are already removing the component, don't trigger another remove.
 
         saved = true;
 
-        _this10.editForm.detach();
+        _this11.editForm.detach();
 
-        _this10.removeComponent(component, parent, original);
+        _this11.removeComponent(component, parent, original);
 
-        _this10.dialog.close();
+        _this11.dialog.close();
 
-        _this10.highlightInvalidComponents();
+        _this11.highlightInvalidComponents();
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="saveButton"]'), 'click', function (event) {
         event.preventDefault();
 
-        if (!_this10.editForm.checkValidity(_this10.editForm.data, true, _this10.editForm.data)) {
-          _this10.editForm.setPristine(false);
+        if (!_this11.editForm.checkValidity(_this11.editForm.data, true, _this11.editForm.data)) {
+          _this11.editForm.setPristine(false);
 
-          _this10.editForm.showErrors();
+          _this11.editForm.showErrors();
 
           return false;
         }
 
         saved = true;
 
-        _this10.saveComponent(component, parent, isNew, original);
+        _this11.saveComponent(component, parent, isNew, original);
       });
 
       var dialogClose = function dialogClose() {
-        _this10.editForm.destroy();
+        _this11.editForm.destroy(true);
 
-        if (_this10.preview) {
-          _this10.preview.destroy();
+        if (_this11.preview) {
+          _this11.preview.destroy(true);
 
-          _this10.preview = null;
+          _this11.preview = null;
         }
 
         if (isNew && !saved) {
-          _this10.removeComponent(component, parent, original);
+          _this11.removeComponent(component, parent, original);
 
-          _this10.highlightInvalidComponents();
+          _this11.highlightInvalidComponents();
         } // Clean up.
 
 
-        _this10.removeEventListener(_this10.dialog, 'close', dialogClose);
+        _this11.removeEventListener(_this11.dialog, 'close', dialogClose);
 
-        _this10.dialog = null;
+        _this11.dialog = null;
       };
 
       this.addEventListener(this.dialog, 'close', dialogClose); // Called when we edit a component.
@@ -1447,16 +1610,33 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         groupInfo.components[component.key] = component;
       }
 
+      this.fieldsList.components[component.key] = component;
       return component;
     }
   }, {
-    key: "destroy",
-    value: function destroy() {
-      if (this.webform.initialized) {
-        this.webform.destroy();
+    key: "init",
+    value: function init() {
+      if (this.webform) {
+        this.webform.init();
       }
 
-      _get(_getPrototypeOf(WebformBuilder.prototype), "destroy", this).call(this);
+      return _get(_getPrototypeOf(WebformBuilder.prototype), "init", this).call(this);
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      if (this.webform.initialized) {
+        this.webform.clear();
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy(deleteFromGlobal) {
+      if (this.webform.initialized) {
+        this.webform.destroy(deleteFromGlobal);
+      }
+
+      _get(_getPrototypeOf(WebformBuilder.prototype), "destroy", this).call(this, deleteFromGlobal);
     }
   }, {
     key: "addBuilderGroup",
@@ -1515,27 +1695,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       return this.webform.form;
     },
     set: function set(value) {
-      if (!value.components) {
-        value.components = [];
-      }
-
-      var isShowSubmitButton = !this.options.noDefaultSubmitButton && !value.components.length; // Ensure there is at least a submit button.
-
-      if (isShowSubmitButton) {
-        value.components.push({
-          type: 'button',
-          label: 'Submit',
-          key: 'submit',
-          size: 'md',
-          block: false,
-          action: 'submit',
-          disableOnInvalid: true,
-          theme: 'primary'
-        });
-      }
-
-      this.webform.form = value;
-      this.rebuild();
+      this.setForm(value);
     }
   }, {
     key: "schema",

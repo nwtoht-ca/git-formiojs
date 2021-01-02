@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _Component = _interopRequireDefault(require("./_classes/component/Component"));
 
-var _NestedComponent = _interopRequireDefault(require("./_classes/nested/NestedComponent"));
+var _utils = _interopRequireDefault(require("./_classes/component/editForm/utils"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -55,13 +55,25 @@ var Components = /*#__PURE__*/function () {
 
       if (component.type && Components.components.hasOwnProperty(component.type)) {
         comp = new Components.components[component.type](component, options, data);
+      } else if (component.arrayTree) {
+        // eslint-disable-next-line new-cap
+        comp = new Components.components['datagrid'](component, options, data);
+      } else if (component.tree) {
+        // eslint-disable-next-line new-cap
+        comp = new Components.components['nesteddata'](component, options, data);
       } else if (Array.isArray(component.components)) {
-        comp = new _NestedComponent.default(component, options, data);
+        // eslint-disable-next-line new-cap
+        comp = new Components.components['nested'](component, options, data);
       } else {
         comp = new _Component.default(component, options, data);
       }
 
       return comp;
+    }
+  }, {
+    key: "EditFormUtils",
+    get: function get() {
+      return _utils.default;
     }
   }, {
     key: "components",

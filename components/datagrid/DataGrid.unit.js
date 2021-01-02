@@ -19,6 +19,84 @@ var _fixtures = require("./fixtures");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 describe('DataGrid Component', function () {
+  it('Test modal edit confirmation dialog', function (done) {
+    _harness.default.testCreate(_DataGrid.default, _fixtures.comp5).then(function (component) {
+      component.componentModal.openModal();
+      var fakeEvent = {
+        preventDefault: function preventDefault() {}
+      };
+      component.componentModal.showDialogListener(fakeEvent);
+
+      _powerAssert.default.equal(component.componentModal.isOpened, false, 'Should be closed without confirmation dialog since value was not changed');
+
+      setTimeout(function () {
+        component.componentModal.openModal();
+
+        _harness.default.setInputValue(component, 'data[dataGrid][0][textField]', 'My Text');
+
+        setTimeout(function () {
+          component.componentModal.showDialogListener(fakeEvent);
+
+          _powerAssert.default.equal(component.componentModal.isValueChanged(), true, 'Should return true since value was modified');
+
+          _powerAssert.default.equal(component.componentModal.isOpened, true, 'Should stay opened and wait until user confirm closing without changes saving');
+
+          (0, _powerAssert.default)(component.componentModal.dialog, 'Should open confirmation dialog');
+          component.componentModal.closeDialog(fakeEvent);
+          component.destroy();
+          done();
+        }, 100);
+      }, 100);
+    }).catch(done);
+  });
+  it("Should show alert message in modal edit, when clicking on modal overlay and value was changed, \n    and clear values when pushing 'yes, delete it' in alert container", function (done) {
+    _harness.default.testCreate(_DataGrid.default, _fixtures.comp4).then(function (component) {
+      var hiddenModalWindow = component.element.querySelector('.component-rendering-hidden');
+
+      _powerAssert.default.equal(!!hiddenModalWindow, true);
+
+      var clickEvent = new Event('click');
+      var openModalElement = component.refs.openModal; //open modal edit window
+
+      openModalElement.dispatchEvent(clickEvent);
+      setTimeout(function () {
+        _powerAssert.default.equal(!!component.element.querySelector('.component-rendering-hidden'), false);
+
+        var inputEvent = new Event('input');
+        var dataGridInputField = component.element.querySelector('[name="data[dataGrid][0][number]"]');
+        dataGridInputField.value = 55555; //input value in dataGrid field inside modal edit window
+
+        dataGridInputField.dispatchEvent(inputEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(component.element.querySelector('[name="data[dataGrid][0][number]"]').value, '55555');
+
+          var clickEvent = new Event('click');
+          var modalOverlay = component.refs.modalOverlay; //click outside modal edit window
+
+          modalOverlay.dispatchEvent(clickEvent);
+          setTimeout(function () {
+            _powerAssert.default.equal(!!component.componentModal.dialog, true);
+
+            var clickEvent = new Event('click');
+            var btnForCleaningValues = document.querySelector('[ref="dialogYesButton"]'); //click on 'yes, delete it' button inside alert window
+
+            btnForCleaningValues.dispatchEvent(clickEvent);
+            setTimeout(function () {
+              var clickEvent = new Event('click');
+              var openModalElement = component.refs.openModal; //open edit modal window again
+
+              openModalElement.dispatchEvent(clickEvent);
+              setTimeout(function () {
+                _powerAssert.default.equal(component.element.querySelector('[name="data[dataGrid][0][number]"]').value, '');
+
+                done();
+              }, 350);
+            }, 300);
+          }, 250);
+        }, 200);
+      }, 150);
+    });
+  });
   it('Should build a data grid component', function () {
     return _harness.default.testCreate(_DataGrid.default, _fixtures.comp1).then(function (component) {
       _harness.default.testElements(component, 'input[type="text"]', 3);

@@ -97,10 +97,10 @@ var _default = [{
   type: 'textfield',
   input: true,
   key: 'fileKey',
-  label: 'File form-data key',
+  label: 'File form-data key',
   weight: 17,
-  placeholder: 'Enter the key name of a file for form data.',
-  tooltip: 'Key name that you would like to modify for the file while calling API request.',
+  placeholder: 'Enter the key name of a file for form data.',
+  tooltip: 'Key name that you would like to modify for the file while calling API request.',
   conditional: {
     json: {
       '===': [{
@@ -131,6 +131,13 @@ var _default = [{
   label: 'Display as image(s)',
   tooltip: 'Instead of a list of linked files, images will be rendered in the view.',
   weight: 30
+}, {
+  type: 'checkbox',
+  input: true,
+  key: 'uploadOnly',
+  label: 'Upload Only',
+  tooltip: 'When this is checked, will only allow you to upload file(s) and consequently the download, in this component, will be unavailable.',
+  weight: 33
 }, {
   type: 'checkbox',
   input: true,

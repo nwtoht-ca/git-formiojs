@@ -1,10 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
@@ -12,19 +8,17 @@ require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.for-each");
 
-require("core-js/modules/es.array.from");
-
 require("core-js/modules/es.array.includes");
 
 require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.join");
 
 require("core-js/modules/es.array.map");
 
 require("core-js/modules/es.array.reduce");
+
+require("core-js/modules/es.array.slice");
 
 require("core-js/modules/es.array.some");
 
@@ -34,17 +28,9 @@ require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.object.assign");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
-require("core-js/modules/es.object.get-own-property-descriptors");
-
 require("core-js/modules/es.object.get-prototype-of");
 
-require("core-js/modules/es.object.keys");
-
 require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
 
 require("core-js/modules/es.regexp.exec");
 
@@ -54,15 +40,11 @@ require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.includes");
 
-require("core-js/modules/es.string.iterator");
-
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
 
 require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -91,13 +73,13 @@ var _Element2 = _interopRequireDefault(require("../../../Element"));
 
 var _ComponentModal = _interopRequireDefault(require("../componentModal/ComponentModal"));
 
+var _widgets = _interopRequireDefault(require("../../../widgets"));
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -105,25 +87,25 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -133,10 +115,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var CKEDITOR = 'https://cdn.form.io/ckeditor/16.0.0/ckeditor.js';
-var QUILL_URL = 'https://cdn.form.io/quill/1.3.7';
-var ACE_URL = 'https://cdn.form.io/ace/1.4.8/ace.js';
-var TINYMCE_URL = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js';
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var isIEBrowser = FormioUtils.getIEBrowserVersion();
+var CKEDITOR_URL = isIEBrowser ? 'https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js' : 'https://cdn.form.io/ckeditor/19.0.0/ckeditor.js';
+var QUILL_URL = isIEBrowser ? 'https://cdn.quilljs.com/1.3.7' : 'https://cdn.quilljs.com/2.0.0-dev.3';
+var QUILL_TABLE_URL = 'https://cdn.form.io/quill/quill-table.js';
+var ACE_URL = 'https://cdn.form.io/ace/1.4.10/ace.js';
 /**
  * This is the Component class
  which all elements within the FormioForm derive from.
@@ -144,6 +137,8 @@ var TINYMCE_URL = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'
 
 var Component = /*#__PURE__*/function (_Element) {
   _inherits(Component, _Element);
+
+  var _super = _createSuper(Component);
 
   _createClass(Component, null, [{
     key: "schema",
@@ -253,6 +248,7 @@ var Component = /*#__PURE__*/function (_Element) {
         dbIndex: false,
         customDefaultValue: '',
         calculateValue: '',
+        calculateServer: false,
         widget: null,
 
         /**
@@ -316,6 +312,16 @@ var Component = /*#__PURE__*/function (_Element) {
       }].concat(sources));
     }
     /**
+     * Return the validator as part of the component.
+     *
+     * @return {ValidationChecker}
+     * @constructor
+     */
+
+  }, {
+    key: "tableView",
+
+    /**
      * Provides a table view for this component. Override if you wish to do something different than using getView
      * method of your instance.
      *
@@ -324,9 +330,6 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
     /* eslint-disable no-unused-vars */
-
-  }, {
-    key: "tableView",
     value: function tableView(value, options) {}
     /* eslint-enable no-unused-vars */
 
@@ -340,6 +343,11 @@ var Component = /*#__PURE__*/function (_Element) {
 
     /* eslint-disable max-statements */
 
+  }, {
+    key: "Validator",
+    get: function get() {
+      return _Validator.default;
+    }
   }]);
 
   function Component(component, options, data) {
@@ -347,15 +355,20 @@ var Component = /*#__PURE__*/function (_Element) {
 
     _classCallCheck(this, Component);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Component).call(this, Object.assign({
+    _this = _super.call(this, Object.assign({
       renderMode: 'form',
       attachMode: 'full'
-    }, options || {})));
+    }, options || {})); // Restore the component id.
+
+    if (component && component.id) {
+      _this.id = component.id;
+    }
     /**
      * Determines if this component has a condition assigned to it.
      * @type {null}
      * @private
      */
+
 
     _this._hasCondition = null;
     /**
@@ -385,7 +398,9 @@ var Component = /*#__PURE__*/function (_Element) {
      * @type {*}
      */
 
-    _this.component = _this.mergeSchema(component || {}); // Save off the original component to be used in logic.
+    _this.component = _this.mergeSchema(component || {}); // Add the id to the component.
+
+    _this.component.id = _this.id; // Save off the original component to be used in logic.
 
     _this.originalComponent = (0, FormioUtils.fastCloneDeep)(_this.component);
     /**
@@ -403,9 +418,7 @@ var Component = /*#__PURE__*/function (_Element) {
      * @type {*}
      */
 
-    _this._data = data || {}; // Add the id to the component.
-
-    _this.component.id = _this.id;
+    _this._data = data || {};
     /**
      * The existing error that this component has.
      * @type {string}
@@ -432,12 +445,12 @@ var Component = /*#__PURE__*/function (_Element) {
 
     _this._disabled = (0, FormioUtils.boolValue)(_this.component.disabled) ? _this.component.disabled : false;
     /**
-     * Determines if this component is visible, or not.
+     * Points to the root component, usually the FormComponent.
+     *
+     * @type {Component}
      */
 
-    _this._parentVisible = _this.options.hasOwnProperty('parentVisible') ? _this.options.parentVisible : true;
-    _this._visible = _this._parentVisible && _this.conditionallyVisible(data);
-    _this._parentDisabled = false;
+    _this.root = _this.options.root;
     /**
      * If this input has been input and provided value.
      *
@@ -452,13 +465,6 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
     _this.parent = _this.options.parent;
-    /**
-     * Points to the root component, usually the FormComponent.
-     *
-     * @type {Component}
-     */
-
-    _this.root = _this.options.root;
     _this.options.name = _this.options.name || 'data';
     /**
      * The validators that are assigned to this component.
@@ -466,12 +472,22 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
     _this.validators = ['required', 'minLength', 'maxLength', 'minWords', 'maxWords', 'custom', 'pattern', 'json', 'mask'];
-    _this._path = '';
+    _this._path = ''; // Nested forms don't have parents so we need to pass their path in.
+
+    _this._parentPath = _this.options.parentPath || '';
+    /**
+     * Determines if this component is visible, or not.
+     */
+
+    _this._parentVisible = _this.options.hasOwnProperty('parentVisible') ? _this.options.parentVisible : true;
+    _this._visible = _this._parentVisible && _this.conditionallyVisible(null, data);
+    _this._parentDisabled = false;
     /**
      * Used to trigger a new change in this component.
      * @type {function} - Call to trigger a change in this component.
      */
 
+    var changes = [];
     var lastChanged = null;
     var triggerArgs = [];
 
@@ -499,7 +515,12 @@ var Component = /*#__PURE__*/function (_Element) {
       }
 
       lastChanged = null;
-      return (_this2 = _this).onChange.apply(_this2, args);
+      args[3] = changes;
+
+      var retVal = (_this2 = _this).onChange.apply(_this2, args);
+
+      changes = [];
+      return retVal;
     }, 100);
 
     _this.triggerChange = function () {
@@ -511,6 +532,7 @@ var Component = /*#__PURE__*/function (_Element) {
         // Make sure that during the debounce that we always track lastChanged component, even if they
         // don't provide one later.
         lastChanged = args[1];
+        changes.push(lastChanged);
       }
 
       if (_this.root) {
@@ -590,6 +612,7 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "init",
     value: function init() {
       this.disabled = this.shouldDisabled;
+      this._visible = this.conditionallyVisible(null, null);
     }
   }, {
     key: "destroy",
@@ -607,9 +630,18 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "getLabelInfo",
     value: function getLabelInfo() {
       var isRightPosition = this.rightDirection(this.labelPositions[0]);
+      var isLeftPosition = this.labelPositions[0] === 'left';
       var isRightAlign = this.rightDirection(this.labelPositions[1]);
-      var labelStyles = "\n      flex: ".concat(this.labelWidth, ";\n      ").concat(isRightPosition ? 'margin-left' : 'margin-right', ":").concat(this.labelMargin, "%;\n    ");
-      var contentStyles = "\n      flex: ".concat(100 - this.labelWidth - this.labelMargin, ";\n    ");
+      var contentMargin = '';
+
+      if (this.component.hideLabel) {
+        var margin = this.labelWidth + this.labelMargin;
+        contentMargin = isRightPosition ? "margin-right: ".concat(margin, "%") : '';
+        contentMargin = isLeftPosition ? "margin-left: ".concat(margin, "%") : '';
+      }
+
+      var labelStyles = "\n      flex: ".concat(this.labelWidth, ";\n      ").concat(isRightPosition ? 'margin-left' : 'margin-right', ": ").concat(this.labelMargin, "%;\n    ");
+      var contentStyles = "\n      flex: ".concat(100 - this.labelWidth - this.labelMargin, ";\n      ").concat(contentMargin, ";\n      ").concat(this.component.hideLabel ? "max-width: ".concat(100 - this.labelWidth - this.labelMargin) : '', ";\n    ");
       return {
         isRightPosition: isRightPosition,
         isRightAlign: isRightAlign,
@@ -666,26 +698,29 @@ var Component = /*#__PURE__*/function (_Element) {
      * @param {string} text - The i18n identifier.
      * @param {Object} params - The i18n parameters to use for translation.
      */
-    value: function t(text, params) {
+    value: function t(text) {
+      var _get2;
+
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       if (!text) {
         return '';
       }
 
-      params = params || {};
       params.data = this.rootValue;
       params.row = this.data;
       params.component = this.component;
-      params.nsSeparator = '::';
-      params.keySeparator = '.|.';
-      params.pluralSeparator = '._.';
-      params.contextSeparator = '._.';
-      var translated = this.i18next.t(text, params);
-      return translated || text;
+
+      for (var _len4 = arguments.length, args = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+        args[_key4 - 2] = arguments[_key4];
+      }
+
+      return (_get2 = _get(_getPrototypeOf(Component.prototype), "t", this)).call.apply(_get2, [this, text, params].concat(args));
     }
   }, {
     key: "labelIsHidden",
     value: function labelIsHidden() {
-      return !this.component.label || !this.inDataGrid && this.component.hideLabel || this.inDataGrid && !this.component.dataGridLabel || this.options.inputsOnly;
+      return !this.component.label || (!this.inDataGrid && this.component.hideLabel || this.inDataGrid && !this.component.dataGridLabel || this.options.inputsOnly) && !this.builderMode;
     }
   }, {
     key: "getTemplate",
@@ -733,12 +768,11 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "checkTemplate",
     value: function checkTemplate(templates, names, modes) {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      var _iterator = _createForOfIteratorHelper(names),
+          _step;
 
       try {
-        for (var _iterator = names[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var name = _step.value;
           var templatesByName = templates[name];
 
@@ -751,18 +785,9 @@ var Component = /*#__PURE__*/function (_Element) {
           }
         }
       } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
+        _iterator.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
+        _iterator.f();
       }
 
       return null;
@@ -770,12 +795,11 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "checkTemplateMode",
     value: function checkTemplateMode(templatesByName, modes) {
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iterator2 = _createForOfIteratorHelper(modes),
+          _step2;
 
       try {
-        for (var _iterator2 = modes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var mode = _step2.value;
           var templateByMode = templatesByName[mode];
 
@@ -784,18 +808,9 @@ var Component = /*#__PURE__*/function (_Element) {
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _iterator2.e(err);
       } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+        _iterator2.f();
       }
 
       return null;
@@ -814,6 +829,7 @@ var Component = /*#__PURE__*/function (_Element) {
       data.options = this.options;
       data.readOnly = this.options.readOnly;
       data.iconClass = this.iconClass.bind(this);
+      data.size = this.size.bind(this);
       data.t = this.t.bind(this);
       data.transform = this.transform;
       data.id = data.id || this.id;
@@ -831,7 +847,6 @@ var Component = /*#__PURE__*/function (_Element) {
       data.tooltip = this.interpolate(this.component.tooltip || '').replace(/(?:\r\n|\r|\n)/g, '<br />'); // Allow more specific template names
 
       var names = ["".concat(name, "-").concat(this.component.type, "-").concat(this.key), "".concat(name, "-").concat(this.component.type), "".concat(name, "-").concat(this.key), "".concat(name)]; // Allow template alters.
-      // console.log(`render${name.charAt(0).toUpperCase() + name.substring(1, name.length)}`, data);
 
       return this.hook("render".concat(name.charAt(0).toUpperCase() + name.substring(1, name.length)), this.interpolate(this.getTemplate(names, mode), data), data, mode);
     }
@@ -949,13 +964,17 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "setOpenModalElement",
     value: function setOpenModalElement() {
-      var template = "\n      <label class=\"control-label\">".concat(this.component.label, "</label><br>\n      <button lang='en' class='btn btn-light btn-md open-modal-button' ref='openModal'>Click to set value</button>\n    ");
-      this.componentModal.setOpenModalElement(template);
+      this.componentModal.setOpenModalElement(this.getModalPreviewTemplate());
     }
   }, {
     key: "getModalPreviewTemplate",
     value: function getModalPreviewTemplate() {
-      return "\n      <label class=\"control-label\">".concat(this.component.label, "</label><br>\n      <button lang='en' class='btn btn-light btn-md open-modal-button' ref='openModal'>").concat(this.getValueAsString(this.dataValue), "</button>");
+      var dataValue = this.component.type === 'password' ? this.dataValue.replace(/./g, '•') : this.dataValue;
+      return this.renderTemplate('modalPreview', {
+        previewText: this.getValueAsString(dataValue, {
+          modalPreview: true
+        }) || this.t('Click to set value')
+      });
     }
   }, {
     key: "build",
@@ -976,6 +995,7 @@ var Component = /*#__PURE__*/function (_Element) {
       if (!this.builderMode && this.component.modalEdit) {
         return _ComponentModal.default.render(this, {
           visible: isVisible,
+          showSaveButton: this.hasModalSaveButton,
           id: this.id,
           classes: this.className,
           styles: this.customStyle,
@@ -997,7 +1017,9 @@ var Component = /*#__PURE__*/function (_Element) {
       var _this5 = this;
 
       if (!this.builderMode && this.component.modalEdit) {
-        this.componentModal = new _ComponentModal.default(this, element);
+        var modalShouldBeOpened = this.componentModal ? this.componentModal.isOpened : false;
+        var currentValue = modalShouldBeOpened ? this.componentModal.currentValue : this.dataValue;
+        this.componentModal = new _ComponentModal.default(this, element, modalShouldBeOpened, currentValue);
         this.setOpenModalElement();
       }
 
@@ -1007,6 +1029,7 @@ var Component = /*#__PURE__*/function (_Element) {
 
       if (this.element.id) {
         this.id = this.element.id;
+        this.component.id = this.id;
       }
 
       this.loadRefs(element, {
@@ -1036,7 +1059,25 @@ var Component = /*#__PURE__*/function (_Element) {
         this.hook("attach".concat(type.charAt(0).toUpperCase() + type.substring(1, type.length)), element, this);
       }
 
+      this.restoreFocus();
       return _nativePromiseOnly.default.resolve();
+    }
+  }, {
+    key: "restoreFocus",
+    value: function restoreFocus() {
+      var _this$root, _this$root$focusedCom;
+
+      var isFocused = ((_this$root = this.root) === null || _this$root === void 0 ? void 0 : (_this$root$focusedCom = _this$root.focusedComponent) === null || _this$root$focusedCom === void 0 ? void 0 : _this$root$focusedCom.path) === this.path;
+
+      if (isFocused) {
+        var _this$root$currentSel;
+
+        this.loadRefs(this.element, {
+          input: 'multiple'
+        });
+        this.focus((_this$root$currentSel = this.root.currentSelection) === null || _this$root$currentSel === void 0 ? void 0 : _this$root$currentSel.index);
+        this.restoreCaretPosition();
+      }
     }
   }, {
     key: "addShortcut",
@@ -1083,36 +1124,51 @@ var Component = /*#__PURE__*/function (_Element) {
     }
   }, {
     key: "checkRefresh",
-    value: function checkRefresh(refreshData, changed) {
-      var changePath = _lodash.default.get(changed, 'instance.calculatedPath', false); // Don't let components change themselves.
+    value: function checkRefresh(refreshData, changed, flags) {
+      var changePath = _lodash.default.get(changed, 'instance.path', false); // Don't let components change themselves.
 
 
-      if (changePath && this.calculatedPath === changePath) {
+      if (changePath && this.path === changePath) {
         return;
       }
 
       if (refreshData === 'data') {
-        this.refresh(this.data);
-      } else if (changePath && changePath === refreshData && changed && changed.instance && // Make sure the changed component is not in a different "context". Solves issues where refreshOn being set
+        this.refresh(this.data, changed, flags);
+      } else if (changePath && (0, FormioUtils.getComponentPathWithoutIndicies)(changePath) === refreshData && changed && changed.instance && // Make sure the changed component is not in a different "context". Solves issues where refreshOn being set
       // in fields inside EditGrids could alter their state from other rows (which is bad).
       this.inContext(changed.instance)) {
-        this.refresh(changed.value);
+        this.refresh(changed.value, changed, flags);
       }
     }
   }, {
     key: "checkRefreshOn",
-    value: function checkRefreshOn(changed) {
+    value: function checkRefreshOn(changes) {
       var _this6 = this;
 
-      var refreshOn = this.component.refreshOn || this.component.redrawOn; // If they wish to refresh on a value, then add that here.
+      var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      changes = changes || [];
+
+      if (flags.noRefresh) {
+        return;
+      }
+
+      if (!changes.length && flags.changed) {
+        changes = [flags.changed];
+      }
+
+      var refreshOn = flags.fromBlur ? this.component.refreshOnBlur : this.component.refreshOn || this.component.redrawOn; // If they wish to refresh on a value, then add that here.
 
       if (refreshOn) {
         if (Array.isArray(refreshOn)) {
           refreshOn.forEach(function (refreshData) {
-            _this6.checkRefresh(refreshData, changed);
+            return changes.forEach(function (changed) {
+              return _this6.checkRefresh(refreshData, changed, flags);
+            });
           });
         } else {
-          this.checkRefresh(refreshOn, changed);
+          changes.forEach(function (changed) {
+            return _this6.checkRefresh(refreshOn, changed, flags);
+          });
         }
       }
     }
@@ -1193,38 +1249,42 @@ var Component = /*#__PURE__*/function (_Element) {
      * @param value
      * @return {*}
      */
-    value: function getWidgetValueAsString(value) {
+    value: function getWidgetValueAsString(value, options) {
       var _this7 = this;
 
       var noInputWidget = !this.refs.input || !this.refs.input[0] || !this.refs.input[0].widget;
 
       if (!value || noInputWidget) {
-        return value;
+        if (!this.widget || !value) {
+          return value;
+        } else {
+          return this.widget.getValueAsString(value);
+        }
       }
 
       if (Array.isArray(value)) {
         var values = [];
         value.forEach(function (val, index) {
-          var widget = _this7.refs.input[index] && _this7.refs.input[index].widge;
+          var widget = _this7.refs.input[index] && _this7.refs.input[index].widget;
 
           if (widget) {
-            values.push(widget.getValueAsString(val));
+            values.push(widget.getValueAsString(val, options));
           }
         });
         return values;
       }
 
       var widget = this.refs.input[0].widget;
-      return widget.getValueAsString(value);
+      return widget.getValueAsString(value, options);
     }
   }, {
     key: "getValueAsString",
-    value: function getValueAsString(value) {
+    value: function getValueAsString(value, options) {
       if (!value) {
         return '';
       }
 
-      value = this.getWidgetValueAsString(value);
+      value = this.getWidgetValueAsString(value, options);
 
       if (Array.isArray(value)) {
         return value.join(', ');
@@ -1238,16 +1298,17 @@ var Component = /*#__PURE__*/function (_Element) {
         return '';
       }
 
-      return value.toString();
+      var stringValue = value.toString();
+      return this.sanitize(stringValue);
     }
   }, {
     key: "getView",
-    value: function getView(value) {
+    value: function getView(value, options) {
       if (this.component.protected) {
         return '--- PROTECTED ---';
       }
 
-      return this.getValueAsString(value);
+      return this.getValueAsString(value, options);
     }
   }, {
     key: "updateItems",
@@ -1294,7 +1355,7 @@ var Component = /*#__PURE__*/function (_Element) {
     }
   }, {
     key: "createModal",
-    value: function createModal(element, attr) {
+    value: function createModal(element, attr, confirm) {
       var _this9 = this;
 
       var dialog = this.ce('div', attr || {});
@@ -1324,8 +1385,18 @@ var Component = /*#__PURE__*/function (_Element) {
         dialog.close();
       };
 
-      this.addEventListener(dialog.refs.dialogOverlay, 'click', close);
-      this.addEventListener(dialog.refs.dialogClose, 'click', close);
+      var handleCloseClick = function handleCloseClick(e) {
+        if (confirm) {
+          confirm().then(function () {
+            return close(e);
+          }).catch(function () {});
+        } else {
+          close(e);
+        }
+      };
+
+      this.addEventListener(dialog.refs.dialogOverlay, 'click', handleCloseClick);
+      this.addEventListener(dialog.refs.dialogClose, 'click', handleCloseClick);
       return dialog;
     }
     /**
@@ -1393,6 +1464,11 @@ var Component = /*#__PURE__*/function (_Element) {
       var iconset = this.options.iconset || _Templates.default.current.defaultIconset || 'fa';
       return _Templates.default.current.hasOwnProperty('iconClass') ? _Templates.default.current.iconClass(iconset, name, spinning) : this.options.iconset === 'fa' ? _Templates.default.defaultTemplates.iconClass(iconset, name, spinning) : name;
     }
+  }, {
+    key: "size",
+    value: function size(_size) {
+      return _Templates.default.current.hasOwnProperty('size') ? _Templates.default.current.size(_size) : _size;
+    }
     /**
      * The readible name for this component.
      * @returns {string} - The name of the component.
@@ -1420,6 +1496,34 @@ var Component = /*#__PURE__*/function (_Element) {
       return false;
     }
   }, {
+    key: "restoreCaretPosition",
+    value: function restoreCaretPosition() {
+      var _this$root2;
+
+      if ((_this$root2 = this.root) !== null && _this$root2 !== void 0 && _this$root2.currentSelection) {
+        var _this$refs$input;
+
+        if ((_this$refs$input = this.refs.input) !== null && _this$refs$input !== void 0 && _this$refs$input.length) {
+          var _this$root$currentSel2 = this.root.currentSelection,
+              selection = _this$root$currentSel2.selection,
+              index = _this$root$currentSel2.index;
+          var input = this.refs.input[index];
+
+          if (input) {
+            var _input;
+
+            (_input = input).setSelectionRange.apply(_input, _toConsumableArray(selection));
+          } else {
+            var _input$value;
+
+            input = this.refs.input[this.refs.input.length];
+            var lastCharacter = ((_input$value = input.value) === null || _input$value === void 0 ? void 0 : _input$value.length) || 0;
+            input.setSelectionRange(lastCharacter, lastCharacter);
+          }
+        }
+      }
+    }
+  }, {
     key: "redraw",
     value: function redraw() {
       // Don't bother if we have not built yet.
@@ -1428,7 +1532,8 @@ var Component = /*#__PURE__*/function (_Element) {
         return _nativePromiseOnly.default.resolve();
       }
 
-      this.clear(); // Since we are going to replace the element, we need to know it's position so we can find it in the parent's children.
+      this.detach();
+      this.emit('redraw'); // Since we are going to replace the element, we need to know it's position so we can find it in the parent's children.
 
       var parent = this.element.parentNode;
       var index = Array.prototype.indexOf.call(parent.children, this.element);
@@ -1452,7 +1557,6 @@ var Component = /*#__PURE__*/function (_Element) {
         return tooltip.dispose();
       });
       this.tooltips = [];
-      this.refs.input = [];
     }
   }, {
     key: "hasClass",
@@ -1743,6 +1847,10 @@ var Component = /*#__PURE__*/function (_Element) {
         messages = [messages];
       }
 
+      messages = _lodash.default.uniqBy(messages, function (message) {
+        return message.message;
+      });
+
       if (this.refs.messageContainer) {
         this.setContent(this.refs.messageContainer, messages.map(function (message) {
           return _this12.renderTemplate('message', message);
@@ -1758,6 +1866,7 @@ var Component = /*#__PURE__*/function (_Element) {
       elements.forEach(function (element) {
         return _this13.removeClass(_this13.performInputMapping(element), 'is-invalid');
       });
+      this.setInputWidgetErrorClasses(elements, hasErrors);
 
       if (hasErrors) {
         // Add error classes
@@ -1779,8 +1888,11 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "clearOnHide",
     value: function clearOnHide() {
+      var _getDataParentCompone;
+
       // clearOnHide defaults to true for old forms (without the value set) so only trigger if the value is false.
-      if (!this.rootPristine && this.component.clearOnHide !== false && !this.options.readOnly && !this.options.showHiddenFields) {
+      if ( // if change happens inside EditGrid's row, it doesn't trigger change on the root level, so rootPristine will be true
+      (!this.rootPristine || (_getDataParentCompone = (0, FormioUtils.getDataParentComponent)(this)) !== null && _getDataParentCompone !== void 0 && _getDataParentCompone.hasScopedChildren) && this.component.clearOnHide !== false && !this.options.readOnly && !this.options.showHiddenFields) {
         if (!this.visible) {
           this.deleteValue();
         } else if (!this.hasValue()) {
@@ -1799,9 +1911,9 @@ var Component = /*#__PURE__*/function (_Element) {
 
         (_this$options = this.options).onChange.apply(_this$options, arguments);
       } else if (this.root) {
-        var _this$root;
+        var _this$root3;
 
-        (_this$root = this.root).triggerChange.apply(_this$root, arguments);
+        (_this$root3 = this.root).triggerChange.apply(_this$root3, arguments);
       }
     }
   }, {
@@ -1810,7 +1922,10 @@ var Component = /*#__PURE__*/function (_Element) {
       flags = flags || {};
 
       if (flags.modified) {
-        this.pristine = false;
+        if (!flags.noPristineChangeOnModified) {
+          this.pristine = false;
+        }
+
         this.addClass(this.getElement(), 'formio-modified');
       } // If we are supposed to validate on blur, then don't trigger validation yet.
 
@@ -1857,18 +1972,26 @@ var Component = /*#__PURE__*/function (_Element) {
       settings.mediaEmbed = {
         previewsInData: true
       };
-      settings = _lodash.default.merge(_lodash.default.get(this.options, 'editors.ckeditor.settings', this.ckEditorConfig), settings);
-      return _Formio.default.requireLibrary('ckeditor', 'ClassicEditor', _lodash.default.get(this.options, 'editors.ckeditor.src', CKEDITOR), true).then(function () {
+      settings = _lodash.default.merge(this.wysiwygDefault.ckeditor, _lodash.default.get(this.options, 'editors.ckeditor.settings', {}), settings);
+      return _Formio.default.requireLibrary('ckeditor', isIEBrowser ? 'CKEDITOR' : 'ClassicEditor', _lodash.default.get(this.options, 'editors.ckeditor.src', CKEDITOR_URL), true).then(function () {
         if (!element.parentNode) {
           return _nativePromiseOnly.default.reject();
         }
 
-        return ClassicEditor.create(element, settings).then(function (editor) {
-          editor.model.document.on('change', function () {
-            return onChange(editor.data.get());
+        if (isIEBrowser) {
+          var editor = CKEDITOR.replace(element);
+          editor.on('change', function () {
+            return onChange(editor.getData());
           });
-          return editor;
-        });
+          return _nativePromiseOnly.default.resolve(editor);
+        } else {
+          return ClassicEditor.create(element, settings).then(function (editor) {
+            editor.model.document.on('change', function () {
+              return onChange(editor.data.get());
+            });
+            return editor;
+          });
+        }
       });
     }
   }, {
@@ -1876,12 +1999,13 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function addQuill(element, settings, onChange) {
       var _this14 = this;
 
-      settings = _lodash.default.isEmpty(settings) ? this.wysiwygDefault : settings;
-      settings = _lodash.default.merge(_lodash.default.get(this.options, 'editors.quill.settings', {}), settings); // Lazy load the quill css.
-
-      if (!settings.theme) {
-        settings.theme = 'snow';
-      }
+      settings = _lodash.default.isEmpty(settings) ? this.wysiwygDefault.quill : settings;
+      settings = _lodash.default.merge(this.wysiwygDefault.quill, _lodash.default.get(this.options, 'editors.quill.settings', {}), settings);
+      settings = _objectSpread(_objectSpread({}, settings), {}, {
+        modules: {
+          table: true
+        }
+      }); // Lazy load the quill css.
 
       _Formio.default.requireLibrary("quill-css-".concat(settings.theme), 'Quill', [{
         type: 'styles',
@@ -1890,89 +2014,80 @@ var Component = /*#__PURE__*/function (_Element) {
 
 
       return _Formio.default.requireLibrary('quill', 'Quill', _lodash.default.get(this.options, 'editors.quill.src', "".concat(QUILL_URL, "/quill.min.js")), true).then(function () {
-        if (!element.parentNode) {
-          return _nativePromiseOnly.default.reject();
-        }
+        return _Formio.default.requireLibrary('quill-table', 'Quill', QUILL_TABLE_URL, true).then(function () {
+          if (!element.parentNode) {
+            return _nativePromiseOnly.default.reject();
+          }
 
-        _this14.quill = new Quill(element, settings);
-        /** This block of code adds the [source] capabilities.  See https://codepen.io/anon/pen/ZyEjrQ **/
+          _this14.quill = new Quill(element, isIEBrowser ? _objectSpread(_objectSpread({}, settings), {}, {
+            modules: {}
+          }) : settings);
+          /** This block of code adds the [source] capabilities.  See https://codepen.io/anon/pen/ZyEjrQ **/
 
-        var txtArea = document.createElement('textarea');
-        txtArea.setAttribute('class', 'quill-source-code');
+          var txtArea = document.createElement('textarea');
+          txtArea.setAttribute('class', 'quill-source-code');
 
-        _this14.quill.addContainer('ql-custom').appendChild(txtArea);
+          _this14.quill.addContainer('ql-custom').appendChild(txtArea);
 
-        var qlSource = element.parentNode.querySelector('.ql-source');
+          var qlSource = element.parentNode.querySelector('.ql-source');
 
-        if (qlSource) {
-          _this14.addEventListener(qlSource, 'click', function (event) {
-            event.preventDefault();
+          if (qlSource) {
+            _this14.addEventListener(qlSource, 'click', function (event) {
+              event.preventDefault();
 
-            if (txtArea.style.display === 'inherit') {
-              _this14.quill.setContents(_this14.quill.clipboard.convert(txtArea.value));
-            }
+              if (txtArea.style.display === 'inherit') {
+                _this14.quill.setContents(_this14.quill.clipboard.convert(txtArea.value));
+              }
 
-            txtArea.style.display = txtArea.style.display === 'none' ? 'inherit' : 'none';
+              txtArea.style.display = txtArea.style.display === 'none' ? 'inherit' : 'none';
+            });
+          }
+          /** END CODEBLOCK **/
+          // Make sure to select cursor when they click on the element.
+
+
+          _this14.addEventListener(element, 'click', function () {
+            return _this14.quill.focus();
+          }); // Allows users to skip toolbar items when tabbing though form
+
+
+          var elm = document.querySelectorAll('.ql-formats > button');
+
+          for (var i = 0; i < elm.length; i++) {
+            elm[i].setAttribute('tabindex', '-1');
+          }
+
+          _this14.quill.on('text-change', function () {
+            txtArea.value = _this14.quill.root.innerHTML;
+            onChange(txtArea);
           });
-        }
-        /** END CODEBLOCK **/
-        // Make sure to select cursor when they click on the element.
 
-
-        _this14.addEventListener(element, 'click', function () {
-          return _this14.quill.focus();
-        }); // Allows users to skip toolbar items when tabbing though form
-
-
-        var elm = document.querySelectorAll('.ql-formats > button');
-
-        for (var i = 0; i < elm.length; i++) {
-          elm[i].setAttribute('tabindex', '-1');
-        }
-
-        _this14.quill.on('text-change', function () {
-          txtArea.value = _this14.quill.root.innerHTML;
-          onChange(txtArea);
+          return _this14.quill;
         });
-
-        return _this14.quill;
       });
     }
   }, {
     key: "addAce",
     value: function addAce(element, settings, onChange) {
-      var defaultAceSettings = {
-        maxLines: 12,
-        minLines: 12,
-        tabSize: 2,
-        mode: 'javascript'
-      };
-      settings = _lodash.default.merge({}, defaultAceSettings, _lodash.default.get(this.options, 'editors.ace.settings', {}), settings || {});
+      if (!settings || settings.theme === 'snow') {
+        var mode = settings ? settings.mode : '';
+        settings = {};
+
+        if (mode) {
+          settings.mode = mode;
+        }
+      }
+
+      settings = _lodash.default.merge(this.wysiwygDefault.ace, _lodash.default.get(this.options, 'editors.ace.settings', {}), settings || {});
       return _Formio.default.requireLibrary('ace', 'ace', _lodash.default.get(this.options, 'editors.ace.src', ACE_URL), true).then(function (editor) {
         editor = editor.edit(element);
         editor.removeAllListeners('change');
         editor.setOptions(settings);
-        editor.getSession().setMode("ace/mode/".concat(settings.mode));
+        editor.getSession().setMode(settings.mode);
         editor.on('change', function () {
           return onChange(editor.getValue());
         });
         return editor;
-      });
-    }
-  }, {
-    key: "addTiny",
-    value: function addTiny(element, settings, onChange) {
-      return _Formio.default.requireLibrary('tinymce', 'tinymce', TINYMCE_URL.replace('no-api-key', settings.tinyApiKey), true).then(function (editor) {
-        return editor.init(_objectSpread({}, settings, {
-          target: element,
-          theme: 'silver',
-          // eslint-disable-next-line camelcase
-          init_instance_callback: function init_instance_callback(editor) {
-            editor.on('Change', function () {
-              return onChange(editor.getContent());
-            });
-          }
-        }));
       });
     }
   }, {
@@ -2085,22 +2200,22 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "setValue",
     value: function setValue(value) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      this.updateValue(value, flags);
-
-      if (this.componentModal && flags && flags.fromSubmission) {
-        this.componentModal.setValue(value);
-      }
-
+      var changed = this.updateValue(value, flags);
       value = this.dataValue;
 
       if (!this.hasInput) {
-        return flags.changed;
+        return changed;
       }
 
       var isArray = Array.isArray(value);
 
-      if (this.component.multiple && isArray && this.refs.input && this.refs.input.length !== value.length) {
+      if (isArray && Array.isArray(this.defaultValue) && this.refs.hasOwnProperty('input') && this.refs.input && this.refs.input.length !== value.length && this.visible) {
         this.redraw();
+      }
+
+      if (this.options.renderMode === 'html' && changed) {
+        this.redraw();
+        return changed;
       }
 
       for (var i in this.refs.input) {
@@ -2109,7 +2224,7 @@ var Component = /*#__PURE__*/function (_Element) {
         }
       }
 
-      return flags.changed;
+      return changed;
     }
     /**
      * Set the value at a specific index.
@@ -2138,23 +2253,28 @@ var Component = /*#__PURE__*/function (_Element) {
       }
     }
   }, {
-    key: "restoreValue",
-
+    key: "setDefaultValue",
+    value: function setDefaultValue() {
+      if (this.defaultValue) {
+        var defaultValue = this.component.multiple && !this.dataValue.length ? [] : this.defaultValue;
+        this.setValue(defaultValue, {
+          noUpdateEvent: true
+        });
+      }
+    }
     /**
      * Restore the value of a control.
      */
+
+  }, {
+    key: "restoreValue",
     value: function restoreValue() {
       if (this.hasSetValue) {
         this.setValue(this.dataValue, {
           noUpdateEvent: true
         });
       } else {
-        if (this.defaultValue) {
-          var defaultValue = this.component.multiple && !this.dataValue.length ? [] : this.defaultValue;
-          this.setValue(defaultValue, {
-            noUpdateEvent: true
-          });
-        }
+        this.setDefaultValue();
       }
     }
     /**
@@ -2185,14 +2305,18 @@ var Component = /*#__PURE__*/function (_Element) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var newValue = !flags.resetValue && (value === undefined || value === null) ? this.getValue() : value;
       newValue = this.normalizeValue(newValue, flags);
-      flags.changed = flags.changed || (newValue !== undefined ? this.hasChanged(newValue, this.dataValue) : false);
+      var changed = newValue !== undefined ? this.hasChanged(newValue, this.dataValue) : false;
 
-      if (flags.changed) {
+      if (changed) {
         this.dataValue = newValue;
-        this.updateOnChange(flags);
+        this.updateOnChange(flags, changed);
       }
 
-      return flags.changed;
+      if (this.componentModal && flags && flags.fromSubmission) {
+        this.componentModal.setValue(value);
+      }
+
+      return changed;
     }
     /**
      * Updates the value of this component plus all sub-components.
@@ -2247,7 +2371,7 @@ var Component = /*#__PURE__*/function (_Element) {
       } // If we do not have a value and are getting set to anything other than undefined or null, then we changed.
 
 
-      if (newValue !== undefined && newValue !== null && !this.hasValue()) {
+      if (newValue !== undefined && newValue !== null && this.allowData && !this.hasValue()) {
         return true;
       }
 
@@ -2263,8 +2387,9 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "updateOnChange",
     value: function updateOnChange() {
       var flags = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var changed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      if (!flags.noUpdateEvent && flags.changed) {
+      if (!flags.noUpdateEvent && changed) {
         this.triggerChange(flags);
         return true;
       }
@@ -2280,46 +2405,77 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
+    key: "convertNumberOrBoolToString",
+    value: function convertNumberOrBoolToString(value) {
+      if (typeof value === 'number' || typeof value === 'boolean') {
+        return value.toString();
+      }
+
+      return value;
+    }
+  }, {
     key: "calculateComponentValue",
     value: function calculateComponentValue(data, flags, row) {
       // If no calculated value or
       // hidden and set to clearOnHide (Don't calculate a value for a hidden field set to clear when hidden)
-      if (!this.component.calculateValue || (!this.visible || this.component.hidden) && this.component.clearOnHide && !this.rootPristine) {
+      var _this$component = this.component,
+          hidden = _this$component.hidden,
+          clearOnHide = _this$component.clearOnHide;
+      var shouldBeCleared = (!this.visible || hidden) && clearOnHide && !this.rootPristine; // Handle all cases when calculated values should not fire.
+
+      if (this.options.readOnly || !this.component.calculateValue || shouldBeCleared || this.options.server && !this.component.calculateServer || flags.dataSourceInitialLoading) {
         return false;
-      } // If this component allows overrides.
+      }
 
-
-      var allowOverride = this.component.allowCalculateOverride;
-      var firstPass = false;
-      var dataValue = this.dataValue; // First pass, the calculatedValue is undefined.
-
-      if (this.calculatedValue === undefined) {
-        firstPass = true;
-        this.calculatedValue = null;
-      } // Check to ensure that the calculated value is different than the previously calculated value.
-
-
-      if (allowOverride && this.calculatedValue !== null && !_lodash.default.isEqual(dataValue, this.calculatedValue)) {
-        return false;
-      } // Calculate the new value.
-
+      var dataValue = this.dataValue; // Calculate the new value.
 
       var calculatedValue = this.evaluate(this.component.calculateValue, {
         value: dataValue,
         data: data,
         row: row || this.data
-      }, 'value'); // If this is the firstPass, and the dataValue is different than to the calculatedValue.
+      }, 'value');
 
-      if (allowOverride && firstPass && !this.isEmpty(dataValue) && !_lodash.default.isEqual(dataValue, calculatedValue)) {
-        // Return that we have a change so it will perform another pass.
-        this.calculatedValue = calculatedValue;
-        return true;
-      } // Set the new value.
+      if (_lodash.default.isNil(calculatedValue)) {
+        calculatedValue = this.emptyValue;
+      }
+
+      var changed = !_lodash.default.isEqual(dataValue, calculatedValue); // Do not override calculations on server if they have calculateServer set.
+
+      if (this.component.allowCalculateOverride) {
+        var firstPass = this.calculatedValue === undefined;
+
+        if (firstPass) {
+          this.calculatedValue = null;
+        }
+
+        var newCalculatedValue = this.normalizeValue(this.convertNumberOrBoolToString(calculatedValue));
+        var previousCalculatedValue = this.normalizeValue(this.convertNumberOrBoolToString(this.calculatedValue));
+        var calculationChanged = !_lodash.default.isEqual(previousCalculatedValue, newCalculatedValue);
+        var previousChanged = !_lodash.default.isEqual(dataValue, previousCalculatedValue); // Check to ensure that the calculated value is different than the previously calculated value.
+
+        if (previousCalculatedValue && previousChanged && !calculationChanged) {
+          return false;
+        }
+
+        if (flags.isReordered || !calculationChanged) {
+          return false;
+        }
+
+        if (flags.fromSubmission && this.component.persistent === true) {
+          // If we set value from submission and it differs from calculated one, set the calculated value to prevent overriding dataValue in the next pass
+          this.calculatedValue = calculatedValue;
+          return false;
+        } // If this is the firstPass, and the dataValue is different than to the calculatedValue.
 
 
-      this.setValue(calculatedValue, flags);
-      this.calculatedValue = this.dataValue;
-      return flags.changed;
+        if (firstPass && !this.isEmpty(dataValue) && changed && calculationChanged) {
+          // Return that we have a change so it will perform another pass.
+          return true;
+        }
+      }
+
+      this.calculatedValue = calculatedValue;
+      return changed ? this.setValue(calculatedValue, flags) : false;
     }
     /**
      * Performs calculations in this component plus any child components.
@@ -2393,14 +2549,14 @@ var Component = /*#__PURE__*/function (_Element) {
     }
   }, {
     key: "setComponentValidity",
-    value: function setComponentValidity(messages, dirty) {
+    value: function setComponentValidity(messages, dirty, silentCheck) {
       var hasErrors = !!messages.filter(function (message) {
         return message.level === 'error';
       }).length;
 
-      if (messages.length && (dirty || !this.pristine)) {
+      if (messages.length && (!silentCheck || this.error) && (dirty || !this.pristine)) {
         this.setCustomValidity(messages, dirty);
-      } else {
+      } else if (!silentCheck) {
         this.setCustomValidity('');
       }
 
@@ -2420,9 +2576,13 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function checkComponentValidity(data, dirty, row) {
       var _this15 = this;
 
-      var async = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
       data = data || this.rootValue;
       row = row || this.data;
+      var _options$async = options.async,
+          async = _options$async === void 0 ? false : _options$async,
+          _options$silentCheck = options.silentCheck,
+          silentCheck = _options$silentCheck === void 0 ? false : _options$silentCheck;
 
       if (this.shouldSkipValidation(data, dirty, row)) {
         this.setCustomValidity('');
@@ -2432,20 +2592,25 @@ var Component = /*#__PURE__*/function (_Element) {
       var check = _Validator.default.checkComponent(this, data, row, true, async);
 
       return async ? check.then(function (messages) {
-        return _this15.setComponentValidity(messages, dirty);
-      }) : this.setComponentValidity(check, dirty);
+        return _this15.setComponentValidity(messages, dirty, silentCheck);
+      }) : this.setComponentValidity(check, dirty, silentCheck);
     }
   }, {
     key: "checkValidity",
-    value: function checkValidity(data, dirty, row) {
+    value: function checkValidity(data, dirty, row, silentCheck) {
       data = data || this.rootValue;
       row = row || this.data;
-      return this.checkComponentValidity(data, dirty, row);
+      return this.checkComponentValidity(data, dirty, row, {
+        silentCheck: silentCheck
+      });
     }
   }, {
     key: "checkAsyncValidity",
-    value: function checkAsyncValidity(data, dirty, row) {
-      return _nativePromiseOnly.default.resolve(this.checkComponentValidity(data, dirty, row, true));
+    value: function checkAsyncValidity(data, dirty, row, silentCheck) {
+      return _nativePromiseOnly.default.resolve(this.checkComponentValidity(data, dirty, row, {
+        async: true,
+        silentCheck: silentCheck
+      }));
     }
     /**
      * Check the conditions, calculations, and validity of a single component and triggers an update if
@@ -2462,8 +2627,11 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function checkData(data, flags, row) {
       data = data || this.rootValue;
       flags = flags || {};
-      row = row || this.data;
-      this.checkRefreshOn(flags.changed);
+      row = row || this.data; // Do not trigger refresh if change was triggered on blur event since components with Refresh on Blur have their own listeners
+
+      if (!flags.fromBlur) {
+        this.checkRefreshOn(flags.changes, flags);
+      }
 
       if (flags.noCheck) {
         return true;
@@ -2472,13 +2640,15 @@ var Component = /*#__PURE__*/function (_Element) {
       this.calculateComponentValue(data, flags, row);
       this.checkComponentConditions(data, flags, row);
 
-      if (flags.noValidate) {
+      if (flags.noValidate && !flags.validateOnInit && !flags.fromIframe) {
+        if (flags.fromSubmission && this.rootPristine && this.pristine && this.error && flags.changed) {
+          this.checkComponentValidity(data, !!this.options.alwaysDirty, row, true);
+        }
+
         return true;
-      } // We need to perform a test to see if they provided a default value that is not valid and immediately show
-      // an error if that is the case.
+      }
 
-
-      var isDirty = !this.builderMode && !this.options.preview && !this.isEmpty(this.defaultValue) && this.isEqual(this.defaultValue, this.dataValue); // We need to set dirty if they explicitly set noValidate to false.
+      var isDirty = false; // We need to set dirty if they explicitly set noValidate to false.
 
       if (this.options.alwaysDirty || flags.dirty) {
         isDirty = true;
@@ -2487,6 +2657,10 @@ var Component = /*#__PURE__*/function (_Element) {
 
       if (flags.fromSubmission && this.hasValue(data)) {
         isDirty = true;
+      }
+
+      if (this.component.validateOn === 'blur' && flags.fromSubmission) {
+        return true;
       }
 
       return this.checkComponentValidity(data, isDirty, row);
@@ -2524,8 +2698,23 @@ var Component = /*#__PURE__*/function (_Element) {
       this.removeClass(this.element, 'has-message');
     }
   }, {
+    key: "setInputWidgetErrorClasses",
+    value: function setInputWidgetErrorClasses(inputRefs, hasErrors) {
+      if (!this.isInputComponent || !this.component.widget || !(inputRefs !== null && inputRefs !== void 0 && inputRefs.length)) {
+        return;
+      }
+
+      inputRefs.forEach(function (input) {
+        if (input.widget && input.widget.setErrorClasses) {
+          input.widget.setErrorClasses(hasErrors);
+        }
+      });
+    }
+  }, {
     key: "setCustomValidity",
     value: function setCustomValidity(messages, dirty, external) {
+      var inputRefs = this.isInputComponent ? this.refs.input || [] : null;
+
       if (typeof messages === 'string' && messages) {
         messages = {
           level: 'error',
@@ -2557,20 +2746,24 @@ var Component = /*#__PURE__*/function (_Element) {
           external: !!external
         };
         this.emit('componentError', this.error);
-        this.addMessages(messages, dirty, this.refs.input);
+        this.addMessages(messages, dirty, inputRefs);
 
-        if (this.refs.input) {
-          this.setErrorClasses(this.refs.input, dirty, hasErrors, !!messages.length);
+        if (inputRefs) {
+          this.setErrorClasses(inputRefs, dirty, hasErrors, !!messages.length);
         }
       } else if (this.error && this.error.external === !!external) {
         if (this.refs.messageContainer) {
           this.empty(this.refs.messageContainer);
         }
 
+        if (this.refs.modalMessageContainer) {
+          this.empty(this.refs.modalMessageContainer);
+        }
+
         this.error = null;
 
-        if (this.refs.input) {
-          this.setErrorClasses(this.refs.input, dirty, hasErrors, !!messages.length);
+        if (inputRefs) {
+          this.setErrorClasses(inputRefs, dirty, hasErrors, !!messages.length);
         }
 
         this.clearErrorClasses();
@@ -2610,7 +2803,10 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function shouldSkipValidation(data, dirty, row) {
       var _this16 = this;
 
-      var rules = [// Check to see if we are editing and if so, check component persistence.
+      var rules = [// Force valid if component is read-only
+      function () {
+        return _this16.options.readOnly;
+      }, // Check to see if we are editing and if so, check component persistence.
       function () {
         return _this16.isValueHidden();
       }, // Force valid if component is hidden.
@@ -2726,6 +2922,13 @@ var Component = /*#__PURE__*/function (_Element) {
       }
     }
   }, {
+    key: "getRelativePath",
+    value: function getRelativePath(path) {
+      var keyPart = ".".concat(this.key);
+      var thisPath = this.isInputComponent ? this.path : this.path.slice(0).replace(keyPart, '');
+      return path.replace(thisPath, '');
+    }
+  }, {
     key: "clear",
     value: function clear() {
       this.detach();
@@ -2765,6 +2968,11 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function attachLogic() {
       var _this19 = this;
 
+      // Do not attach logic during builder mode.
+      if (this.builderMode) {
+        return;
+      }
+
       this.logic.forEach(function (logic) {
         if (logic.trigger.type === 'event') {
           var event = _this19.interpolate(logic.trigger.event);
@@ -2772,8 +2980,8 @@ var Component = /*#__PURE__*/function (_Element) {
           _this19.on(event, function () {
             var newComponent = (0, FormioUtils.fastCloneDeep)(_this19.originalComponent);
 
-            for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-              args[_key4] = arguments[_key4];
+            for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+              args[_key5] = arguments[_key5];
             }
 
             if (_this19.applyActions(newComponent, logic.actions, args)) {
@@ -2782,7 +2990,7 @@ var Component = /*#__PURE__*/function (_Element) {
                 _this19.component = newComponent;
               }
 
-              _this19.redraw();
+              _this19.rebuild();
             }
           }, true);
         }
@@ -2828,7 +3036,9 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function autofocus() {
       var _this20 = this;
 
-      if (this.component.autofocus && !this.builderMode) {
+      var hasAutofocus = this.component.autofocus && !this.builderMode && !this.options.preview;
+
+      if (hasAutofocus) {
         this.on('render', function () {
           return _this20.focus();
         }, true);
@@ -2836,11 +3046,33 @@ var Component = /*#__PURE__*/function (_Element) {
     }
   }, {
     key: "focus",
-    value: function focus() {
-      if (this.refs.input && this.refs.input[0]) {
-        this.refs.input[0].focus();
+    value: function focus(index) {
+      var _this$refs$input2;
+
+      if ('beforeFocus' in this.parent) {
+        this.parent.beforeFocus(this);
+      }
+
+      if ((_this$refs$input2 = this.refs.input) !== null && _this$refs$input2 !== void 0 && _this$refs$input2.length) {
+        if (typeof index === 'number' && this.refs.input[index]) {
+          this.refs.input[index].focus();
+        } else {
+          this.refs.input[this.refs.input.length - 1].focus();
+        }
+      }
+
+      if (this.refs.openModal) {
+        this.refs.openModal.focus();
+      }
+
+      if (this.parent.refs.openModal) {
+        this.parent.refs.openModal.focus();
       }
     }
+    /**
+     * Get `Formio` instance for working with files
+     */
+
   }, {
     key: "data",
     get: function get() {
@@ -2862,8 +3094,9 @@ var Component = /*#__PURE__*/function (_Element) {
       label.className = '';
       label.labelPosition = this.component.labelPosition;
       label.tooltipClass = "".concat(this.iconClass('question-sign'), " text-muted");
+      var isPDFReadOnlyMode = this.parent && this.parent.form && this.parent.form.display === 'pdf' && this.options.readOnly;
 
-      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required)) {
+      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required) && !isPDFReadOnlyMode) {
         label.className += ' field-required';
       }
 
@@ -2910,11 +3143,7 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "parentVisible",
     set: function set(value) {
-      if (this._parentVisible !== value) {
-        this._parentVisible = value;
-        this.clearOnHide();
-        this.redraw();
-      }
+      this._parentVisible = value;
     },
     get: function get() {
       return this._parentVisible;
@@ -2922,11 +3151,7 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "parentDisabled",
     set: function set(value) {
-      if (this._parentDisabled !== value) {
-        this._parentDisabled = value;
-        this.clearOnHide();
-        this.redraw();
-      }
+      this._parentDisabled = value;
     },
     get: function get() {
       return this._parentDisabled;
@@ -2987,27 +3212,8 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "calculatedPath",
     get: function get() {
-      if (this._path) {
-        return this._path;
-      }
-
-      this._path = this.key;
-
-      if (!this.root) {
-        return this._path;
-      }
-
-      var parent = this.parent;
-
-      while (parent && parent.id !== this.root.id) {
-        if (['datagrid', 'container', 'editgrid'].includes(parent.type) || parent.tree) {
-          this._path = "".concat(parent.key, ".").concat(this._path);
-        }
-
-        parent = parent.parent;
-      }
-
-      return this._path;
+      console.error('component.calculatedPath was deprecated, use component.path instead.');
+      return this.path;
     }
   }, {
     key: "labelPosition",
@@ -3035,6 +3241,11 @@ var Component = /*#__PURE__*/function (_Element) {
       return this.labelPosition.split('-');
     }
   }, {
+    key: "skipInEmail",
+    get: function get() {
+      return false;
+    }
+  }, {
     key: "schema",
     get: function get() {
       return (0, FormioUtils.fastCloneDeep)(this.getModifiedSchema(_lodash.default.omit(this.component, 'id'), this.defaultSchema));
@@ -3047,10 +3258,21 @@ var Component = /*#__PURE__*/function (_Element) {
       };
     }
   }, {
+    key: "widget",
+    get: function get() {
+      var widget = this.component.widget && _widgets.default[this.component.widget.type] ? new _widgets.default[this.component.widget.type](this.component.widget, this.component) : null;
+      return widget;
+    }
+  }, {
     key: "submissionTimezone",
     get: function get() {
       this.options.submissionTimezone = this.options.submissionTimezone || _lodash.default.get(this.root, 'options.submissionTimezone');
       return this.options.submissionTimezone;
+    }
+  }, {
+    key: "hasModalSaveButton",
+    get: function get() {
+      return true;
     }
   }, {
     key: "viewOnly",
@@ -3141,46 +3363,53 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "wysiwygDefault",
     get: function get() {
       return {
-        theme: 'snow',
-        placeholder: this.t(this.component.placeholder),
-        modules: {
-          toolbar: [[{
-            'size': ['small', false, 'large', 'huge']
-          }], // custom dropdown
-          [{
-            'header': [1, 2, 3, 4, 5, 6, false]
-          }], [{
-            'font': []
-          }], ['bold', 'italic', 'underline', 'strike', {
-            'script': 'sub'
-          }, {
-            'script': 'super'
-          }, 'clean'], [{
-            'color': []
-          }, {
-            'background': []
-          }], [{
-            'list': 'ordered'
-          }, {
-            'list': 'bullet'
-          }, {
-            'indent': '-1'
-          }, {
-            'indent': '+1'
-          }, {
-            'align': []
-          }], ['blockquote', 'code-block'], ['link', 'image', 'video', 'formula', 'source']]
-        }
-      };
-    }
-  }, {
-    key: "ckEditorConfig",
-    get: function get() {
-      return {
-        image: {
-          toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
-          styles: ['full', 'alignLeft', 'alignCenter', 'alignRight']
-        }
+        quill: {
+          theme: 'snow',
+          placeholder: this.t(this.component.placeholder),
+          modules: {
+            toolbar: [[{
+              'size': ['small', false, 'large', 'huge']
+            }], // custom dropdown
+            [{
+              'header': [1, 2, 3, 4, 5, 6, false]
+            }], [{
+              'font': []
+            }], ['bold', 'italic', 'underline', 'strike', {
+              'script': 'sub'
+            }, {
+              'script': 'super'
+            }, 'clean'], [{
+              'color': []
+            }, {
+              'background': []
+            }], [{
+              'list': 'ordered'
+            }, {
+              'list': 'bullet'
+            }, {
+              'indent': '-1'
+            }, {
+              'indent': '+1'
+            }, {
+              'align': []
+            }], ['blockquote', 'code-block'], ['link', 'image', 'video', 'formula', 'source']]
+          }
+        },
+        ace: {
+          theme: 'ace/theme/xcode',
+          maxLines: 12,
+          minLines: 12,
+          tabSize: 2,
+          mode: 'javascript',
+          placeholder: this.t(this.component.placeholder)
+        },
+        ckeditor: {
+          image: {
+            toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
+            styles: ['full', 'alignLeft', 'alignCenter', 'alignRight']
+          }
+        },
+        default: {}
       };
     }
   }, {
@@ -3260,6 +3489,8 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "defaultValue",
     get: function get() {
+      var _this21 = this;
+
       var defaultValue = this.emptyValue;
 
       if (this.component.defaultValue) {
@@ -3272,15 +3503,25 @@ var Component = /*#__PURE__*/function (_Element) {
         }, 'value');
       }
 
-      if (this.defaultMask) {
-        if (typeof defaultValue === 'string') {
-          defaultValue = (0, _vanillaTextMask.conformToMask)(defaultValue, this.defaultMask).conformedValue;
+      var checkMask = function checkMask(value) {
+        if (typeof value === 'string') {
+          value = (0, _vanillaTextMask.conformToMask)(value, _this21.defaultMask).conformedValue;
 
-          if (!FormioUtils.matchInputMask(defaultValue, this.defaultMask)) {
-            defaultValue = '';
+          if (!FormioUtils.matchInputMask(value, _this21.defaultMask)) {
+            value = '';
           }
         } else {
-          defaultValue = '';
+          value = '';
+        }
+
+        return value;
+      };
+
+      if (this.defaultMask) {
+        if (Array.isArray(defaultValue)) {
+          defaultValue = defaultValue.map(checkMask);
+        } else {
+          defaultValue = checkMask(defaultValue);
         }
       } // Clone so that it creates a new instance.
 
@@ -3338,6 +3579,29 @@ var Component = /*#__PURE__*/function (_Element) {
     ,
     set: function set(disabled) {
       this._disabled = disabled;
+    }
+  }, {
+    key: "fileService",
+    get: function get() {
+      if (this.options.fileService) {
+        return this.options.fileService;
+      }
+
+      if (this.options.formio) {
+        return this.options.formio;
+      }
+
+      if (this.root && this.root.formio) {
+        return this.root.formio;
+      }
+
+      var formio = new _Formio.default(); // If a form is loaded, then make sure to set the correct formUrl.
+
+      if (this.root && this.root._form && this.root._form._id) {
+        formio.formUrl = "".concat(formio.projectUrl, "/form/").concat(this.root._form._id);
+      }
+
+      return formio;
     }
   }]);
 

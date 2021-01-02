@@ -1,14 +1,10 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 require("core-js/modules/es.array.concat");
 
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.array.find");
 
 require("core-js/modules/es.array.map");
 
@@ -18,21 +14,9 @@ require("core-js/modules/es.function.name");
 
 require("core-js/modules/es.object.assign");
 
-require("core-js/modules/es.object.get-own-property-descriptor");
-
 require("core-js/modules/es.object.get-prototype-of");
 
 require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.reflect.get");
-
-require("core-js/modules/es.reflect.set");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/web.dom-collections.iterator");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -51,13 +35,7 @@ var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -73,6 +51,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
@@ -81,6 +67,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
   _inherits(DataMapComponent, _DataGridComponent);
+
+  var _super = _createSuper(DataMapComponent);
 
   _createClass(DataMapComponent, [{
     key: "schema",
@@ -128,7 +116,7 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
         title: 'Data Map',
         icon: 'th-list',
         group: 'data',
-        documentation: 'http://help.form.io/userguide/#datamap',
+        documentation: '/userguide/#datamap',
         weight: 20,
         schema: DataMapComponent.schema()
       };
@@ -140,7 +128,7 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
 
     _classCallCheck(this, DataMapComponent);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(DataMapComponent).call(this, component, options, data));
+    _this = _super.call(this, component, options, data);
     _this.type = 'datamap';
     return _this;
   }
@@ -174,6 +162,13 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
       });
     }
   }, {
+    key: "componentContext",
+    value: function componentContext(component) {
+      return this.iteratableRows[component.row].find(function (comp) {
+        return comp.components.key === component.key;
+      }).data;
+    }
+  }, {
     key: "hasHeader",
     value: function hasHeader() {
       return true;
@@ -204,6 +199,19 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
       return keys[rowIndex];
     }
   }, {
+    key: "setRowComponentsData",
+    value: function setRowComponentsData(rowIndex, rowData) {
+      _lodash.default.each(this.rows[rowIndex], function (component) {
+        if (component.key === '__key') {
+          component.data = {
+            '__key': Object.keys(rowData)[rowIndex]
+          };
+        } else {
+          component.data = rowData;
+        }
+      });
+    }
+  }, {
     key: "createRowComponents",
     value: function createRowComponents(row, rowIndex) {
       var _this2 = this;
@@ -227,14 +235,18 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
         var newKey = (0, _utils.uniqueKey)(dataValue, event.value);
         dataValue[newKey] = dataValue[key];
         delete dataValue[key];
-        components[_this2.valueKey].component.key = newKey;
+        var comp = components[_this2.valueKey];
+        comp.component.key = newKey;
+        comp.path = _this2.calculateComponentPath(comp);
         key = newKey;
       });
 
       var valueComponent = _lodash.default.clone(this.component.valueComponent);
 
       valueComponent.key = key;
-      components[this.valueKey] = this.createComponent(valueComponent, this.options, this.dataValue);
+      var componentOptions = this.options;
+      componentOptions.row = options.row;
+      components[this.valueKey] = this.createComponent(valueComponent, componentOptions, this.dataValue);
       return components;
     }
   }, {
@@ -245,7 +257,10 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "saveChildComponent",
     value: function saveChildComponent(component) {
-      this.component.valueComponent = component;
+      // Update the Value Component, the Key Component is not allowed to edit
+      if (component.key === this.valueKey) {
+        this.component.valueComponent = component;
+      }
     }
   }, {
     key: "removeChildComponent",
@@ -278,11 +293,11 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
     key: "setValue",
     value: function setValue(value) {
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      flags.changed = flags.changed || this.hasChanged(value, this.dataValue);
+      var changed = this.hasChanged(value, this.dataValue);
       this.dataValue = value;
       this.createRows();
-      this.updateOnChange(flags);
-      return flags.changed;
+      this.updateOnChange(flags, changed);
+      return changed;
     }
   }, {
     key: "checkColumns",
@@ -337,13 +352,26 @@ var DataMapComponent = /*#__PURE__*/function (_DataGridComponent) {
         input: true,
         hideLabel: true,
         label: this.component.keyLabel || 'Key',
-        key: '__key'
+        key: '__key',
+        disableBuilderActions: true
       };
     }
   }, {
     key: "valueKey",
     get: function get() {
       return this.component.valueComponent.key;
+    }
+  }, {
+    key: "iteratableRows",
+    get: function get() {
+      return this.rows.map(function (row) {
+        return Object.keys(row).map(function (key) {
+          return {
+            components: row[key],
+            data: row[key].dataValue
+          };
+        });
+      });
     }
   }, {
     key: "canAddColumn",
