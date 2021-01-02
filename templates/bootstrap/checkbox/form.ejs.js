@@ -6,7 +6,7 @@ var __t, __p = '', __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<div class="form-check checkbox" ref="formCheck">\n  <label class="' +
 ((__t = (ctx.input.labelClass)) == null ? '' : __t) +
-' form-check-label">\n    <' +
+' form-check-label" ref="formCheck">\n    <' +
 ((__t = (ctx.input.type)) == null ? '' : __t) +
 '\n      ref="input"\n      ';
  for (var attr in ctx.input.attr) { ;

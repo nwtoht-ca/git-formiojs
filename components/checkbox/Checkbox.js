@@ -75,7 +75,8 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       var _this = this;
 
       this.loadRefs(element, {
-        input: 'multiple'
+        input: 'multiple',
+        formCheck: 'single'
       });
       this.input = this.refs.input[0];
 
