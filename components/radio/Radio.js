@@ -254,11 +254,28 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
         this.refs.wrapper.forEach(function (wrapper, index) {
           var input = _this5.refs.input[index];
 
-          if (input && input.value.toString() === _value.toString()) {
-            //add class to container when selected
-            _this5.addClass(wrapper, optionSelectedClass);
-          } else {
-            _this5.removeClass(wrapper, optionSelectedClass);
+          switch (input.type) {
+            case 'radio':
+              if (input && input.value.toString() === _value.toString()) {
+                //add class to container when selected
+                _this5.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this5.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
+
+            case 'checkbox':
+              // eslint-disable-next-line no-case-declarations
+              var checked = _value[input.value];
+
+              if (checked) {
+                _this5.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this5.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
           }
         });
       }

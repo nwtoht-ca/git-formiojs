@@ -169,6 +169,20 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       return false;
     }
   }, {
+    key: "updateValue",
+    value: function updateValue(value, flags) {
+      var checkBoxChecked = 'checkbox-checked';
+      var val = this.getValue();
+
+      if (val) {
+        this.addClass(this.refs.formCheck, checkBoxChecked);
+      } else {
+        this.removeClass(this.refs.formCheck, checkBoxChecked);
+      }
+
+      _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
+    }
+  }, {
     key: "getValueAsString",
     value: function getValueAsString(value) {
       return value ? 'Yes' : 'No';

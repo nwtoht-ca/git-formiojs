@@ -1823,7 +1823,7 @@ Formio.projectUrlSet = false;
 Formio.plugins = [];
 Formio.cache = {};
 Formio.Providers = _providers.default;
-Formio.version = '4.12.4';
+Formio.version = '---VERSION---';
 Formio.pathType = '';
 Formio.events = new _EventEmitter.default({
   wildcard: false,
