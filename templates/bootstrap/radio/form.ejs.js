@@ -9,8 +9,8 @@ __p += '<div class="form-radio radio">\n  ';
 __p += '\n  <div class="form-check' +
 ((__t = (ctx.inline ? '-inline' : '')) == null ? '' : __t) +
 ' ';
- if (ctx.value && (ctx.value === item.value || (typeof ctx.value === 'object' && ctx.value.hasOwnProperty(item.value) && ctx.value[item.value]))) { ;
-__p += '\n    radio-selected\n    ';
+ if ((ctx.disabled && ctx.value) && (ctx.value === item.value || (typeof ctx.value === 'object' && ctx.value.hasOwnProperty(item.value) && ctx.value[item.value]))) { ;
+__p += '\n    radio-selected radio-checked\n    ';
  } ;
 __p += '" ref="wrapper" >\n    <label class="form-check-label label-position-' +
 ((__t = ( ctx.component.optionsLabelPosition )) == null ? '' : __t) +

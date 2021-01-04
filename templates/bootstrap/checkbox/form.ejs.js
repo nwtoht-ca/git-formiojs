@@ -5,7 +5,7 @@ exports.default=function(ctx) {
 var __t, __p = '', __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<div class="form-check checkbox ';
- if (ctx.checked) { ;
+ if (ctx.checked && ctx.disabled) { ;
 __p += 'checkbox-checked';
  } ;
 __p += '" ref="formCheck">\n  <label class="' +
