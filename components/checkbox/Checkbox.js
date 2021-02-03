@@ -175,10 +175,12 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       var checkBoxChecked = 'checkbox-checked';
       var val = this.getValue();
 
-      if (val) {
-        this.addClass(this.refs.formCheck, checkBoxChecked);
-      } else {
-        this.removeClass(this.refs.formCheck, checkBoxChecked);
+      if (this.refs.formCheck) {
+        if (val) {
+          this.addClass(this.refs.formCheck, checkBoxChecked);
+        } else {
+          this.removeClass(this.refs.formCheck, checkBoxChecked);
+        }
       }
 
       _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
