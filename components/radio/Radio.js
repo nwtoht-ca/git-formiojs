@@ -134,6 +134,38 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
           });
           break;
       }
+
+      if (this.refs.wrapper) {
+        var value = this.dataValue;
+        var optionSelectedClass = 'radio-selected';
+        this.refs.wrapper.forEach(function (wrapper, index) {
+          var input = _this2.refs.input[index];
+
+          switch (input.type) {
+            case 'radio':
+              if (input && input.value.toString() === value.toString()) {
+                //add class to container when selected
+                _this2.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this2.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
+
+            case 'checkbox':
+              // eslint-disable-next-line no-case-declarations
+              var checked = value[input.value];
+
+              if (checked) {
+                _this2.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this2.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
+          }
+        });
+      }
     }
   }, {
     key: "onChange",
@@ -192,6 +224,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
           });
         }
       });
+      this.updateSelected();
       return _get(_getPrototypeOf(RadioComponent.prototype), "attach", this).call(this, element);
     }
   }, {
@@ -270,42 +303,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "updateValue",
     value: function updateValue(value, flags) {
-      var _this6 = this;
-
       var changed = _get(_getPrototypeOf(RadioComponent.prototype), "updateValue", this).call(this, value, flags);
-
-      if (changed && this.refs.wrapper) {
-        //add/remove selected option class
-        var _value = this.dataValue;
-        var optionSelectedClass = 'radio-selected';
-        this.refs.wrapper.forEach(function (wrapper, index) {
-          var input = _this6.refs.input[index];
-
-          switch (input.type) {
-            case 'radio':
-              if (input && input.value.toString() === _value.toString()) {
-                //add class to container when selected
-                _this6.addClass(wrapper, optionSelectedClass);
-              } else {
-                _this6.removeClass(wrapper, optionSelectedClass);
-              }
-
-              break;
-
-            case 'checkbox':
-              // eslint-disable-next-line no-case-declarations
-              var checked = _value[input.value];
-
-              if (checked) {
-                _this6.addClass(wrapper, optionSelectedClass);
-              } else {
-                _this6.removeClass(wrapper, optionSelectedClass);
-              }
-
-              break;
-          }
-        });
-      }
 
       if (!flags || !flags.modified || !this.isRadio) {
         return changed;
@@ -321,6 +319,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       }
 
       this.previousValue = this.dataValue;
+      this.updateSelected();
       return changed;
     }
     /**

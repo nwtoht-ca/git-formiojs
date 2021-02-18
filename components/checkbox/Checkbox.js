@@ -89,6 +89,7 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
         this.addShortcut(this.input);
       }
 
+      this.setChecked();
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "attach", this).call(this, element);
     }
   }, {
@@ -172,6 +173,13 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "updateValue",
     value: function updateValue(value, flags) {
+      this.setChecked();
+
+      _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
+    }
+  }, {
+    key: "setChecked",
+    value: function setChecked() {
       var checkBoxChecked = 'checkbox-checked';
       var val = this.getValue();
 
@@ -182,8 +190,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
           this.removeClass(this.refs.formCheck, checkBoxChecked);
         }
       }
-
-      _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
     }
   }, {
     key: "getValueAsString",
