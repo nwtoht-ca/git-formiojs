@@ -75,8 +75,7 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       var _this = this;
 
       this.loadRefs(element, {
-        input: 'multiple',
-        formCheck: 'single'
+        input: 'multiple'
       });
       this.input = this.refs.input[0];
 
@@ -89,7 +88,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
         this.addShortcut(this.input);
       }
 
-      this.setChecked();
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "attach", this).call(this, element);
     }
   }, {
@@ -169,27 +167,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       }
 
       return false;
-    }
-  }, {
-    key: "updateValue",
-    value: function updateValue(value, flags) {
-      this.setChecked();
-
-      _get(_getPrototypeOf(CheckBoxComponent.prototype), "updateValue", this).call(this, value, flags);
-    }
-  }, {
-    key: "setChecked",
-    value: function setChecked() {
-      var checkBoxChecked = 'checkbox-checked';
-      var val = this.getValue();
-
-      if (this.refs.formCheck) {
-        if (val) {
-          this.addClass(this.refs.formCheck, checkBoxChecked);
-        } else {
-          this.removeClass(this.refs.formCheck, checkBoxChecked);
-        }
-      }
     }
   }, {
     key: "getValueAsString",

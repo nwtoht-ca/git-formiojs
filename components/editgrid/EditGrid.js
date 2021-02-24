@@ -744,6 +744,11 @@ var EditGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         this.restoreRowContext(editRow);
       }
 
+      this.emit('editRow', {
+        refs: this.refs,
+        index: rowIndex
+      });
+
       if (this.component.modal) {
         return this.addRowModal(rowIndex);
       }
@@ -1106,7 +1111,7 @@ var EditGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       });
 
       if (!rowsValid) {
-        this.setCustomValidity('Please correct invalid rows before proceeding.', dirty);
+        this.setCustomValidity('Please review and fill out the incomplete rows to Submit this form.', dirty);
         return false;
       } else if (rowsEditing && this.saveEditMode) {
         this.setCustomValidity('Please save all rows before proceeding.', dirty);

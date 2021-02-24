@@ -8,11 +8,7 @@ __p += '<div class="form-radio radio">\n  ';
  ctx.values.forEach(function(item) { ;
 __p += '\n  <div class="form-check' +
 ((__t = (ctx.inline ? '-inline' : '')) == null ? '' : __t) +
-' ';
- if ((ctx.disabled && ctx.value && item.selected)) { ;
-__p += '\n    radio-selected radio-checked\n    ';
- } ;
-__p += '" ref="wrapper" >\n    <label class="form-check-label label-position-' +
+'" ref="wrapper">\n    <label class="form-check-label label-position-' +
 ((__t = ( ctx.component.optionsLabelPosition )) == null ? '' : __t) +
 '" for="' +
 ((__t = (ctx.id)) == null ? '' : __t) +
@@ -39,7 +35,7 @@ __p += '\n        ' +
 __p += '\n        value="' +
 ((__t = (item.value)) == null ? '' : __t) +
 '"\n        ';
- if (ctx.value && item.selected) { ;
+ if (ctx.value && (ctx.value === item.value || (typeof ctx.value === 'object' && ctx.value.hasOwnProperty(item.value) && ctx.value[item.value]))) { ;
 __p += '\n          checked=true\n        ';
  } ;
 __p += '\n        ';
