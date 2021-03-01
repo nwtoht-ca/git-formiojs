@@ -117,64 +117,124 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       this.validators = this.validators.concat(['select', 'onlyAvailableItems']);
     }
   }, {
+    key: "updateSelected",
+    value: function updateSelected() {
+      var _this2 = this;
+
+      switch (this.inputInfo.attr.type) {
+        case 'checkbox':
+          this.component.values.forEach(function (item) {
+            item.selected = _this2.dataValue[item.value];
+          });
+          break;
+
+        case 'radio':
+          this.component.values.forEach(function (item) {
+            item.selected = item.value === _this2.dataValue;
+          });
+          break;
+      }
+
+      if (this.refs.wrapper) {
+        var value = this.dataValue;
+        var optionSelectedClass = 'radio-selected';
+        this.refs.wrapper.forEach(function (wrapper, index) {
+          var input = _this2.refs.input[index];
+
+          switch (input.type) {
+            case 'radio':
+              if (input && input.value.toString() === value.toString()) {
+                //add class to container when selected
+                _this2.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this2.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
+
+            case 'checkbox':
+              // eslint-disable-next-line no-case-declarations
+              var checked = value[input.value];
+
+              if (checked) {
+                _this2.addClass(wrapper, optionSelectedClass);
+              } else {
+                _this2.removeClass(wrapper, optionSelectedClass);
+              }
+
+              break;
+          }
+        });
+      }
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(flags, fromRoot) {
+      this.updateSelected();
+      return _get(_getPrototypeOf(RadioComponent.prototype), "onChange", this).call(this, flags, fromRoot);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _get(_getPrototypeOf(RadioComponent.prototype), "render", this).call(this, this.renderTemplate('radio', {
+      var data = {
         input: this.inputInfo,
         inline: this.component.inline,
         values: this.component.values,
         value: this.dataValue,
         row: this.row
-      }));
+      };
+      this.updateSelected();
+      return _get(_getPrototypeOf(RadioComponent.prototype), "render", this).call(this, this.renderTemplate('radio', data));
     }
   }, {
     key: "attach",
     value: function attach(element) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.loadRefs(element, {
         input: 'multiple',
         wrapper: 'multiple'
       });
       this.refs.input.forEach(function (input, index) {
-        _this2.addEventListener(input, _this2.inputInfo.changeEvent, function () {
-          return _this2.updateValue(null, {
+        _this3.addEventListener(input, _this3.inputInfo.changeEvent, function () {
+          return _this3.updateValue(null, {
             modified: true
           });
         });
 
-        _this2.addShortcut(input, _this2.component.values[index].shortcut);
+        _this3.addShortcut(input, _this3.component.values[index].shortcut);
 
-        if (_this2.isRadio) {
-          var dataValue = _this2.dataValue;
+        if (_this3.isRadio) {
+          var dataValue = _this3.dataValue;
 
-          if (!_lodash.default.isString(_this2.dataValue)) {
-            dataValue = _lodash.default.toString(_this2.dataValue);
+          if (!_lodash.default.isString(_this3.dataValue)) {
+            dataValue = _lodash.default.toString(_this3.dataValue);
           }
 
           input.checked = dataValue === input.value;
 
-          _this2.addEventListener(input, 'keyup', function (event) {
+          _this3.addEventListener(input, 'keyup', function (event) {
             if (event.key === ' ' && dataValue === input.value) {
               event.preventDefault();
 
-              _this2.updateValue(null, {
+              _this3.updateValue(null, {
                 modified: true
               });
             }
           });
         }
       });
+      this.updateSelected();
       return _get(_getPrototypeOf(RadioComponent.prototype), "attach", this).call(this, element);
     }
   }, {
     key: "detach",
     value: function detach(element) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (element && this.refs.input) {
         this.refs.input.forEach(function (input, index) {
-          _this3.removeShortcut(input, _this3.component.values[index].shortcut);
+          _this4.removeShortcut(input, _this4.component.values[index].shortcut);
         });
       }
 
@@ -198,7 +258,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "validateValueAvailability",
     value: function validateValueAvailability(setting, value) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (!(0, _utils.boolValue)(setting) || !value) {
         return true;
@@ -209,7 +269,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
       if (values) {
         return values.findIndex(function (_ref) {
           var optionValue = _ref.value;
-          return _this4.normalizeValue(optionValue) === value;
+          return _this5.normalizeValue(optionValue) === value;
         }) !== -1;
       }
 
@@ -243,25 +303,7 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
   }, {
     key: "updateValue",
     value: function updateValue(value, flags) {
-      var _this5 = this;
-
       var changed = _get(_getPrototypeOf(RadioComponent.prototype), "updateValue", this).call(this, value, flags);
-
-      if (changed && this.refs.wrapper) {
-        //add/remove selected option class
-        var _value = this.dataValue;
-        var optionSelectedClass = 'radio-selected';
-        this.refs.wrapper.forEach(function (wrapper, index) {
-          var input = _this5.refs.input[index];
-
-          if (input && input.value.toString() === _value.toString()) {
-            //add class to container when selected
-            _this5.addClass(wrapper, optionSelectedClass);
-          } else {
-            _this5.removeClass(wrapper, optionSelectedClass);
-          }
-        });
-      }
 
       if (!flags || !flags.modified || !this.isRadio) {
         return changed;
@@ -273,10 +315,11 @@ var RadioComponent = /*#__PURE__*/function (_Field) {
 
       if (shouldResetValue) {
         this.resetValue();
-        this.triggerChange();
+        this.triggerChange(flags);
       }
 
       this.previousValue = this.dataValue;
+      this.updateSelected();
       return changed;
     }
     /**
