@@ -2,28 +2,48 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.from.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -39,7 +59,7 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -51,19 +71,19 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -75,7 +95,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -84,43 +104,13 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
 
   var _super = _createSuper(EditTableComponent);
 
-  _createClass(EditTableComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _DataGrid.default.schema.apply(_DataGrid.default, [{
-        label: 'Edit Table',
-        key: 'editTable',
-        type: 'edittable',
-        input: true,
-        tree: true,
-        components: [],
-        columns: []
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Edit Table',
-        icon: 'th',
-        group: 'data',
-        weight: 50,
-        schema: EditTableComponent.schema()
-      };
-    }
-  }]);
-
   function EditTableComponent() {
     var _this;
 
     _classCallCheck(this, EditTableComponent);
 
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
     _this = _super.call.apply(_super, [this].concat(args));
@@ -167,8 +157,8 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "componentSchema",
     value: function componentSchema() {
-      for (var _len3 = arguments.length, extend = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        extend[_key3] = arguments[_key3];
+      for (var _len2 = arguments.length, extend = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        extend[_key2] = arguments[_key2];
       }
 
       return _ModalEdit.default.schema.apply(_ModalEdit.default, [{
@@ -214,9 +204,58 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
       });
     }
   }, {
-    key: "build",
+    key: "emptyColumn",
+    get: function get() {
+      return {
+        label: '',
+        key: ''
+      };
+    }
+  }, {
+    key: "componentComponents",
+    get: function get() {
+      var _this3 = this;
 
+      return this.getColumns().map(function (_ref) {
+        var label = _ref.label,
+            key = _ref.key;
+        return _this3.componentSchema({
+          label: label,
+          key: key
+        });
+      });
+    }
+  }, {
+    key: "tableClass",
+    get: function get() {
+      var _this4 = this;
+
+      var type = _lodash.default.get(this.component, 'type', 'edittable');
+
+      var defaultClass = ['table', 'table-bordered', "table-".concat(type), 'form-group', "formio-".concat(type, "-table")].join(' ');
+
+      var className = _lodash.default.get(this.component, 'tableClass');
+
+      if (className === '' || !_lodash.default.isString(className)) {
+        className = defaultClass;
+      }
+
+      ['striped', 'bordered', 'hover', 'condensed'].forEach(function (prop) {
+        if (_this4.component[prop]) {
+          className = "".concat(className, " table-").concat(prop);
+        }
+      });
+      return className;
+    }
+  }, {
+    key: "groupsMode",
+    get: function get() {
+      return _lodash.default.get(this.component, 'enableRowGroups', false);
+    }
     /** @override **/
+
+  }, {
+    key: "build",
     value: function build() {
       var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -242,7 +281,7 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "buildGroups",
     value: function buildGroups() {
-      var _this3 = this;
+      var _this5 = this;
 
       var groups = _lodash.default.get(this.component, 'rowGroups', []);
 
@@ -253,7 +292,7 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
       var chunks = this.getRowChunks(ranges, rows);
       var firstElements = chunks.map(_lodash.default.head);
       var groupElements = groups.map(function (g) {
-        return _this3.buildGroup(g);
+        return _this5.buildGroup(g);
       });
       groupElements.forEach(function (elt, index) {
         var row = firstElements[index];
@@ -273,10 +312,10 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "getRowChunks",
     value: function getRowChunks(groups, coll) {
-      var _groups$reduce = groups.reduce(function (_ref, size) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            startIndex = _ref2[0],
-            acc = _ref2[1];
+      var _groups$reduce = groups.reduce(function (_ref2, size) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            startIndex = _ref3[0],
+            acc = _ref3[1];
 
         var endIndex = startIndex + size;
         return [endIndex, [].concat(_toConsumableArray(acc), [[startIndex, endIndex]])];
@@ -290,8 +329,8 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
     }
   }, {
     key: "buildGroup",
-    value: function buildGroup(_ref3) {
-      var label = _ref3.label;
+    value: function buildGroup(_ref4) {
+      var label = _ref4.label;
       var colsNumber = this.getColumns().length;
       var cell = this.ce('td', {
         colspan: colsNumber,
@@ -304,7 +343,7 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "buildRow",
     value: function buildRow(row, index) {
-      var _this4 = this;
+      var _this6 = this;
 
       var state = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
@@ -316,10 +355,10 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
       var colSchemes = this.componentComponents;
       var lastIndex = colSchemes.length - 1;
       var columns = colSchemes.map(function (col, colIndex) {
-        var colContainer = _this4.buildComponent(col, colIndex, row, index, _this4.getComponentState(col, state));
+        var colContainer = _this6.buildComponent(col, colIndex, row, index, _this6.getComponentState(col, state));
 
-        if (_this4.hasRemoveButtons() && colIndex === lastIndex) {
-          colContainer.append(_this4.removeButton(index));
+        if (_this6.hasRemoveButtons() && colIndex === lastIndex) {
+          colContainer.append(_this6.removeButton(index));
         }
 
         return colContainer;
@@ -331,7 +370,7 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
   }, {
     key: "removeButton",
     value: function removeButton(index) {
-      var _this5 = this;
+      var _this7 = this;
 
       var type = _lodash.default.get(this.component, 'type', 'edittable');
 
@@ -344,7 +383,7 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
       this.addEventListener(button, 'click', function (event) {
         event.preventDefault();
 
-        _this5.removeValue(index);
+        _this7.removeValue(index);
       });
       return button;
     }
@@ -382,54 +421,33 @@ var EditTableComponent = /*#__PURE__*/function (_DataGridComponent) {
         _lodash.default.set(this.root, ['_submission', 'metadata', key], data);
       }
     }
-  }, {
-    key: "emptyColumn",
-    get: function get() {
-      return {
-        label: '',
-        key: ''
-      };
-    }
-  }, {
-    key: "componentComponents",
-    get: function get() {
-      var _this6 = this;
-
-      return this.getColumns().map(function (_ref4) {
-        var label = _ref4.label,
-            key = _ref4.key;
-        return _this6.componentSchema({
-          label: label,
-          key: key
-        });
-      });
-    }
-  }, {
-    key: "tableClass",
-    get: function get() {
-      var _this7 = this;
-
-      var type = _lodash.default.get(this.component, 'type', 'edittable');
-
-      var defaultClass = ['table', 'table-bordered', "table-".concat(type), 'form-group', "formio-".concat(type, "-table")].join(' ');
-
-      var className = _lodash.default.get(this.component, 'tableClass');
-
-      if (className === '' || !_lodash.default.isString(className)) {
-        className = defaultClass;
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len3 = arguments.length, extend = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        extend[_key3] = arguments[_key3];
       }
 
-      ['striped', 'bordered', 'hover', 'condensed'].forEach(function (prop) {
-        if (_this7.component[prop]) {
-          className = "".concat(className, " table-").concat(prop);
-        }
-      });
-      return className;
+      return _DataGrid.default.schema.apply(_DataGrid.default, [{
+        label: 'Edit Table',
+        key: 'editTable',
+        type: 'edittable',
+        input: true,
+        tree: true,
+        components: [],
+        columns: []
+      }].concat(extend));
     }
   }, {
-    key: "groupsMode",
+    key: "builderInfo",
     get: function get() {
-      return _lodash.default.get(this.component, 'enableRowGroups', false);
+      return {
+        title: 'Edit Table',
+        icon: 'th',
+        group: 'data',
+        weight: 50,
+        schema: EditTableComponent.schema()
+      };
     }
   }]);
 

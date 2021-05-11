@@ -2,24 +2,44 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.reflect.set.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _Field2 = _interopRequireDefault(require("../field/Field"));
 
@@ -55,7 +75,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -71,6 +91,40 @@ var Multivalue = /*#__PURE__*/function (_Field) {
   }
 
   _createClass(Multivalue, [{
+    key: "dataValue",
+    get: function get() {
+      var parent = _get(_getPrototypeOf(Multivalue.prototype), "dataValue", this);
+
+      if (!parent && this.component.multiple) {
+        return [];
+      }
+
+      return parent;
+    },
+    set: function set(value) {
+      _set(_getPrototypeOf(Multivalue.prototype), "dataValue", value, this, true);
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      var value = _get(_getPrototypeOf(Multivalue.prototype), "defaultValue", this);
+
+      if (this.component.multiple) {
+        if (_lodash.default.isArray(value)) {
+          value = !value.length ? [_get(_getPrototypeOf(Multivalue.prototype), "emptyValue", this)] : value;
+        } else {
+          value = [value];
+        }
+      }
+
+      return value;
+    }
+  }, {
+    key: "addAnother",
+    get: function get() {
+      return this.t(this.component.addAnother || 'Add Another');
+    }
+  }, {
     key: "useWrapper",
     value: function useWrapper() {
       return this.component.hasOwnProperty('multiple') && this.component.multiple;
@@ -337,40 +391,6 @@ var Multivalue = /*#__PURE__*/function (_Field) {
       if (this.root) {
         this.root.onChange();
       }
-    }
-  }, {
-    key: "dataValue",
-    get: function get() {
-      var parent = _get(_getPrototypeOf(Multivalue.prototype), "dataValue", this);
-
-      if (!parent && this.component.multiple) {
-        return [];
-      }
-
-      return parent;
-    },
-    set: function set(value) {
-      _set(_getPrototypeOf(Multivalue.prototype), "dataValue", value, this, true);
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var value = _get(_getPrototypeOf(Multivalue.prototype), "defaultValue", this);
-
-      if (this.component.multiple) {
-        if (_lodash.default.isArray(value)) {
-          value = !value.length ? [_get(_getPrototypeOf(Multivalue.prototype), "emptyValue", this)] : value;
-        } else {
-          value = [value];
-        }
-      }
-
-      return value;
-    }
-  }, {
-    key: "addAnother",
-    get: function get() {
-      return this.t(this.component.addAnother || 'Add Another');
     }
   }]);
 

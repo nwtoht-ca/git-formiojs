@@ -21,14 +21,16 @@ __p += '\n        <i class="formio-collapse-icon ' +
 __p += '\n      ';
  if (!ctx.component.hideLabel || ctx.builder) { ;
 __p += '\n      ' +
-((__t = (ctx.t(ctx.component.title))) == null ? '' : __t) +
+((__t = (ctx.t(ctx.component.title, { _userInput: true }))) == null ? '' : __t) +
 '\n      ';
  } ;
 __p += '\n      ';
  if (ctx.component.tooltip) { ;
 __p += '\n        <i ref="tooltip" class="' +
 ((__t = (ctx.iconClass('question-sign'))) == null ? '' : __t) +
-' text-muted"></i>\n      ';
+' text-muted" data-tooltip="' +
+((__t = (ctx.component.tooltip)) == null ? '' : __t) +
+'"></i>\n      ';
  } ;
 __p += '\n    </span>\n  </div>\n  ';
  } ;

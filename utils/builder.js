@@ -1,25 +1,23 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.includes");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.concat.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -42,7 +40,7 @@ var _default = {
     (0, _utils.eachComponent)(container, function (comp) {
       formKeys[comp.key] = true;
 
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
+      if (['address', 'container', 'datagrid', 'editgrid', 'dynamicWizard', 'tree'].includes(comp.type) || comp.tree || comp.arrayTree) {
         return true;
       }
     }, true); // Recurse into all child components.
@@ -62,7 +60,7 @@ var _default = {
 
       formKeys[newKey] = true;
 
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
+      if (['address', 'container', 'datagrid', 'editgrid', 'dynamicWizard', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
         return true;
       }
     }, true);

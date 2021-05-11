@@ -2,18 +2,50 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.promise.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
+require("core-js/modules/es.function.name.js");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -25,7 +57,7 @@ var _utils = require("./utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -51,7 +83,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -151,6 +183,15 @@ var PDF = /*#__PURE__*/function (_Webform) {
         name: 'redraw'
       });
       return _get(_getPrototypeOf(PDF.prototype), "rebuild", this).call(this);
+    } // Do not attach nested components for pdf.
+
+  }, {
+    key: "attachComponents",
+    value: function attachComponents(element, components, container) {
+      components = components || this.components;
+      container = container || this.component.components;
+      element = this.hook('attachComponents', element, components, container, this);
+      return Promise.resolve();
     }
   }, {
     key: "attach",
@@ -301,10 +342,6 @@ var PDF = /*#__PURE__*/function (_Webform) {
         params.push('builder=1');
       }
 
-      if (this.options.hideLoader) {
-        params.push("hide-loader=".concat(this.options.hideLoader));
-      }
-
       if (params.length) {
         iframeSrc += "?".concat(params.join('&'));
       }
@@ -362,42 +399,9 @@ var PDF = /*#__PURE__*/function (_Webform) {
       return changed;
     }
   }, {
-    key: "setSubmission",
-    value: function setSubmission(submission) {
-      var _this8 = this;
-
-      return _get(_getPrototypeOf(PDF.prototype), "setSubmission", this).call(this, submission).then(function () {
-        if (_this8.formio) {
-          _this8.formio.getDownloadUrl().then(function (url) {
-            // Add a download button if it has a download url.
-            if (!url) {
-              return;
-            }
-
-            if (!_this8.downloadButton) {
-              if (_this8.options.primaryProject) {
-                url += "&project=".concat(_this8.options.primaryProject);
-              }
-
-              _this8.downloadButton = _this8.ce('a', {
-                href: url,
-                target: '_blank',
-                style: 'position:absolute;right:10px;top:110px;cursor:pointer;'
-              }, _this8.ce('img', {
-                src: require('./pdf.image'),
-                style: 'width:3em;'
-              }));
-
-              _this8.element.insertBefore(_this8.downloadButton, _this8.iframe);
-            }
-          });
-        }
-      });
-    }
-  }, {
     key: "postMessage",
     value: function postMessage(message) {
-      var _this9 = this;
+      var _this8 = this;
 
       // If we get here before the iframeReady promise is set up, it's via the superclass constructor
       if (!this.iframeReady) {
@@ -409,8 +413,8 @@ var PDF = /*#__PURE__*/function (_Webform) {
       }
 
       this.iframeReady.then(function () {
-        if (_this9.iframeElement && _this9.iframeElement.contentWindow) {
-          _this9.iframeElement.contentWindow.postMessage(JSON.stringify(message), '*');
+        if (_this8.iframeElement && _this8.iframeElement.contentWindow) {
+          _this8.iframeElement.contentWindow.postMessage(JSON.stringify(message), '*');
         }
       });
     }
@@ -429,13 +433,17 @@ var PDF = /*#__PURE__*/function (_Webform) {
   }, {
     key: "showErrors",
     value: function showErrors(error, triggerEvent) {
-      var helpBlock = document.getElementById('submit-error');
+      var _this$refs$buttonMess;
 
-      if (!helpBlock && this.errors.length) {
+      var helpBlock = document.getElementById('submit-error');
+      var submitError = this.t('submitError');
+      var isSubmitErrorShown = ((_this$refs$buttonMess = this.refs.buttonMessage) === null || _this$refs$buttonMess === void 0 ? void 0 : _this$refs$buttonMess.textContent.trim()) === submitError;
+
+      if (!helpBlock && this.errors.length && !isSubmitErrorShown) {
         var p = this.ce('p', {
           class: 'help-block'
         });
-        this.setContent(p, this.t('submitError'));
+        this.setContent(p, submitError);
         p.addEventListener('click', function () {
           window.scrollTo(0, 0);
         });
@@ -474,17 +482,20 @@ var PDF = /*#__PURE__*/function (_Webform) {
 
 
 exports.default = PDF;
-window.addEventListener('message', function (event) {
-  var eventData = null;
 
-  try {
-    eventData = JSON.parse(event.data);
-  } catch (err) {
-    eventData = null;
-  } // If this form exists, then emit the event within this form.
+if (typeof window !== 'undefined') {
+  window.addEventListener('message', function (event) {
+    var eventData = null;
+
+    try {
+      eventData = JSON.parse(event.data);
+    } catch (err) {
+      eventData = null;
+    } // If this form exists, then emit the event within this form.
 
 
-  if (eventData && eventData.name && eventData.formId && _Formio.default.forms.hasOwnProperty(eventData.formId)) {
-    _Formio.default.forms[eventData.formId].emit("iframe-".concat(eventData.name), eventData.data);
-  }
-});
+    if (eventData && eventData.name && eventData.formId && _Formio.default.forms.hasOwnProperty(eventData.formId)) {
+      _Formio.default.forms[eventData.formId].emit("iframe-".concat(eventData.name), eventData.data);
+    }
+  });
+}

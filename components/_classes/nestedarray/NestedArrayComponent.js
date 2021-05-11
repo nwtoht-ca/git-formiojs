@@ -2,20 +2,36 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -45,7 +61,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -64,6 +80,19 @@ var NestedArrayComponent = /*#__PURE__*/function (_NestedDataComponent) {
     key: "componentContext",
     value: function componentContext(component) {
       return this.iteratableRows[component.rowIndex].data;
+    }
+  }, {
+    key: "iteratableRows",
+    get: function get() {
+      throw new Error('Getter #iteratableRows() is not implemented');
+    }
+  }, {
+    key: "rowIndex",
+    get: function get() {
+      return _get(_getPrototypeOf(NestedArrayComponent.prototype), "rowIndex", this);
+    },
+    set: function set(value) {
+      this._rowIndex = value;
     }
   }, {
     key: "init",
@@ -251,19 +280,6 @@ var NestedArrayComponent = /*#__PURE__*/function (_NestedDataComponent) {
       }
 
       return _get(_getPrototypeOf(NestedArrayComponent.prototype), "getComponents", this).call(this);
-    }
-  }, {
-    key: "iteratableRows",
-    get: function get() {
-      throw new Error('Getter #iteratableRows() is not implemented');
-    }
-  }, {
-    key: "rowIndex",
-    get: function get() {
-      return _get(_getPrototypeOf(NestedArrayComponent.prototype), "rowIndex", this);
-    },
-    set: function set(value) {
-      this._rowIndex = value;
     }
   }], [{
     key: "schema",

@@ -1,13 +1,13 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.map");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.map.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 

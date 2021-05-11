@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.array.map");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -86,6 +86,10 @@ var _default = [{
         '===': [{
           var: 'data.editor'
         }, 'quill']
+      }, {
+        '===': [{
+          var: 'data.editor'
+        }, 'ckeditor']
       }]
     }
   }

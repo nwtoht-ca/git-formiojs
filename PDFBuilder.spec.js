@@ -1,6 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.object.assign");
+require("core-js/modules/es.object.assign.js");
 
 var _FormBuilder = _interopRequireDefault(require("./FormBuilder"));
 

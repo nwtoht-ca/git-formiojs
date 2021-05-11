@@ -2,24 +2,42 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -45,7 +63,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
@@ -57,6 +75,20 @@ var TableComponent = /*#__PURE__*/function (_NestedComponent) {
   _inherits(TableComponent, _NestedComponent);
 
   var _super = _createSuper(TableComponent);
+
+  function TableComponent() {
+    var _this;
+
+    _classCallCheck(this, TableComponent);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+    _this.noField = true;
+    return _this;
+  }
 
   _createClass(TableComponent, [{
     key: "defaultSchema",
@@ -122,79 +154,18 @@ var TableComponent = /*#__PURE__*/function (_NestedComponent) {
     get: function get() {
       return "table-".concat(this.key);
     }
-  }], [{
-    key: "emptyTable",
-    value: function emptyTable(numRows, numCols) {
-      var rows = [];
-
-      for (var i = 0; i < numRows; i++) {
-        var cols = [];
-
-        for (var j = 0; j < numCols; j++) {
-          cols.push({
-            components: []
-          });
-        }
-
-        rows.push(cols);
-      }
-
-      return rows;
-    }
   }, {
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _NestedComponent2.default.schema.apply(_NestedComponent2.default, [{
-        label: 'Table',
-        type: 'table',
-        input: false,
-        key: 'table',
-        numRows: 3,
-        numCols: 3,
-        rows: TableComponent.emptyTable(3, 3),
-        header: [],
-        caption: '',
-        cloneRows: false,
-        striped: false,
-        bordered: false,
-        hover: false,
-        condensed: false,
-        persistent: false
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
+    key: "colWidth",
     get: function get() {
-      return {
-        title: 'Table',
-        group: 'layout',
-        icon: 'table',
-        weight: 40,
-        documentation: '/userguide/#table',
-        schema: TableComponent.schema()
-      };
+      var numCols = this.component.numCols;
+
+      if (!numCols || typeof numCols !== 'number') {
+        return '';
+      }
+
+      return Math.floor(12 / numCols).toString();
     }
-  }]);
-
-  function TableComponent() {
-    var _this;
-
-    _classCallCheck(this, TableComponent);
-
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-    _this.noField = true;
-    return _this;
-  }
-
-  _createClass(TableComponent, [{
+  }, {
     key: "init",
     value: function init() {
       var _this3 = this;
@@ -253,6 +224,7 @@ var TableComponent = /*#__PURE__*/function (_NestedComponent) {
       return _get(_getPrototypeOf(TableComponent.prototype), "render", this).call(this, this.renderTemplate('table', {
         cellClassName: this.cellClassName,
         tableKey: this.tableKey,
+        colWidth: this.colWidth,
         tableComponents: this.table.map(function (row) {
           return row.map(function (column) {
             return _this4.renderComponents(column);
@@ -286,6 +258,62 @@ var TableComponent = /*#__PURE__*/function (_NestedComponent) {
       _get(_getPrototypeOf(TableComponent.prototype), "destroy", this).call(this, all);
 
       delete this.table;
+    }
+  }], [{
+    key: "emptyTable",
+    value: function emptyTable(numRows, numCols) {
+      var rows = [];
+
+      for (var i = 0; i < numRows; i++) {
+        var cols = [];
+
+        for (var j = 0; j < numCols; j++) {
+          cols.push({
+            components: []
+          });
+        }
+
+        rows.push(cols);
+      }
+
+      return rows;
+    }
+  }, {
+    key: "schema",
+    value: function schema() {
+      for (var _len2 = arguments.length, extend = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        extend[_key2] = arguments[_key2];
+      }
+
+      return _NestedComponent2.default.schema.apply(_NestedComponent2.default, [{
+        label: 'Table',
+        type: 'table',
+        input: false,
+        key: 'table',
+        numRows: 3,
+        numCols: 3,
+        rows: TableComponent.emptyTable(3, 3),
+        header: [],
+        caption: '',
+        cloneRows: false,
+        striped: false,
+        bordered: false,
+        hover: false,
+        condensed: false,
+        persistent: false
+      }].concat(extend));
+    }
+  }, {
+    key: "builderInfo",
+    get: function get() {
+      return {
+        title: 'Table',
+        group: 'layout',
+        icon: 'table',
+        weight: 40,
+        documentation: '/userguide/#table',
+        schema: TableComponent.schema()
+      };
     }
   }]);
 

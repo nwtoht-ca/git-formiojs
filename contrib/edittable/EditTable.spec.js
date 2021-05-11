@@ -1,14 +1,12 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.object.assign.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.array.concat.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.array.slice.js");
 
-require("core-js/modules/es.object.assign");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.for-each.js");
 
 var _chai = require("chai");
 

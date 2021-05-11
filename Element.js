@@ -2,40 +2,52 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.weak-map.js");
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.object.assign");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.symbol.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.object.assign.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.slice.js");
 
 var _EventEmitter = _interopRequireDefault(require("./EventEmitter"));
 
@@ -49,11 +61,11 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _vanillaTextMask = _interopRequireDefault(require("vanilla-text-mask"));
+var _vanillaTextMask = _interopRequireDefault(require("@formio/vanilla-text-mask"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103,10 +115,7 @@ var Element = /*#__PURE__*/function () {
      * @type {EventEmitter}
      */
 
-    this.events = options && options.events ? options.events : new _EventEmitter.default({
-      wildcard: false,
-      maxListeners: 0
-    });
+    this.events = options && options.events ? options.events : new _EventEmitter.default();
     this.defaultMask = null;
     /**
      * Conditional to show or hide helplinks in editForm
@@ -196,28 +205,34 @@ var Element = /*#__PURE__*/function () {
       return this.events.offAny(cb);
     }
     /**
-     * Removes all listeners for a certain event.
+     * Removes a listener for a certain event. Not passing the 2nd arg will remove all listeners for that event.
      *
-     * @param event
+     * @param {string} event - The event you wish to register the handler for.
+     * @param {function|undefined} cb - The callback handler to handle this event.
      */
 
   }, {
     key: "off",
-    value: function off(event) {
+    value: function off(event, cb) {
       var _this = this;
 
       if (!this.events) {
         return;
       }
 
-      var type = "".concat(this.options.namespace, ".").concat(event); // Iterate through all the internal events.
+      var type = "".concat(this.options.namespace, ".").concat(event);
+      this.events.listeners(type).forEach(function (listener) {
+        // Ensure the listener is for this element
+        if (!listener || listener.id !== _this.id) {
+          return;
+        } // If there is a given callback, only deal with the match
 
-      _lodash.default.each(this.events.listeners(type), function (listener) {
-        // Ensure this event is for this component.
-        if (listener && listener.id === _this.id) {
-          // Turn off this event handler.
-          _this.events.off(type, listener);
+
+        if (cb && cb !== listener) {
+          return;
         }
+
+        _this.events.off(type, listener);
       });
     }
     /**
@@ -291,6 +306,11 @@ var Element = /*#__PURE__*/function () {
 
       var func = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var indexes = [];
+
+      if (!obj) {
+        return;
+      }
+
       this.eventHandlers.forEach(function (handler, index) {
         if (handler.id === _this2.id && obj.removeEventListener && handler.type === type && (!func || handler.func === func)) {
           obj.removeEventListener(type, handler.func);
@@ -455,23 +475,32 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "maskPlaceholder",
     value: function maskPlaceholder(mask) {
+      var _this6 = this;
+
       return mask.map(function (char) {
-        return char instanceof RegExp ? '_' : char;
+        return char instanceof RegExp ? _this6.placeholderChar : char;
       }).join('');
+    }
+  }, {
+    key: "placeholderChar",
+    get: function get() {
+      var _this$component;
+
+      return ((_this$component = this.component) === null || _this$component === void 0 ? void 0 : _this$component.inputMaskPlaceholderChar) || '_';
     }
     /**
      * Sets the input mask for an input.
      *
      * @param {HTMLElement} input - The html input to apply the mask to.
      * @param {String} inputMask - The input mask to add to this input.
-     * @param {Boolean} placeholder - Set the mask placeholder on the input.
+     * @param {Boolean} usePlaceholder - Set the mask placeholder on the input.
      */
 
   }, {
     key: "setInputMask",
-    value: function setInputMask(input, inputMask, placeholder) {
+    value: function setInputMask(input, inputMask, usePlaceholder) {
       if (input && inputMask) {
-        var mask = FormioUtils.getInputMask(inputMask);
+        var mask = FormioUtils.getInputMask(inputMask, this.placeholderChar);
         this.defaultMask = mask;
 
         try {
@@ -482,7 +511,9 @@ var Element = /*#__PURE__*/function () {
 
           input.mask = (0, _vanillaTextMask.default)({
             inputElement: input,
-            mask: mask
+            mask: mask,
+            placeholderChar: this.placeholderChar,
+            shadowRoot: this.root ? this.root.shadowRoot : null
           });
         } catch (e) {
           // Don't pass error up, to prevent form rejection.
@@ -494,7 +525,7 @@ var Element = /*#__PURE__*/function () {
           input.setAttribute('pattern', '\\d*');
         }
 
-        if (placeholder) {
+        if (usePlaceholder) {
           input.setAttribute('placeholder', this.maskPlaceholder(mask));
         }
       }
@@ -537,7 +568,7 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "attr",
     value: function attr(element, _attr) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!element) {
         return;
@@ -547,7 +578,7 @@ var Element = /*#__PURE__*/function () {
         if (typeof value !== 'undefined') {
           if (key.indexOf('on') === 0) {
             // If this is an event, add a listener.
-            _this6.addEventListener(element, key.substr(2).toLowerCase(), value);
+            _this7.addEventListener(element, key.substr(2).toLowerCase(), value);
           } else {
             // Otherwise it is just an attribute.
             element.setAttribute(key, value);
@@ -648,6 +679,8 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "evalContext",
     value: function evalContext(additional) {
+      var _this$options;
+
       return Object.assign({
         _: _lodash.default,
         utils: FormioUtils,
@@ -659,7 +692,7 @@ var Element = /*#__PURE__*/function () {
         token: _Formio.default.getToken({
           decode: true
         }),
-        config: this.root && this.root.form && this.root.form.config ? this.root.form.config : {}
+        config: this.root && this.root.form && this.root.form.config ? this.root.form.config : (_this$options = this.options) !== null && _this$options !== void 0 && _this$options.formConfig ? this.options.formConfig : {}
       }, additional, _lodash.default.get(this.root, 'options.evalContext', {}));
     }
     /**
@@ -673,6 +706,14 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "interpolate",
     value: function interpolate(string, data) {
+      var _this8 = this;
+
+      if (typeof string !== 'function' && this.component.content && !FormioUtils.Evaluator.templateSettings.interpolate.test(string)) {
+        string = FormioUtils.translateHTMLTemplate(String(string), function (value) {
+          return _this8.t(value);
+        });
+      }
+
       return FormioUtils.interpolate(string, this.evalContext(data));
     }
     /**

@@ -1,7 +1,5 @@
 "use strict";
 
-require("core-js/modules/es.array.index-of");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });

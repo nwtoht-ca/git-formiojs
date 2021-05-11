@@ -26,7 +26,9 @@ __p += '\n' +
  if (ctx.component.tooltip) { ;
 __p += '\n  <i ref="tooltip" class="' +
 ((__t = (ctx.iconClass('question-sign'))) == null ? '' : __t) +
-' text-muted"></i>\n';
+' text-muted" data-tooltip="' +
+((__t = (ctx.component.tooltip)) == null ? '' : __t) +
+'"></i>\n';
  } ;
 __p += '\n';
  if (ctx.component.rightIcon) { ;

@@ -1,11 +1,23 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -13,7 +25,7 @@ var _utils = require("../../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -26,18 +38,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var ComponentModal = /*#__PURE__*/function () {
-  _createClass(ComponentModal, null, [{
-    key: "render",
-    value: function render(component, data, topLevel) {
-      var children = component.renderTemplate('component', data, topLevel);
-      var isOpened = this;
-      return component.renderTemplate('componentModal', _objectSpread(_objectSpread({}, data), {}, {
-        children: children,
-        isOpened: isOpened
-      }));
-    }
-  }]);
-
   function ComponentModal(component, element, isOpened, currentValue) {
     _classCallCheck(this, ComponentModal);
 
@@ -50,6 +50,11 @@ var ComponentModal = /*#__PURE__*/function () {
   }
 
   _createClass(ComponentModal, [{
+    key: "refs",
+    get: function get() {
+      return this.component.refs;
+    }
+  }, {
     key: "init",
     value: function init() {
       var _this = this;
@@ -93,6 +98,19 @@ var ComponentModal = /*#__PURE__*/function () {
         this.refs.modalWrapper.classList.add('formio-dialog-disabled-animation');
         this.openModal();
       }
+    }
+  }, {
+    key: "templateRefs",
+    get: function get() {
+      return {
+        modalOverlay: 'single',
+        modalContents: 'single',
+        modalClose: 'single',
+        openModalWrapper: 'single',
+        openModal: 'single',
+        modalSave: 'single',
+        modalWrapper: 'single'
+      };
     }
   }, {
     key: "loadRefs",
@@ -197,7 +215,7 @@ var ComponentModal = /*#__PURE__*/function () {
     key: "showDialog",
     value: function showDialog() {
       this.dialogElement = this.component.ce('div');
-      var dialogContent = "\n      <h3 ref=\"dialogHeader\">".concat(this.component.t('Do you want to clear changes?'), "</h3>\n      <div style=\"display:flex; justify-content: flex-end;\">\n        <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.component.t('Cancel'), "</button>\n        <button ref=\"dialogYesButton\" class=\"btn btn-primary\">").concat(this.component.t('Yes, delete it'), "</button>\n      </div>\n    ");
+      var dialogContent = "\n      <h3 ref=\"dialogHeader\">".concat(this.component.t('Do you want to clear changes?'), "</h3>\n      <div style=\"display:flex; justify-content: flex-end;\">\n        <button ref=\"dialogCancelButton\" class=\"btn btn-secondary\">").concat(this.component.t('Cancel'), "</button>\n        <button ref=\"dialogYesButton\" class=\"btn btn-danger\">").concat(this.component.t('Yes, delete it'), "</button>\n      </div>\n    ");
       this.dialogElement.innerHTML = dialogContent;
       this.dialogElement.refs = {};
       this.component.loadRefs.call(this.dialogElement, this.dialogElement, {
@@ -230,23 +248,15 @@ var ComponentModal = /*#__PURE__*/function () {
       this.currentValue = (0, _utils.fastCloneDeep)(this.component.dataValue);
       this.closeModal();
     }
-  }, {
-    key: "refs",
-    get: function get() {
-      return this.component.refs;
-    }
-  }, {
-    key: "templateRefs",
-    get: function get() {
-      return {
-        modalOverlay: 'single',
-        modalContents: 'single',
-        modalClose: 'single',
-        openModalWrapper: 'single',
-        openModal: 'single',
-        modalSave: 'single',
-        modalWrapper: 'single'
-      };
+  }], [{
+    key: "render",
+    value: function render(component, data, topLevel) {
+      var children = component.renderTemplate('component', data, topLevel);
+      var isOpened = this;
+      return component.renderTemplate('componentModal', _objectSpread(_objectSpread({}, data), {}, {
+        children: children,
+        isOpened: isOpened
+      }));
     }
   }]);
 

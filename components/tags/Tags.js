@@ -2,26 +2,50 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.reflect.set.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _Input2 = _interopRequireDefault(require("../_classes/input/Input"));
+require("core-js/modules/es.string.trim.js");
 
-var _choices = _interopRequireDefault(require("choices.js"));
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
+var _Input2 = _interopRequireDefault(require("../_classes/input/Input"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,9 +75,15 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var Choices;
+
+if (typeof window !== 'undefined') {
+  Choices = require('@formio/choices.js');
+}
 
 var TagsComponent = /*#__PURE__*/function (_Input) {
   _inherits(TagsComponent, _Input);
@@ -72,6 +102,31 @@ var TagsComponent = /*#__PURE__*/function (_Input) {
       _get(_getPrototypeOf(TagsComponent.prototype), "init", this).call(this);
     }
   }, {
+    key: "emptyValue",
+    get: function get() {
+      return this.component.storeas === 'string' ? '' : [];
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return TagsComponent.schema();
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(TagsComponent.prototype), "inputInfo", this);
+
+      info.type = 'input';
+      info.attr.type = 'text';
+      info.changeEvent = 'change';
+      return info;
+    }
+  }, {
+    key: "delimiter",
+    get: function get() {
+      return this.component.delimeter || ',';
+    }
+  }, {
     key: "attachElement",
     value: function attachElement(element, index) {
       var _this = this;
@@ -88,12 +143,17 @@ var TagsComponent = /*#__PURE__*/function (_Input) {
         this.choices.destroy();
       }
 
-      this.choices = new _choices.default(element, {
+      if (!Choices) {
+        return;
+      }
+
+      this.choices = new Choices(element, {
         delimiter: this.delimiter,
         editItems: true,
         maxItemCount: this.component.maxTags,
         removeItemButton: true,
-        duplicateItemsAllowed: false
+        duplicateItemsAllowed: false,
+        shadowRoot: this.root ? this.root.shadowRoot : null
       });
       this.choices.itemList.element.tabIndex = element.tabIndex;
       this.addEventListener(this.choices.input.element, 'blur', function () {
@@ -102,10 +162,16 @@ var TagsComponent = /*#__PURE__*/function (_Input) {
 
         var valuesCount = _this.choices.getValue(true).length;
 
+        var isRepeatedValue = _this.choices.getValue(true).some(function (existingValue) {
+          return existingValue.trim() === value.trim();
+        });
+
         if (value) {
           if (maxTagsNumber && valuesCount === maxTagsNumber) {
             _this.choices.addItems = false;
 
+            _this.choices.clearInput();
+          } else if (isRepeatedValue) {
             _this.choices.clearInput();
           } else {
             _this.choices.setValue([value]);
@@ -169,39 +235,10 @@ var TagsComponent = /*#__PURE__*/function (_Input) {
       return changed;
     }
   }, {
-    key: "focus",
-    value: function focus() {
-      if (this.refs.input && this.refs.input.length) {
-        this.refs.input[0].parentNode.lastChild.focus();
-      }
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return this.component.storeas === 'string' ? '' : [];
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return TagsComponent.schema();
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(TagsComponent.prototype), "inputInfo", this);
-
-      info.type = 'input';
-      info.attr.type = 'text';
-      info.changeEvent = 'change';
-      return info;
-    }
-  }, {
-    key: "delimiter",
-    get: function get() {
-      return this.component.delimeter || ',';
-    }
-  }, {
     key: "disabled",
+    get: function get() {
+      return _get(_getPrototypeOf(TagsComponent.prototype), "disabled", this);
+    },
     set: function set(disabled) {
       _set(_getPrototypeOf(TagsComponent.prototype), "disabled", disabled, this, true);
 
@@ -214,9 +251,27 @@ var TagsComponent = /*#__PURE__*/function (_Input) {
       } else {
         this.choices.enable();
       }
-    },
-    get: function get() {
-      return _get(_getPrototypeOf(TagsComponent.prototype), "disabled", this);
+    }
+  }, {
+    key: "focus",
+    value: function focus() {
+      if (this.refs.input && this.refs.input.length) {
+        this.refs.input[0].parentNode.lastChild.focus();
+      }
+    }
+  }, {
+    key: "getValueAsString",
+    value: function getValueAsString(value) {
+      if (!value) {
+        return '';
+      }
+
+      if (Array.isArray(value)) {
+        return value.join(', ');
+      }
+
+      var stringValue = value.toString();
+      return this.sanitize(stringValue);
     }
   }], [{
     key: "schema",

@@ -2,24 +2,48 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.array.from.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.function.name.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -45,7 +69,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -71,7 +95,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -108,6 +132,48 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
   }
 
   _createClass(PDFBuilder, [{
+    key: "defaultGroups",
+    get: function get() {
+      return {
+        pdf: {
+          title: 'PDF Fields',
+          weight: 0,
+          default: true,
+          components: {
+            textfield: true,
+            number: true,
+            password: true,
+            email: true,
+            phoneNumber: true,
+            currency: true,
+            checkbox: true,
+            signature: true,
+            select: true,
+            textarea: true,
+            datetime: true,
+            file: true,
+            htmlelement: true
+          }
+        },
+        basic: false,
+        advanced: false,
+        layout: false,
+        data: false,
+        premium: false,
+        resource: false
+      };
+    }
+  }, {
+    key: "hasPDF",
+    get: function get() {
+      return _lodash.default.has(this.webform.form, 'settings.pdf');
+    }
+  }, {
+    key: "projectUrl",
+    get: function get() {
+      return this.options.projectUrl || _Formio.default.getProjectUrl();
+    }
+  }, {
     key: "init",
     value: function init() {
       this.options.attachMode = 'builder';
@@ -145,30 +211,6 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
       return result;
     }
   }, {
-    key: "attachLoader",
-    value: function attachLoader(element) {
-      this.loadRefs(element, {
-        'sidebar-loader': 'single'
-      });
-      var sidebarLoader = this.refs['sidebar-loader'];
-
-      if (sidebarLoader && sidebarLoader.parentNode) {
-        sidebarLoader.parentNode.appendChild(sidebarLoader);
-      }
-    }
-  }, {
-    key: "removeLoader",
-    value: function removeLoader(element) {
-      this.loadRefs(element, {
-        'sidebar-loader': 'single'
-      });
-      var sidebarLoader = this.refs['sidebar-loader'];
-
-      if (sidebarLoader && sidebarLoader.parentNode) {
-        sidebarLoader.parentNode.removeChild(sidebarLoader);
-      }
-    }
-  }, {
     key: "attach",
     value: function attach(element) {
       var _this3 = this;
@@ -184,7 +226,6 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
           'uploadProgressWrapper': 'single',
           'dragDropText': 'single'
         });
-        this.removeLoader(element);
         this.addEventListener(this.refs['pdf-upload-button'], 'click', function (event) {
           event.preventDefault();
         }); // Init the upload error.
@@ -228,6 +269,10 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
             }
           });
           this.addEventListener(this.refs.hiddenFileInputElement, 'change', function () {
+            if (!_this3.refs.hiddenFileInputElement.value) {
+              return;
+            }
+
             _this3.upload(_this3.refs.hiddenFileInputElement.files[0]);
 
             _this3.refs.hiddenFileInputElement.value = '';
@@ -244,17 +289,16 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
           'sidebar-container': 'multiple'
         });
 
-        _this3.afterAttach(element);
+        _this3.afterAttach();
 
         return _this3.element;
       });
     }
   }, {
     key: "afterAttach",
-    value: function afterAttach(element) {
+    value: function afterAttach() {
       var _this4 = this;
 
-      this.attachLoader(element);
       this.on('saveComponent', function (component) {
         _this4.webform.postMessage({
           name: 'updateElement',
@@ -267,13 +311,6 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
           data: component
         });
       });
-
-      if (this.refs['sidebar-loader']) {
-        this.webform.on('iframe-ready', function () {
-          _this4.removeLoader(element);
-        }, true);
-      }
-
       this.initIframeEvents();
       this.updateDropzoneDimensions();
       this.initDropzoneEvents();
@@ -285,16 +322,25 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
       var _this5 = this;
 
       var formio = new _Formio.default(this.projectUrl);
-      this.refs.dragDropText.style.display = 'none';
-      this.refs.uploadProgressWrapper.style.display = 'inherit';
-      formio.uploadFile('url', file, file, '', function (event) {
-        var progress = Math.floor(event.loaded / event.total * 100);
-        _this5.refs.uploadProgress.style.width = "".concat(progress, "%");
 
-        if (progress > 98) {
-          _this5.refs.uploadProgress.innerHTML = _this5.t('Converting PDF. Please wait.');
-        } else {
-          _this5.refs.uploadProgress.innerHTML = "".concat(_this5.t('Uploading'), " ").concat(progress, "%");
+      if (this.refs.dragDropText) {
+        this.refs.dragDropText.style.display = 'none';
+      }
+
+      if (this.refs.uploadProgressWrapper) {
+        this.refs.uploadProgressWrapper.style.display = 'inherit';
+      }
+
+      formio.uploadFile('url', file, file, '', function (event) {
+        if (_this5.refs.uploadProgress) {
+          var progress = Math.floor(event.loaded / event.total * 100);
+          _this5.refs.uploadProgress.style.width = "".concat(progress, "%");
+
+          if (progress > 98) {
+            _this5.refs.uploadProgress.innerHTML = _this5.t('Converting PDF. Please wait.');
+          } else {
+            _this5.refs.uploadProgress.innerHTML = "".concat(_this5.t('Uploading'), " ").concat(progress, "%");
+          }
         }
       }, "".concat(this.projectUrl, "/upload"), {}, 'file').then(function (result) {
         _lodash.default.set(_this5.webform.form, 'settings.pdf', {
@@ -302,8 +348,13 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
           src: "".concat(result.data.filesServer).concat(result.data.path)
         });
 
-        _this5.refs.dragDropText.style.display = 'inherit';
-        _this5.refs.uploadProgressWrapper.style.display = 'none';
+        if (_this5.refs.dragDropText) {
+          _this5.refs.dragDropText.style.display = 'inherit';
+        }
+
+        if (_this5.refs.uploadProgressWrapper) {
+          _this5.refs.uploadProgressWrapper.style.display = 'none';
+        }
 
         _this5.emit('pdfUploaded', result.data);
 
@@ -540,7 +591,16 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
 
       var element = e.target;
       var type = element.getAttribute('data-type');
+      var key = element.getAttribute('data-key');
+      var group = element.getAttribute('data-group');
       var schema = (0, _utils.fastCloneDeep)(this.schemas[type]);
+
+      if (key && group) {
+        var info = this.getComponentInfo(key, group);
+
+        _lodash.default.merge(schema, info);
+      }
+
       schema.key = _lodash.default.camelCase(schema.label || schema.placeholder || schema.type); // Set a unique key for this component.
 
       _builder.default.uniquify([this.webform._form], schema);
@@ -597,48 +657,6 @@ var PDFBuilder = /*#__PURE__*/function (_WebformBuilder) {
           });
         }
       });
-    }
-  }, {
-    key: "defaultGroups",
-    get: function get() {
-      return {
-        pdf: {
-          title: 'PDF Fields',
-          weight: 0,
-          default: true,
-          components: {
-            textfield: true,
-            number: true,
-            password: true,
-            email: true,
-            phoneNumber: true,
-            currency: true,
-            checkbox: true,
-            signature: true,
-            select: true,
-            textarea: true,
-            datetime: true,
-            file: true,
-            htmlelement: true
-          }
-        },
-        basic: false,
-        advanced: false,
-        layout: false,
-        data: false,
-        premium: false,
-        resource: false
-      };
-    }
-  }, {
-    key: "hasPDF",
-    get: function get() {
-      return _lodash.default.has(this.webform.form, 'settings.pdf');
-    }
-  }, {
-    key: "projectUrl",
-    get: function get() {
-      return this.options.projectUrl || _Formio.default.getProjectUrl();
     }
   }]);
 

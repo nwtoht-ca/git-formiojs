@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+require("core-js/modules/es.regexp.flags.js");
+
 /* eslint-disable max-len */
 var _default = [{
   weight: 0,
@@ -120,7 +122,8 @@ var _default = [{
   editor: 'ace',
   as: 'html',
   wysiwyg: {
-    minLines: 3
+    minLines: 3,
+    isUseWorkerDisabled: true
   }
 }, {
   weight: 300,
@@ -133,7 +136,8 @@ var _default = [{
   editor: 'ace',
   as: 'html',
   wysiwyg: {
-    minLines: 3
+    minLines: 3,
+    isUseWorkerDisabled: true
   }
 }, {
   weight: 500,
@@ -180,7 +184,9 @@ var _default = [{
   key: 'dataGridLabel',
   input: true,
   customConditional: function customConditional(context) {
-    return context.instance.options.editComponent.inDataGrid;
+    var _context$instance$opt, _context$instance$opt2;
+
+    return (_context$instance$opt = context.instance.options) === null || _context$instance$opt === void 0 ? void 0 : (_context$instance$opt2 = _context$instance$opt.flags) === null || _context$instance$opt2 === void 0 ? void 0 : _context$instance$opt2.inDataGrid;
   }
 }, {
   weight: 1400,

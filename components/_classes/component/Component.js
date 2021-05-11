@@ -2,56 +2,74 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.array.some");
+require("core-js/modules/es.array.from.js");
 
-require("core-js/modules/es.array.splice");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
-require("core-js/modules/es.object.assign");
-
-require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.flags");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.weak-map.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _vanillaTextMask = require("vanilla-text-mask");
+require("core-js/modules/es.object.assign.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.regexp.flags.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
+var _vanillaTextMask = require("@formio/vanilla-text-mask");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -75,19 +93,23 @@ var _ComponentModal = _interopRequireDefault(require("../componentModal/Componen
 
 var _widgets = _interopRequireDefault(require("../../../widgets"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+var _uploadAdapter = require("../../../providers/storage/uploadAdapter");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+var _en = _interopRequireDefault(require("../../../translations/en"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -95,7 +117,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -103,13 +125,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -121,11 +143,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var isIEBrowser = FormioUtils.getIEBrowserVersion();
+var isIEBrowser = FormioUtils.getBrowserInfo().ie;
 var CKEDITOR_URL = isIEBrowser ? 'https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js' : 'https://cdn.form.io/ckeditor/19.0.0/ckeditor.js';
 var QUILL_URL = isIEBrowser ? 'https://cdn.quilljs.com/1.3.7' : 'https://cdn.quilljs.com/2.0.0-dev.3';
 var QUILL_TABLE_URL = 'https://cdn.form.io/quill/quill-table.js';
@@ -140,216 +162,17 @@ var Component = /*#__PURE__*/function (_Element) {
 
   var _super = _createSuper(Component);
 
-  _createClass(Component, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, sources = new Array(_len), _key = 0; _key < _len; _key++) {
-        sources[_key] = arguments[_key];
-      }
+  /* eslint-enable no-unused-vars */
 
-      return _lodash.default.merge.apply(_lodash.default, [{
-        /**
-         * Determines if this component provides an input.
-         */
-        input: true,
+  /**
+   * Initialize a new Component.
+   *
+   * @param {Object} component - The component JSON you wish to initialize.
+   * @param {Object} options - The options for this component.
+   * @param {Object} data - The global data submission object this component will belong.
+   */
 
-        /**
-         * The data key for this component (how the data is stored in the database).
-         */
-        key: '',
-
-        /**
-         * The input placeholder for this component.
-         */
-        placeholder: '',
-
-        /**
-         * The input prefix
-         */
-        prefix: '',
-
-        /**
-         * The custom CSS class to provide to this component.
-         */
-        customClass: '',
-
-        /**
-         * The input suffix.
-         */
-        suffix: '',
-
-        /**
-         * If this component should allow an array of values to be captured.
-         */
-        multiple: false,
-
-        /**
-         * The default value of this compoennt.
-         */
-        defaultValue: null,
-
-        /**
-         * If the data of this component should be protected (no GET api requests can see the data)
-         */
-        protected: false,
-
-        /**
-         * Validate if the value of this component should be unique within the form.
-         */
-        unique: false,
-
-        /**
-         * If the value of this component should be persisted within the backend api database.
-         */
-        persistent: true,
-
-        /**
-         * Determines if the component should be within the form, but not visible.
-         */
-        hidden: false,
-
-        /**
-         * If the component should be cleared when hidden.
-         */
-        clearOnHide: true,
-
-        /**
-         * This will refresh this component options when this field changes.
-         */
-        refreshOn: '',
-
-        /**
-         * This will redraw the component when this field changes.
-         */
-        redrawOn: '',
-
-        /**
-         * If this component should be included as a column within a submission table.
-         */
-        tableView: false,
-
-        /**
-         * If this component should be rendering in modal.
-         */
-        modalEdit: false,
-
-        /**
-         * The input label provided to this component.
-         */
-        label: '',
-        labelPosition: 'top',
-        description: '',
-        errorLabel: '',
-        tooltip: '',
-        hideLabel: false,
-        tabindex: '',
-        disabled: false,
-        autofocus: false,
-        dbIndex: false,
-        customDefaultValue: '',
-        calculateValue: '',
-        calculateServer: false,
-        widget: null,
-
-        /**
-         * Attributes that will be assigned to the input elements of this component.
-         */
-        attributes: {},
-
-        /**
-         * This will perform the validation on either "change" or "blur" of the input element.
-         */
-        validateOn: 'change',
-
-        /**
-         * The validation criteria for this component.
-         */
-        validate: {
-          /**
-           * If this component is required.
-           */
-          required: false,
-
-          /**
-           * Custom JavaScript validation.
-           */
-          custom: '',
-
-          /**
-           * If the custom validation should remain private (only the backend will see it and execute it).
-           */
-          customPrivate: false,
-
-          /**
-           * If this component should implement a strict date validation if the Calendar widget is implemented.
-           */
-          strictDateValidation: false,
-          multiple: false,
-          unique: false
-        },
-
-        /**
-         * The simple conditional settings for a component.
-         */
-        conditional: {
-          show: null,
-          when: null,
-          eq: ''
-        },
-        overlay: {
-          style: '',
-          left: '',
-          top: '',
-          width: '',
-          height: ''
-        },
-        allowCalculateOverride: false,
-        encrypted: false,
-        showCharCount: false,
-        showWordCount: false,
-        properties: {},
-        allowMultipleMasks: false
-      }].concat(sources));
-    }
-    /**
-     * Return the validator as part of the component.
-     *
-     * @return {ValidationChecker}
-     * @constructor
-     */
-
-  }, {
-    key: "tableView",
-
-    /**
-     * Provides a table view for this component. Override if you wish to do something different than using getView
-     * method of your instance.
-     *
-     * @param value
-     * @param options
-     */
-
-    /* eslint-disable no-unused-vars */
-    value: function tableView(value, options) {}
-    /* eslint-enable no-unused-vars */
-
-    /**
-     * Initialize a new Component.
-     *
-     * @param {Object} component - The component JSON you wish to initialize.
-     * @param {Object} options - The options for this component.
-     * @param {Object} data - The global data submission object this component will belong.
-     */
-
-    /* eslint-disable max-statements */
-
-  }, {
-    key: "Validator",
-    get: function get() {
-      return _Validator.default;
-    }
-  }]);
-
+  /* eslint-disable max-statements */
   function Component(component, options, data) {
     var _this;
 
@@ -451,6 +274,7 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
     _this.root = _this.options.root;
+    _this.localRoot = _this.options.localRoot;
     /**
      * If this input has been input and provided value.
      *
@@ -500,8 +324,8 @@ var Component = /*#__PURE__*/function (_Element) {
 
       triggerArgs = [];
 
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
       }
 
       if (!args[1] && lastChanged) {
@@ -524,8 +348,8 @@ var Component = /*#__PURE__*/function (_Element) {
     }, 100);
 
     _this.triggerChange = function () {
-      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        args[_key3] = arguments[_key3];
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
       }
 
       if (args[1]) {
@@ -602,12 +426,49 @@ var Component = /*#__PURE__*/function (_Element) {
 
 
   _createClass(Component, [{
+    key: "data",
+    get: function get() {
+      return this._data;
+    },
+    set: function set(value) {
+      this._data = value;
+    }
+  }, {
     key: "mergeSchema",
     value: function mergeSchema() {
       var component = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return _lodash.default.defaultsDeep(component, this.defaultSchema);
     } // Allow componets to notify when ready.
 
+  }, {
+    key: "ready",
+    get: function get() {
+      return _nativePromiseOnly.default.resolve(this);
+    }
+  }, {
+    key: "labelInfo",
+    get: function get() {
+      var label = {};
+      label.hidden = this.labelIsHidden();
+      label.className = '';
+      label.labelPosition = this.component.labelPosition;
+      label.tooltipClass = "".concat(this.iconClass('question-sign'), " text-muted");
+      var isPDFReadOnlyMode = this.parent && this.parent.form && this.parent.form.display === 'pdf' && this.options.readOnly;
+
+      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required) && !isPDFReadOnlyMode) {
+        label.className += ' field-required';
+      }
+
+      if (label.hidden) {
+        label.className += ' control-label--hidden';
+      }
+
+      if (this.info.attr.id) {
+        label.for = this.info.attr.id;
+      }
+
+      return label;
+    }
   }, {
     key: "init",
     value: function init() {
@@ -620,6 +481,143 @@ var Component = /*#__PURE__*/function (_Element) {
       _get(_getPrototypeOf(Component.prototype), "destroy", this).call(this);
 
       this.detach();
+    }
+  }, {
+    key: "shouldDisabled",
+    get: function get() {
+      return this.options.readOnly || this.component.disabled || this.options.hasOwnProperty('disabled') && this.options.disabled[this.key];
+    }
+  }, {
+    key: "isInputComponent",
+    get: function get() {
+      return !this.component.hasOwnProperty('input') || this.component.input;
+    }
+  }, {
+    key: "allowData",
+    get: function get() {
+      return this.hasInput;
+    }
+  }, {
+    key: "hasInput",
+    get: function get() {
+      return this.isInputComponent || this.refs.input && this.refs.input.length;
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return Component.schema();
+    }
+  }, {
+    key: "key",
+    get: function get() {
+      return _lodash.default.get(this.component, 'key', '');
+    }
+  }, {
+    key: "parentVisible",
+    get: function get() {
+      return this._parentVisible;
+    },
+    set: function set(value) {
+      this._parentVisible = value;
+    }
+  }, {
+    key: "parentDisabled",
+    get: function get() {
+      return this._parentDisabled;
+    }
+    /**
+     *
+     * @param value {boolean}
+     */
+    ,
+    set: function set(value) {
+      this._parentDisabled = value;
+    }
+  }, {
+    key: "visible",
+    get:
+    /**
+     *
+     * @returns {boolean}
+     */
+    function get() {
+      // Show only if visibility changes or if we are in builder mode or if hidden fields should be shown.
+      if (this.builderMode || this.options.showHiddenFields) {
+        return true;
+      }
+
+      if (this.options.hide && this.options.hide[this.component.key]) {
+        return false;
+      }
+
+      if (this.options.show && this.options.show[this.component.key]) {
+        return true;
+      }
+
+      return this._visible && this._parentVisible;
+    },
+    set: function set(value) {
+      if (this._visible !== value) {
+        this._visible = value;
+        this.clearOnHide();
+        this.redraw();
+      }
+    }
+  }, {
+    key: "currentForm",
+    get: function get() {
+      return this._currentForm;
+    },
+    set: function set(instance) {
+      this._currentForm = instance;
+    }
+  }, {
+    key: "fullMode",
+    get: function get() {
+      return this.options.attachMode === 'full';
+    }
+  }, {
+    key: "builderMode",
+    get: function get() {
+      return this.options.attachMode === 'builder';
+    }
+  }, {
+    key: "calculatedPath",
+    get: function get() {
+      console.error('component.calculatedPath was deprecated, use component.path instead.');
+      return this.path;
+    }
+  }, {
+    key: "labelPosition",
+    get: function get() {
+      return this.component.labelPosition;
+    }
+  }, {
+    key: "labelWidth",
+    get: function get() {
+      var width = this.component.labelWidth;
+      return width >= 0 ? width : 30;
+    }
+  }, {
+    key: "labelMargin",
+    get: function get() {
+      var margin = this.component.labelMargin;
+      return margin >= 0 ? margin : 3;
+    }
+  }, {
+    key: "isAdvancedLabel",
+    get: function get() {
+      return ['left-left', 'left-right', 'right-left', 'right-right'].includes(this.labelPosition);
+    }
+  }, {
+    key: "labelPositions",
+    get: function get() {
+      return this.labelPosition.split('-');
+    }
+  }, {
+    key: "skipInEmail",
+    get: function get() {
+      return false;
     }
   }, {
     key: "rightDirection",
@@ -690,14 +688,28 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
-    key: "t",
+    key: "schema",
+    get: function get() {
+      return (0, FormioUtils.fastCloneDeep)(this.getModifiedSchema(_lodash.default.omit(this.component, 'id'), this.defaultSchema));
+    }
+    /**
+     * Returns true if component is inside DataGrid
+     */
 
+  }, {
+    key: "isInDataGrid",
+    get: function get() {
+      return this.inDataGrid;
+    }
     /**
      * Translate a text using the i18n system.
      *
      * @param {string} text - The i18n identifier.
      * @param {Object} params - The i18n parameters to use for translation.
      */
+
+  }, {
+    key: "t",
     value: function t(text) {
       var _get2;
 
@@ -705,14 +717,19 @@ var Component = /*#__PURE__*/function (_Element) {
 
       if (!text) {
         return '';
+      } // Use _userInput: true to ignore translations from defaults
+
+
+      if (text in _en.default && params._userInput) {
+        return text;
       }
 
       params.data = this.rootValue;
       params.row = this.data;
       params.component = this.component;
 
-      for (var _len4 = arguments.length, args = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
-        args[_key4 - 2] = arguments[_key4];
+      for (var _len3 = arguments.length, args = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+        args[_key3 - 2] = arguments[_key3];
       }
 
       return (_get2 = _get(_getPrototypeOf(Component.prototype), "t", this)).call.apply(_get2, [this, text, params].concat(args));
@@ -720,7 +737,14 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "labelIsHidden",
     value: function labelIsHidden() {
-      return !this.component.label || (!this.inDataGrid && this.component.hideLabel || this.inDataGrid && !this.component.dataGridLabel || this.options.inputsOnly) && !this.builderMode;
+      return !this.component.label || (!this.isInDataGrid && this.component.hideLabel || this.isInDataGrid && !this.component.dataGridLabel || this.options.inputsOnly) && !this.builderMode;
+    }
+  }, {
+    key: "transform",
+    get: function get() {
+      return _Templates.default.current.hasOwnProperty('transform') ? _Templates.default.current.transform.bind(_Templates.default.current) : function (type, value) {
+        return value;
+      };
     }
   }, {
     key: "getTemplate",
@@ -816,6 +840,19 @@ var Component = /*#__PURE__*/function (_Element) {
       return null;
     }
   }, {
+    key: "getFormattedTooltip",
+    value: function getFormattedTooltip(tooltipValue) {
+      var tooltip = this.interpolate(tooltipValue || '').replace(/(?:\r\n|\r|\n)/g, '<br />');
+      return tooltip ? this.t(tooltip, {
+        _userInput: true
+      }) : '';
+    }
+  }, {
+    key: "isHtmlRenderMode",
+    value: function isHtmlRenderMode() {
+      return this.options.renderMode === 'html';
+    }
+  }, {
     key: "renderTemplate",
     value: function renderTemplate(name) {
       var _this4 = this;
@@ -844,7 +881,7 @@ var Component = /*#__PURE__*/function (_Element) {
       };
 
       data.label = this.labelInfo;
-      data.tooltip = this.interpolate(this.component.tooltip || '').replace(/(?:\r\n|\r|\n)/g, '<br />'); // Allow more specific template names
+      data.tooltip = this.getFormattedTooltip(this.component.tooltip); // Allow more specific template names
 
       var names = ["".concat(name, "-").concat(this.component.type, "-").concat(this.key), "".concat(name, "-").concat(this.component.type), "".concat(name, "-").concat(this.key), "".concat(name)]; // Allow template alters.
 
@@ -860,6 +897,11 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "sanitize",
     value: function sanitize(dirty) {
+      // No need to sanitize when generating PDF'S since no users interact with the form.
+      if (this.options.pdf) {
+        return dirty;
+      }
+
       return FormioUtils.sanitize(dirty, this.options);
     }
     /**
@@ -886,6 +928,20 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "performInputMapping",
     value: function performInputMapping(input) {
       return input;
+    }
+  }, {
+    key: "widget",
+    get: function get() {
+      var _this$root;
+
+      var settings = this.component.widget;
+
+      if (settings && (_this$root = this.root) !== null && _this$root !== void 0 && _this$root.shadowRoot) {
+        settings.shadowRoot = this.root.shadowRoot;
+      }
+
+      var widget = settings && _widgets.default[settings.type] ? new _widgets.default[settings.type](settings, this.component) : null;
+      return widget;
     }
   }, {
     key: "getBrowserLanguage",
@@ -951,6 +1007,12 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
+    key: "submissionTimezone",
+    get: function get() {
+      this.options.submissionTimezone = this.options.submissionTimezone || _lodash.default.get(this.root, 'options.submissionTimezone');
+      return this.options.submissionTimezone;
+    }
+  }, {
     key: "loadRefs",
     value: function loadRefs(element, refs) {
       for (var ref in refs) {
@@ -970,10 +1032,15 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "getModalPreviewTemplate",
     value: function getModalPreviewTemplate() {
       var dataValue = this.component.type === 'password' ? this.dataValue.replace(/./g, '•') : this.dataValue;
+      var message = this.error ? {
+        level: 'error',
+        message: this.error.message
+      } : '';
       return this.renderTemplate('modalPreview', {
         previewText: this.getValueAsString(dataValue, {
           modalPreview: true
-        }) || this.t('Click to set value')
+        }) || this.t('Click to set value'),
+        messages: message && this.renderTemplate('message', message)
       });
     }
   }, {
@@ -983,6 +1050,11 @@ var Component = /*#__PURE__*/function (_Element) {
       this.empty(element);
       this.setContent(element, this.render());
       return this.attach(element);
+    }
+  }, {
+    key: "hasModalSaveButton",
+    get: function get() {
+      return true;
     }
   }, {
     key: "render",
@@ -1012,10 +1084,32 @@ var Component = /*#__PURE__*/function (_Element) {
       }
     }
   }, {
-    key: "attach",
-    value: function attach(element) {
+    key: "attachTooltips",
+    value: function attachTooltips(toolTipsRefs) {
       var _this5 = this;
 
+      toolTipsRefs === null || toolTipsRefs === void 0 ? void 0 : toolTipsRefs.forEach(function (tooltip, index) {
+        if (tooltip) {
+          var tooltipAttribute = tooltip.getAttribute('data-tooltip');
+          var tooltipDataTitle = tooltip.getAttribute('data-title');
+
+          var tooltipText = _this5.interpolate(tooltipDataTitle || tooltipAttribute).replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+          _this5.tooltips[index] = new _tooltip.default(tooltip, {
+            trigger: 'hover click focus',
+            placement: 'right',
+            html: true,
+            title: _this5.t(tooltipText, {
+              _userInput: true
+            }),
+            template: "\n            <div class=\"tooltip\" style=\"opacity: 1;\" role=\"tooltip\">\n              <div class=\"tooltip-arrow\"></div>\n              <div class=\"tooltip-inner\"></div>\n            </div>"
+          });
+        }
+      });
+    }
+  }, {
+    key: "attach",
+    value: function attach(element) {
       if (!this.builderMode && this.component.modalEdit) {
         var modalShouldBeOpened = this.componentModal ? this.componentModal.isOpened : false;
         var currentValue = modalShouldBeOpened ? this.componentModal.currentValue : this.dataValue;
@@ -1036,17 +1130,7 @@ var Component = /*#__PURE__*/function (_Element) {
         messageContainer: 'single',
         tooltip: 'multiple'
       });
-      this.refs.tooltip.forEach(function (tooltip, index) {
-        var title = _this5.interpolate(tooltip.getAttribute('data-title') || _this5.t(_this5.component.tooltip)).replace(/(?:\r\n|\r|\n)/g, '<br />');
-
-        _this5.tooltips[index] = new _tooltip.default(tooltip, {
-          trigger: 'hover click focus',
-          placement: 'right',
-          html: true,
-          title: title,
-          template: "\n          <div class=\"tooltip\" style=\"opacity: 1;\" role=\"tooltip\">\n            <div class=\"tooltip-arrow\"></div>\n            <div class=\"tooltip-inner\"></div>\n          </div>"
-        });
-      }); // Attach logic.
+      this.attachTooltips(this.refs.tooltip); // Attach logic.
 
       this.attachLogic();
       this.autofocus(); // Allow global attach.
@@ -1065,9 +1149,9 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "restoreFocus",
     value: function restoreFocus() {
-      var _this$root, _this$root$focusedCom;
+      var _this$root2, _this$root2$focusedCo;
 
-      var isFocused = ((_this$root = this.root) === null || _this$root === void 0 ? void 0 : (_this$root$focusedCom = _this$root.focusedComponent) === null || _this$root$focusedCom === void 0 ? void 0 : _this$root$focusedCom.path) === this.path;
+      var isFocused = ((_this$root2 = this.root) === null || _this$root2 === void 0 ? void 0 : (_this$root2$focusedCo = _this$root2.focusedComponent) === null || _this$root2$focusedCo === void 0 ? void 0 : _this$root2$focusedCo.path) === this.path;
 
       if (isFocused) {
         var _this$root$currentSel;
@@ -1134,7 +1218,7 @@ var Component = /*#__PURE__*/function (_Element) {
 
       if (refreshData === 'data') {
         this.refresh(this.data, changed, flags);
-      } else if (changePath && (0, FormioUtils.getComponentPathWithoutIndicies)(changePath) === refreshData && changed && changed.instance && // Make sure the changed component is not in a different "context". Solves issues where refreshOn being set
+      } else if (changePath && (0, FormioUtils.getComponentPath)(changed.instance) === refreshData && changed && changed.instance && // Make sure the changed component is not in a different "context". Solves issues where refreshOn being set
       // in fields inside EditGrids could alter their state from other rows (which is bad).
       this.inContext(changed.instance)) {
         this.refresh(changed.value, changed, flags);
@@ -1227,6 +1311,11 @@ var Component = /*#__PURE__*/function (_Element) {
       return false;
     }
   }, {
+    key: "viewOnly",
+    get: function get() {
+      return this.options.readOnly && this.options.viewAsHtml;
+    }
+  }, {
     key: "createViewOnlyElement",
     value: function createViewOnlyElement() {
       this.element = this.ce('dl', {
@@ -1241,14 +1330,19 @@ var Component = /*#__PURE__*/function (_Element) {
       return this.element;
     }
   }, {
-    key: "getWidgetValueAsString",
-
+    key: "defaultViewOnlyValue",
+    get: function get() {
+      return '-';
+    }
     /**
      * Uses the widget to determine the output string.
      *
      * @param value
      * @return {*}
      */
+
+  }, {
+    key: "getWidgetValueAsString",
     value: function getWidgetValueAsString(value, options) {
       var _this7 = this;
 
@@ -1405,12 +1499,67 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
-    key: "getElement",
+    key: "className",
+    get: function get() {
+      var className = this.hasInput ? 'form-group has-feedback ' : '';
+      className += "formio-component formio-component-".concat(this.component.type, " "); // TODO: find proper way to avoid overriding of default type-based component styles
 
+      if (this.key && this.key !== 'form') {
+        className += "formio-component-".concat(this.key, " ");
+      }
+
+      if (this.component.multiple) {
+        className += 'formio-component-multiple ';
+      }
+
+      if (this.component.customClass) {
+        className += this.component.customClass;
+      }
+
+      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required)) {
+        className += ' required';
+      }
+
+      if (this.labelIsHidden()) {
+        className += ' formio-component-label-hidden';
+      }
+
+      if (!this.visible) {
+        className += ' formio-hidden';
+      }
+
+      return className;
+    }
+    /**
+     * Build the custom style from the layout values
+     * @return {string} - The custom style
+     */
+
+  }, {
+    key: "customStyle",
+    get: function get() {
+      var customCSS = '';
+
+      _lodash.default.each(this.component.style, function (value, key) {
+        if (value !== '') {
+          customCSS += "".concat(key, ":").concat(value, ";");
+        }
+      });
+
+      return customCSS;
+    }
+  }, {
+    key: "isMobile",
+    get: function get() {
+      return (0, _ismobilejs.default)();
+    }
     /**
      * Returns the outside wrapping element of this component.
      * @returns {HTMLElement}
      */
+
+  }, {
+    key: "getElement",
     value: function getElement() {
       return this.element;
     }
@@ -1430,7 +1579,13 @@ var Component = /*#__PURE__*/function (_Element) {
         rowIndex: this.rowIndex,
         data: this.rootValue,
         iconClass: this.iconClass.bind(this),
-        submission: this.root ? this.root._submission : {},
+        // Bind the translate function to the data context of any interpolated string.
+        // It is useful to translate strings in different scenarions (eg: custom edit grid templates, custom error messages etc.)
+        // and desirable to be publicly available rather than calling the internal {instance.t} function in the template string.
+        t: this.t.bind(this),
+        submission: this.root ? this.root._submission : {
+          data: this.rootValue
+        },
         form: this.root ? this.root._form : {}
       }, additional));
     }
@@ -1444,6 +1599,21 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "setPristine",
     value: function setPristine(pristine) {
       this.pristine = pristine;
+    }
+  }, {
+    key: "isPristine",
+    get: function get() {
+      return this.pristine;
+    }
+  }, {
+    key: "setDirty",
+    value: function setDirty(dirty) {
+      this.dirty = dirty;
+    }
+  }, {
+    key: "isDirty",
+    get: function get() {
+      return this.dirty;
     }
     /**
      * Removes a value out of the data array and rebuild the rows.
@@ -1475,13 +1645,30 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
-    key: "errorMessage",
+    key: "name",
+    get: function get() {
+      return this.t(this.component.label || this.component.placeholder || this.key, {
+        _userInput: true
+      });
+    }
+    /**
+     * Returns the error label for this component.
+     * @return {*}
+     */
 
+  }, {
+    key: "errorLabel",
+    get: function get() {
+      return this.t(this.component.errorLabel || this.component.label || this.component.placeholder || this.key);
+    }
     /**
      * Get the error message provided a certain type of error.
      * @param type
      * @return {*}
      */
+
+  }, {
+    key: "errorMessage",
     value: function errorMessage(type) {
       return this.component.errors && this.component.errors[type] ? this.component.errors[type] : type;
     }
@@ -1498,9 +1685,9 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "restoreCaretPosition",
     value: function restoreCaretPosition() {
-      var _this$root2;
+      var _this$root3;
 
-      if ((_this$root2 = this.root) !== null && _this$root2 !== void 0 && _this$root2.currentSelection) {
+      if ((_this$root3 = this.root) !== null && _this$root3 !== void 0 && _this$root3.currentSelection) {
         var _this$refs$input;
 
         if ((_this$refs$input = this.refs.input) !== null && _this$refs$input !== void 0 && _this$refs$input.length) {
@@ -1508,17 +1695,23 @@ var Component = /*#__PURE__*/function (_Element) {
               selection = _this$root$currentSel2.selection,
               index = _this$root$currentSel2.index;
           var input = this.refs.input[index];
+          var isInputRangeSelectable = /text|search|password|tel|url/i.test(input.type || '');
 
           if (input) {
-            var _input;
+            if (isInputRangeSelectable) {
+              var _input;
 
-            (_input = input).setSelectionRange.apply(_input, _toConsumableArray(selection));
+              (_input = input).setSelectionRange.apply(_input, _toConsumableArray(selection));
+            }
           } else {
             var _input$value;
 
             input = this.refs.input[this.refs.input.length];
             var lastCharacter = ((_input$value = input.value) === null || _input$value === void 0 ? void 0 : _input$value.length) || 0;
-            input.setSelectionRange(lastCharacter, lastCharacter);
+
+            if (isInputRangeSelectable) {
+              input.setSelectionRange(lastCharacter, lastCharacter);
+            }
           }
         }
       }
@@ -1546,6 +1739,7 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function rebuild() {
       this.destroy();
       this.init();
+      this.visible = this.conditionallyVisible(null, null);
       return this.redraw();
     }
   }, {
@@ -1675,13 +1869,18 @@ var Component = /*#__PURE__*/function (_Element) {
       return this.checkComponentConditions(data, flags, row);
     }
   }, {
-    key: "fieldLogic",
-
+    key: "logic",
+    get: function get() {
+      return this.component.logic || [];
+    }
     /**
      * Check all triggers and apply necessary actions.
      *
      * @param data
      */
+
+  }, {
+    key: "fieldLogic",
     value: function fieldLogic(data, row) {
       var _this10 = this;
 
@@ -1700,10 +1899,13 @@ var Component = /*#__PURE__*/function (_Element) {
       }, false); // If component definition changed, replace and mark as changed.
 
       if (!_lodash.default.isEqual(this.component, newComponent)) {
-        this.component = newComponent; // If disabled changed, be sure to distribute the setting.
-
-        this.disabled = this.shouldDisabled;
+        this.component = newComponent;
         changed = true;
+        var disabled = this.shouldDisabled; // Change disabled state if it has changed
+
+        if (this.disabled !== disabled) {
+          this.disabled = disabled;
+        }
       }
 
       return changed;
@@ -1711,6 +1913,10 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "isIE",
     value: function isIE() {
+      if (typeof window === 'undefined') {
+        return false;
+      }
+
       var userAgent = window.navigator.userAgent;
       var msie = userAgent.indexOf('MSIE ');
 
@@ -1801,6 +2007,32 @@ var Component = /*#__PURE__*/function (_Element) {
 
               break;
             }
+
+          case 'customAction':
+            {
+              var _oldValue = _this11.getValue();
+
+              var _newValue = _this11.evaluate(action.customAction, {
+                value: _lodash.default.clone(_oldValue),
+                data: data,
+                row: row,
+                input: _oldValue,
+                component: newComponent,
+                result: result
+              }, 'value');
+
+              if (!_lodash.default.isEqual(_oldValue, _newValue)) {
+                _this11.setValue(_newValue);
+
+                if (_this11.viewOnly) {
+                  _this11.dataValue = _newValue;
+                }
+
+                changed = true;
+              }
+
+              break;
+            }
         }
 
         return changed;
@@ -1862,6 +2094,7 @@ var Component = /*#__PURE__*/function (_Element) {
     value: function setErrorClasses(elements, dirty, hasErrors, hasMessages) {
       var _this13 = this;
 
+      var element = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.element;
       this.clearErrorClasses();
       elements.forEach(function (element) {
         return _this13.removeClass(_this13.performInputMapping(element), 'is-invalid');
@@ -1875,14 +2108,14 @@ var Component = /*#__PURE__*/function (_Element) {
         });
 
         if (dirty && this.options.highlightErrors) {
-          this.addClass(this.element, this.options.componentErrorClass);
+          this.addClass(element, this.options.componentErrorClass);
         } else {
-          this.addClass(this.element, 'has-error');
+          this.addClass(element, 'has-error');
         }
       }
 
       if (hasMessages) {
-        this.addClass(this.element, 'has-message');
+        this.addClass(element, 'has-message');
       }
     }
   }, {
@@ -1911,9 +2144,9 @@ var Component = /*#__PURE__*/function (_Element) {
 
         (_this$options = this.options).onChange.apply(_this$options, arguments);
       } else if (this.root) {
-        var _this$root3;
+        var _this$root4;
 
-        (_this$root3 = this.root).triggerChange.apply(_this$root3, arguments);
+        (_this$root4 = this.root).triggerChange.apply(_this$root4, arguments);
       }
     }
   }, {
@@ -1965,14 +2198,77 @@ var Component = /*#__PURE__*/function (_Element) {
       return changed;
     }
   }, {
+    key: "wysiwygDefault",
+    get: function get() {
+      return {
+        quill: {
+          theme: 'snow',
+          placeholder: this.t(this.component.placeholder, {
+            _userInput: true
+          }),
+          modules: {
+            toolbar: [[{
+              'size': ['small', false, 'large', 'huge']
+            }], // custom dropdown
+            [{
+              'header': [1, 2, 3, 4, 5, 6, false]
+            }], [{
+              'font': []
+            }], ['bold', 'italic', 'underline', 'strike', {
+              'script': 'sub'
+            }, {
+              'script': 'super'
+            }, 'clean'], [{
+              'color': []
+            }, {
+              'background': []
+            }], [{
+              'list': 'ordered'
+            }, {
+              'list': 'bullet'
+            }, {
+              'indent': '-1'
+            }, {
+              'indent': '+1'
+            }, {
+              'align': []
+            }], ['blockquote', 'code-block'], ['link', 'image', 'video', 'formula', 'source']]
+          }
+        },
+        ace: {
+          theme: 'ace/theme/xcode',
+          maxLines: 12,
+          minLines: 12,
+          tabSize: 2,
+          mode: 'ace/mode/javascript',
+          placeholder: this.t(this.component.placeholder, {
+            _userInput: true
+          })
+        },
+        ckeditor: {
+          image: {
+            toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
+            styles: ['full', 'alignLeft', 'alignCenter', 'alignRight']
+          },
+          extraPlugins: []
+        },
+        default: {}
+      };
+    }
+  }, {
     key: "addCKE",
     value: function addCKE(element, settings, onChange) {
       settings = _lodash.default.isEmpty(settings) ? {} : settings;
-      settings.base64Upload = true;
+      settings.base64Upload = this.component.isUploadEnabled ? false : true;
       settings.mediaEmbed = {
         previewsInData: true
       };
       settings = _lodash.default.merge(this.wysiwygDefault.ckeditor, _lodash.default.get(this.options, 'editors.ckeditor.settings', {}), settings);
+
+      if (this.component.isUploadEnabled) {
+        settings.extraPlugins.push((0, _uploadAdapter.getFormioUploadAdapterPlugin)(this.fileService, this));
+      }
+
       return _Formio.default.requireLibrary('ckeditor', isIEBrowser ? 'CKEDITOR' : 'ClassicEditor', _lodash.default.get(this.options, 'editors.ckeditor.src', CKEDITOR_URL), true).then(function () {
         if (!element.parentNode) {
           return _nativePromiseOnly.default.reject();
@@ -2087,16 +2383,37 @@ var Component = /*#__PURE__*/function (_Element) {
         editor.on('change', function () {
           return onChange(editor.getValue());
         });
+
+        if (settings.isUseWorkerDisabled) {
+          editor.session.setUseWorker(false);
+        }
+
         return editor;
       });
     }
   }, {
-    key: "hasValue",
+    key: "tree",
+    get: function get() {
+      return this.component.tree || false;
+    }
+    /**
+     * The empty value for this component.
+     *
+     * @return {null}
+     */
 
+  }, {
+    key: "emptyValue",
+    get: function get() {
+      return null;
+    }
     /**
      * Returns if this component has a value set.
      *
      */
+
+  }, {
+    key: "hasValue",
     value: function hasValue(data) {
       return _lodash.default.has(data || this.data, this.key);
     }
@@ -2107,13 +2424,71 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
-    key: "splice",
+    key: "rootValue",
+    get: function get() {
+      return this.root ? this.root.data : this.data;
+    }
+  }, {
+    key: "rootPristine",
+    get: function get() {
+      return _lodash.default.get(this, 'root.pristine', false);
+    }
+    /**
+     * Get the static value of this component.
+     * @return {*}
+     */
 
+  }, {
+    key: "dataValue",
+    get: function get() {
+      if (!this.key || !this.visible && this.component.clearOnHide && !this.rootPristine) {
+        return this.emptyValue;
+      }
+
+      if (!this.hasValue()) {
+        var empty = this.component.multiple ? [] : this.emptyValue;
+
+        if (!this.rootPristine) {
+          this.dataValue = empty;
+        }
+
+        return empty;
+      }
+
+      return _lodash.default.get(this._data, this.key);
+    }
+    /**
+     * Sets the static value of this component.
+     *
+     * @param value
+     */
+    ,
+    set: function set(value) {
+      if (!this.allowData || !this.key || !this.visible && this.component.clearOnHide && !this.rootPristine) {
+        return;
+      }
+
+      if (value !== null && value !== undefined) {
+        value = this.hook('setDataValue', value, this.key, this._data);
+      }
+
+      if (value === null || value === undefined) {
+        this.unset();
+        return;
+      }
+
+      _lodash.default.set(this._data, this.key, value);
+
+      return;
+    }
     /**
      * Splice a value from the dataValue.
      *
      * @param index
      */
+
+  }, {
+    key: "splice",
     value: function splice(index) {
       if (this.hasValue()) {
         var dataValue = this.dataValue || [];
@@ -2144,13 +2519,58 @@ var Component = /*#__PURE__*/function (_Element) {
       this.unset();
     }
   }, {
-    key: "getValue",
+    key: "defaultValue",
+    get: function get() {
+      var _this15 = this;
 
+      var defaultValue = this.emptyValue;
+
+      if (this.component.defaultValue) {
+        defaultValue = this.component.defaultValue;
+      }
+
+      if (this.component.customDefaultValue && !this.options.preview) {
+        defaultValue = this.evaluate(this.component.customDefaultValue, {
+          value: ''
+        }, 'value');
+      }
+
+      var checkMask = function checkMask(value) {
+        if (typeof value === 'string') {
+          var placeholderChar = _this15.placeholderChar;
+          value = (0, _vanillaTextMask.conformToMask)(value, _this15.defaultMask, {
+            placeholderChar: placeholderChar
+          }).conformedValue;
+
+          if (!FormioUtils.matchInputMask(value, _this15.defaultMask)) {
+            value = '';
+          }
+        } else {
+          value = '';
+        }
+
+        return value;
+      };
+
+      if (this.defaultMask) {
+        if (Array.isArray(defaultValue)) {
+          defaultValue = defaultValue.map(checkMask);
+        } else {
+          defaultValue = checkMask(defaultValue);
+        }
+      } // Clone so that it creates a new instance.
+
+
+      return _lodash.default.cloneDeep(defaultValue);
+    }
     /**
      * Get the input value of this component.
      *
      * @return {*}
      */
+
+  }, {
+    key: "getValue",
     value: function getValue() {
       if (!this.hasInput || this.viewOnly || !this.refs.input || !this.refs.input.length) {
         return this.dataValue;
@@ -2213,7 +2633,7 @@ var Component = /*#__PURE__*/function (_Element) {
         this.redraw();
       }
 
-      if (this.options.renderMode === 'html' && changed) {
+      if (this.isHtmlRenderMode() && flags && flags.fromSubmission && changed) {
         this.redraw();
         return changed;
       }
@@ -2251,6 +2671,11 @@ var Component = /*#__PURE__*/function (_Element) {
       } else {
         input.value = value;
       }
+    }
+  }, {
+    key: "hasSetValue",
+    get: function get() {
+      return this.hasValue() && !this.isEmpty(this.dataValue);
     }
   }, {
     key: "setDefaultValue",
@@ -2348,12 +2773,12 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "resetValue",
     value: function resetValue() {
+      this.unset();
       this.setValue(this.emptyValue, {
         noUpdateEvent: true,
         noValidate: true,
         resetValue: true
       });
-      this.unset();
     }
     /**
      * Determine if the value of this component has changed.
@@ -2498,12 +2923,30 @@ var Component = /*#__PURE__*/function (_Element) {
      */
 
   }, {
-    key: "getRoot",
+    key: "label",
+    get: function get() {
+      return this.component.label;
+    }
+    /**
+     * Set this component's label text and render it.
+     *
+     * @param value - The new label text.
+     */
+    ,
+    set: function set(value) {
+      this.component.label = value;
 
+      if (this.labelElement) {
+        this.labelElement.innerText = value;
+      }
+    }
     /**
      * Get FormioForm element at the root of this component tree.
      *
      */
+
+  }, {
+    key: "getRoot",
     value: function getRoot() {
       return this.root;
     }
@@ -2551,7 +2994,7 @@ var Component = /*#__PURE__*/function (_Element) {
     key: "setComponentValidity",
     value: function setComponentValidity(messages, dirty, silentCheck) {
       var hasErrors = !!messages.filter(function (message) {
-        return message.level === 'error';
+        return message.level === 'error' && !message.fromServer;
       }).length;
 
       if (messages.length && (!silentCheck || this.error) && (dirty || !this.pristine)) {
@@ -2574,7 +3017,8 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "checkComponentValidity",
     value: function checkComponentValidity(data, dirty, row) {
-      var _this15 = this;
+      var _this$serverErrors,
+          _this16 = this;
 
       var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
       data = data || this.rootValue;
@@ -2591,18 +3035,26 @@ var Component = /*#__PURE__*/function (_Element) {
 
       var check = _Validator.default.checkComponent(this, data, row, true, async);
 
-      return async ? check.then(function (messages) {
-        return _this15.setComponentValidity(messages, dirty, silentCheck);
-      }) : this.setComponentValidity(check, dirty, silentCheck);
+      var validations = check;
+
+      if ((_this$serverErrors = this.serverErrors) !== null && _this$serverErrors !== void 0 && _this$serverErrors.length) {
+        validations = check.concat(this.serverErrors);
+      }
+
+      return async ? validations.then(function (messages) {
+        return _this16.setComponentValidity(messages, dirty, silentCheck);
+      }) : this.setComponentValidity(validations, dirty, silentCheck);
     }
   }, {
     key: "checkValidity",
     value: function checkValidity(data, dirty, row, silentCheck) {
       data = data || this.rootValue;
       row = row || this.data;
-      return this.checkComponentValidity(data, dirty, row, {
+      var isValid = this.checkComponentValidity(data, dirty, row, {
         silentCheck: silentCheck
       });
+      this.checkModal();
+      return isValid;
     }
   }, {
     key: "checkAsyncValidity",
@@ -2659,11 +3111,27 @@ var Component = /*#__PURE__*/function (_Element) {
         isDirty = true;
       }
 
+      this.setDirty(isDirty);
+
       if (this.component.validateOn === 'blur' && flags.fromSubmission) {
         return true;
       }
 
-      return this.checkComponentValidity(data, isDirty, row);
+      var isValid = this.checkComponentValidity(data, isDirty, row, flags);
+      this.checkModal();
+      return isValid;
+    }
+  }, {
+    key: "checkModal",
+    value: function checkModal() {
+      if (!this.component.modalEdit || !this.componentModal) {
+        return;
+      }
+    }
+  }, {
+    key: "validationValue",
+    get: function get() {
+      return this.dataValue;
     }
   }, {
     key: "isEmpty",
@@ -2690,12 +3158,18 @@ var Component = /*#__PURE__*/function (_Element) {
       return true;
     }
   }, {
+    key: "errors",
+    get: function get() {
+      return this.error ? [this.error] : [];
+    }
+  }, {
     key: "clearErrorClasses",
     value: function clearErrorClasses() {
-      this.removeClass(this.element, this.options.componentErrorClass);
-      this.removeClass(this.element, 'alert alert-danger');
-      this.removeClass(this.element, 'has-error');
-      this.removeClass(this.element, 'has-message');
+      var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.element;
+      this.removeClass(element, this.options.componentErrorClass);
+      this.removeClass(element, 'alert alert-danger');
+      this.removeClass(element, 'has-error');
+      this.removeClass(element, 'has-message');
     }
   }, {
     key: "setInputWidgetErrorClasses",
@@ -2705,7 +3179,7 @@ var Component = /*#__PURE__*/function (_Element) {
       }
 
       inputRefs.forEach(function (input) {
-        if (input.widget && input.widget.setErrorClasses) {
+        if (input !== null && input !== void 0 && input.widget && input.widget.setErrorClasses) {
           input.widget.setErrorClasses(hasErrors);
         }
       });
@@ -2801,20 +3275,20 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "shouldSkipValidation",
     value: function shouldSkipValidation(data, dirty, row) {
-      var _this16 = this;
+      var _this17 = this;
 
       var rules = [// Force valid if component is read-only
       function () {
-        return _this16.options.readOnly;
+        return _this17.options.readOnly;
       }, // Check to see if we are editing and if so, check component persistence.
       function () {
-        return _this16.isValueHidden();
+        return _this17.isValueHidden();
       }, // Force valid if component is hidden.
       function () {
-        return !_this16.visible;
+        return !_this17.visible;
       }, // Force valid if component is conditionally hidden.
       function () {
-        return !_this16.checkCondition(row, data);
+        return !_this17.checkCondition(row, data);
       }];
       return rules.some(function (pred) {
         return pred();
@@ -2828,11 +3302,16 @@ var Component = /*#__PURE__*/function (_Element) {
       return this.dataReady;
     }
   }, {
-    key: "asString",
-
+    key: "dataReady",
+    get: function get() {
+      return _nativePromiseOnly.default.resolve();
+    }
     /**
      * Prints out the value of this component as a string value.
      */
+
+  }, {
+    key: "asString",
     value: function asString(value) {
       value = value || this.getValue();
       return (Array.isArray(value) ? value : [value]).map(_lodash.default.toString).join(', ');
@@ -2842,6 +3321,20 @@ var Component = /*#__PURE__*/function (_Element) {
      * @return {boolean}
      */
 
+  }, {
+    key: "disabled",
+    get: function get() {
+      return this._disabled || this.parentDisabled;
+    }
+    /**
+     * Disable this component.
+     *
+     * @param {boolean} disabled
+     */
+    ,
+    set: function set(disabled) {
+      this._disabled = disabled;
+    }
   }, {
     key: "setDisabled",
     value: function setDisabled(element, disabled) {
@@ -2883,7 +3376,7 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "selectOptions",
     value: function selectOptions(select, tag, options, defaultValue) {
-      var _this17 = this;
+      var _this18 = this;
 
       _lodash.default.each(options, function (option) {
         var attrs = {
@@ -2894,9 +3387,9 @@ var Component = /*#__PURE__*/function (_Element) {
           attrs.selected = 'selected';
         }
 
-        var optionElement = _this17.ce('option', attrs);
+        var optionElement = _this18.ce('option', attrs);
 
-        optionElement.appendChild(_this17.text(option.label));
+        optionElement.appendChild(_this18.text(option.label));
         select.appendChild(optionElement);
       });
     }
@@ -2952,13 +3445,13 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "detachLogic",
     value: function detachLogic() {
-      var _this18 = this;
+      var _this19 = this;
 
       this.logic.forEach(function (logic) {
         if (logic.trigger.type === 'event') {
-          var event = _this18.interpolate(logic.trigger.event);
+          var event = _this19.interpolate(logic.trigger.event);
 
-          _this18.off(event); // only applies to callbacks on this component
+          _this19.off(event); // only applies to callbacks on this component
 
         }
       });
@@ -2966,7 +3459,7 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "attachLogic",
     value: function attachLogic() {
-      var _this19 = this;
+      var _this20 = this;
 
       // Do not attach logic during builder mode.
       if (this.builderMode) {
@@ -2975,22 +3468,34 @@ var Component = /*#__PURE__*/function (_Element) {
 
       this.logic.forEach(function (logic) {
         if (logic.trigger.type === 'event') {
-          var event = _this19.interpolate(logic.trigger.event);
+          var event = _this20.interpolate(logic.trigger.event);
 
-          _this19.on(event, function () {
-            var newComponent = (0, FormioUtils.fastCloneDeep)(_this19.originalComponent);
+          _this20.on(event, function () {
+            var newComponent = (0, FormioUtils.fastCloneDeep)(_this20.originalComponent);
 
-            for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-              args[_key5] = arguments[_key5];
+            for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+              args[_key4] = arguments[_key4];
             }
 
-            if (_this19.applyActions(newComponent, logic.actions, args)) {
+            if (_this20.applyActions(newComponent, logic.actions, args)) {
               // If component definition changed, replace it.
-              if (!_lodash.default.isEqual(_this19.component, newComponent)) {
-                _this19.component = newComponent;
-              }
+              if (!_lodash.default.isEqual(_this20.component, newComponent)) {
+                _this20.component = newComponent;
 
-              _this19.rebuild();
+                var visible = _this20.conditionallyVisible(null, null);
+
+                var disabled = _this20.shouldDisabled; // Change states which won't be recalculated during redrawing
+
+                if (_this20.visible !== visible) {
+                  _this20.visible = visible;
+                }
+
+                if (_this20.disabled !== disabled) {
+                  _this20.disabled = disabled;
+                }
+
+                _this20.redraw();
+              }
             }
           }, true);
         }
@@ -3011,7 +3516,9 @@ var Component = /*#__PURE__*/function (_Element) {
       };
 
       if (this.component.placeholder) {
-        attributes.placeholder = this.t(this.component.placeholder);
+        attributes.placeholder = this.t(this.component.placeholder, {
+          _userInput: true
+        });
       }
 
       if (this.component.tabindex) {
@@ -3034,15 +3541,30 @@ var Component = /*#__PURE__*/function (_Element) {
   }, {
     key: "autofocus",
     value: function autofocus() {
-      var _this20 = this;
+      var _this21 = this;
 
       var hasAutofocus = this.component.autofocus && !this.builderMode && !this.options.preview;
 
       if (hasAutofocus) {
         this.on('render', function () {
-          return _this20.focus();
+          return _this21.focus();
         }, true);
       }
+    }
+  }, {
+    key: "scrollIntoView",
+    value: function scrollIntoView() {
+      var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.element;
+
+      if (!element) {
+        return;
+      }
+
+      var _element$getBoundingC = element.getBoundingClientRect(),
+          left = _element$getBoundingC.left,
+          top = _element$getBoundingC.top;
+
+      window.scrollTo(left + window.scrollX, top + window.scrollY);
     }
   }, {
     key: "focus",
@@ -3054,10 +3576,18 @@ var Component = /*#__PURE__*/function (_Element) {
       }
 
       if ((_this$refs$input2 = this.refs.input) !== null && _this$refs$input2 !== void 0 && _this$refs$input2.length) {
-        if (typeof index === 'number' && this.refs.input[index]) {
-          this.refs.input[index].focus();
+        var _this$component$widge;
+
+        var focusingInput = typeof index === 'number' && this.refs.input[index] ? this.refs.input[index] : this.refs.input[this.refs.input.length - 1];
+
+        if (((_this$component$widge = this.component.widget) === null || _this$component$widge === void 0 ? void 0 : _this$component$widge.type) === 'calendar') {
+          var sibling = focusingInput.nextSibling;
+
+          if (sibling) {
+            sibling.focus();
+          }
         } else {
-          this.refs.input[this.refs.input.length - 1].focus();
+          focusingInput.focus();
         }
       }
 
@@ -3073,513 +3603,6 @@ var Component = /*#__PURE__*/function (_Element) {
      * Get `Formio` instance for working with files
      */
 
-  }, {
-    key: "data",
-    get: function get() {
-      return this._data;
-    },
-    set: function set(value) {
-      this._data = value;
-    }
-  }, {
-    key: "ready",
-    get: function get() {
-      return _nativePromiseOnly.default.resolve(this);
-    }
-  }, {
-    key: "labelInfo",
-    get: function get() {
-      var label = {};
-      label.hidden = this.labelIsHidden();
-      label.className = '';
-      label.labelPosition = this.component.labelPosition;
-      label.tooltipClass = "".concat(this.iconClass('question-sign'), " text-muted");
-      var isPDFReadOnlyMode = this.parent && this.parent.form && this.parent.form.display === 'pdf' && this.options.readOnly;
-
-      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required) && !isPDFReadOnlyMode) {
-        label.className += ' field-required';
-      }
-
-      if (label.hidden) {
-        label.className += ' control-label--hidden';
-      }
-
-      if (this.info.attr.id) {
-        label.for = this.info.attr.id;
-      }
-
-      return label;
-    }
-  }, {
-    key: "shouldDisabled",
-    get: function get() {
-      return this.options.readOnly || this.component.disabled || this.options.hasOwnProperty('disabled') && this.options.disabled[this.key];
-    }
-  }, {
-    key: "isInputComponent",
-    get: function get() {
-      return !this.component.hasOwnProperty('input') || this.component.input;
-    }
-  }, {
-    key: "allowData",
-    get: function get() {
-      return this.hasInput;
-    }
-  }, {
-    key: "hasInput",
-    get: function get() {
-      return this.isInputComponent || this.refs.input && this.refs.input.length;
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return Component.schema();
-    }
-  }, {
-    key: "key",
-    get: function get() {
-      return _lodash.default.get(this.component, 'key', '');
-    }
-  }, {
-    key: "parentVisible",
-    set: function set(value) {
-      this._parentVisible = value;
-    },
-    get: function get() {
-      return this._parentVisible;
-    }
-  }, {
-    key: "parentDisabled",
-    set: function set(value) {
-      this._parentDisabled = value;
-    },
-    get: function get() {
-      return this._parentDisabled;
-    }
-    /**
-     *
-     * @param value {boolean}
-     */
-
-  }, {
-    key: "visible",
-    set: function set(value) {
-      if (this._visible !== value) {
-        this._visible = value;
-        this.clearOnHide();
-        this.redraw();
-      }
-    }
-    /**
-     *
-     * @returns {boolean}
-     */
-    ,
-    get: function get() {
-      // Show only if visibility changes or if we are in builder mode or if hidden fields should be shown.
-      if (this.builderMode || this.options.showHiddenFields) {
-        return true;
-      }
-
-      if (this.options.hide && this.options.hide[this.component.key]) {
-        return false;
-      }
-
-      if (this.options.show && this.options.show[this.component.key]) {
-        return true;
-      }
-
-      return this._visible && this._parentVisible;
-    }
-  }, {
-    key: "currentForm",
-    get: function get() {
-      return this._currentForm;
-    },
-    set: function set(instance) {
-      this._currentForm = instance;
-    }
-  }, {
-    key: "fullMode",
-    get: function get() {
-      return this.options.attachMode === 'full';
-    }
-  }, {
-    key: "builderMode",
-    get: function get() {
-      return this.options.attachMode === 'builder';
-    }
-  }, {
-    key: "calculatedPath",
-    get: function get() {
-      console.error('component.calculatedPath was deprecated, use component.path instead.');
-      return this.path;
-    }
-  }, {
-    key: "labelPosition",
-    get: function get() {
-      return this.component.labelPosition;
-    }
-  }, {
-    key: "labelWidth",
-    get: function get() {
-      return this.component.labelWidth || 30;
-    }
-  }, {
-    key: "labelMargin",
-    get: function get() {
-      return this.component.labelMargin || 3;
-    }
-  }, {
-    key: "isAdvancedLabel",
-    get: function get() {
-      return ['left-left', 'left-right', 'right-left', 'right-right'].includes(this.labelPosition);
-    }
-  }, {
-    key: "labelPositions",
-    get: function get() {
-      return this.labelPosition.split('-');
-    }
-  }, {
-    key: "skipInEmail",
-    get: function get() {
-      return false;
-    }
-  }, {
-    key: "schema",
-    get: function get() {
-      return (0, FormioUtils.fastCloneDeep)(this.getModifiedSchema(_lodash.default.omit(this.component, 'id'), this.defaultSchema));
-    }
-  }, {
-    key: "transform",
-    get: function get() {
-      return _Templates.default.current.hasOwnProperty('transform') ? _Templates.default.current.transform.bind(_Templates.default.current) : function (type, value) {
-        return value;
-      };
-    }
-  }, {
-    key: "widget",
-    get: function get() {
-      var widget = this.component.widget && _widgets.default[this.component.widget.type] ? new _widgets.default[this.component.widget.type](this.component.widget, this.component) : null;
-      return widget;
-    }
-  }, {
-    key: "submissionTimezone",
-    get: function get() {
-      this.options.submissionTimezone = this.options.submissionTimezone || _lodash.default.get(this.root, 'options.submissionTimezone');
-      return this.options.submissionTimezone;
-    }
-  }, {
-    key: "hasModalSaveButton",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "viewOnly",
-    get: function get() {
-      return this.options.readOnly && this.options.viewAsHtml;
-    }
-  }, {
-    key: "defaultViewOnlyValue",
-    get: function get() {
-      return '-';
-    }
-  }, {
-    key: "className",
-    get: function get() {
-      var className = this.hasInput ? 'form-group has-feedback ' : '';
-      className += "formio-component formio-component-".concat(this.component.type, " ");
-
-      if (this.key) {
-        className += "formio-component-".concat(this.key, " ");
-      }
-
-      if (this.component.multiple) {
-        className += 'formio-component-multiple ';
-      }
-
-      if (this.component.customClass) {
-        className += this.component.customClass;
-      }
-
-      if (this.hasInput && this.component.validate && (0, FormioUtils.boolValue)(this.component.validate.required)) {
-        className += ' required';
-      }
-
-      if (this.labelIsHidden()) {
-        className += ' formio-component-label-hidden';
-      }
-
-      if (!this.visible) {
-        className += ' formio-hidden';
-      }
-
-      return className;
-    }
-    /**
-     * Build the custom style from the layout values
-     * @return {string} - The custom style
-     */
-
-  }, {
-    key: "customStyle",
-    get: function get() {
-      var customCSS = '';
-
-      _lodash.default.each(this.component.style, function (value, key) {
-        if (value !== '') {
-          customCSS += "".concat(key, ":").concat(value, ";");
-        }
-      });
-
-      return customCSS;
-    }
-  }, {
-    key: "isMobile",
-    get: function get() {
-      return (0, _ismobilejs.default)();
-    }
-  }, {
-    key: "name",
-    get: function get() {
-      return this.t(this.component.label || this.component.placeholder || this.key);
-    }
-    /**
-     * Returns the error label for this component.
-     * @return {*}
-     */
-
-  }, {
-    key: "errorLabel",
-    get: function get() {
-      return this.t(this.component.errorLabel || this.component.label || this.component.placeholder || this.key);
-    }
-  }, {
-    key: "logic",
-    get: function get() {
-      return this.component.logic || [];
-    }
-  }, {
-    key: "wysiwygDefault",
-    get: function get() {
-      return {
-        quill: {
-          theme: 'snow',
-          placeholder: this.t(this.component.placeholder),
-          modules: {
-            toolbar: [[{
-              'size': ['small', false, 'large', 'huge']
-            }], // custom dropdown
-            [{
-              'header': [1, 2, 3, 4, 5, 6, false]
-            }], [{
-              'font': []
-            }], ['bold', 'italic', 'underline', 'strike', {
-              'script': 'sub'
-            }, {
-              'script': 'super'
-            }, 'clean'], [{
-              'color': []
-            }, {
-              'background': []
-            }], [{
-              'list': 'ordered'
-            }, {
-              'list': 'bullet'
-            }, {
-              'indent': '-1'
-            }, {
-              'indent': '+1'
-            }, {
-              'align': []
-            }], ['blockquote', 'code-block'], ['link', 'image', 'video', 'formula', 'source']]
-          }
-        },
-        ace: {
-          theme: 'ace/theme/xcode',
-          maxLines: 12,
-          minLines: 12,
-          tabSize: 2,
-          mode: 'javascript',
-          placeholder: this.t(this.component.placeholder)
-        },
-        ckeditor: {
-          image: {
-            toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
-            styles: ['full', 'alignLeft', 'alignCenter', 'alignRight']
-          }
-        },
-        default: {}
-      };
-    }
-  }, {
-    key: "tree",
-    get: function get() {
-      return this.component.tree || false;
-    }
-    /**
-     * The empty value for this component.
-     *
-     * @return {null}
-     */
-
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return null;
-    }
-  }, {
-    key: "rootValue",
-    get: function get() {
-      return this.root ? this.root.data : this.data;
-    }
-  }, {
-    key: "rootPristine",
-    get: function get() {
-      return _lodash.default.get(this, 'root.pristine', false);
-    }
-    /**
-     * Get the static value of this component.
-     * @return {*}
-     */
-
-  }, {
-    key: "dataValue",
-    get: function get() {
-      if (!this.key || !this.visible && this.component.clearOnHide && !this.rootPristine) {
-        return this.emptyValue;
-      }
-
-      if (!this.hasValue()) {
-        var empty = this.component.multiple ? [] : this.emptyValue;
-
-        if (!this.rootPristine) {
-          this.dataValue = empty;
-        }
-
-        return empty;
-      }
-
-      return _lodash.default.get(this._data, this.key);
-    }
-    /**
-     * Sets the static value of this component.
-     *
-     * @param value
-     */
-    ,
-    set: function set(value) {
-      if (!this.allowData || !this.key || !this.visible && this.component.clearOnHide && !this.rootPristine) {
-        return value;
-      }
-
-      if (value !== null && value !== undefined) {
-        value = this.hook('setDataValue', value, this.key, this._data);
-      }
-
-      if (value === null || value === undefined) {
-        this.unset();
-        return value;
-      }
-
-      _lodash.default.set(this._data, this.key, value);
-
-      return value;
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var _this21 = this;
-
-      var defaultValue = this.emptyValue;
-
-      if (this.component.defaultValue) {
-        defaultValue = this.component.defaultValue;
-      }
-
-      if (this.component.customDefaultValue && !this.options.preview) {
-        defaultValue = this.evaluate(this.component.customDefaultValue, {
-          value: ''
-        }, 'value');
-      }
-
-      var checkMask = function checkMask(value) {
-        if (typeof value === 'string') {
-          value = (0, _vanillaTextMask.conformToMask)(value, _this21.defaultMask).conformedValue;
-
-          if (!FormioUtils.matchInputMask(value, _this21.defaultMask)) {
-            value = '';
-          }
-        } else {
-          value = '';
-        }
-
-        return value;
-      };
-
-      if (this.defaultMask) {
-        if (Array.isArray(defaultValue)) {
-          defaultValue = defaultValue.map(checkMask);
-        } else {
-          defaultValue = checkMask(defaultValue);
-        }
-      } // Clone so that it creates a new instance.
-
-
-      return _lodash.default.cloneDeep(defaultValue);
-    }
-  }, {
-    key: "hasSetValue",
-    get: function get() {
-      return this.hasValue() && !this.isEmpty(this.dataValue);
-    }
-  }, {
-    key: "label",
-    get: function get() {
-      return this.component.label;
-    }
-    /**
-     * Set this component's label text and render it.
-     *
-     * @param value - The new label text.
-     */
-    ,
-    set: function set(value) {
-      this.component.label = value;
-
-      if (this.labelElement) {
-        this.labelElement.innerText = value;
-      }
-    }
-  }, {
-    key: "validationValue",
-    get: function get() {
-      return this.dataValue;
-    }
-  }, {
-    key: "errors",
-    get: function get() {
-      return this.error ? [this.error] : [];
-    }
-  }, {
-    key: "dataReady",
-    get: function get() {
-      return _nativePromiseOnly.default.resolve();
-    }
-  }, {
-    key: "disabled",
-    get: function get() {
-      return this._disabled || this.parentDisabled;
-    }
-    /**
-     * Disable this component.
-     *
-     * @param {boolean} disabled
-     */
-    ,
-    set: function set(disabled) {
-      this._disabled = disabled;
-    }
   }, {
     key: "fileService",
     get: function get() {
@@ -3603,6 +3626,203 @@ var Component = /*#__PURE__*/function (_Element) {
 
       return formio;
     }
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len5 = arguments.length, sources = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        sources[_key5] = arguments[_key5];
+      }
+
+      return _lodash.default.merge.apply(_lodash.default, [{
+        /**
+         * Determines if this component provides an input.
+         */
+        input: true,
+
+        /**
+         * The data key for this component (how the data is stored in the database).
+         */
+        key: '',
+
+        /**
+         * The input placeholder for this component.
+         */
+        placeholder: '',
+
+        /**
+         * The input prefix
+         */
+        prefix: '',
+
+        /**
+         * The custom CSS class to provide to this component.
+         */
+        customClass: '',
+
+        /**
+         * The input suffix.
+         */
+        suffix: '',
+
+        /**
+         * If this component should allow an array of values to be captured.
+         */
+        multiple: false,
+
+        /**
+         * The default value of this compoennt.
+         */
+        defaultValue: null,
+
+        /**
+         * If the data of this component should be protected (no GET api requests can see the data)
+         */
+        protected: false,
+
+        /**
+         * Validate if the value of this component should be unique within the form.
+         */
+        unique: false,
+
+        /**
+         * If the value of this component should be persisted within the backend api database.
+         */
+        persistent: true,
+
+        /**
+         * Determines if the component should be within the form, but not visible.
+         */
+        hidden: false,
+
+        /**
+         * If the component should be cleared when hidden.
+         */
+        clearOnHide: true,
+
+        /**
+         * This will refresh this component options when this field changes.
+         */
+        refreshOn: '',
+
+        /**
+         * This will redraw the component when this field changes.
+         */
+        redrawOn: '',
+
+        /**
+         * If this component should be included as a column within a submission table.
+         */
+        tableView: false,
+
+        /**
+         * If this component should be rendering in modal.
+         */
+        modalEdit: false,
+
+        /**
+         * The input label provided to this component.
+         */
+        label: '',
+        dataGridLabel: false,
+        labelPosition: 'top',
+        description: '',
+        errorLabel: '',
+        tooltip: '',
+        hideLabel: false,
+        tabindex: '',
+        disabled: false,
+        autofocus: false,
+        dbIndex: false,
+        customDefaultValue: '',
+        calculateValue: '',
+        calculateServer: false,
+        widget: null,
+
+        /**
+         * Attributes that will be assigned to the input elements of this component.
+         */
+        attributes: {},
+
+        /**
+         * This will perform the validation on either "change" or "blur" of the input element.
+         */
+        validateOn: 'change',
+
+        /**
+         * The validation criteria for this component.
+         */
+        validate: {
+          /**
+           * If this component is required.
+           */
+          required: false,
+
+          /**
+           * Custom JavaScript validation.
+           */
+          custom: '',
+
+          /**
+           * If the custom validation should remain private (only the backend will see it and execute it).
+           */
+          customPrivate: false,
+
+          /**
+           * If this component should implement a strict date validation if the Calendar widget is implemented.
+           */
+          strictDateValidation: false,
+          multiple: false,
+          unique: false
+        },
+
+        /**
+         * The simple conditional settings for a component.
+         */
+        conditional: {
+          show: null,
+          when: null,
+          eq: ''
+        },
+        overlay: {
+          style: '',
+          left: '',
+          top: '',
+          width: '',
+          height: ''
+        },
+        allowCalculateOverride: false,
+        encrypted: false,
+        showCharCount: false,
+        showWordCount: false,
+        properties: {},
+        allowMultipleMasks: false
+      }].concat(sources));
+    }
+    /**
+     * Return the validator as part of the component.
+     *
+     * @return {ValidationChecker}
+     * @constructor
+     */
+
+  }, {
+    key: "Validator",
+    get: function get() {
+      return _Validator.default;
+    }
+    /**
+     * Provides a table view for this component. Override if you wish to do something different than using getView
+     * method of your instance.
+     *
+     * @param value
+     * @param options
+     */
+
+    /* eslint-disable no-unused-vars */
+
+  }, {
+    key: "tableView",
+    value: function tableView(value, options) {}
   }]);
 
   return Component;

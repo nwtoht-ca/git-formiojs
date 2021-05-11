@@ -1,14 +1,12 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/web.dom-collections.for-each.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.array.concat.js");
 
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.array.slice.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 

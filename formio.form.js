@@ -1,25 +1,5 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -84,6 +64,26 @@ Object.defineProperty(exports, "Utils", {
   }
 });
 
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+var _lodash = _interopRequireDefault(require("lodash"));
+
 var _components = _interopRequireDefault(require("./components"));
 
 var _Builders = _interopRequireDefault(require("./builders/Builders"));
@@ -126,7 +126,7 @@ var registerPlugin = function registerPlugin(plugin) {
 
     switch (key) {
       case 'options':
-        _Formio.default.options = plugin.options;
+        _Formio.default.options = _lodash.default.merge(_Formio.default.options, plugin.options);
         break;
 
       case 'templates':

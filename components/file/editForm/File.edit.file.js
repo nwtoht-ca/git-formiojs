@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.array.map");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
 
 var _Formio = _interopRequireDefault(require("../../../Formio"));
 
@@ -212,7 +212,7 @@ var _default = [{
   input: true,
   key: 'filePattern',
   label: 'File Pattern',
-  placeholder: '.pdf,.jpg',
+  placeholder: '.jpg,video/*,application/pdf',
   tooltip: 'See <a href=\'https://github.com/danialfarid/ng-file-upload#full-reference\' target=\'_blank\'>https://github.com/danialfarid/ng-file-upload#full-reference</a> for how to specify file patterns.',
   weight: 50
 }, {

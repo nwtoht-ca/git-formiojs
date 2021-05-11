@@ -19,9 +19,9 @@ var _default = [{
   input: true,
   placeholder: '/*** Lodash Template Code ***/',
   description: 'Two available variables. "value" is the array of row data and "components" is the array of components in the grid.',
-  tooltip: 'This is the <a href="https://lodash.com/docs/4.17.5#template">Lodash Template</a> used to render the header of the Edit grid.',
+  tooltip: 'This is the <a href=\'https://lodash.com/docs/4.17.5#template\'>Lodash Template</a> used to render the header of the Edit grid.',
   customConditional: function customConditional() {
-    return !_Evaluator.default.noeval;
+    return !_Evaluator.default.noeval || _Evaluator.default.protectedEval;
   }
 }, {
   type: 'textarea',
@@ -33,9 +33,9 @@ var _default = [{
   input: true,
   placeholder: '/*** Lodash Template Code ***/',
   description: 'Three available variables. "row" is an object of one row\'s data, "components"' + ' is the array of components in the grid and "state" is current row\'s state (can be "draft" or "saved").' + ' To add click events, add the classes "editRow" and "removeRow" to elements.',
-  tooltip: 'This is the <a href="https://lodash.com/docs/4.17.5#template">Lodash Template</a> used to render each row of the Edit grid.',
+  tooltip: 'This is the <a href=\'https://lodash.com/docs/4.17.5#template\'>Lodash Template</a> used to render each row of the Edit grid.',
   customConditional: function customConditional() {
-    return !_Evaluator.default.noeval;
+    return !_Evaluator.default.noeval || _Evaluator.default.protectedEval;
   }
 }, {
   type: 'textarea',
@@ -47,9 +47,9 @@ var _default = [{
   input: true,
   placeholder: '/*** Lodash Template Code ***/',
   description: 'Two available variables. "value" is the array of row data and "components" is the array of components in the grid.',
-  tooltip: 'This is the <a href="https://lodash.com/docs/4.17.5#template">Lodash Template</a> used to render the footer of the Edit grid.',
+  tooltip: 'This is the <a href=\'https://lodash.com/docs/4.17.5#template\'>Lodash Template</a> used to render the footer of the Edit grid.',
   customConditional: function customConditional() {
-    return !_Evaluator.default.noeval;
+    return !_Evaluator.default.noeval || _Evaluator.default.protectedEval;
   }
 }, {
   type: 'textfield',

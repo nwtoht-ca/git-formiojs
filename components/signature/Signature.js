@@ -2,14 +2,34 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.reflect.get.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _signature_pad = _interopRequireDefault(require("signature_pad/dist/signature_pad.js"));
 
@@ -39,7 +59,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -71,6 +91,30 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
       }
     }
   }, {
+    key: "emptyValue",
+    get: function get() {
+      return '';
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return SignatureComponent.schema();
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(SignatureComponent.prototype), "inputInfo", this);
+
+      info.type = 'input';
+      info.attr.type = 'hidden';
+      return info;
+    }
+  }, {
+    key: "className",
+    get: function get() {
+      return "".concat(_get(_getPrototypeOf(SignatureComponent.prototype), "className", this), " signature-pad");
+    }
+  }, {
     key: "labelIsHidden",
     value: function labelIsHidden() {
       return this.component.hideLabel;
@@ -82,7 +126,7 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
 
       var changed = _get(_getPrototypeOf(SignatureComponent.prototype), "setValue", this).call(this, value, flags);
 
-      if (value && this.refs.signatureImage && this.options.readOnly) {
+      if (value && this.refs.signatureImage && (this.options.readOnly || this.disabled)) {
         this.refs.signatureImage.setAttribute('src', value);
         this.showCanvas(false);
       }
@@ -150,7 +194,7 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
   }, {
     key: "checkSize",
     value: function checkSize(force, scale) {
-      if (force || this.refs.padBody.offsetWidth !== this.currentWidth) {
+      if (this.refs.padBody && (force || this.refs.padBody && this.refs.padBody.offsetWidth !== this.currentWidth)) {
         this.scale = force ? scale : this.scale;
         this.currentWidth = this.refs.padBody.offsetWidth;
         this.refs.canvas.width = this.currentWidth * this.scale;
@@ -174,6 +218,11 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
         element: _get(_getPrototypeOf(SignatureComponent.prototype), "renderElement", this).call(this, value, index),
         required: _lodash.default.get(this.component, 'validate.required', false)
       });
+    }
+  }, {
+    key: "hasModalSaveButton",
+    get: function get() {
+      return false;
     }
   }, {
     key: "getModalPreviewTemplate",
@@ -278,35 +327,6 @@ var SignatureComponent = /*#__PURE__*/function (_Input) {
         width: this.refs.canvas.width,
         height: this.refs.canvas.height
       });
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return '';
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return SignatureComponent.schema();
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(SignatureComponent.prototype), "inputInfo", this);
-
-      info.type = 'input';
-      info.attr.type = 'hidden';
-      return info;
-    }
-  }, {
-    key: "className",
-    get: function get() {
-      return "".concat(_get(_getPrototypeOf(SignatureComponent.prototype), "className", this), " signature-pad");
-    }
-  }, {
-    key: "hasModalSaveButton",
-    get: function get() {
-      return false;
     }
   }], [{
     key: "schema",

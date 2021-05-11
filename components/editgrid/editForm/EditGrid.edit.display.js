@@ -39,7 +39,7 @@ var _default = [{
   placeholder: 'show = ...',
   tooltip: 'Specify condition when Add Button should be displayed.',
   editor: 'ace',
-  as: 'js',
+  as: 'javascript',
   wysiwyg: {
     minLines: 3
   }

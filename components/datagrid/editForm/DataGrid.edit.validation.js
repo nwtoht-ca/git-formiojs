@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _default = [{
+  ignore: true,
+  key: 'unique'
+}, {
   weight: 110,
   key: 'validate.minLength',
   label: 'Minimum Length',

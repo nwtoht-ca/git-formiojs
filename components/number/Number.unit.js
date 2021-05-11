@@ -1,5 +1,7 @@
 "use strict";
 
+require("core-js/modules/es.string.trim.js");
+
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
@@ -7,6 +9,8 @@ var _lodash = _interopRequireDefault(require("lodash"));
 var _merge2 = _interopRequireDefault(require("lodash/merge"));
 
 var _harness = _interopRequireDefault(require("../../../test/harness"));
+
+var _Formio = _interopRequireDefault(require("./../../Formio"));
 
 var _Number = _interopRequireDefault(require("./Number"));
 
@@ -452,6 +456,54 @@ describe('Number Component', function () {
     return _harness.default.testCreate(_Number.default, comp).then(function (number) {
       _powerAssert.default.deepEqual(_lodash.default.get(number, ['refs', 'input', '0', 'value']), '4.20');
     });
+  });
+  it('Should provide min/max validation', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp6);
+
+    var validValues = [null, 20, 555, 34, 20.000001, 554.999];
+    var invalidMin = [19.99, 0, 1, 0.34, -0.1, -20];
+    var invalidMax = [555.00000001, 100000, 5555];
+
+    var testValidity = function testValidity(values, valid, message, lastValue) {
+      _lodash.default.each(values, function (value) {
+        var element = document.createElement('div');
+
+        _Formio.default.createForm(element, form, {
+          language: 'en-US'
+        }).then(function (form) {
+          form.setPristine(false);
+          var component = form.getComponent('number');
+          var changed = component.setValue(value);
+          var error = message;
+
+          if (value) {
+            _powerAssert.default.equal(changed, true, 'Should set value');
+          }
+
+          setTimeout(function () {
+            if (valid) {
+              _powerAssert.default.equal(!!component.error, false, 'Should not contain error');
+            } else {
+              _powerAssert.default.equal(!!component.error, true, 'Should contain error');
+
+              _powerAssert.default.equal(component.error.message, error, 'Should contain error message');
+
+              _powerAssert.default.equal(component.element.classList.contains('has-error'), true, 'Should contain error class');
+
+              _powerAssert.default.equal(component.refs.messageContainer.textContent.trim(), error, 'Should show error');
+            }
+
+            if (_lodash.default.isEqual(value, lastValue)) {
+              done();
+            }
+          }, 300);
+        }).catch(done);
+      });
+    };
+
+    testValidity(validValues, true);
+    testValidity(invalidMin, false, 'Number cannot be less than 20.');
+    testValidity(invalidMax, false, 'Number cannot be greater than 555.', invalidMax[invalidMax.length - 1]);
   }); // it('Should add trailing zeros on blur, if decimal required', (done) => {
   //   const comp = _.cloneDeep(comp3);
   //

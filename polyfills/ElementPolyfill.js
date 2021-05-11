@@ -1,34 +1,34 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es.object.define-getter.js");
 
-require("core-js/modules/es.symbol.description");
+require("core-js/modules/es.object.define-setter.js");
 
-require("core-js/modules/es.symbol.iterator");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.regexp.exec.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.string.split.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.string.replace.js");
 
-require("core-js/modules/es.object.define-getter");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.object.define-setter");
+require("core-js/modules/es.regexp.to-string.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.array.join.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/web.dom-collections.iterator.js");
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 

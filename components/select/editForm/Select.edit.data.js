@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.regexp.flags");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.regexp.flags.js");
 
 var _utils = require("../../../utils/utils");
 
@@ -124,9 +124,15 @@ var _default = [{
   weight: 11,
   conditional: {
     json: {
-      in: [{
-        var: 'data.dataSrc'
-      }, ['resource', 'url']]
+      and: [{
+        in: [{
+          var: 'data.dataSrc'
+        }, ['resource', 'url']]
+      }, {
+        '!==': [{
+          var: 'data.widget'
+        }, 'html5']
+      }]
     }
   }
 }, {
@@ -234,7 +240,7 @@ var _default = [{
   label: 'Value Property',
   key: 'valueProperty',
   skipMerge: true,
-  clearOnHide: false,
+  clearOnHide: true,
   tooltip: 'The field to use as the value.',
   weight: 11,
   refreshOn: 'data.resource',
@@ -276,6 +282,10 @@ var _default = [{
         '===': [{
           var: 'data.dataSrc'
         }, 'resource']
+      }, {
+        '!==': [{
+          var: 'data.reference'
+        }, true]
       }, {
         var: 'data.data.resource'
       }]
@@ -686,5 +696,25 @@ var _default = [{
   key: 'useExactSearch',
   label: 'Use exact search',
   tooltip: 'Disables search algorithm threshold.'
+}, {
+  type: 'checkbox',
+  input: true,
+  weight: 29,
+  key: 'ignoreCache',
+  label: 'Disables Storing Request Result in the Cache',
+  tooltip: 'Check it if you don\'t want the requests and its results to be stored in the cache. By default, it is stored and if the Select tries to make the request to the same URL with the same paremetrs, the cached data will be returned. It allows to increase performance, but if the remote source\'s data is changing quite often and you always need to keep it up-to-date, uncheck this option.',
+  conditional: {
+    json: {
+      'or': [{
+        '===': [{
+          var: 'data.dataSrc'
+        }, 'url']
+      }, {
+        '===': [{
+          var: 'data.dataSrc'
+        }, 'resource']
+      }]
+    }
+  }
 }];
 exports.default = _default;

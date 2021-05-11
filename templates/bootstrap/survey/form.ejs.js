@@ -7,7 +7,7 @@ function print() { __p += __j.call(arguments, '') }
 __p += '<table class="table table-striped table-bordered">\n  <thead>\n    <tr>\n      <th></th>\n      ';
  ctx.component.values.forEach(function(value) { ;
 __p += '\n      <th style="text-align: center;">' +
-((__t = (ctx.t(value.label))) == null ? '' : __t) +
+((__t = (ctx.t(value.label, { _userInput: true }))) == null ? '' : __t) +
 '</th>\n      ';
  }) ;
 __p += '\n    </tr>\n  </thead>\n  <tbody>\n    ';

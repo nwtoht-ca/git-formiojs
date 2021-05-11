@@ -1,13 +1,25 @@
 "use strict";
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
 
 var _address = _interopRequireDefault(require("./address"));
 
@@ -125,9 +137,13 @@ var _wizardNav = _interopRequireDefault(require("./wizardNav"));
 
 var _cssClasses = _interopRequireDefault(require("./cssClasses"));
 
+var _errorsList = _interopRequireDefault(require("./errorsList"));
+
+var _alert = _interopRequireDefault(require("./alert"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -204,7 +220,9 @@ var _default = _objectSpread(_objectSpread({
   well: _well.default,
   wizard: _wizard.default,
   wizardHeader: _wizardHeader.default,
-  wizardNav: _wizardNav.default
+  wizardNav: _wizardNav.default,
+  errorsList: _errorsList.default,
+  alert: _alert.default
 });
 
 exports.default = _default;

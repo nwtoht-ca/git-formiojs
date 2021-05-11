@@ -1,22 +1,20 @@
 "use strict";
 
-require("core-js/modules/es.array.every");
+require("core-js/modules/es.string.trim.js");
 
-require("core-js/modules/es.array.from");
+require("core-js/modules/es.array.from.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.array.includes.js");
 
-require("core-js/modules/es.promise");
+require("core-js/modules/es.string.includes.js");
 
-require("core-js/modules/es.promise.finally");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.promise.js");
 
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.promise.finally.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
@@ -31,6 +29,8 @@ var _modalEditGrid = _interopRequireDefault(require("../../../test/forms/modalEd
 var _Webform = _interopRequireDefault(require("../../Webform"));
 
 var _formtest = require("../../../test/formtest");
+
+var _Formio = _interopRequireDefault(require("../../Formio"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -511,7 +511,7 @@ describe('EditGrid Component', function () {
         }, 100);
       }).catch(done);
     });
-    it('Should set alert with validation errors on save', function (done) {
+    it('Should set alert with validation errors on save and update them', function (done) {
       var formElement = document.createElement('div');
       var form = new _Webform.default(formElement);
       form.setForm(_modalEditGrid.default).then(function () {
@@ -522,7 +522,8 @@ describe('EditGrid Component', function () {
 
         editGrid.addRow();
         setTimeout(function () {
-          var dialog = document.querySelector('[ref="dialogContents"]');
+          var editRow = editGrid.editRows[0];
+          var dialog = editRow.dialog;
           var saveButton = dialog.querySelector('.btn.btn-primary');
           var clickEvent = new Event('click');
           saveButton.dispatchEvent(clickEvent);
@@ -535,8 +536,20 @@ describe('EditGrid Component', function () {
 
             _powerAssert.default.equal(errorsLinks.length, 2);
 
-            document.body.innerHTML = '';
-            done();
+            var textField = editRow.components[0].getComponent('textField');
+            textField.setValue('new value');
+            setTimeout(function () {
+              var alertAfterFixingField = dialog.querySelector('.alert.alert-danger');
+
+              _powerAssert.default.equal(form.errors.length, 2);
+
+              var errorsLinksAfterFixingField = alertAfterFixingField.querySelectorAll('li');
+
+              _powerAssert.default.equal(errorsLinksAfterFixingField.length, 1);
+
+              document.body.innerHTML = '';
+              done();
+            }, 450);
           }, 100);
         }, 100);
       }).catch(done);
@@ -647,6 +660,8 @@ describe('EditGrid Component', function () {
                       textField.setValue('someValue');
                       setTimeout(function () {
                         var errorAlert = editGrid.editRows[0].dialog.querySelector("#error-list-".concat(editGrid.id));
+                        var hasError = textField.className.includes('has-error');
+                        (0, _powerAssert.default)(!hasError, 'Should stay valid until form is submitted');
 
                         _powerAssert.default.equal(errorAlert, null, 'Should be valid');
 
@@ -661,6 +676,59 @@ describe('EditGrid Component', function () {
         }, 100);
       }).catch(done).finally(function () {
         _modalEditGrid.default.components[0].rowDrafts = false;
+      });
+    });
+    it('Should keep fields valid inside NestedForms id drafts are enabled', function (done) {
+      var formElement = document.createElement('div');
+      var form = new _Webform.default(formElement);
+      _modalEditGrid.default.components[0].rowDrafts = true;
+      form.setForm(_modalEditGrid.default).then(function () {
+        var editGrid = form.components[0];
+        form.checkValidity(form._data, true, form._data);
+
+        _powerAssert.default.equal(form.errors.length, 1);
+
+        editGrid.addRow();
+        setTimeout(function () {
+          var editRow = editGrid.editRows[0];
+          var dialog = editRow.dialog;
+          var saveButton = dialog.querySelector('.btn.btn-primary');
+          var clickEvent = new Event('click');
+          saveButton.dispatchEvent(clickEvent);
+          setTimeout(function () {
+            var alert = dialog.querySelector('.alert.alert-danger');
+
+            _powerAssert.default.equal(form.errors.length, 1, 'Should not add new errors when drafts are enabled');
+
+            (0, _powerAssert.default)(!alert, 'Should not show an erros alert when drafts are enabled');
+            var textField = editRow.components[0].getComponent('textField');
+            editGrid.editRow(0);
+            setTimeout(function () {
+              textField.setValue('new value', {
+                modified: true
+              });
+              setTimeout(function () {
+                _powerAssert.default.equal(textField.dataValue, 'new value');
+
+                textField.setValue('', {
+                  modified: true
+                });
+                setTimeout(function () {
+                  _powerAssert.default.equal(textField.dataValue, '');
+
+                  _powerAssert.default.equal(editGrid.editRows[0].errors.length, 0, 'Should not add error to components inside draft row');
+
+                  var textFieldComponent = textField.element;
+                  (0, _powerAssert.default)(!textFieldComponent.className.includes('has-error'), 'Should not add error class to component when drafts enabled');
+                  document.innerHTML = '';
+                  done();
+                }, 300);
+              }, 300);
+            }, 150);
+          }, 100);
+        }, 100);
+      }).catch(done).finally(function () {
+        delete _modalEditGrid.default.components[0].rowDrafts;
       });
     }); // it('', (done) => {
     //   const formElement = document.createElement('div');
@@ -755,6 +823,151 @@ describe('EditGrid Component', function () {
           }, 150);
         }, 100);
       }, 150);
+    }).catch(done);
+  });
+  it('Should display summary with values only for components that are visible at least in one row', function (done) {
+    var formElement = document.createElement('div');
+    var form = new _Webform.default(formElement);
+    form.setForm(_fixtures.comp9).then(function () {
+      var editGrid = form.getComponent('editGrid');
+
+      var checkRows = function checkRows(columnsNumber, rowsNumber) {
+        var rowWithColumns = editGrid.element.querySelector('.row');
+        var rowsWithValues = editGrid.element.querySelectorAll('[ref="editgrid-editGrid-row"]');
+
+        _powerAssert.default.equal(rowWithColumns.children.length, columnsNumber, 'Row should contain values only for visible components');
+
+        _powerAssert.default.equal(rowsWithValues.length, rowsNumber, 'Should have corrent number of rows');
+      };
+
+      checkRows(2, 0);
+      form.setValue({
+        data: {
+          editGrid: [{
+            textField: 'test1',
+            checkbox: false
+          }, {
+            textField: 'test2',
+            checkbox: false
+          }]
+        }
+      });
+      setTimeout(function () {
+        checkRows(2, 2);
+        form.setValue({
+          data: {
+            editGrid: [{
+              textField: 'test1',
+              checkbox: false
+            }, {
+              textField: 'test2',
+              checkbox: true
+            }]
+          }
+        });
+        setTimeout(function () {
+          checkRows(3, 2);
+          form.setValue({
+            data: {
+              editGrid: [{
+                textField: 'test1',
+                checkbox: false
+              }, {
+                textField: 'test2',
+                checkbox: true,
+                textArea: 'test22'
+              }, {
+                textField: 'show',
+                checkbox: true,
+                container: {
+                  number1: 1111
+                },
+                textArea: 'test3'
+              }]
+            }
+          });
+          setTimeout(function () {
+            checkRows(4, 3);
+            form.setValue({
+              data: {
+                editGrid: [{
+                  textField: 'test1',
+                  checkbox: false
+                }, {
+                  textField: 'test2',
+                  checkbox: false
+                }, {
+                  textField: 'show',
+                  checkbox: false,
+                  container: {
+                    number1: 1111
+                  }
+                }]
+              }
+            });
+            setTimeout(function () {
+              checkRows(3, 3);
+              done();
+            }, 300);
+          }, 300);
+        }, 300);
+      }, 300);
+    }).catch(done);
+  });
+});
+describe('EditGrid Open when Empty', function () {
+  it('Should be opened when shown conditionally', function (done) {
+    var formElement = document.createElement('div');
+
+    _Formio.default.createForm(formElement, _fixtures.withOpenWhenEmptyAndConditions).then(function (form) {
+      var radio = form.getComponent(['radio']);
+      radio.setValue('show');
+      setTimeout(function () {
+        var editGrid = form.getComponent(['editGrid']);
+
+        _powerAssert.default.equal(editGrid.visible, true, 'Should be visible');
+
+        _powerAssert.default.equal(editGrid.editRows.length, 1, 'Should have 1 row');
+
+        var textField = editGrid.editRows[0].components[0];
+
+        _harness.default.dispatchEvent('input', textField.element, '[name="data[editGrid][0][textField]"]', function (input) {
+          return input.value = 'Value';
+        });
+
+        setTimeout(function () {
+          var row = editGrid.editRows[0];
+          console.log({
+            row: row
+          });
+
+          _powerAssert.default.equal(row.data.textField, 'Value', 'Value should be set properly');
+
+          editGrid.saveRow(0);
+          setTimeout(function () {
+            _powerAssert.default.deepEqual(form.data.editGrid, [{
+              textField: 'Value',
+              select1: ''
+            }], 'Value should be saved correctly');
+
+            radio.setValue('hide');
+            setTimeout(function () {
+              _powerAssert.default.equal(editGrid.visible, false, 'Should be hidden');
+
+              radio.setValue('show');
+              setTimeout(function () {
+                _powerAssert.default.equal(editGrid.visible, true, 'Should be visible');
+
+                _powerAssert.default.equal(editGrid.editRows.length, 1, 'Should have 1 row');
+
+                _powerAssert.default.equal(editGrid.editRows[0].state, 'new', 'Row should be a new one');
+
+                done();
+              }, 300);
+            }, 300);
+          }, 350);
+        }, 350);
+      }, 300);
     }).catch(done);
   });
 });

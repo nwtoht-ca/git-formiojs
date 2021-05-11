@@ -1,19 +1,19 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.string.trim");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.setXhrHeaders = void 0;
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.array.concat.js");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -21,6 +21,23 @@ var _trim2 = _interopRequireDefault(require("lodash/trim"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var setXhrHeaders = function setXhrHeaders(formio, xhr) {
+  var headers = formio.options.headers;
+
+  if (headers) {
+    var ValidHeaders = {
+      'Content-Disposition': true
+    };
+
+    for (var header in headers) {
+      if (ValidHeaders[header]) {
+        xhr.setRequestHeader(header, headers[header]);
+      }
+    }
+  }
+};
+
+exports.setXhrHeaders = setXhrHeaders;
 var XHR = {
   trim: function trim(text) {
     return (0, _trim2.default)(text, '/');
@@ -30,7 +47,7 @@ var XHR = {
       return !!item;
     }).map(XHR.trim).join('/');
   },
-  upload: function upload(formio, type, xhrCb, file, fileName, dir, progressCallback, groupPermissions, groupId) {
+  upload: function upload(formio, type, xhrCb, file, fileName, dir, progressCallback, groupPermissions, groupId, abortCallback) {
     return new _nativePromiseOnly.default(function (resolve, reject) {
       // Send the pre response to sign the upload.
       var pre = new XMLHttpRequest(); // This only fires on a network error.
@@ -50,7 +67,18 @@ var XHR = {
 
           if (typeof progressCallback === 'function') {
             xhr.upload.onprogress = progressCallback;
-          } // Fire on network error.
+          }
+
+          if (typeof abortCallback === 'function') {
+            abortCallback(function () {
+              return xhr.abort();
+            });
+          }
+
+          xhr.openAndSetHeaders = function () {
+            xhr.open.apply(xhr, arguments);
+            setXhrHeaders(formio, xhr);
+          }; // Fire on network error.
 
 
           xhr.onerror = function (err) {

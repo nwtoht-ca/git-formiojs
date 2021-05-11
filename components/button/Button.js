@@ -2,44 +2,60 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.array.splice");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.search");
-
-require("core-js/modules/es.string.split");
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.string.search.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -55,13 +71,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -73,7 +89,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -81,42 +97,6 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
   _inherits(ButtonComponent, _Field);
 
   var _super = _createSuper(ButtonComponent);
-
-  _createClass(ButtonComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _Input.default.schema.apply(_Input.default, [{
-        type: 'button',
-        label: 'Submit',
-        key: 'submit',
-        size: 'md',
-        leftIcon: '',
-        rightIcon: '',
-        block: false,
-        action: 'submit',
-        persistent: false,
-        disableOnInvalid: false,
-        theme: 'primary',
-        dataGridLabel: true
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Button',
-        group: 'basic',
-        icon: 'stop',
-        documentation: '/userguide/#button',
-        weight: 110,
-        schema: ButtonComponent.schema()
-      };
-    }
-  }]);
 
   function ButtonComponent(component, options, data) {
     var _this;
@@ -129,8 +109,57 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
   }
 
   _createClass(ButtonComponent, [{
+    key: "defaultSchema",
+    get: function get() {
+      return ButtonComponent.schema();
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(ButtonComponent.prototype), "elementInfo", this).call(this);
+
+      info.type = 'button';
+      info.attr.type = ['submit', 'saveState'].includes(this.component.action) ? 'submit' : 'button';
+      this.component.theme = this.component.theme || 'default';
+      info.attr.class = "btn btn-".concat(this.component.theme);
+
+      if (this.component.size) {
+        info.attr.class += " btn-".concat(this.component.size);
+      }
+
+      if (this.component.block) {
+        info.attr.class += ' btn-block';
+      }
+
+      if (this.component.customClass) {
+        info.attr.class += " ".concat(this.component.customClass);
+      }
+
+      info.content = this.t(this.component.label, {
+        _userInput: true
+      });
+      return info;
+    }
+  }, {
+    key: "labelInfo",
+    get: function get() {
+      return {
+        hidden: true
+      };
+    }
+  }, {
+    key: "loading",
+    set: function set(loading) {
+      this.setLoading(this.refs.button, loading);
+    }
+  }, {
+    key: "skipInEmail",
+    get: function get() {
+      return true;
+    } // No label needed for buttons.
+
+  }, {
     key: "createLabel",
-    // No label needed for buttons.
     value: function createLabel() {}
   }, {
     key: "createInput",
@@ -139,9 +168,46 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       return this.refs.button;
     }
   }, {
+    key: "emptyValue",
+    get: function get() {
+      return false;
+    }
+  }, {
     key: "getValue",
     value: function getValue() {
       return this.dataValue;
+    }
+  }, {
+    key: "clicked",
+    get: function get() {
+      return this.dataValue;
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "className",
+    get: function get() {
+      var className = _get(_getPrototypeOf(ButtonComponent.prototype), "className", this);
+
+      className += ' form-group';
+      return className;
+    }
+  }, {
+    key: "oauthConfig",
+    get: function get() {
+      if (_lodash.default.has(this, 'root.form.config.oauth') && this.component.oauthProvider) {
+        return this.root.form.config.oauth[this.component.oauthProvider];
+      } // Legacy oauth location.
+
+
+      if (this.component.oauth) {
+        return this.component.oauth;
+      }
+
+      return false;
     }
   }, {
     key: "render",
@@ -184,7 +250,7 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
           _this2.setContent(_this2.refs.buttonMessage, resultMessage);
         }, true);
         this.on('submitError', function (message) {
-          var resultMessage = _lodash.default.isString(message) ? message : _this2.t(_this2.errorMessage('submitError'));
+          var resultMessage = _lodash.default.isString(message) ? _this2.t(message) : _this2.t(_this2.errorMessage('submitError'));
           _this2.loading = false;
           _this2.disabled = false;
           _this2.hasError = true;
@@ -289,6 +355,13 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
         }
       }, true);
       this.addEventListener(this.refs.button, 'click', this.onClick.bind(this));
+      this.addEventListener(this.refs.buttonMessageContainer, 'click', function () {
+        if (_this2.refs.buttonMessageContainer.classList.contains('has-error')) {
+          if (_this2.root && _this2.root.alert) {
+            _this2.scrollIntoView(_this2.root.alert);
+          }
+        }
+      });
       this.disabled = this.shouldDisabled;
       this.setDisabled(this.refs.button, this.disabled);
 
@@ -312,6 +385,13 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
           this.openOauth(this.oauthConfig);
         }
       }
+    }
+  }, {
+    key: "shouldDisabled",
+    get: function get() {
+      var _this$filesUploading;
+
+      return _get(_getPrototypeOf(ButtonComponent.prototype), "shouldDisabled", this) || !!((_this$filesUploading = this.filesUploading) !== null && _this$filesUploading !== void 0 && _this$filesUploading.length) || this.isDisabledOnInvalid;
     }
   }, {
     key: "attach",
@@ -459,7 +539,7 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
       var params = {
         response_type: 'code',
         client_id: settings.clientId,
-        redirect_uri: window.location.origin || "".concat(window.location.protocol, "//").concat(window.location.host),
+        redirect_uri: settings.redirectURI || window.location.origin || "".concat(window.location.protocol, "//").concat(window.location.host),
         state: settings.state,
         scope: settings.scope
       };
@@ -562,96 +642,39 @@ var ButtonComponent = /*#__PURE__*/function (_Field) {
         recaptchaComponent.verify("".concat(this.component.key, "Click"));
       }
     }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return ButtonComponent.schema();
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
+        extend[_key] = arguments[_key];
+      }
+
+      return _Input.default.schema.apply(_Input.default, [{
+        type: 'button',
+        label: 'Submit',
+        key: 'submit',
+        size: 'md',
+        leftIcon: '',
+        rightIcon: '',
+        block: false,
+        action: 'submit',
+        persistent: false,
+        disableOnInvalid: false,
+        theme: 'primary',
+        dataGridLabel: true
+      }].concat(extend));
     }
   }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(ButtonComponent.prototype), "elementInfo", this).call(this);
-
-      info.type = 'button';
-      info.attr.type = ['submit', 'saveState'].includes(this.component.action) ? 'submit' : 'button';
-      this.component.theme = this.component.theme || 'default';
-      info.attr.class = "btn btn-".concat(this.component.theme);
-
-      if (this.component.size) {
-        info.attr.class += " btn-".concat(this.component.size);
-      }
-
-      if (this.component.block) {
-        info.attr.class += ' btn-block';
-      }
-
-      if (this.component.customClass) {
-        info.attr.class += " ".concat(this.component.customClass);
-      }
-
-      info.content = this.t(this.component.label);
-      return info;
-    }
-  }, {
-    key: "labelInfo",
+    key: "builderInfo",
     get: function get() {
       return {
-        hidden: true
+        title: 'Button',
+        group: 'basic',
+        icon: 'stop',
+        documentation: '/userguide/#button',
+        weight: 110,
+        schema: ButtonComponent.schema()
       };
-    }
-  }, {
-    key: "loading",
-    set: function set(loading) {
-      this.setLoading(this.refs.button, loading);
-    }
-  }, {
-    key: "skipInEmail",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return false;
-    }
-  }, {
-    key: "clicked",
-    get: function get() {
-      return this.dataValue;
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      return false;
-    }
-  }, {
-    key: "className",
-    get: function get() {
-      var className = _get(_getPrototypeOf(ButtonComponent.prototype), "className", this);
-
-      className += ' form-group';
-      return className;
-    }
-  }, {
-    key: "oauthConfig",
-    get: function get() {
-      if (_lodash.default.has(this, 'root.form.config.oauth') && this.component.oauthProvider) {
-        return this.root.form.config.oauth[this.component.oauthProvider];
-      } // Legacy oauth location.
-
-
-      if (this.component.oauth) {
-        return this.component.oauth;
-      }
-
-      return false;
-    }
-  }, {
-    key: "shouldDisabled",
-    get: function get() {
-      var _this$filesUploading;
-
-      return _get(_getPrototypeOf(ButtonComponent.prototype), "shouldDisabled", this) || !!((_this$filesUploading = this.filesUploading) !== null && _this$filesUploading !== void 0 && _this$filesUploading.length) || this.isDisabledOnInvalid;
     }
   }]);
 

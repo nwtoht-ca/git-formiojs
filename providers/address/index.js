@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.function.name");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.function.name.js");
 
 var _AzureAddressProvider2 = require("./AzureAddressProvider");
 

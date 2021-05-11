@@ -1,8 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.function.name.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 

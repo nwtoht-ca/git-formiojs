@@ -79,6 +79,7 @@ var _default = [{
     rows: 5,
     editor: 'ace',
     hideLabel: true,
+    as: 'javascript',
     input: true
   }, {
     type: 'htmlelement',

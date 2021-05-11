@@ -1257,62 +1257,23 @@ describe('Validator Tests', function () {
         message: 'DEF'
       }]
     });
-    component.dataValue = 't';
+    var valid = ['test.com', 'http://test.com', 'https://test.com', 'https://www.test.com', 'https://one.two.three.four.test.io', 'https://www.test.com/test', 'https://www.test.com/test/test.html', 'https://www.test.com/one/two/three/four/test.html', 'www.example.com', 'http://www.example.com#up', 'https://wikipedia.org/@/ru', 'https://wikipedia.com/@', 'http://www.site.com:8008', 'ftp://www.site.com', undefined, null];
+    var invalid = ['t', 'test', 'http://test', 'test@gmail.com', 'test@gmail.com ', 'test@gmail...com', 'test..com', 'http://test...com', 'http:://test.com', 'http:///test.com', 'https://www..example.com'];
 
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), fail);
+    try {
+      valid.forEach(function (value) {
+        component.dataValue = value;
 
-    component.dataValue = 'test';
+        _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
+      });
+      invalid.forEach(function (value) {
+        component.dataValue = value;
 
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), fail);
-
-    component.dataValue = 'test.com';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'http://test';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), fail);
-
-    component.dataValue = 'http://test.com';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://test.com';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://www.test.com';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://one.two.three.four.test.io';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://www.test.com/test';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://www.test.com/test/test.html';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = 'https://www.test.com/one/two/three/four/test.html';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = '';
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = undefined;
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    component.dataValue = null;
-
-    _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), pass);
-
-    done();
+        _powerAssert.default.deepEqual(_Validator.default.checkComponent(component, {}), fail);
+      });
+      done();
+    } catch (e) {
+      done(e);
+    }
   });
 });

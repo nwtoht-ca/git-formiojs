@@ -1,19 +1,19 @@
 "use strict";
 
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/web.dom-collections.iterator");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.function.name.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -163,13 +163,17 @@ var _default = [{
     }
   }
 }, {
-  type: 'textfield',
+  type: 'textarea',
   input: true,
-  key: 'providerOptions.params.region',
-  label: 'Region',
-  placeholder: 'Enter Region',
-  weight: 20,
-  tooltip: 'Specify Region for Google Maps APIs.',
+  key: 'providerOptions.params.autocompleteOptions',
+  label: 'Provider options',
+  placeholder: 'Enter provider options as JSON object',
+  defaultValue: {},
+  weight: 60,
+  rows: 5,
+  as: 'json',
+  editor: 'ace',
+  tooltip: 'Specify Google Maps Autocomplete options used for address searching as JSON object. Follow the <a href =\'https://developers.google.com/maps/documentation/javascript/places-autocomplete\' target=\'_blank\'>link</a> for available options',
   conditional: {
     json: {
       '===': [{

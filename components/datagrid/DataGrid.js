@@ -1,37 +1,65 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.reflect.set.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.array.splice");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.object.entries");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.array.from.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(require("lodash"));
+require("core-js/modules/es.array.concat.js");
 
-var _dragula = _interopRequireDefault(require("dragula/dist/dragula"));
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.object.values.js");
+
+require("core-js/modules/es.object.entries.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
+var _lodash = _interopRequireDefault(require("lodash"));
 
 var _NestedArrayComponent2 = _interopRequireDefault(require("../_classes/nestedarray/NestedArrayComponent"));
 
@@ -41,9 +69,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest(); }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -51,7 +77,7 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -63,11 +89,17 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 
@@ -79,10 +111,6 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -93,53 +121,29 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var dragula;
+
+if (typeof window !== 'undefined') {
+  // Import from "dist" because it would require and "global" would not be defined in Angular apps.
+  dragula = require('dragula/dist/dragula');
+}
 
 var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   _inherits(DataGridComponent, _NestedArrayComponent);
 
   var _super = _createSuper(DataGridComponent);
 
-  _createClass(DataGridComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _NestedArrayComponent2.default.schema.apply(_NestedArrayComponent2.default, [{
-        label: 'Data Grid',
-        key: 'dataGrid',
-        type: 'datagrid',
-        clearOnHide: true,
-        input: true,
-        tree: true,
-        components: []
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Data Grid',
-        icon: 'th',
-        group: 'data',
-        documentation: '/userguide/#datagrid',
-        weight: 30,
-        schema: DataGridComponent.schema()
-      };
-    }
-  }]);
-
   function DataGridComponent() {
     var _this;
 
     _classCallCheck(this, DataGridComponent);
 
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
     _this = _super.call.apply(_super, [this].concat(args));
@@ -160,17 +164,132 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       }
 
       this.visibleColumns = {};
+      this.prevHasAddButton = this.hasAddButton();
       this.checkColumns();
     }
   }, {
-    key: "getRowChunks",
+    key: "dataValue",
+    get: function get() {
+      var dataValue = _get(_getPrototypeOf(DataGridComponent.prototype), "dataValue", this);
 
+      if (!dataValue || !Array.isArray(dataValue)) {
+        return this.emptyValue;
+      }
+
+      return dataValue;
+    },
+    set: function set(value) {
+      _set(_getPrototypeOf(DataGridComponent.prototype), "dataValue", value, this, true);
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return DataGridComponent.schema();
+    }
+  }, {
+    key: "initEmpty",
+    get: function get() {
+      return this.component.initEmpty || this.component.noFirstRow;
+    }
+  }, {
+    key: "initRows",
+    get: function get() {
+      return this.builderMode || this.path === 'defaultValue' || !this.initEmpty;
+    }
+  }, {
+    key: "emptyValue",
+    get: function get() {
+      return this.initEmpty ? [] : [{}];
+    }
+  }, {
+    key: "addAnotherPosition",
+    get: function get() {
+      return _lodash.default.get(this.component, 'addAnotherPosition', 'bottom');
+    }
+  }, {
+    key: "minLength",
+    get: function get() {
+      if (this.hasRowGroups()) {
+        return _lodash.default.sum(this.getGroupSizes());
+      } else {
+        return _lodash.default.get(this.component, 'validate.minLength', 0);
+      }
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      var isBuilderMode = this.builderMode;
+      var isEmptyInit = this.initEmpty; // Ensure we have one and only one row in builder mode.
+
+      if (isBuilderMode || isEmptyInit && !this.dataValue.length) {
+        return isEmptyInit && !isBuilderMode ? [] : [{}];
+      }
+
+      var value = _get(_getPrototypeOf(DataGridComponent.prototype), "defaultValue", this);
+
+      var defaultValue;
+
+      if (Array.isArray(value)) {
+        defaultValue = value;
+      } else if (value && _typeof(value) === 'object') {
+        defaultValue = [value];
+      } else {
+        defaultValue = this.emptyValue;
+      }
+
+      for (var dIndex = defaultValue.length; dIndex < this.minLength; dIndex++) {
+        defaultValue.push({});
+      }
+
+      return defaultValue;
+    }
+  }, {
+    key: "disabled",
+    get: function get() {
+      return _get(_getPrototypeOf(DataGridComponent.prototype), "disabled", this);
+    },
+    set: function set(disabled) {
+      _set(_getPrototypeOf(DataGridComponent.prototype), "disabled", disabled, this, true);
+
+      _lodash.default.each(this.refs["".concat(this.datagridKey, "-addRow")], function (button) {
+        button.disabled = disabled;
+      });
+
+      _lodash.default.each(this.refs["".concat(this.datagridKey, "-removeRow")], function (button) {
+        button.disabled = disabled;
+      });
+    }
+  }, {
+    key: "datagridKey",
+    get: function get() {
+      return "datagrid-".concat(this.key);
+    }
+  }, {
+    key: "allowReorder",
+    get: function get() {
+      return !this.options.readOnly && _lodash.default.get(this.component, 'reorder', false);
+    }
+  }, {
+    key: "iteratableRows",
+    get: function get() {
+      var _this2 = this;
+
+      return this.rows.map(function (row, index) {
+        return {
+          components: row,
+          data: _this2.dataValue[index]
+        };
+      });
+    }
     /**
      * Split rows into chunks.
      * @param {Number[]} groups - array of numbers where each item is size of group
      * @param {Array<T>} rows - rows collection
      * @return {Array<T[]>}
      */
+
+  }, {
+    key: "getRowChunks",
     value: function getRowChunks(groups, rows) {
       var _groups$reduce = groups.reduce(function (_ref, size) {
         var _ref2 = _slicedToArray(_ref, 2),
@@ -256,9 +375,17 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       return this.hasAddButton() && ['bottom', 'both'].includes(this.addAnotherPosition);
     }
   }, {
+    key: "canAddColumn",
+    get: function get() {
+      return this.builderMode;
+    }
+  }, {
     key: "render",
     value: function render() {
       var columns = this.getColumns();
+      var layoutFixed = columns.some(function (col) {
+        return col.type === 'select';
+      }) || this.component.layoutFixed;
       return _get(_getPrototypeOf(DataGridComponent.prototype), "render", this).call(this, this.renderTemplate('datagrid', {
         rows: this.getRows(),
         columns: columns,
@@ -280,7 +407,8 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         tabIndex: this.tabIndex,
         placeholder: this.renderTemplate('builderPlaceholder', {
           position: this.componentComponents.length
-        })
+        }),
+        layoutFixed: layoutFixed
       }));
     }
   }, {
@@ -299,10 +427,10 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "getColumns",
     value: function getColumns() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.component.components.filter(function (comp) {
-        return !_this2.visibleColumns.hasOwnProperty(comp.key) || _this2.visibleColumns[comp.key];
+        return !_this3.visibleColumns.hasOwnProperty(comp.key) || _this3.visibleColumns[comp.key];
       });
     }
   }, {
@@ -317,7 +445,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
     key: "attach",
     value: function attach(element) {
       var _this$loadRefs,
-          _this3 = this;
+          _this4 = this;
 
       this.loadRefs(element, (_this$loadRefs = {}, _defineProperty(_this$loadRefs, "".concat(this.datagridKey, "-row"), 'multiple'), _defineProperty(_this$loadRefs, "".concat(this.datagridKey, "-tbody"), 'single'), _defineProperty(_this$loadRefs, "".concat(this.datagridKey, "-addRow"), 'multiple'), _defineProperty(_this$loadRefs, "".concat(this.datagridKey, "-removeRow"), 'multiple'), _defineProperty(_this$loadRefs, "".concat(this.datagridKey, "-group-header"), 'multiple'), _defineProperty(_this$loadRefs, this.datagridKey, 'multiple'), _this$loadRefs));
 
@@ -327,25 +455,35 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
             index: index
           };
         });
-        this.dragula = (0, _dragula.default)([this.refs["".concat(this.datagridKey, "-tbody")]], {
-          moves: function moves(_draggedElement, _oldParent, clickedElement) {
-            return clickedElement.classList.contains('formio-drag-button');
-          }
-        }).on('drop', this.onReorder.bind(this));
+
+        if (dragula) {
+          this.dragula = dragula([this.refs["".concat(this.datagridKey, "-tbody")]], {
+            moves: function moves(_draggedElement, _oldParent, clickedElement) {
+              var clickedElementKey = clickedElement.getAttribute('data-key');
+
+              var oldParentKey = _oldParent.getAttribute('data-key'); //Check if the clicked button belongs to that container, if false, it belongs to the nested container
+
+
+              if (oldParentKey === clickedElementKey) {
+                return clickedElement.classList.contains('formio-drag-button');
+              }
+            }
+          }).on('drop', this.onReorder.bind(this));
+        }
       }
 
       this.refs["".concat(this.datagridKey, "-addRow")].forEach(function (addButton) {
-        _this3.addEventListener(addButton, 'click', _this3.addRow.bind(_this3));
+        _this4.addEventListener(addButton, 'click', _this4.addRow.bind(_this4));
       });
       this.refs["".concat(this.datagridKey, "-removeRow")].forEach(function (removeButton, index) {
-        _this3.addEventListener(removeButton, 'click', _this3.removeRow.bind(_this3, index));
+        _this4.addEventListener(removeButton, 'click', _this4.removeRow.bind(_this4, index));
       });
 
       if (this.hasRowGroups()) {
         this.refs.chunks = this.getRowChunks(this.getGroupSizes(), this.refs["".concat(this.datagridKey, "-row")]);
         this.refs["".concat(this.datagridKey, "-group-header")].forEach(function (header, index) {
-          _this3.addEventListener(header, 'click', function () {
-            return _this3.toggleGroup(header, index);
+          _this4.addEventListener(header, 'click', function () {
+            return _this4.toggleGroup(header, index);
           });
         });
       }
@@ -355,12 +493,17 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       this.rows.forEach(function (row, rowIndex) {
         var columnIndex = 0;
         columns.forEach(function (col) {
-          _this3.attachComponents(_this3.refs[_this3.datagridKey][rowIndex * rowLength + columnIndex], [_this3.rows[rowIndex][col.key]], _this3.component.components);
+          _this4.attachComponents(_this4.refs[_this4.datagridKey][rowIndex * rowLength + columnIndex], [_this4.rows[rowIndex][col.key]], _this4.getComponentsContainer());
 
           columnIndex++;
         });
       });
       return _get(_getPrototypeOf(DataGridComponent.prototype), "attach", this).call(this, element);
+    }
+  }, {
+    key: "getComponentsContainer",
+    value: function getComponentsContainer() {
+      return this.component.components;
     }
   }, {
     key: "onReorder",
@@ -384,7 +527,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       this.setValue(dataValue, {
         isReordered: true
       });
-      this.redraw();
+      this.rebuild();
     }
   }, {
     key: "addRow",
@@ -412,6 +555,33 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
       this.redraw();
     }
   }, {
+    key: "updateComponentsRowIndex",
+    value: function updateComponentsRowIndex(components, rowIndex) {
+      var _this5 = this;
+
+      components.forEach(function (component, colIndex) {
+        var _component$options;
+
+        if ((_component$options = component.options) !== null && _component$options !== void 0 && _component$options.name) {
+          var newName = "[".concat(_this5.key, "][").concat(rowIndex, "]");
+          component.options.name = component.options.name.replace("[".concat(_this5.key, "][").concat(component.rowIndex, "]"), newName);
+        }
+
+        component.rowIndex = rowIndex;
+        component.row = "".concat(rowIndex, "-").concat(colIndex);
+        component.path = _this5.calculateComponentPath(component);
+      });
+    }
+  }, {
+    key: "updateRowsComponents",
+    value: function updateRowsComponents(rowIndex) {
+      var _this6 = this;
+
+      this.rows.slice(rowIndex).forEach(function (row, index) {
+        _this6.updateComponentsRowIndex(Object.values(row), rowIndex + index);
+      });
+    }
+  }, {
     key: "removeRow",
     value: function removeRow(index) {
       this.splice(index);
@@ -421,6 +591,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
           row = _this$rows$splice2[0];
 
       this.removeRowComponents(row);
+      this.updateRowsComponents(index);
       this.setValue(this.dataValue, {
         isReordered: true
       });
@@ -429,10 +600,10 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "removeRowComponents",
     value: function removeRowComponents(row) {
-      var _this4 = this;
+      var _this7 = this;
 
       _lodash.default.each(row, function (component) {
-        return _this4.removeComponent(component);
+        return _this7.removeComponent(component);
       });
     }
   }, {
@@ -450,16 +621,20 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "createRows",
     value: function createRows(init, rebuild) {
-      var _this5 = this;
+      var _this8 = this;
 
       var added = false;
       var rowValues = this.getRowValues(); // Create any missing rows.
 
       rowValues.forEach(function (row, index) {
-        if (!rebuild && _this5.rows[index]) {
-          _this5.setRowComponentsData(index, row);
+        if (!rebuild && _this8.rows[index]) {
+          _this8.setRowComponentsData(index, row);
         } else {
-          _this5.rows[index] = _this5.createRowComponents(row, index);
+          if (_this8.rows[index]) {
+            _this8.removeRowComponents(_this8.rows[index]);
+          }
+
+          _this8.rows[index] = _this8.createRowComponents(row, index);
           added = true;
         }
       }); // Delete any extra rows.
@@ -469,7 +644,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
 
       if (removed) {
         removedRows.forEach(function (row) {
-          return _this5.removeRowComponents(row);
+          return _this8.removeRowComponents(row);
         });
       }
 
@@ -482,18 +657,18 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "createRowComponents",
     value: function createRowComponents(row, rowIndex) {
-      var _this6 = this;
+      var _this9 = this;
 
       var components = {};
       this.tabIndex = 0;
       this.component.components.map(function (col, colIndex) {
-        var options = _lodash.default.clone(_this6.options);
+        var options = _lodash.default.clone(_this9.options);
 
         options.name += "[".concat(rowIndex, "]");
         options.row = "".concat(rowIndex, "-").concat(colIndex);
         var columnComponent;
 
-        if (_this6.builderMode) {
+        if (_this9.builderMode) {
           col.id = col.id + rowIndex;
           columnComponent = col;
         } else {
@@ -502,14 +677,14 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
           });
         }
 
-        var component = _this6.createComponent(columnComponent, options, row);
+        var component = _this9.createComponent(columnComponent, options, row);
 
-        component.parentDisabled = !!_this6.disabled;
+        component.parentDisabled = !!_this9.disabled;
         component.rowIndex = rowIndex;
         component.inDataGrid = true;
 
-        if (columnComponent.tabindex && parseInt(columnComponent.tabindex) > _this6.tabIndex) {
-          _this6.tabIndex = parseInt(columnComponent.tabindex);
+        if (columnComponent.tabindex && parseInt(columnComponent.tabindex) > _this9.tabIndex) {
+          _this9.tabIndex = parseInt(columnComponent.tabindex);
         }
 
         components[col.key] = component;
@@ -541,7 +716,9 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         return false;
       }
 
-      return this.checkRows('checkValidity', data, dirty, true, silentCheck);
+      var isValid = this.checkRows('checkValidity', data, dirty, true, silentCheck);
+      this.checkModal(isValid, dirty);
+      return isValid;
     }
   }, {
     key: "checkColumns",
@@ -609,7 +786,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "setValue",
     value: function setValue(value) {
-      var _this7 = this;
+      var _this10 = this;
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -642,6 +819,10 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         this.createRows();
       }
 
+      if (this.componentModal && isSettingSubmission) {
+        this.componentModal.setValue(value);
+      }
+
       this.rows.forEach(function (row, rowIndex) {
         if (value.length <= rowIndex) {
           return;
@@ -650,7 +831,7 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         _lodash.default.each(row, function (col) {
           col.rowIndex = rowIndex;
 
-          _this7.setNestedValue(col, value[rowIndex], flags);
+          _this10.setNestedValue(col, value[rowIndex], flags);
         });
       });
       this.updateOnChange(flags, changed);
@@ -659,11 +840,11 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
   }, {
     key: "restoreComponentsContext",
     value: function restoreComponentsContext() {
-      var _this8 = this;
+      var _this11 = this;
 
       this.rows.forEach(function (row, index) {
         return _lodash.default.forIn(row, function (component) {
-          return component.data = _this8.dataValue[index];
+          return component.data = _this11.dataValue[index];
         });
       });
     }
@@ -737,124 +918,34 @@ var DataGridComponent = /*#__PURE__*/function (_NestedArrayComponent) {
         row.classList.toggle('hidden');
       });
     }
-  }, {
-    key: "dataValue",
-    get: function get() {
-      var dataValue = _get(_getPrototypeOf(DataGridComponent.prototype), "dataValue", this);
-
-      if (!dataValue || !Array.isArray(dataValue)) {
-        return this.emptyValue;
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len2 = arguments.length, extend = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        extend[_key2] = arguments[_key2];
       }
 
-      return dataValue;
-    },
-    set: function set(value) {
-      _set(_getPrototypeOf(DataGridComponent.prototype), "dataValue", value, this, true);
+      return _NestedArrayComponent2.default.schema.apply(_NestedArrayComponent2.default, [{
+        label: 'Data Grid',
+        key: 'dataGrid',
+        type: 'datagrid',
+        clearOnHide: true,
+        input: true,
+        tree: true,
+        components: []
+      }].concat(extend));
     }
   }, {
-    key: "defaultSchema",
+    key: "builderInfo",
     get: function get() {
-      return DataGridComponent.schema();
-    }
-  }, {
-    key: "initEmpty",
-    get: function get() {
-      return this.component.initEmpty || this.component.noFirstRow;
-    }
-  }, {
-    key: "initRows",
-    get: function get() {
-      return this.builderMode || this.path === 'defaultValue' || !this.initEmpty;
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return this.initEmpty ? [] : [{}];
-    }
-  }, {
-    key: "addAnotherPosition",
-    get: function get() {
-      return _lodash.default.get(this.component, 'addAnotherPosition', 'bottom');
-    }
-  }, {
-    key: "minLength",
-    get: function get() {
-      if (this.hasRowGroups()) {
-        return _lodash.default.sum(this.getGroupSizes());
-      } else {
-        return _lodash.default.get(this.component, 'validate.minLength', 0);
-      }
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var isBuilderMode = this.builderMode;
-      var isEmptyInit = this.initEmpty; // Ensure we have one and only one row in builder mode.
-
-      if (isBuilderMode || isEmptyInit && !this.dataValue.length) {
-        return isEmptyInit && !isBuilderMode ? [] : [{}];
-      }
-
-      var value = _get(_getPrototypeOf(DataGridComponent.prototype), "defaultValue", this);
-
-      var defaultValue;
-
-      if (Array.isArray(value)) {
-        defaultValue = value;
-      } else if (value && _typeof(value) === 'object') {
-        defaultValue = [value];
-      } else {
-        defaultValue = this.emptyValue;
-      }
-
-      for (var dIndex = defaultValue.length; dIndex < this.minLength; dIndex++) {
-        defaultValue.push({});
-      }
-
-      return defaultValue;
-    }
-  }, {
-    key: "disabled",
-    set: function set(disabled) {
-      _set(_getPrototypeOf(DataGridComponent.prototype), "disabled", disabled, this, true);
-
-      _lodash.default.each(this.refs["".concat(this.datagridKey, "-addRow")], function (button) {
-        button.disabled = disabled;
-      });
-
-      _lodash.default.each(this.refs["".concat(this.datagridKey, "-removeRow")], function (button) {
-        button.disabled = disabled;
-      });
-    },
-    get: function get() {
-      return _get(_getPrototypeOf(DataGridComponent.prototype), "disabled", this);
-    }
-  }, {
-    key: "datagridKey",
-    get: function get() {
-      return "datagrid-".concat(this.key);
-    }
-  }, {
-    key: "allowReorder",
-    get: function get() {
-      return !this.options.readOnly && _lodash.default.get(this.component, 'reorder', false);
-    }
-  }, {
-    key: "iteratableRows",
-    get: function get() {
-      var _this9 = this;
-
-      return this.rows.map(function (row, index) {
-        return {
-          components: row,
-          data: _this9.dataValue[index]
-        };
-      });
-    }
-  }, {
-    key: "canAddColumn",
-    get: function get() {
-      return this.builderMode;
+      return {
+        title: 'Data Grid',
+        icon: 'th',
+        group: 'data',
+        documentation: '/userguide/#datagrid',
+        weight: 30,
+        schema: DataGridComponent.schema()
+      };
     }
   }]);
 

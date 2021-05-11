@@ -23,7 +23,7 @@ __p += '" ref="wrapper" >\n    <label class="form-check-label label-position-' +
 '">\n      ';
  if (ctx.component.optionsLabelPosition === 'left' || ctx.component.optionsLabelPosition === 'top') { ;
 __p += '\n      <span>' +
-((__t = (ctx.t(item.label))) == null ? '' : __t) +
+((__t = (ctx.t(item.label, { _userInput: true }))) == null ? '' : __t) +
 '</span>\n      ';
  } ;
 __p += '\n      <' +
@@ -55,7 +55,7 @@ __p += '\n        id="' +
 '"\n      >\n      ';
  if (!ctx.component.optionsLabelPosition || ctx.component.optionsLabelPosition === 'right' || ctx.component.optionsLabelPosition === 'bottom') { ;
 __p += '\n      <span>' +
-((__t = (ctx.t(item.label))) == null ? '' : __t) +
+((__t = (ctx.t(item.label, { _userInput: true }))) == null ? '' : __t) +
 '</span>\n      ';
  } ;
 __p += '\n    </label>\n  </div>\n  ';

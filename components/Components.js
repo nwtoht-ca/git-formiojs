@@ -25,6 +25,20 @@ var Components = /*#__PURE__*/function () {
   }
 
   _createClass(Components, null, [{
+    key: "EditFormUtils",
+    get: function get() {
+      return _utils.default;
+    }
+  }, {
+    key: "components",
+    get: function get() {
+      if (!Components._components) {
+        Components._components = {};
+      }
+
+      return Components._components;
+    }
+  }, {
     key: "setComponents",
     value: function setComponents(comps) {
       // Set the tableView method on BaseComponent.
@@ -69,20 +83,6 @@ var Components = /*#__PURE__*/function () {
       }
 
       return comp;
-    }
-  }, {
-    key: "EditFormUtils",
-    get: function get() {
-      return _utils.default;
-    }
-  }, {
-    key: "components",
-    get: function get() {
-      if (!Components._components) {
-        Components._components = {};
-      }
-
-      return Components._components;
     }
   }]);
 

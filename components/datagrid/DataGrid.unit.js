@@ -1,8 +1,18 @@
 "use strict";
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.object.assign");
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
+
+require("core-js/modules/es.object.assign.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -14,9 +24,17 @@ var _harness = _interopRequireDefault(require("../../../test/harness"));
 
 var _DataGrid = _interopRequireDefault(require("./DataGrid"));
 
+var _Formio = _interopRequireDefault(require("../../Formio"));
+
 var _fixtures = require("./fixtures");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 describe('DataGrid Component', function () {
   it('Test modal edit confirmation dialog', function (done) {
@@ -289,6 +307,89 @@ describe('DataGrid Component', function () {
       (0, _chai.expect)(getGroupSizes.call(self)).to.deep.equal([1, 3, 10]);
     });
   });
+  it('Test "components" property and their context', function (done) {
+    var testComponentsData = function testComponentsData(components, expectedData) {
+      components.forEach(function (comp) {
+        return _powerAssert.default.deepEqual(comp.data, expectedData, 'Data of components inside DataGrid should be equal to row\'s data');
+      });
+    };
+
+    _Formio.default.createForm(document.createElement('div'), _fixtures.withConditionalFieldsAndValidations).then(function (form) {
+      var rootText = form.getComponent(['text']);
+      rootText.setValue('Match', {
+        modified: true
+      });
+      setTimeout(function () {
+        var emptyRowData = {
+          rootTest: '',
+          rowTest: ''
+        };
+        var dataGrid = form.getComponent(['dataGrid']);
+
+        _powerAssert.default.equal(dataGrid.components.length, 6, 'DataGrid.components should contain 6 components');
+
+        testComponentsData(dataGrid.components, emptyRowData);
+        var showTextFieldInsideDataGridRadio = form.getComponent(['radio']);
+        showTextFieldInsideDataGridRadio.setValue('show', {
+          modified: true
+        });
+        setTimeout(function () {
+          var rowData1 = _objectSpread(_objectSpread({}, emptyRowData), {}, {
+            radio1: ''
+          });
+
+          var dataGridRowRadio = form.getComponent(['dataGrid', 0, 'radio1']);
+
+          _powerAssert.default.equal(dataGrid.components.length, 6, 'DataGrid.components should contain 6 components');
+
+          testComponentsData(dataGrid.components, rowData1);
+
+          _powerAssert.default.equal(dataGridRowRadio.visible, true, 'Radio inside DataGrid should become visible');
+
+          dataGridRowRadio.setValue('dgShow', {
+            modified: true
+          });
+          setTimeout(function () {
+            var rowData2 = _objectSpread(_objectSpread({}, emptyRowData), {}, {
+              radio1: 'dgShow',
+              rowShowShowTextfieldWhenDataGridRadioHasShowValue: ''
+            });
+
+            var dataGridRowConditionalField = form.getComponent(['dataGrid', 0, 'rowShowShowTextfieldWhenDataGridRadioHasShowValue']);
+
+            _powerAssert.default.equal(dataGrid.components.length, 6, 'DataGrid.components should contain 6 components');
+
+            testComponentsData(dataGrid.components, rowData2);
+
+            _powerAssert.default.equal(dataGridRowConditionalField.visible, true, 'Conditional field inside DataGrid should become visible');
+
+            var rootTest = form.getComponent(['dataGrid', 0, 'rootTest']);
+            var rowTest = form.getComponent(['dataGrid', 0, 'rowTest']);
+            rootTest.setValue('Match', {
+              modified: true
+            });
+            rowTest.setValue('Match', {
+              modified: true
+            });
+            setTimeout(function () {
+              var rowData3 = _objectSpread(_objectSpread({}, rowData2), {}, {
+                rowTest: 'Match',
+                rootTest: 'Match'
+              });
+
+              _powerAssert.default.equal(dataGrid.components.length, 6, 'DataGrid.components should contain 6 components');
+
+              testComponentsData(dataGrid.components, rowData3);
+              form.checkAsyncValidity(null, true).then(function (valid) {
+                (0, _powerAssert.default)(valid, 'Form should be valid');
+                done();
+              }).catch(done);
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(done);
+  });
 });
 describe('DataGrid Panels', function () {
   it('Should build a data grid component', function () {
@@ -314,12 +415,48 @@ describe('DataGrid Panels', function () {
     });
   });
 });
-describe('Datagrid disabling', function () {
+describe('DataGrid disabling', function () {
   it('Child components should be disabled', function () {
     return _harness.default.testCreate(_DataGrid.default, _fixtures.comp3).then(function (component) {
       _powerAssert.default.equal(component.components.reduce(function (acc, child) {
         return acc && child.parentDisabled;
       }, true), true);
     });
+  });
+});
+describe('DataGrid modal', function () {
+  it('Should be highlighted in red when invalid', function (done) {
+    var formElement = document.createElement('div');
+
+    _Formio.default.createForm(formElement, {
+      display: 'form',
+      components: [_fixtures.modalWithRequiredFields]
+    }).then(function (form) {
+      var data = {
+        dataGrid: [{
+          textField: '',
+          textArea: ''
+        }]
+      };
+      form.checkValidity(data, true, data);
+      setTimeout(function () {
+        _harness.default.testModalWrapperErrorClasses(form);
+
+        var validData = {
+          dataGrid: [{
+            textField: 'Some text',
+            textArea: 'Mre text'
+          }]
+        };
+        form.setSubmission({
+          data: validData
+        });
+        setTimeout(function () {
+          _harness.default.testModalWrapperErrorClasses(form, false);
+
+          done();
+        }, 200);
+      }, 200);
+    }).catch(done);
   });
 });

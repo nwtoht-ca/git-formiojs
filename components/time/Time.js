@@ -2,30 +2,56 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.array.from.js");
+
+require("core-js/modules/es.function.name.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
 var _moment = _interopRequireDefault(require("moment"));
 
 var _TextField = _interopRequireDefault(require("../textfield/TextField"));
+
+var _utils = require("../../utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,7 +61,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -43,13 +69,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -61,7 +87,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -72,32 +98,19 @@ var TimeComponent = /*#__PURE__*/function (_TextFieldComponent) {
 
   var _super = _createSuper(TimeComponent);
 
-  _createClass(TimeComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _TextField.default.schema.apply(_TextField.default, [{
-        type: 'time',
-        label: 'Time',
-        key: 'time',
-        inputType: 'time',
-        format: 'HH:mm',
-        dataFormat: defaultDataFormat
-      }].concat(extend));
-    }
-  }]);
-
   function TimeComponent(component, options, data) {
     var _this;
 
     _classCallCheck(this, TimeComponent);
 
     _this = _super.call(this, component, options, data);
+
+    var _getBrowserInfo = (0, _utils.getBrowserInfo)(),
+        isEdgeBrowser = _getBrowserInfo.edge,
+        edgeVersion = _getBrowserInfo.version;
+
     _this.component.inputMask = _this.getInputMaskFromFormat(_this.component.format);
-    _this.component.inputType = _this.component.inputType || 'time';
+    _this.component.inputType = isEdgeBrowser && edgeVersion <= 18 ? 'text' : _this.component.inputType || 'time';
     _this.rawData = _this.component.multiple ? [] : _this.emptyValue;
     return _this;
   }
@@ -110,6 +123,57 @@ var TimeComponent = /*#__PURE__*/function (_TextFieldComponent) {
       if (this.component.inputType === 'text') {
         this.validators.push('time');
       }
+    }
+  }, {
+    key: "dataFormat",
+    get: function get() {
+      return this.component.dataFormat || defaultDataFormat;
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return TimeComponent.schema();
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      var _this2 = this;
+
+      var value = _get(_getPrototypeOf(TimeComponent.prototype), "defaultValue", this);
+
+      if (this.component.multiple && Array.isArray(value)) {
+        value = value.map(function (item) {
+          return item ? _this2.getStringAsValue(item) : item;
+        });
+      } else {
+        if (value) {
+          value = this.getStringAsValue(value);
+        }
+      }
+
+      return value;
+    }
+  }, {
+    key: "validationValue",
+    get: function get() {
+      if (Array.isArray(this.rawData) && !this.rawData.length || !this.rawData) {
+        return this.dataValue;
+      }
+
+      return this.rawData;
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(TimeComponent.prototype), "inputInfo", this);
+
+      info.attr.type = this.component.inputType;
+      return info;
+    }
+  }, {
+    key: "skipMaskValidation",
+    get: function get() {
+      return true;
     }
   }, {
     key: "isNotCompleteInput",
@@ -170,10 +234,7 @@ var TimeComponent = /*#__PURE__*/function (_TextFieldComponent) {
   }, {
     key: "setValueAt",
     value: function setValueAt(index, value) {
-      if (value) {
-        this.setRawValue(this.getValueAsString(value), index);
-      }
-
+      this.setRawValue(value ? this.getValueAsString(value) : value, index);
       this.refs.input[index].value = this.getRawValue(index);
     }
   }, {
@@ -202,62 +263,31 @@ var TimeComponent = /*#__PURE__*/function (_TextFieldComponent) {
   }, {
     key: "addFocusBlurEvents",
     value: function addFocusBlurEvents(element) {
-      var _this2 = this;
+      var _this3 = this;
 
       _get(_getPrototypeOf(TimeComponent.prototype), "addFocusBlurEvents", this).call(this, element);
 
       this.addEventListener(element, 'blur', function () {
-        element.value = _this2.getValueAsString(element.value);
+        element.value = _this3.getValueAsString(element.value);
       });
     }
-  }, {
-    key: "dataFormat",
-    get: function get() {
-      return this.component.dataFormat || defaultDataFormat;
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return TimeComponent.schema();
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var _this3 = this;
-
-      var value = _get(_getPrototypeOf(TimeComponent.prototype), "defaultValue", this);
-
-      if (this.component.multiple && Array.isArray(value)) {
-        value = value.map(function (item) {
-          return item ? _this3.getStringAsValue(item) : item;
-        });
-      } else {
-        if (value) {
-          value = this.getStringAsValue(value);
-        }
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
+        extend[_key] = arguments[_key];
       }
 
-      return value;
+      return _TextField.default.schema.apply(_TextField.default, [{
+        type: 'time',
+        label: 'Time',
+        key: 'time',
+        inputType: 'time',
+        format: 'HH:mm',
+        dataFormat: defaultDataFormat
+      }].concat(extend));
     }
   }, {
-    key: "validationValue",
-    get: function get() {
-      return this.rawData || this.dataValue;
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(TimeComponent.prototype), "inputInfo", this);
-
-      info.attr.type = this.component.inputType;
-      return info;
-    }
-  }, {
-    key: "skipMaskValidation",
-    get: function get() {
-      return true;
-    }
-  }], [{
     key: "builderInfo",
     get: function get() {
       return {

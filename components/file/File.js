@@ -2,106 +2,130 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.object.get-prototype-of.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.array.filter.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.promise.js");
 
-require("core-js/modules/es.array.slice");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.some");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.array.splice");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.number.to-fixed");
-
-require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.search");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.starts-with");
-
-require("core-js/modules/es.typed-array.uint8-array");
-
-require("core-js/modules/es.typed-array.copy-within");
-
-require("core-js/modules/es.typed-array.every");
-
-require("core-js/modules/es.typed-array.fill");
-
-require("core-js/modules/es.typed-array.filter");
-
-require("core-js/modules/es.typed-array.find");
-
-require("core-js/modules/es.typed-array.find-index");
-
-require("core-js/modules/es.typed-array.for-each");
-
-require("core-js/modules/es.typed-array.includes");
-
-require("core-js/modules/es.typed-array.index-of");
-
-require("core-js/modules/es.typed-array.iterator");
-
-require("core-js/modules/es.typed-array.join");
-
-require("core-js/modules/es.typed-array.last-index-of");
-
-require("core-js/modules/es.typed-array.map");
-
-require("core-js/modules/es.typed-array.reduce");
-
-require("core-js/modules/es.typed-array.reduce-right");
-
-require("core-js/modules/es.typed-array.reverse");
-
-require("core-js/modules/es.typed-array.set");
-
-require("core-js/modules/es.typed-array.slice");
-
-require("core-js/modules/es.typed-array.some");
-
-require("core-js/modules/es.typed-array.sort");
-
-require("core-js/modules/es.typed-array.subarray");
-
-require("core-js/modules/es.typed-array.to-locale-string");
-
-require("core-js/modules/es.typed-array.to-string");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("regenerator-runtime/runtime.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.typed-array.uint8-array.js");
+
+require("core-js/modules/es.typed-array.copy-within.js");
+
+require("core-js/modules/es.typed-array.every.js");
+
+require("core-js/modules/es.typed-array.fill.js");
+
+require("core-js/modules/es.typed-array.filter.js");
+
+require("core-js/modules/es.typed-array.find.js");
+
+require("core-js/modules/es.typed-array.find-index.js");
+
+require("core-js/modules/es.typed-array.for-each.js");
+
+require("core-js/modules/es.typed-array.includes.js");
+
+require("core-js/modules/es.typed-array.index-of.js");
+
+require("core-js/modules/es.typed-array.iterator.js");
+
+require("core-js/modules/es.typed-array.join.js");
+
+require("core-js/modules/es.typed-array.last-index-of.js");
+
+require("core-js/modules/es.typed-array.map.js");
+
+require("core-js/modules/es.typed-array.reduce.js");
+
+require("core-js/modules/es.typed-array.reduce-right.js");
+
+require("core-js/modules/es.typed-array.reverse.js");
+
+require("core-js/modules/es.typed-array.set.js");
+
+require("core-js/modules/es.typed-array.slice.js");
+
+require("core-js/modules/es.typed-array.some.js");
+
+require("core-js/modules/es.typed-array.sort.js");
+
+require("core-js/modules/es.typed-array.subarray.js");
+
+require("core-js/modules/es.typed-array.to-locale-string.js");
+
+require("core-js/modules/es.typed-array.to-string.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.number.to-fixed.js");
+
+require("core-js/modules/es.string.starts-with.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.string.search.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.array.find-index.js");
 
 var _Field2 = _interopRequireDefault(require("../_classes/field/Field"));
 
@@ -113,9 +137,15 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
+var _fileProcessor = _interopRequireDefault(require("../../providers/processor/fileProcessor"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -141,14 +171,22 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 var Camera;
 var webViewCamera = navigator.camera || Camera; // canvas.toBlob polyfill.
 
-if (!HTMLCanvasElement.prototype.toBlob) {
+var htmlCanvasElement;
+
+if (typeof window !== 'undefined') {
+  htmlCanvasElement = window.HTMLCanvasElement;
+} else if (typeof global !== 'undefined') {
+  htmlCanvasElement = global.HTMLCanvasElement;
+}
+
+if (htmlCanvasElement && !htmlCanvasElement.prototype.toBlob) {
   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
     value: function value(callback, type, quality) {
       var canvas = this;
@@ -189,8 +227,8 @@ var FileComponent = /*#__PURE__*/function (_Field) {
 
       webViewCamera = navigator.camera || Camera;
       var fileReaderSupported = typeof FileReader !== 'undefined';
-      var formDataSupported = Boolean(window.FormData);
-      var progressSupported = window.XMLHttpRequest ? 'upload' in new XMLHttpRequest() : false;
+      var formDataSupported = typeof window !== 'undefined' ? Boolean(window.FormData) : false;
+      var progressSupported = typeof window !== 'undefined' && window.XMLHttpRequest ? 'upload' in new XMLHttpRequest() : false;
       this.support = {
         filereader: fileReaderSupported,
         formdata: formDataSupported,
@@ -207,6 +245,16 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       this.fileDropHidden = false;
     }
   }, {
+    key: "dataReady",
+    get: function get() {
+      return this.filesReady;
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return FileComponent.schema();
+    }
+  }, {
     key: "loadImage",
     value: function loadImage(fileInfo) {
       if (this.component.privateDownload) {
@@ -216,6 +264,11 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       return this.fileService.downloadFile(fileInfo).then(function (result) {
         return result.url;
       });
+    }
+  }, {
+    key: "emptyValue",
+    get: function get() {
+      return [];
     }
   }, {
     key: "getValueAsString",
@@ -230,6 +283,30 @@ var FileComponent = /*#__PURE__*/function (_Field) {
     key: "getValue",
     value: function getValue() {
       return this.dataValue;
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      var value = _get(_getPrototypeOf(FileComponent.prototype), "defaultValue", this);
+
+      return Array.isArray(value) ? value : [];
+    }
+  }, {
+    key: "hasTypes",
+    get: function get() {
+      return this.component.fileTypes && Array.isArray(this.component.fileTypes) && this.component.fileTypes.length !== 0 && (this.component.fileTypes[0].label !== '' || this.component.fileTypes[0].value !== '');
+    }
+  }, {
+    key: "fileDropHidden",
+    get: function get() {
+      return this._fileBrowseHidden;
+    },
+    set: function set(value) {
+      if (typeof value !== 'boolean' || this.component.multiple) {
+        return;
+      }
+
+      this._fileBrowseHidden = value;
     }
   }, {
     key: "render",
@@ -371,13 +448,65 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       });
     }
   }, {
+    key: "cameraMode",
+    get: function get() {
+      return this._cameraMode;
+    },
+    set: function set(value) {
+      this._cameraMode = value;
+
+      if (value) {
+        this.startVideo();
+      } else {
+        this.stopVideo();
+      }
+    }
+  }, {
+    key: "useWebViewCamera",
+    get: function get() {
+      return this.imageUpload && webViewCamera;
+    }
+  }, {
+    key: "imageUpload",
+    get: function get() {
+      return Boolean(this.component.image);
+    }
+  }, {
+    key: "browseOptions",
+    get: function get() {
+      var options = {};
+
+      if (this.component.multiple) {
+        options.multiple = true;
+      } //use "accept" attribute only for desktop devices because of its limited support by mobile browsers
+
+
+      if (!this.isMobile.any) {
+        var filePattern = this.component.filePattern.trim() || '';
+        var imagesPattern = 'image/*';
+
+        if (this.imageUpload && (!filePattern || filePattern === '*')) {
+          options.accept = imagesPattern;
+        } else if (this.imageUpload && !filePattern.includes(imagesPattern)) {
+          options.accept = "".concat(imagesPattern, ",").concat(filePattern);
+        } else {
+          options.accept = filePattern;
+        }
+      }
+
+      return options;
+    }
+  }, {
     key: "deleteFile",
     value: function deleteFile(fileInfo) {
-      if (fileInfo && this.component.storage === 'url') {
+      var _this$component$optio = this.component.options,
+          options = _this$component$optio === void 0 ? {} : _this$component$optio;
+
+      if (fileInfo && ['url', 'indexeddb'].includes(this.component.storage)) {
         var fileService = this.fileService;
 
         if (fileService && typeof fileService.deleteFile === 'function') {
-          fileService.deleteFile(fileInfo);
+          fileService.deleteFile(fileInfo, options);
         } else {
           var formio = this.options.formio || this.root && this.root.formio;
 
@@ -404,7 +533,8 @@ var FileComponent = /*#__PURE__*/function (_Field) {
         removeLink: 'multiple',
         fileStatusRemove: 'multiple',
         fileImage: 'multiple',
-        fileType: 'multiple'
+        fileType: 'multiple',
+        fileProcessingLoader: 'single'
       }); // Ensure we have an empty input refs. We need this for the setValue method to redraw the control when it is set.
 
       this.refs.input = [];
@@ -425,22 +555,16 @@ var FileComponent = /*#__PURE__*/function (_Field) {
         this.addEventListener(this.refs.fileDrop, 'drop', function (event) {
           this.className = 'fileSelector';
           event.preventDefault();
+          _element.statuses = [];
 
           _element.upload(event.dataTransfer.files);
-
-          return false;
         });
       }
 
       if (this.refs.fileBrowse) {
         this.addEventListener(this.refs.fileBrowse, 'click', function (event) {
           event.preventDefault();
-
-          if (!_this5.component.multiple && _this5.statuses.some(function (fileUpload) {
-            return fileUpload.status === 'progress';
-          })) {
-            return;
-          }
+          _this5.statuses = [];
 
           _this5.browseFiles(_this5.browseOptions).then(function (files) {
             _this5.upload(files);
@@ -471,6 +595,10 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       this.refs.fileStatusRemove.forEach(function (fileStatusRemove, index) {
         _this5.addEventListener(fileStatusRemove, 'click', function (event) {
           event.preventDefault();
+
+          if (_this5.abortUpload) {
+            _this5.abortUpload();
+          }
 
           _this5.statuses.splice(index, 1);
 
@@ -726,137 +854,226 @@ var FileComponent = /*#__PURE__*/function (_Field) {
 
       if (this.component.storage && files && files.length) {
         // files is not really an array and does not have a forEach method, so fake it.
-        Array.prototype.forEach.call(files, function (file) {
-          var fileName = (0, _utils.uniqueName)(file.name, _this6.component.fileNameTemplate, _this6.evalContext());
-          var fileUpload = {
-            originalName: file.name,
-            name: fileName,
-            size: file.size,
-            status: 'info',
-            message: _this6.t('Starting upload')
-          }; // Check file pattern
 
-          if (_this6.component.filePattern && !_this6.validatePattern(file, _this6.component.filePattern)) {
-            fileUpload.status = 'error';
-            fileUpload.message = _this6.t('File is the wrong type; it must be {{ pattern }}', {
-              pattern: _this6.component.filePattern
-            });
-          } // Check file minimum size
+        /* eslint-disable max-statements */
+        Array.prototype.forEach.call(files, /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(file) {
+            var fileName, fileUpload, fileWithSameNameUploaded, fileWithSameNameUploadedWithError, dir, fileService, _this6$component, storage, _this6$component$opti, options, url, groupKey, groupPermissions, fileKey, groupResourceId, processedFile, fileProcessorHandler, filePromise;
+
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    fileName = (0, _utils.uniqueName)(file.name, _this6.component.fileNameTemplate, _this6.evalContext());
+                    fileUpload = {
+                      originalName: file.name,
+                      name: fileName,
+                      size: file.size,
+                      status: 'info',
+                      message: _this6.t('Processing file. Please wait...')
+                    }; // Check if file with the same name is being uploaded
+
+                    fileWithSameNameUploaded = _this6.dataValue.some(function (fileStatus) {
+                      return fileStatus.originalName === file.name;
+                    });
+                    fileWithSameNameUploadedWithError = _this6.statuses.findIndex(function (fileStatus) {
+                      return fileStatus.originalName === file.name && fileStatus.status === 'error';
+                    });
+
+                    if (fileWithSameNameUploaded) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = _this6.t('File with the same name is already uploaded');
+                    }
+
+                    if (fileWithSameNameUploadedWithError !== -1) {
+                      _this6.statuses.splice(fileWithSameNameUploadedWithError, 1);
+
+                      _this6.redraw();
+                    } // Check file pattern
 
 
-          if (_this6.component.fileMinSize && !_this6.validateMinSize(file, _this6.component.fileMinSize)) {
-            fileUpload.status = 'error';
-            fileUpload.message = _this6.t('File is too small; it must be at least {{ size }}', {
-              size: _this6.component.fileMinSize
-            });
-          } // Check file maximum size
+                    if (_this6.component.filePattern && !_this6.validatePattern(file, _this6.component.filePattern)) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = _this6.t('File is the wrong type; it must be {{ pattern }}', {
+                        pattern: _this6.component.filePattern
+                      });
+                    } // Check file minimum size
 
 
-          if (_this6.component.fileMaxSize && !_this6.validateMaxSize(file, _this6.component.fileMaxSize)) {
-            fileUpload.status = 'error';
-            fileUpload.message = _this6.t('File is too big; it must be at most {{ size }}', {
-              size: _this6.component.fileMaxSize
-            });
-          } // Get a unique name for this file to keep file collisions from occurring.
+                    if (_this6.component.fileMinSize && !_this6.validateMinSize(file, _this6.component.fileMinSize)) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = _this6.t('File is too small; it must be at least {{ size }}', {
+                        size: _this6.component.fileMinSize
+                      });
+                    } // Check file maximum size
 
 
-          var dir = _this6.interpolate(_this6.component.dir || '');
+                    if (_this6.component.fileMaxSize && !_this6.validateMaxSize(file, _this6.component.fileMaxSize)) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = _this6.t('File is too big; it must be at most {{ size }}', {
+                        size: _this6.component.fileMaxSize
+                      });
+                    } // Get a unique name for this file to keep file collisions from occurring.
 
-          var fileService = _this6.fileService;
 
-          if (!fileService) {
-            fileUpload.status = 'error';
-            fileUpload.message = _this6.t('File Service not provided.');
-          }
+                    dir = _this6.interpolate(_this6.component.dir || '');
+                    fileService = _this6.fileService;
 
-          _this6.statuses.push(fileUpload);
+                    if (!fileService) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = _this6.t('File Service not provided.');
+                    }
 
-          _this6.redraw();
+                    _this6.statuses.push(fileUpload);
 
-          if (fileUpload.status !== 'error') {
-            if (_this6.component.privateDownload) {
-              file.private = true;
-            }
+                    _this6.redraw();
 
-            var _this6$component = _this6.component,
-                storage = _this6$component.storage,
-                _this6$component$opti = _this6$component.options,
-                options = _this6$component$opti === void 0 ? {} : _this6$component$opti;
+                    if (!(fileUpload.status !== 'error')) {
+                      _context.next = 46;
+                      break;
+                    }
 
-            var url = _this6.interpolate(_this6.component.url, {
-              file: fileUpload
-            });
+                    if (_this6.component.privateDownload) {
+                      file.private = true;
+                    }
 
-            var groupKey = null;
-            var groupPermissions = null; //Iterate through form components to find group resource if one exists
+                    _this6$component = _this6.component, storage = _this6$component.storage, _this6$component$opti = _this6$component.options, options = _this6$component$opti === void 0 ? {} : _this6$component$opti;
+                    url = _this6.interpolate(_this6.component.url, {
+                      file: fileUpload
+                    });
+                    groupKey = null;
+                    groupPermissions = null; //Iterate through form components to find group resource if one exists
 
-            _this6.root.everyComponent(function (element) {
-              var _element$component, _element$component2;
+                    _this6.root.everyComponent(function (element) {
+                      var _element$component, _element$component2;
 
-              if ((_element$component = element.component) !== null && _element$component !== void 0 && _element$component.submissionAccess || (_element$component2 = element.component) !== null && _element$component2 !== void 0 && _element$component2.defaultPermission) {
-                groupPermissions = !element.component.submissionAccess ? [{
-                  type: element.component.defaultPermission,
-                  roles: []
-                }] : element.component.submissionAccess;
-                groupPermissions.forEach(function (permission) {
-                  groupKey = ['admin', 'write', 'create'].includes(permission.type) ? element.component.key : null;
-                });
+                      if ((_element$component = element.component) !== null && _element$component !== void 0 && _element$component.submissionAccess || (_element$component2 = element.component) !== null && _element$component2 !== void 0 && _element$component2.defaultPermission) {
+                        groupPermissions = !element.component.submissionAccess ? [{
+                          type: element.component.defaultPermission,
+                          roles: []
+                        }] : element.component.submissionAccess;
+                        groupPermissions.forEach(function (permission) {
+                          groupKey = ['admin', 'write', 'create'].includes(permission.type) ? element.component.key : null;
+                        });
+                      }
+                    });
+
+                    fileKey = _this6.component.fileKey || 'file';
+                    groupResourceId = groupKey ? _this6.currentForm.submission.data[groupKey]._id : null;
+                    processedFile = null;
+
+                    if (!_this6.root.options.fileProcessor) {
+                      _context.next = 43;
+                      break;
+                    }
+
+                    _context.prev = 25;
+
+                    if (_this6.refs.fileProcessingLoader) {
+                      _this6.refs.fileProcessingLoader.style.display = 'block';
+                    }
+
+                    fileProcessorHandler = (0, _fileProcessor.default)(_this6.fileService, _this6.root.options.fileProcessor);
+                    _context.next = 30;
+                    return fileProcessorHandler(file, _this6.component.properties);
+
+                  case 30:
+                    processedFile = _context.sent;
+                    _context.next = 40;
+                    break;
+
+                  case 33:
+                    _context.prev = 33;
+                    _context.t0 = _context["catch"](25);
+                    fileUpload.status = 'error';
+                    fileUpload.message = _this6.t('File processing has been failed.');
+                    _this6.fileDropHidden = false;
+
+                    _this6.redraw();
+
+                    return _context.abrupt("return");
+
+                  case 40:
+                    _context.prev = 40;
+
+                    if (_this6.refs.fileProcessingLoader) {
+                      _this6.refs.fileProcessingLoader.style.display = 'none';
+                    }
+
+                    return _context.finish(40);
+
+                  case 43:
+                    fileUpload.message = _this6.t('Starting upload.');
+
+                    _this6.redraw();
+
+                    filePromise = fileService.uploadFile(storage, processedFile || file, fileName, dir, // Progress callback
+                    function (evt) {
+                      fileUpload.status = 'progress';
+                      fileUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+                      delete fileUpload.message;
+
+                      _this6.redraw();
+                    }, url, options, fileKey, groupPermissions, groupResourceId, // Upload start callback
+                    function () {
+                      _this6.fileDropHidden = true;
+
+                      _this6.emit('fileUploadingStart', filePromise);
+                    }, // Abort upload callback
+                    function (abort) {
+                      return _this6.abortUpload = abort;
+                    }).then(function (fileInfo) {
+                      var index = _this6.statuses.indexOf(fileUpload);
+
+                      if (index !== -1) {
+                        _this6.statuses.splice(index, 1);
+                      }
+
+                      fileInfo.originalName = file.name;
+
+                      if (!_this6.hasValue()) {
+                        _this6.dataValue = [];
+                      }
+
+                      _this6.dataValue.push(fileInfo);
+
+                      _this6.fileDropHidden = false;
+
+                      _this6.redraw();
+
+                      _this6.triggerChange();
+
+                      _this6.emit('fileUploadingEnd', filePromise);
+                    }).catch(function (response) {
+                      fileUpload.status = 'error';
+                      fileUpload.message = response;
+                      delete fileUpload.progress;
+                      _this6.fileDropHidden = false;
+
+                      _this6.redraw();
+
+                      _this6.emit('fileUploadingEnd', filePromise);
+                    });
+
+                  case 46:
+                  case "end":
+                    return _context.stop();
+                }
               }
-            });
+            }, _callee, null, [[25, 33, 40, 43]]);
+          }));
 
-            var fileKey = _this6.component.fileKey || 'file';
-            var groupResourceId = groupKey ? _this6.currentForm.submission.data[groupKey]._id : null;
-            var filePromise = fileService.uploadFile(storage, file, fileName, dir, function (evt) {
-              fileUpload.status = 'progress';
-              fileUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-              delete fileUpload.message;
-
-              _this6.redraw();
-            }, url, options, fileKey, groupPermissions, groupResourceId, function () {
-              _this6.fileDropHidden = true;
-
-              _this6.emit('fileUploadingStart', filePromise);
-            }).then(function (fileInfo) {
-              var index = _this6.statuses.indexOf(fileUpload);
-
-              if (index !== -1) {
-                _this6.statuses.splice(index, 1);
-              }
-
-              fileInfo.originalName = file.name;
-
-              if (!_this6.hasValue()) {
-                _this6.dataValue = [];
-              }
-
-              _this6.dataValue.push(fileInfo);
-
-              _this6.fileDropHidden = false;
-
-              _this6.redraw();
-
-              _this6.triggerChange();
-
-              _this6.emit('fileUploadingEnd', filePromise);
-            }).catch(function (response) {
-              fileUpload.status = 'error';
-              fileUpload.message = response;
-              delete fileUpload.progress;
-              _this6.fileDropHidden = false;
-
-              _this6.redraw();
-
-              _this6.emit('fileUploadingEnd', filePromise);
-            });
-          }
-        });
+          return function (_x) {
+            return _ref.apply(this, arguments);
+          };
+        }());
       }
     }
   }, {
     key: "getFile",
     value: function getFile(fileInfo) {
-      var _this$component$optio = this.component.options,
-          options = _this$component$optio === void 0 ? {} : _this$component$optio;
+      var _this$component$optio2 = this.component.options,
+          options = _this$component$optio2 === void 0 ? {} : _this$component$optio2;
       var fileService = this.fileService;
 
       if (!fileService) {
@@ -898,84 +1115,6 @@ var FileComponent = /*#__PURE__*/function (_Field) {
       this.stopVideo();
 
       _get(_getPrototypeOf(FileComponent.prototype), "destroy", this).call(this);
-    }
-  }, {
-    key: "dataReady",
-    get: function get() {
-      return this.filesReady;
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return FileComponent.schema();
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return [];
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var value = _get(_getPrototypeOf(FileComponent.prototype), "defaultValue", this);
-
-      return Array.isArray(value) ? value : [];
-    }
-  }, {
-    key: "hasTypes",
-    get: function get() {
-      return this.component.fileTypes && Array.isArray(this.component.fileTypes) && this.component.fileTypes.length !== 0 && (this.component.fileTypes[0].label !== '' || this.component.fileTypes[0].value !== '');
-    }
-  }, {
-    key: "fileDropHidden",
-    get: function get() {
-      return this._fileBrowseHidden;
-    },
-    set: function set(value) {
-      if (typeof value !== 'boolean' || this.component.multiple) {
-        return;
-      }
-
-      this._fileBrowseHidden = value;
-    }
-  }, {
-    key: "cameraMode",
-    set: function set(value) {
-      this._cameraMode = value;
-
-      if (value) {
-        this.startVideo();
-      } else {
-        this.stopVideo();
-      }
-    },
-    get: function get() {
-      return this._cameraMode;
-    }
-  }, {
-    key: "useWebViewCamera",
-    get: function get() {
-      return this.imageUpload && webViewCamera;
-    }
-  }, {
-    key: "imageUpload",
-    get: function get() {
-      return Boolean(this.component.image);
-    }
-  }, {
-    key: "browseOptions",
-    get: function get() {
-      var options = {};
-
-      if (this.component.multiple) {
-        options.multiple = true;
-      }
-
-      if (this.imageUpload) {
-        options.accept = 'image/*';
-      }
-
-      return options;
     }
   }], [{
     key: "schema",

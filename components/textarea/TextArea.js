@@ -2,30 +2,48 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.regexp.constructor");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _TextField = _interopRequireDefault(require("../textfield/TextField"));
 
@@ -57,7 +75,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -84,6 +102,24 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       this.options.submitOnEnter = false;
     }
   }, {
+    key: "defaultSchema",
+    get: function get() {
+      return TextAreaComponent.schema();
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(TextAreaComponent.prototype), "inputInfo", this);
+
+      info.type = this.component.wysiwyg ? 'div' : 'textarea';
+
+      if (this.component.rows) {
+        info.attr.rows = this.component.rows;
+      }
+
+      return info;
+    }
+  }, {
     key: "validateMultiple",
     value: function validateMultiple() {
       return !this.isJsonValue;
@@ -96,8 +132,10 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       info.content = value;
 
       if (this.options.readOnly || this.disabled) {
+        var elementStyle = this.info.attr.style || '';
+        var children = "<div ref=\"input\" class=\"formio-editor-read-only-content\" ".concat(elementStyle ? "style='".concat(elementStyle, "'") : '', "></div>");
         return this.renderTemplate('well', {
-          children: '<div ref="input" class="formio-editor-read-only-content"></div>',
+          children: children,
           nestedKey: this.key,
           value: value
         });
@@ -112,13 +150,18 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       });
     }
   }, {
-    key: "updateEditorValue",
-
+    key: "autoExpand",
+    get: function get() {
+      return this.component.autoExpand;
+    }
     /**
      * Updates the editor value.
      *
      * @param newValue
      */
+
+  }, {
+    key: "updateEditorValue",
     value: function updateEditorValue(index, newValue) {
       newValue = this.getConvertedValue(this.trimBlanks(newValue));
       var dataValue = this.dataValue;
@@ -167,7 +210,7 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
               settings = {};
             }
 
-            settings.mode = "ace/mode/".concat(_this2.component.as);
+            settings.mode = _this2.component.as ? "ace/mode/".concat(_this2.component.as) : 'ace/mode/javascript';
 
             _this2.addAce(element, settings, function (newValue) {
               return _this2.updateEditorValue(index, newValue);
@@ -245,9 +288,9 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
 
               var value = _this2.setConvertedValue(dataValue, index);
 
-              var isReadOnly = _this2.options.readOnly || _this2.disabled;
+              var isReadOnly = _this2.options.readOnly || _this2.disabled; // Use ckeditor 4 in IE browser
 
-              if ((0, _utils.getIEBrowserVersion)()) {
+              if ((0, _utils.getBrowserInfo)().ie) {
                 editor.on('instanceReady', function () {
                   editor.setReadOnly(isReadOnly);
                   editor.setData(value);
@@ -327,6 +370,16 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       });
     }
   }, {
+    key: "isPlain",
+    get: function get() {
+      return !this.component.wysiwyg && !this.component.editor;
+    }
+  }, {
+    key: "htmlView",
+    get: function get() {
+      return this.options.readOnly && (this.component.editor || this.component.wysiwyg);
+    }
+  }, {
     key: "setValueAt",
     value: function setValueAt(index, value) {
       var _this4 = this;
@@ -403,6 +456,11 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
           this.setContent(this.refs.input[index], this.interpolate(value));
         }
       }
+    }
+  }, {
+    key: "isJsonValue",
+    get: function get() {
+      return this.component.as && this.component.as === 'json';
     }
   }, {
     key: "setConvertedValue",
@@ -594,6 +652,17 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
       return _get(_getPrototypeOf(TextAreaComponent.prototype), "isEmpty", this).call(this, this.trimBlanks(value));
     }
   }, {
+    key: "defaultValue",
+    get: function get() {
+      var defaultValue = _get(_getPrototypeOf(TextAreaComponent.prototype), "defaultValue", this);
+
+      if (this.component.editor === 'quill' && !defaultValue) {
+        defaultValue = '<p><br></p>';
+      }
+
+      return defaultValue;
+    }
+  }, {
     key: "getConvertedValue",
     value: function getConvertedValue(value) {
       if (this.isJsonValue && value) {
@@ -665,55 +734,6 @@ var TextAreaComponent = /*#__PURE__*/function (_TextFieldComponent) {
             break;
           }
       }
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return TextAreaComponent.schema();
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(TextAreaComponent.prototype), "inputInfo", this);
-
-      info.type = this.component.wysiwyg ? 'div' : 'textarea';
-
-      if (this.component.rows) {
-        info.attr.rows = this.component.rows;
-      }
-
-      return info;
-    }
-  }, {
-    key: "autoExpand",
-    get: function get() {
-      return this.component.autoExpand;
-    }
-  }, {
-    key: "isPlain",
-    get: function get() {
-      return !this.component.wysiwyg && !this.component.editor;
-    }
-  }, {
-    key: "htmlView",
-    get: function get() {
-      return this.options.readOnly && (this.component.editor || this.component.wysiwyg);
-    }
-  }, {
-    key: "isJsonValue",
-    get: function get() {
-      return this.component.as && this.component.as === 'json';
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var defaultValue = _get(_getPrototypeOf(TextAreaComponent.prototype), "defaultValue", this);
-
-      if (this.component.editor === 'quill' && !defaultValue) {
-        defaultValue = '<p><br></p>';
-      }
-
-      return defaultValue;
     }
   }], [{
     key: "schema",

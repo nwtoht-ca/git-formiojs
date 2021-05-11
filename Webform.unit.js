@@ -1,24 +1,38 @@
 "use strict";
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.promise.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.promise");
+require("core-js/modules/es.array.filter.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/web.dom-collections.for-each.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
-require("core-js/modules/es.string.split");
+require("regenerator-runtime/runtime.js");
 
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.string.trim.js");
 
-require("regenerator-runtime/runtime");
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
@@ -40,6 +54,8 @@ var _Webform = _interopRequireDefault(require("./Webform"));
 
 require("flatpickr");
 
+var _Formio = _interopRequireDefault(require("./Formio"));
+
 var _formtest = require("../test/formtest");
 
 var _dataGridOnBlurValidation = _interopRequireDefault(require("../test/forms/dataGridOnBlurValidation"));
@@ -58,11 +74,19 @@ var _dataGridNestedForm = _interopRequireDefault(require("../test/forms/dataGrid
 
 var _formWithDataGrid = _interopRequireDefault(require("../test/forms/formWithDataGrid"));
 
+var _translationTestForm = _interopRequireDefault(require("../test/forms/translationTestForm"));
+
 var _dataGridWithConditionalColumn = _interopRequireDefault(require("../test/forms/dataGridWithConditionalColumn"));
+
+var _fixtures = require("../test/fixtures");
+
+var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
+
+var _utils = require("../lib/utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -75,6 +99,82 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* eslint-disable max-statements */
 describe('Webform tests', function () {
   this.retries(3);
+  it('Should not translate en value if _userInput option is provided and value presents in reserved translation names', function (done) {
+    var formElement = document.createElement('div');
+    var form = new _Webform.default(formElement, {
+      language: 'en'
+    });
+    form.setForm(_translationTestForm.default).then(function () {
+      setTimeout(function () {
+        var selectComp = form.getComponent('select');
+        var options = selectComp.element.querySelector('[role="listbox"]').children;
+        var option1 = options[0].textContent.trim();
+        var option2 = options[1].textContent.trim();
+        var label = selectComp.element.querySelector('label').textContent.trim();
+
+        _powerAssert.default.equal(option1, _translationTestForm.default.components[0].data.values[0].label);
+
+        _powerAssert.default.equal(option2, _translationTestForm.default.components[0].data.values[1].label);
+
+        _powerAssert.default.equal(label, _translationTestForm.default.components[0].label);
+
+        document.body.innerHTML = '';
+        done();
+      }, 100);
+    }).catch(done);
+  });
+  it('Should translate in English if _userInput option is provided and value does not present in reserved translation names', function (done) {
+    var formElement = document.createElement('div');
+    var selectLabel = 'Select test label';
+    var translationForm = (0, _utils.fastCloneDeep)(_translationTestForm.default);
+    translationForm.components[0].label = selectLabel;
+    var form = new _Webform.default(formElement, {
+      language: 'en',
+      i18n: {
+        en: {
+          'Select test label': 'English Label'
+        },
+        fr: {
+          'Select test label': 'French Label'
+        }
+      }
+    });
+    form.setForm(translationForm).then(function () {
+      var selectComp = form.getComponent('select');
+      var label = selectComp.element.querySelector('label').textContent.trim();
+
+      _powerAssert.default.equal(label, 'English Label');
+
+      document.body.innerHTML = '';
+      done();
+    }).catch(done);
+  });
+  it('Should translate value in franch if _userInput option is provided and value does not present in reserved translation names', function (done) {
+    var formElement = document.createElement('div');
+    var selectLabel = 'Select test label';
+    var translationForm = (0, _utils.fastCloneDeep)(_translationTestForm.default);
+    translationForm.components[0].label = selectLabel;
+    var form = new _Webform.default(formElement, {
+      language: 'fr',
+      i18n: {
+        en: {
+          'Select test label': 'English Label'
+        },
+        fr: {
+          'Select test label': 'French Label'
+        }
+      }
+    });
+    form.setForm(translationForm).then(function () {
+      var selectComp = form.getComponent('select');
+      var label = selectComp.element.querySelector('label').textContent.trim();
+
+      _powerAssert.default.equal(label, 'French Label');
+
+      document.body.innerHTML = '';
+      done();
+    }).catch(done);
+  });
   it('Should display dataGrid conditional column once the condition is met', function (done) {
     var formElement = document.createElement('div');
     var formWithCondDataGridColumn = new _Webform.default(formElement);
@@ -125,65 +225,67 @@ describe('Webform tests', function () {
     var formElement = document.createElement('div');
     var formWithDate = new _Webform.default(formElement);
     formWithDate.setForm(_formtest.formWithCustomFormatDate).then(function () {
-      var clickEvent = new Event('click');
-      var dateCompInputWidget = formWithDate.element.querySelector('.formio-component-textField').querySelector('.flatpickr-input').widget;
-      var dateAltFormat = dateCompInputWidget.calendar.config.altFormat;
-      dateCompInputWidget.calendar.setDate('30-05-2020', true, dateAltFormat);
-      var dateCompInputWidget1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('.flatpickr-input').widget;
-      var dateAltFormat1 = dateCompInputWidget1.calendar.config.altFormat;
-      dateCompInputWidget1.calendar.setDate('30-05-2020', true, dateAltFormat1);
-      var dateCompInputWidget2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('.flatpickr-input').widget;
-      var dateAltFormat2 = dateCompInputWidget2.calendar.config.altFormat;
-      dateCompInputWidget2.calendar.setDate('30-05-2020', true, dateAltFormat2);
       setTimeout(function () {
-        var dateCompAltInput = formWithDate.element.querySelector('.formio-component-textField').querySelector('.flatpickr-input');
-        var dateComp = formWithDate.element.querySelector('.formio-component-textField').querySelector('[type="text"]');
-        var dateCompAltInput1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('.flatpickr-input');
-        var dateComp1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('[type="text"]');
-        var dateCompAltInput2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('.flatpickr-input');
-        var dateComp2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('[type="text"]');
-
-        _powerAssert.default.equal(dateCompAltInput.value, '30-05-2020');
-
-        _powerAssert.default.equal(dateComp.value, '30-05-2020');
-
-        _powerAssert.default.equal(dateCompAltInput1.value, '2020-05-30T00:00:00');
-
-        _powerAssert.default.equal(dateComp1.value, '30-05-2020');
-
-        _powerAssert.default.equal(dateCompAltInput2.value, '2020-05-30T00:00:00');
-
-        _powerAssert.default.equal(dateComp2.value, '30-05-2020');
-
-        var addNewRowBtn = formWithDate.element.querySelector('.formio-button-add-row');
-        addNewRowBtn.dispatchEvent(clickEvent);
+        var clickEvent = new Event('click');
+        var dateCompInputWidget = formWithDate.element.querySelector('.formio-component-textField').querySelector('.flatpickr-input').widget;
+        var dateAltFormat = dateCompInputWidget.calendar.config.altFormat;
+        dateCompInputWidget.calendar.setDate('30-05-2020', true, dateAltFormat);
+        var dateCompInputWidget1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('.flatpickr-input').widget;
+        var dateAltFormat1 = dateCompInputWidget1.calendar.config.altFormat;
+        dateCompInputWidget1.calendar.setDate('30-05-2020', true, dateAltFormat1);
+        var dateCompInputWidget2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('.flatpickr-input').widget;
+        var dateAltFormat2 = dateCompInputWidget2.calendar.config.altFormat;
+        dateCompInputWidget2.calendar.setDate('30-05-2020', true, dateAltFormat2);
         setTimeout(function () {
-          var dataGridRows = formWithDate.element.querySelectorAll('[ref="datagrid-dataGrid-row"]');
+          var dateCompAltInput = formWithDate.element.querySelector('.formio-component-textField').querySelector('.flatpickr-input');
+          var dateComp = formWithDate.element.querySelector('.formio-component-textField').querySelector('[type="text"]');
+          var dateCompAltInput1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('.flatpickr-input');
+          var dateComp1 = formWithDate.element.querySelector('.formio-component-dateTime').querySelector('[type="text"]');
+          var dateCompAltInput2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('.flatpickr-input');
+          var dateComp2 = formWithDate.element.querySelector('.formio-component-textField2').querySelector('[type="text"]');
 
-          _powerAssert.default.equal(dataGridRows.length, 2);
+          _powerAssert.default.equal(dateCompAltInput.value, '30-05-2020');
 
-          var dateCompAltInputAfterAddingRow = formWithDate.element.querySelectorAll('.formio-component-textField')[0].querySelector('.flatpickr-input');
-          var dateCompAfterAddingRow = formWithDate.element.querySelectorAll('.formio-component-textField')[0].querySelector('[type="text"]');
-          var dateCompAltInputAfterAddingRow1 = formWithDate.element.querySelectorAll('.formio-component-dateTime')[0].querySelector('.flatpickr-input');
-          var dateCompAfterAddingRow1 = formWithDate.element.querySelectorAll('.formio-component-dateTime')[0].querySelector('[type="text"]');
-          var dateCompAltInputAfterAddingRow2 = formWithDate.element.querySelectorAll('.formio-component-textField2')[0].querySelector('.flatpickr-input');
-          var dateCompAfterAddingRow2 = formWithDate.element.querySelectorAll('.formio-component-textField2')[0].querySelector('[type="text"]');
+          _powerAssert.default.equal(dateComp.value, '30-05-2020');
 
-          _powerAssert.default.equal(dateCompAltInputAfterAddingRow.value, '30-05-2020');
+          _powerAssert.default.equal(dateCompAltInput1.value, '2020-05-30T00:00:00');
 
-          _powerAssert.default.equal(dateCompAfterAddingRow.value, '30-05-2020');
+          _powerAssert.default.equal(dateComp1.value, '30-05-2020');
 
-          _powerAssert.default.equal(dateCompAltInputAfterAddingRow1.value, '2020-05-30T00:00:00');
+          _powerAssert.default.equal(dateCompAltInput2.value, '2020-05-30T00:00:00');
 
-          _powerAssert.default.equal(dateCompAfterAddingRow1.value, '30-05-2020');
+          _powerAssert.default.equal(dateComp2.value, '30-05-2020');
 
-          _powerAssert.default.equal(dateCompAltInputAfterAddingRow2.value, '2020-05-30T00:00:00');
+          var addNewRowBtn = formWithDate.element.querySelector('.formio-button-add-row');
+          addNewRowBtn.dispatchEvent(clickEvent);
+          setTimeout(function () {
+            var dataGridRows = formWithDate.element.querySelectorAll('[ref="datagrid-dataGrid-row"]');
 
-          _powerAssert.default.equal(dateCompAfterAddingRow2.value, '30-05-2020');
+            _powerAssert.default.equal(dataGridRows.length, 2);
 
-          done();
-        }, 150);
-      }, 50);
+            var dateCompAltInputAfterAddingRow = formWithDate.element.querySelectorAll('.formio-component-textField')[0].querySelector('.flatpickr-input');
+            var dateCompAfterAddingRow = formWithDate.element.querySelectorAll('.formio-component-textField')[0].querySelector('[type="text"]');
+            var dateCompAltInputAfterAddingRow1 = formWithDate.element.querySelectorAll('.formio-component-dateTime')[0].querySelector('.flatpickr-input');
+            var dateCompAfterAddingRow1 = formWithDate.element.querySelectorAll('.formio-component-dateTime')[0].querySelector('[type="text"]');
+            var dateCompAltInputAfterAddingRow2 = formWithDate.element.querySelectorAll('.formio-component-textField2')[0].querySelector('.flatpickr-input');
+            var dateCompAfterAddingRow2 = formWithDate.element.querySelectorAll('.formio-component-textField2')[0].querySelector('[type="text"]');
+
+            _powerAssert.default.equal(dateCompAltInputAfterAddingRow.value, '30-05-2020');
+
+            _powerAssert.default.equal(dateCompAfterAddingRow.value, '30-05-2020');
+
+            _powerAssert.default.equal(dateCompAltInputAfterAddingRow1.value, '2020-05-30T00:00:00');
+
+            _powerAssert.default.equal(dateCompAfterAddingRow1.value, '30-05-2020');
+
+            _powerAssert.default.equal(dateCompAltInputAfterAddingRow2.value, '2020-05-30T00:00:00');
+
+            _powerAssert.default.equal(dateCompAfterAddingRow2.value, '30-05-2020');
+
+            done();
+          }, 150);
+        }, 50);
+      }, 100);
     }).catch(function (err) {
       return done(err);
     });
@@ -697,7 +799,7 @@ describe('Webform tests', function () {
 
         _powerAssert.default.equal(formWithPattern.errors[0].messages[0].message, 'Text Field is required');
 
-        _powerAssert.default.equal(formWithPattern.element.querySelector('[ref="errorRef"]').textContent, 'Text Field: Text Field is required');
+        _powerAssert.default.equal(formWithPattern.element.querySelector('[ref="errorRef"]').textContent, 'Text Field is required');
 
         done();
       }, 500);
@@ -868,6 +970,14 @@ describe('Webform tests', function () {
 
       done();
     }).catch(done);
+  });
+  it('Should get the language passed via options', function () {
+    var formElement = document.createElement('div');
+    var form = new _Webform.default(formElement, {
+      language: 'es'
+    });
+
+    _powerAssert.default.equal(form.language, 'es');
   });
   it('Should translate form errors in alerts', function () {
     var formElement = document.createElement('div');
@@ -1585,7 +1695,7 @@ describe('Webform tests', function () {
 
       var simulateFileUploading = function simulateFileUploading(comp) {
         var debounce = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 250;
-        var filePromise = new Promise(function (resolve) {
+        var filePromise = new _nativePromiseOnly.default(function (resolve) {
           setTimeout(function () {
             return resolve();
           }, debounce);
@@ -2223,7 +2333,31 @@ describe('Webform tests', function () {
         _powerAssert.default.deepEqual(nestedForm.dataValue, submissionWithIdOnly, 'Should not set to defaultValue after restore');
 
         done();
-      }, 150);
+      }, 350);
+    }).catch(done);
+  });
+  it('Should not set the default value if there is only Radio with False value', function (done) {
+    var formElement = document.createElement('div');
+
+    _Formio.default.createForm(formElement, _fixtures.nestedFormInWizard).then(function (form) {
+      var nestedForm = form.getComponent(['form']);
+      var submission = {
+        data: {
+          radio: false
+        }
+      };
+      nestedForm.dataValue = _objectSpread({}, submission);
+      setTimeout(function () {
+        _powerAssert.default.deepEqual(nestedForm.dataValue, submission, 'Should set submission');
+
+        nestedForm.valueChanged = true;
+        form.setPage(1);
+        setTimeout(function () {
+          _powerAssert.default.deepEqual(nestedForm.dataValue.data, submission.data, 'Should not set to defaultValue after restore');
+
+          done();
+        }, 300);
+      }, 300);
     }).catch(done);
   });
   it('Should add and clear input error classes correclty', function (done) {
@@ -2283,7 +2417,7 @@ describe('Webform tests', function () {
         }, 300);
       }, 350);
     }).catch(done);
-  });
+  }).timeout(3000);
   describe('Custom Logic', function () {
     it('Should rerender components using updated properties', function (done) {
       var formElement = document.createElement('div');
@@ -2320,26 +2454,52 @@ describe('Webform tests', function () {
     });
   });
   (0, _each.default)(_forms.default, function (formTest) {
-    describe(formTest.title || '', function () {
-      (0, _each.default)(formTest.tests, function (formTestTest, title) {
-        it(title, function () {
-          var formElement = document.createElement('div');
-          var form = new _Webform.default(formElement, {
-            language: 'en',
-            template: 'bootstrap3'
-          });
-          return form.setForm(formTest.form).then(function () {
-            formTestTest(form, function (error) {
-              form.destroy();
+    var useDoneInsteadOfPromise = formTest.useDone;
 
-              if (error) {
-                throw new Error(error);
-              }
+    if (useDoneInsteadOfPromise) {
+      describe(formTest.title || '', function () {
+        (0, _each.default)(formTest.tests, function (formTestTest, title) {
+          it(title, function (done) {
+            var self = this;
+            var formElement = document.createElement('div');
+            var form = new _Webform.default(formElement, _lodash.default.cloneDeep(formTest.formOptions || {}));
+            form.setForm(formTest.form).then(function () {
+              formTestTest(form, function (error) {
+                form = null;
+                formElement.innerHTML = '';
+
+                if (error) {
+                  throw new Error(error);
+                }
+
+                done();
+              }, self);
             });
           });
         });
       });
-    });
+    } else {
+      describe(formTest.title || '', function () {
+        (0, _each.default)(formTest.tests, function (formTestTest, title) {
+          it(title, function () {
+            var formElement = document.createElement('div');
+            var form = new _Webform.default(formElement, {
+              template: 'bootstrap3',
+              language: 'en'
+            });
+            return form.setForm(formTest.form).then(function () {
+              formTestTest(form, function (error) {
+                form.destroy();
+
+                if (error) {
+                  throw new Error(error);
+                }
+              });
+            });
+          });
+        });
+      });
+    }
   });
 }); // describe('Test the saveDraft and restoreDraft feature', () => {
 //   APIMock.submission('https://savedraft.form.io/myform', {

@@ -2,28 +2,48 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _Multivalue2 = _interopRequireDefault(require("../multivalue/Multivalue"));
 
@@ -57,7 +77,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -77,6 +97,59 @@ var Input = /*#__PURE__*/function (_Multivalue) {
   }
 
   _createClass(Input, [{
+    key: "inputInfo",
+    get: function get() {
+      var attr = {
+        name: this.options.name,
+        type: this.component.inputType || 'text',
+        class: 'form-control',
+        lang: this.options.language
+      };
+
+      if (this.component.placeholder) {
+        attr.placeholder = this.t(this.component.placeholder, {
+          _userInput: true
+        });
+      }
+
+      if (this.component.tabindex) {
+        attr.tabindex = this.component.tabindex;
+      }
+
+      if (this.disabled) {
+        attr.disabled = 'disabled';
+      }
+
+      if (this.component.autocomplete) {
+        attr.autocomplete = this.component.autocomplete;
+      }
+
+      _lodash.default.defaults(attr, this.component.attributes);
+
+      return {
+        id: this.key,
+        type: 'input',
+        changeEvent: 'input',
+        content: '',
+        attr: attr
+      };
+    }
+  }, {
+    key: "maskOptions",
+    get: function get() {
+      return _lodash.default.map(this.component.inputMasks, function (mask) {
+        return {
+          label: mask.label,
+          value: mask.label
+        };
+      });
+    }
+  }, {
+    key: "isMultipleMasksField",
+    get: function get() {
+      return this.component.allowMultipleMasks && !!this.component.inputMasks && !!this.component.inputMasks.length;
+    }
+  }, {
     key: "getMaskByName",
     value: function getMaskByName(maskName) {
       var inputMask = _lodash.default.find(this.component.inputMasks, function (inputMask) {
@@ -103,7 +176,40 @@ var Input = /*#__PURE__*/function (_Multivalue) {
   }, {
     key: "getWordCount",
     value: function getWordCount(value) {
-      return value.trim().split(/\s+/).length;
+      return !value ? 0 : value.trim().split(/\s+/).length;
+    }
+  }, {
+    key: "remainingWords",
+    get: function get() {
+      var maxWords = _lodash.default.parseInt(_lodash.default.get(this.component, 'validate.maxWords'), 10);
+
+      var wordCount = this.getWordCount(this.dataValue);
+      return maxWords - wordCount;
+    }
+  }, {
+    key: "prefix",
+    get: function get() {
+      return this.component.prefix;
+    }
+  }, {
+    key: "suffix",
+    get: function get() {
+      if (this.component.widget && this.component.widget.type === 'calendar') {
+        var calendarIcon = this.renderTemplate('icon', {
+          ref: 'icon',
+          // After font-awesome would be updated to v5.x, "clock-o" should be replaced with "clock"
+          className: this.iconClass(this.component.enableDate || this.component.widget.enableDate ? 'calendar' : 'clock-o'),
+          styles: '',
+          content: ''
+        }).trim();
+
+        if (this.component.prefix !== calendarIcon) {
+          // converting string to HTML markup to render correctly DateTime component in portal.form.io
+          return (0, _utils.convertStringToHTMLElement)(calendarIcon, '[ref="icon"]');
+        }
+      }
+
+      return this.component.suffix;
     }
   }, {
     key: "renderElement",
@@ -284,7 +390,8 @@ var Input = /*#__PURE__*/function (_Multivalue) {
   }, {
     key: "createWidget",
     value: function createWidget(index) {
-      var _this3 = this;
+      var _this$root,
+          _this3 = this;
 
       // Return null if no widget is found.
       if (!this.component.widget) {
@@ -294,7 +401,14 @@ var Input = /*#__PURE__*/function (_Multivalue) {
 
       var settings = typeof this.component.widget === 'string' ? {
         type: this.component.widget
-      } : this.component.widget; // Make sure we have a widget.
+      } : this.component.widget;
+
+      if ((_this$root = this.root) !== null && _this$root !== void 0 && _this$root.shadowRoot) {
+        var _this$root2;
+
+        settings.shadowRoot = (_this$root2 = this.root) === null || _this$root2 === void 0 ? void 0 : _this$root2.shadowRoot;
+      } // Make sure we have a widget.
+
 
       if (!_widgets.default.hasOwnProperty(settings.type)) {
         return null;
@@ -370,90 +484,6 @@ var Input = /*#__PURE__*/function (_Multivalue) {
           _this4.root.pendingBlur = null;
         });
       });
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var attr = {
-        name: this.options.name,
-        type: this.component.inputType || 'text',
-        class: 'form-control',
-        lang: this.options.language
-      };
-
-      if (this.component.placeholder) {
-        attr.placeholder = this.t(this.component.placeholder);
-      }
-
-      if (this.component.tabindex) {
-        attr.tabindex = this.component.tabindex;
-      }
-
-      if (this.disabled) {
-        attr.disabled = 'disabled';
-      }
-
-      if (this.component.autocomplete) {
-        attr.autocomplete = this.component.autocomplete;
-      }
-
-      _lodash.default.defaults(attr, this.component.attributes);
-
-      return {
-        id: this.key,
-        type: 'input',
-        changeEvent: 'input',
-        content: '',
-        attr: attr
-      };
-    }
-  }, {
-    key: "maskOptions",
-    get: function get() {
-      return _lodash.default.map(this.component.inputMasks, function (mask) {
-        return {
-          label: mask.label,
-          value: mask.label
-        };
-      });
-    }
-  }, {
-    key: "isMultipleMasksField",
-    get: function get() {
-      return this.component.allowMultipleMasks && !!this.component.inputMasks && !!this.component.inputMasks.length;
-    }
-  }, {
-    key: "remainingWords",
-    get: function get() {
-      var maxWords = _lodash.default.parseInt(_lodash.default.get(this.component, 'validate.maxWords'), 10);
-
-      var wordCount = this.getWordCount(this.dataValue);
-      return maxWords - wordCount;
-    }
-  }, {
-    key: "prefix",
-    get: function get() {
-      return this.component.prefix;
-    }
-  }, {
-    key: "suffix",
-    get: function get() {
-      if (this.component.widget && this.component.widget.type === 'calendar') {
-        var calendarIcon = this.renderTemplate('icon', {
-          ref: 'icon',
-          // After font-awesome would be updated to v5.x, "clock-o" should be replaced with "clock"
-          className: this.iconClass(this.component.enableDate || this.component.widget.enableDate ? 'calendar' : 'clock-o'),
-          styles: '',
-          content: ''
-        }).trim();
-
-        if (this.component.prefix !== calendarIcon) {
-          // converting string to HTML markup to render correctly DateTime component in portal.form.io
-          return (0, _utils.convertStringToHTMLElement)(calendarIcon, '[ref="icon"]');
-        }
-      }
-
-      return this.component.suffix;
     }
   }], [{
     key: "schema",

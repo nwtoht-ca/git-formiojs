@@ -1,12 +1,16 @@
 "use strict";
 
-require("core-js/modules/es.object.to-string");
+require("regenerator-runtime/runtime.js");
 
-require("core-js/modules/es.promise");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.promise.js");
 
-require("regenerator-runtime/runtime");
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.string.ends-with.js");
 
 var _harness = _interopRequireDefault(require("../test/harness"));
 
@@ -15,6 +19,8 @@ var _Wizard = _interopRequireDefault(require("./Wizard"));
 var _Formio = _interopRequireDefault(require("./Formio"));
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
+
+var _lodash = _interopRequireDefault(require("lodash"));
 
 var _wizardConditionalPages = _interopRequireDefault(require("../test/forms/wizardConditionalPages"));
 
@@ -32,11 +38,31 @@ var _wizardWithCustomConditionalPage = _interopRequireDefault(require("../test/f
 
 var _wizardWithFirstConditionalPage = _interopRequireDefault(require("../test/forms/wizardWithFirstConditionalPage"));
 
+var _wizardWithHighPages = _interopRequireDefault(require("../test/forms/wizardWithHighPages"));
+
 var _wizardWithHiddenPanel = _interopRequireDefault(require("../test/forms/wizardWithHiddenPanel"));
 
 var _wizardWithAllowPrevious = _interopRequireDefault(require("../test/forms/wizardWithAllowPrevious"));
 
+var _wizardWithNestedWizard = _interopRequireDefault(require("../test/forms/wizardWithNestedWizard"));
+
 var _formWithSignature = _interopRequireDefault(require("../test/forms/formWithSignature"));
+
+var _wizardWithTooltip = _interopRequireDefault(require("../test/forms/wizardWithTooltip"));
+
+var _wizardForHtmlRenderModeTest = _interopRequireDefault(require("../test/forms/wizardForHtmlRenderModeTest"));
+
+var _wizardTestForm = _interopRequireDefault(require("../test/forms/wizardTestForm"));
+
+var _formWIthNestedWizard = _interopRequireDefault(require("../test/forms/formWIthNestedWizard"));
+
+var _wizardWithDataGridAndEditGrid = _interopRequireDefault(require("../test/forms/wizardWithDataGridAndEditGrid"));
+
+var _customWizard = _interopRequireDefault(require("../test/forms/customWizard"));
+
+var _wizardChildForm = _interopRequireDefault(require("../test/forms/wizardChildForm"));
+
+var _wizardParentForm = _interopRequireDefault(require("../test/forms/wizardParentForm"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45,6 +71,1127 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 describe('Wizard tests', function () {
+  it('Should correctly reset values', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+    wizard.setForm(_wizardWithDataGridAndEditGrid.default).then(function () {
+      var dataGrid = wizard.getComponent('dataGrid');
+      var editGrid = wizard.getComponent('editGrid');
+
+      var checkComponents = function checkComponents(editGridRowsNumber, dataGridRowsNumber, editGridValue, dataGridValue) {
+        _powerAssert.default.equal(editGrid.editRows.length, editGridRowsNumber, "EditGrit should have ".concat(dataGridRowsNumber, " rows"));
+
+        _powerAssert.default.equal(editGrid.components.length, editGridRowsNumber, "EditGrit should have ".concat(dataGridRowsNumber, " components"));
+
+        _powerAssert.default.equal(dataGrid.rows.length, dataGridRowsNumber, "DataGrit should have ".concat(dataGridRowsNumber, " rows"));
+
+        _powerAssert.default.equal(dataGrid.components.length, dataGridRowsNumber, "DataGrit should have ".concat(dataGridRowsNumber, " components"));
+
+        if (editGridValue) {
+          _powerAssert.default.deepEqual(editGrid.dataValue, editGridValue, 'Should set correct editGrid value');
+        }
+
+        if (dataGridValue) {
+          _powerAssert.default.deepEqual(dataGrid.dataValue, dataGridValue, 'Should set correct dataGrid value');
+        }
+      };
+
+      var event = function event(name, elem) {
+        var event = new Event(name);
+        elem.dispatchEvent(event);
+      };
+
+      checkComponents(0, 1, [], [{}]);
+      var submission = {
+        data: {
+          dataGrid: [{
+            number: 1111
+          }, {
+            number: 2222
+          }],
+          editGrid: [{
+            textField: 'test1'
+          }, {
+            textField: 'test2'
+          }]
+        }
+      };
+      wizard.submission = _lodash.default.cloneDeep(submission);
+      setTimeout(function () {
+        checkComponents(2, 2, submission.data.editGrid, submission.data.dataGrid);
+        wizard.cancel(true);
+        setTimeout(function () {
+          checkComponents(0, 1, [], [{}]);
+          event('click', editGrid.refs['editgrid-editGrid-addRow'][0]);
+          setTimeout(function () {
+            var editGridFirstRowInput = editGrid.element.querySelector('[name="data[editGrid][0][textField]"]');
+            editGridFirstRowInput.value = 'test row 1';
+            event('input', editGridFirstRowInput);
+            event('click', editGrid.refs['editgrid-editGrid-saveRow'][0]);
+            var dataGridFirstRowInput = dataGrid.element.querySelector('[name="data[dataGrid][0][number]"]');
+            dataGridFirstRowInput.value = 11;
+            event('input', dataGridFirstRowInput);
+            setTimeout(function () {
+              checkComponents(1, 1, [{
+                textField: 'test row 1'
+              }], [{
+                number: 11
+              }]);
+              event('click', editGrid.refs['editgrid-editGrid-addRow'][0]);
+              event('click', dataGrid.refs['datagrid-dataGrid-addRow'][0]);
+              setTimeout(function () {
+                var editGridFirstRowInput = editGrid.element.querySelector('[name="data[editGrid][1][textField]"]');
+                editGridFirstRowInput.value = 'test row 2';
+                event('input', editGridFirstRowInput);
+                event('click', editGrid.refs['editgrid-editGrid-saveRow'][0]);
+                var dataGridFirstRowInput = dataGrid.element.querySelector('[name="data[dataGrid][1][number]"]');
+                dataGridFirstRowInput.value = 22;
+                event('input', dataGridFirstRowInput);
+                setTimeout(function () {
+                  var editGridValue = [{
+                    textField: 'test row 1'
+                  }, {
+                    textField: 'test row 2'
+                  }];
+                  var dataGridValue = [{
+                    number: 11
+                  }, {
+                    number: 22
+                  }];
+                  checkComponents(2, 2, editGridValue, dataGridValue);
+
+                  _powerAssert.default.deepEqual(wizard.submission.data, {
+                    dataGrid: dataGridValue,
+                    editGrid: editGridValue
+                  }, 'Should contain correct submission data');
+
+                  done();
+                }, 200);
+              }, 200);
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  }).timeout(2500);
+  it('Should render nested wizard, navigate pages and trigger validation', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var nestedWizard = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    wizard.setForm(_formWIthNestedWizard.default).then(function () {
+      var nestedFormComp = wizard.getComponent('formNested');
+
+      nestedFormComp.loadSubForm = function () {
+        nestedFormComp.formObj = nestedWizard;
+        nestedFormComp.subFormLoading = false;
+        return new Promise(function (resolve) {
+          return resolve(nestedWizard);
+        });
+      };
+
+      nestedFormComp.createSubForm();
+      setTimeout(function () {
+        var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+          var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+          var clickEvent = new Event('click');
+          btn.dispatchEvent(clickEvent);
+        };
+
+        var checkPage = function checkPage(pageNumber) {
+          _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+        };
+
+        checkPage(0);
+
+        _powerAssert.default.equal(wizard.pages.length, 5, 'Should have 5 pages');
+
+        _powerAssert.default.equal(wizard.allPages.length, 5, 'Should have 5 pages');
+
+        _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey, "-link")].length, 5, 'Should contain refs to breadcrumbs of parent and nested wizard');
+
+        clickWizardBtn('next');
+        setTimeout(function () {
+          checkPage(1);
+
+          _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey)].querySelectorAll('[ref="component"]').length, 1, 'Should not load nested wizard component of the page of nested form if this page contains other components');
+
+          clickWizardBtn('next');
+          setTimeout(function () {
+            checkPage(2);
+
+            _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey)].querySelectorAll('[ref="component"]').length, 4, 'Should render nested wizard first page components');
+
+            clickWizardBtn('next');
+            setTimeout(function () {
+              checkPage(2);
+
+              _powerAssert.default.equal(wizard.errors.length, 1, 'Should show validation error for required field');
+
+              _powerAssert.default.equal(wizard.refs.errorRef.length, 1, 'Should show alert with error');
+
+              clickWizardBtn('previous');
+              setTimeout(function () {
+                checkPage(1);
+
+                _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have validation errors');
+
+                clickWizardBtn('link[4]');
+                setTimeout(function () {
+                  checkPage(4);
+
+                  _powerAssert.default.equal(!!wizard.refs["".concat(wizard.wizardKey, "-submit")], true, 'Should have submit btn on the last page');
+
+                  clickWizardBtn('submit');
+                  setTimeout(function () {
+                    checkPage(4);
+
+                    _powerAssert.default.equal(wizard.errors.length, 3, 'Should trigger validation errors on submit');
+
+                    _powerAssert.default.equal(wizard.refs.errorRef.length, 3, 'Should show alert with error on submit');
+
+                    wizard.getComponent('select').setValue('value1');
+                    setTimeout(function () {
+                      checkPage(4);
+
+                      _powerAssert.default.equal(wizard.errors.length, 2, 'Should remove validation error if a component is valid');
+
+                      _powerAssert.default.equal(wizard.refs.errorRef.length, 2, 'Should remove error from alert if component is valid');
+
+                      done();
+                    }, 500);
+                  }, 500);
+                }, 200);
+              }, 200);
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  }).timeout(3000);
+  it('Should set submission in wizard with nested wizard', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var nestedWizard = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    var submission = {
+      data: {
+        selectBoxesParent: {
+          a: true,
+          b: false,
+          c: false
+        },
+        formNested: {
+          data: _wizardTestForm.default.submission.data
+        },
+        numberParent: 1111
+      }
+    };
+    wizard.setForm(_formWIthNestedWizard.default).then(function () {
+      var nestedFormComp = wizard.getComponent('formNested');
+
+      nestedFormComp.loadSubForm = function () {
+        nestedFormComp.formObj = nestedWizard;
+        nestedFormComp.subFormLoading = false;
+        return new Promise(function (resolve) {
+          return resolve(nestedWizard);
+        });
+      };
+
+      nestedFormComp.createSubForm();
+      setTimeout(function () {
+        wizard.submission = _lodash.default.cloneDeep(submission);
+        setTimeout(function () {
+          _powerAssert.default.deepEqual(wizard.data, submission.data, 'Should set wizard submission');
+
+          _powerAssert.default.deepEqual(wizard.submission.data, submission.data, 'Should get wizard submission data');
+
+          wizard.everyComponent(function (comp) {
+            var expectedValue = _lodash.default.get(submission.data, comp.path, 'no data');
+
+            if (expectedValue !== 'no data') {
+              _powerAssert.default.deepEqual(comp.getValue(), expectedValue, "Should set value for ".concat(comp.component.type, " inside wizard"));
+
+              _powerAssert.default.deepEqual(comp.dataValue, expectedValue, "Should set value for ".concat(comp.component.type, " inside wizard"));
+            }
+          });
+          done();
+        }, 300);
+      }, 300);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should show conditional page inside nested wizard', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var nestedWizard = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    nestedWizard.components[2].conditional = {
+      show: true,
+      when: 'checkbox',
+      eq: 'true'
+    };
+    wizard.setForm(_formWIthNestedWizard.default).then(function () {
+      var nestedFormComp = wizard.getComponent('formNested');
+
+      nestedFormComp.loadSubForm = function () {
+        nestedFormComp.formObj = nestedWizard;
+        nestedFormComp.subFormLoading = false;
+        return new Promise(function (resolve) {
+          return resolve(nestedWizard);
+        });
+      };
+
+      nestedFormComp.createSubForm();
+      setTimeout(function () {
+        var checkPage = function checkPage(pageNumber) {
+          _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+        };
+
+        var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+          var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+          var clickEvent = new Event('click');
+          btn.dispatchEvent(clickEvent);
+        };
+
+        checkPage(0);
+
+        _powerAssert.default.equal(wizard.pages.length, 4, 'Should have 4 pages');
+
+        _powerAssert.default.equal(wizard.allPages.length, 4, 'Should have 4 pages');
+
+        _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey, "-link")].length, 4, 'Should contain refs to breadcrumbs of parent and nested wizard');
+
+        clickWizardBtn('link[3]');
+        setTimeout(function () {
+          checkPage(3);
+
+          _powerAssert.default.deepEqual(!!wizard.refs["".concat(wizard.wizardKey, "-submit")], true, 'Should hav submit btn on the last page');
+
+          wizard.getComponent('checkbox').setValue(true);
+          setTimeout(function () {
+            checkPage(3);
+
+            _powerAssert.default.deepEqual(!!wizard.refs["".concat(wizard.wizardKey, "-submit")], true, 'Should have submit btn on the last page');
+
+            wizard.getComponent('checkbox').setValue(true);
+            setTimeout(function () {
+              checkPage(3);
+
+              _powerAssert.default.deepEqual(!!wizard.refs["".concat(wizard.wizardKey, "-submit")], false, 'Should not have submit btn ');
+
+              _powerAssert.default.equal(wizard.pages.length, 5, 'Should show conditional page');
+
+              _powerAssert.default.equal(wizard.allPages.length, 5, 'Should show conditional page');
+
+              _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey, "-link")].length, 5, 'Should contain refs to breadcrumbs of visible conditional page');
+
+              clickWizardBtn('next');
+              setTimeout(function () {
+                checkPage(4);
+                clickWizardBtn('previous');
+                setTimeout(function () {
+                  checkPage(3);
+                  wizard.getComponent('checkbox').setValue(false);
+                  setTimeout(function () {
+                    _powerAssert.default.equal(wizard.pages.length, 4, 'Should hide conditional page');
+
+                    _powerAssert.default.equal(wizard.allPages.length, 4, 'Should hide conditional page');
+
+                    _powerAssert.default.equal(wizard.refs["".concat(wizard.wizardKey, "-link")].length, 4, 'Should contain refs to breadcrumbs of visible pages');
+
+                    _powerAssert.default.deepEqual(!!wizard.refs["".concat(wizard.wizardKey, "-submit")], true, 'Should have submit btn on the last page');
+
+                    done();
+                  }, 500);
+                }, 300);
+              }, 300);
+            }, 500);
+          }, 300);
+        }, 300);
+      }, 300);
+    }).catch(function (err) {
+      return done(err);
+    });
+  }).timeout(3000);
+  it('Should render values in HTML render mode', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement, {
+      readOnly: true,
+      renderMode: 'html'
+    });
+
+    var form = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    wizard.setForm(form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      var checkValues = function checkValues() {
+        wizard.allPages[wizard.page].everyComponent(function (comp) {
+          var isParent = !!(comp.component.components || comp.component.rows || comp.component.columns);
+
+          if (!isParent) {
+            var isInEditGrid = comp.parent.component.type === 'editgrid';
+            var value = isInEditGrid ? comp.parent.refs['editgrid-editGrid-row'][comp.rowIndex].textContent.trim() : comp.element.querySelector("[ref='value']").textContent;
+
+            var expectedValue = _lodash.default.get(_wizardTestForm.default.htmlModeValues, comp.path, 'no data');
+
+            _powerAssert.default.equal(value, expectedValue === 'true' ? 'True' : expectedValue, "".concat(comp.component.key, ": should render value in html render mode"));
+          }
+        });
+      };
+
+      wizard.submission = _lodash.default.cloneDeep(_wizardTestForm.default.submission);
+      setTimeout(function () {
+        checkPage(0);
+        checkValues();
+        clickWizardBtn('next');
+        setTimeout(function () {
+          checkPage(1);
+          checkValues();
+          clickWizardBtn('next');
+          setTimeout(function () {
+            checkPage(2);
+            checkValues();
+            done();
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should execute advanced logic for wizard pages', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var form = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    _lodash.default.each(form.components, function (comp, index) {
+      if (index === 1) {
+        comp.logic = [{
+          name: 'simple logic',
+          trigger: {
+            type: 'simple',
+            simple: {
+              show: true,
+              when: 'textField',
+              eq: 'tooltip'
+            }
+          },
+          actions: [{
+            name: 'merge schema action',
+            type: 'mergeComponentSchema',
+            schemaDefinition: "schema = { tooltip: 'some tooltip'}"
+          }]
+        }];
+      }
+
+      if (index === 2) {
+        comp.logic = [{
+          name: 'logic test',
+          trigger: {
+            type: 'simple',
+            simple: {
+              show: true,
+              when: 'checkbox',
+              eq: 'true'
+            }
+          },
+          actions: [{
+            name: 'disabled',
+            type: 'property',
+            property: {
+              label: 'Disabled',
+              value: 'disabled',
+              type: 'boolean'
+            },
+            state: true
+          }]
+        }];
+      }
+    });
+
+    wizard.setForm(form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      checkPage(0);
+      wizard.getComponent('textField').setValue('tooltip');
+      clickWizardBtn('next');
+      setTimeout(function () {
+        checkPage(1);
+
+        _powerAssert.default.equal(wizard.tooltips.length, 1, 'Should have tooltip after advanced logic execution');
+
+        _powerAssert.default.equal(!!wizard.refs["".concat(wizard.wizardKey, "-tooltip")][0], true, 'Should render tooltip icon');
+
+        wizard.getComponent('checkbox').setValue(true);
+        clickWizardBtn('next');
+        setTimeout(function () {
+          checkPage(2);
+
+          _powerAssert.default.equal(wizard.allPages[wizard.page].disabled, true, 'Should disable page components after advanced logic execution');
+
+          done();
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should navigate next page according to advanced next page logic', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var form = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    _lodash.default.each(form.components, function (comp, index) {
+      if (index === 0) {
+        comp.nextPage = "next = data.textField === 'page3' ? 'page3' : 'page2'";
+      }
+
+      if (index === 1) {
+        comp.nextPage = "next = data.container && data.container.select === 'value1' ? 'page1' : 'page3'";
+      }
+    });
+
+    wizard.setForm(form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      checkPage(0);
+      wizard.getComponent('textField').setValue('page3');
+      clickWizardBtn('next');
+      setTimeout(function () {
+        checkPage(2);
+        wizard.getComponent('select').setValue('value1');
+        clickWizardBtn('previous');
+        setTimeout(function () {
+          checkPage(1);
+          wizard.getComponent('checkbox').setValue(true);
+          clickWizardBtn('next');
+          setTimeout(function () {
+            checkPage(0);
+            done();
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should not render breadcrumb if it has hidden type', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var form = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    _lodash.default.each(form.components, function (comp) {
+      comp.breadcrumb = 'none';
+    });
+
+    wizard.setForm(form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      var checkBreadcrumb = function checkBreadcrumb() {
+        _powerAssert.default.equal(_lodash.default.get(wizard.refs, "".concat(wizard.wizardKey, "-link")).length, 0, 'Should not render wizard breadcrumb');
+      };
+
+      checkBreadcrumb();
+      wizard.setSubmission(_lodash.default.cloneDeep(_wizardTestForm.default.submission));
+      setTimeout(function () {
+        checkPage(0);
+        checkBreadcrumb();
+        clickWizardBtn('next');
+        setTimeout(function () {
+          checkPage(1);
+          checkBreadcrumb();
+          clickWizardBtn('next');
+          setTimeout(function () {
+            checkPage(2);
+            checkBreadcrumb();
+            done();
+          }, 100);
+        }, 100);
+      }, 100);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should not navigate between wizard pages on breadcrumb click if breadcrumbClickable is false', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var form = _lodash.default.cloneDeep(_wizardTestForm.default.form);
+
+    _lodash.default.each(form.components, function (comp) {
+      comp.breadcrumbClickable = false;
+    });
+
+    wizard.setForm(form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      checkPage(0);
+      clickWizardBtn('link[1]');
+      setTimeout(function () {
+        checkPage(0);
+        clickWizardBtn('link[2]');
+        setTimeout(function () {
+          checkPage(0);
+          wizard.setSubmission(_lodash.default.cloneDeep(_wizardTestForm.default.submission));
+          setTimeout(function () {
+            checkPage(0);
+            clickWizardBtn('next');
+            setTimeout(function () {
+              checkPage(1);
+              clickWizardBtn('link[0]');
+              setTimeout(function () {
+                checkPage(1);
+                done();
+              }, 100);
+            }, 100);
+          }, 100);
+        }, 100);
+      }, 100);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should set/get wizard submission', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+    wizard.setForm(_wizardTestForm.default.form).then(function () {
+      wizard.submission = _lodash.default.cloneDeep(_wizardTestForm.default.submission);
+      setTimeout(function () {
+        _powerAssert.default.deepEqual(wizard.data, _wizardTestForm.default.submission.data, 'Should set wizard submission');
+
+        _powerAssert.default.deepEqual(wizard.submission.data, _wizardTestForm.default.submission.data, 'Should get wizard submission data');
+
+        wizard.everyComponent(function (comp) {
+          var expectedValue = _lodash.default.get(_wizardTestForm.default.submission.data, comp.path, 'no data');
+
+          if (expectedValue !== 'no data') {
+            _powerAssert.default.deepEqual(comp.getValue(), expectedValue, "Should set value for ".concat(comp.component.type, " inside wizard"));
+
+            _powerAssert.default.deepEqual(comp.dataValue, expectedValue, "Should set value for ".concat(comp.component.type, " inside wizard"));
+          }
+        });
+        done();
+      }, 300);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should correctly render customized wizard and navigate using custom btns', function (done) {
+    var formElement = document.createElement('div');
+    var customizedWizard = new _Wizard.default(formElement);
+    customizedWizard.setForm(_customWizard.default).then(function () {
+      customizedWizard.on('goToNextPage', function () {
+        customizedWizard.nextPage();
+      });
+      customizedWizard.on('goToPrevPage', function () {
+        customizedWizard.prevPage();
+      });
+
+      var checkBtns = function checkBtns(page) {
+        _powerAssert.default.equal(customizedWizard.page, page, "Should set page ".concat(page + 1));
+
+        _powerAssert.default.equal(!!customizedWizard.refs["".concat(customizedWizard.wizardKey, "-next")], false, 'Should not render wizard next btn');
+
+        _powerAssert.default.equal(!!customizedWizard.refs["".concat(customizedWizard.wizardKey, "-cancel")], false, 'Should not render wizard cancel btn');
+
+        _powerAssert.default.equal(!!customizedWizard.refs["".concat(customizedWizard.wizardKey, "-previous")], false, 'Should not render wizard previous btn');
+      };
+
+      var navigatePage = function navigatePage(btnKey) {
+        var customBtn = customizedWizard.components[customizedWizard.page].getComponent(btnKey).refs.button;
+        var clickEvent = new Event('click');
+        customBtn.dispatchEvent(clickEvent);
+      };
+
+      checkBtns(0);
+      navigatePage('nextPage');
+      setTimeout(function () {
+        checkBtns(1);
+        navigatePage('nextPage1');
+        setTimeout(function () {
+          checkBtns(2);
+          navigatePage('prevPage1');
+          setTimeout(function () {
+            checkBtns(1);
+            navigatePage('prevPage');
+            setTimeout(function () {
+              checkBtns(0);
+              customizedWizard.destroy();
+              done();
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should not create a new submission on submission of edited draft submission', function (done) {
+    var formElement = document.createElement('div');
+    var customizedWizard = new _Wizard.default(formElement);
+    var expectedValues = {
+      '1': {
+        method: 'post',
+        urlEnd: 'submission',
+        state: 'draft',
+        data: {
+          number: undefined,
+          textArea1: '',
+          textField: 'test'
+        },
+        id: undefined
+      },
+      '2': {
+        method: 'put',
+        urlEnd: 'someId',
+        state: 'draft',
+        data: {
+          number: 111111,
+          textArea1: 'test1',
+          textField: 'test1'
+        },
+        id: 'someId'
+      },
+      '3': {
+        method: 'put',
+        urlEnd: 'someId',
+        state: 'draft',
+        data: {
+          number: 22222,
+          textArea1: 'test',
+          textField: 'test1'
+        },
+        id: 'someId'
+      },
+      '4': {
+        method: 'put',
+        urlEnd: 'someId',
+        state: 'draft',
+        data: {
+          number: 22222,
+          textArea1: 'test1',
+          textField: 'test1'
+        },
+        id: 'someId'
+      },
+      '5': {
+        method: 'put',
+        urlEnd: 'someId',
+        state: 'submitted',
+        data: {
+          number: 22222,
+          textArea1: 'test1',
+          textField: 'test1'
+        },
+        id: 'someId'
+      }
+    };
+    customizedWizard.setForm(_customWizard.default).then(function () {
+      var formio = new _Formio.default('http://test.localhost/draftwizardpages', {});
+      var number = 1;
+
+      formio.makeRequest = function (type, url, method, data) {
+        _powerAssert.default.equal(method, expectedValues[number].method, "Should send ".concat(expectedValues[number].method, " request"));
+
+        _powerAssert.default.equal(data._id, expectedValues[number].id, "Submission data should ".concat(expectedValues[number].id ? '' : 'not', " contain id of editted submission"));
+
+        _powerAssert.default.equal(url.endsWith(expectedValues[number].urlEnd), true, "Request url should end with ".concat(expectedValues[number].urlEnd));
+
+        _powerAssert.default.equal(data.state, expectedValues[number].state, "Should set ".concat(expectedValues[number].state, " state for submission"));
+
+        _lodash.default.each(expectedValues[number].data, function (value, key) {
+          _powerAssert.default.equal(data.data[key], value, "".concat(key, " field should contain \"").concat(value, "\" value in submission object"));
+        });
+
+        number = number + 1;
+        return new Promise(function (resolve) {
+          return resolve({
+            _id: 'someId',
+            data: {
+              number: 22222,
+              textArea1: 'test1',
+              textField: 'test1'
+            },
+            metadata: {},
+            state: data.state
+          });
+        });
+      };
+
+      customizedWizard.formio = formio;
+      customizedWizard.on('goToNextPage', function () {
+        customizedWizard.executeSubmit({
+          state: 'draft'
+        }).then(function () {
+          return customizedWizard.nextPage();
+        });
+      });
+      customizedWizard.on('goToPrevPage', function () {
+        customizedWizard.executeSubmit({
+          state: 'draft'
+        }).then(function () {
+          return customizedWizard.prevPage();
+        });
+      });
+      customizedWizard.on('saveSubmission', function () {
+        customizedWizard.executeSubmit();
+      });
+
+      var checkPage = function checkPage(page) {
+        _powerAssert.default.equal(customizedWizard.page, page, "Should set page ".concat(page + 1));
+      };
+
+      var navigatePage = function navigatePage(btnKey) {
+        var customBtn = customizedWizard.components[customizedWizard.page].getComponent(btnKey).refs.button;
+        var clickEvent = new Event('click');
+        customBtn.dispatchEvent(clickEvent);
+      };
+
+      var setPageCompValue = function setPageCompValue(compKey, value) {
+        customizedWizard.components[customizedWizard.page].getComponent(compKey).setValue(value);
+      };
+
+      checkPage(0);
+      setPageCompValue('textField', 'test');
+      navigatePage('nextPage');
+      setTimeout(function () {
+        checkPage(1);
+        setPageCompValue('number', 111111);
+        navigatePage('nextPage1');
+        setTimeout(function () {
+          checkPage(2);
+          setPageCompValue('textArea1', 'test');
+          navigatePage('prevPage1');
+          setTimeout(function () {
+            checkPage(1);
+            navigatePage('nextPage1');
+            setTimeout(function () {
+              checkPage(2);
+              navigatePage('save');
+              setTimeout(function () {
+                customizedWizard.destroy();
+                done();
+              }, 200);
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should show validation alert and components` errors and navigate pages after clicking alert error', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+    wizard.setForm(_wizardTestForm.default.form).then(function () {
+      var clickWizardBtn = function clickWizardBtn(pathPart, clickError) {
+        var btn = _lodash.default.get(wizard.refs, clickError ? pathPart : "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      var checkInvalidComp = function checkInvalidComp(compKey, highLight) {
+        var comp = wizard.getComponent(compKey);
+
+        _powerAssert.default.deepEqual(!!comp.error, true, "".concat(compKey, ": should have error"));
+
+        _powerAssert.default.deepEqual(comp.error.message, "".concat(comp.component.label, " is required"), "".concat(compKey, ": should have correct required validation message"));
+
+        _powerAssert.default.deepEqual(comp.pristine, false, "".concat(compKey, ": should set pristine to false"));
+
+        _powerAssert.default.deepEqual(comp.element.classList.contains("".concat(highLight ? 'formio-error-wrapper' : 'has-error')), true, "".concat(compKey, ": should set error class"));
+
+        _powerAssert.default.deepEqual(comp.refs.messageContainer.querySelector('.error').textContent.trim(), "".concat(comp.component.label, " is required"), "".concat(compKey, ": should display error message"));
+      };
+
+      checkPage(0);
+      clickWizardBtn('link[2]');
+      setTimeout(function () {
+        checkPage(2);
+
+        _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have validation errors');
+
+        clickWizardBtn('submit');
+        setTimeout(function () {
+          _powerAssert.default.equal(wizard.errors.length, 3, 'Should have validation errors');
+
+          _powerAssert.default.equal(wizard.refs.errorRef.length, wizard.errors.length, 'Should show alert with validation errors');
+
+          _powerAssert.default.equal(!!wizard.element.querySelector('.alert-danger'), true, 'Should have alert with validation errors');
+
+          checkInvalidComp('select', true);
+          clickWizardBtn('errorRef[0]', true);
+          setTimeout(function () {
+            checkPage(0);
+
+            _powerAssert.default.equal(wizard.errors.length, 1, 'Should have page validation error');
+
+            _powerAssert.default.equal(wizard.refs.errorRef.length, 3, 'Should keep alert with validation errors');
+
+            checkInvalidComp('textField');
+            clickWizardBtn('errorRef[1]', true);
+            setTimeout(function () {
+              checkPage(1);
+
+              _powerAssert.default.equal(wizard.errors.length, 1, 'Should have page validation error');
+
+              _powerAssert.default.equal(wizard.refs.errorRef.length, 3, 'Should keep alert with validation errors');
+
+              checkInvalidComp('checkbox');
+              wizard.getComponent('checkbox').setValue(true);
+              setTimeout(function () {
+                checkPage(1);
+
+                _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have page validation error');
+
+                _powerAssert.default.equal(wizard.refs.errorRef.length, 2, 'Should keep alert with validation errors');
+
+                clickWizardBtn('errorRef[1]', true);
+                setTimeout(function () {
+                  checkPage(2);
+
+                  _powerAssert.default.equal(wizard.errors.length, 2, 'Should have wizard validation errors');
+
+                  _powerAssert.default.equal(wizard.refs.errorRef.length, 2, 'Should keep alert with validation errors');
+
+                  wizard.getComponent('select').setValue('value1');
+                  setTimeout(function () {
+                    _powerAssert.default.equal(wizard.errors.length, 1, 'Should have wizard validation error');
+
+                    _powerAssert.default.equal(wizard.refs.errorRef.length, 1, 'Should keep alert with validation errors');
+
+                    clickWizardBtn('errorRef[0]', true);
+                    setTimeout(function () {
+                      checkPage(0);
+
+                      _powerAssert.default.equal(wizard.errors.length, 1, 'Should have page validation error');
+
+                      _powerAssert.default.equal(wizard.refs.errorRef.length, 1, 'Should keep alert with validation errors');
+
+                      wizard.getComponent('textField').setValue('valid');
+                      setTimeout(function () {
+                        _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have page validation error');
+
+                        _powerAssert.default.equal(!!wizard.element.querySelector('.alert-danger'), false, 'Should not have alert with validation errors');
+
+                        clickWizardBtn('link[2]');
+                        setTimeout(function () {
+                          clickWizardBtn('submit');
+                          setTimeout(function () {
+                            _powerAssert.default.equal(wizard.submission.state, 'submitted', 'Should submit the form');
+
+                            done();
+                          }, 300);
+                        }, 300);
+                      }, 300);
+                    }, 300);
+                  }, 300);
+                }, 300);
+              }, 300);
+            }, 100);
+          }, 100);
+        }, 100);
+      }, 100);
+    }).catch(function (err) {
+      return done(err);
+    });
+  }).timeout(3500);
+  it('Should navigate wizard pages using navigation buttons and breadcrumbs', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+    wizard.setForm(_wizardTestForm.default.form).then(function () {
+      var clickNavigationBtn = function clickNavigationBtn(pathPart) {
+        var btn = _lodash.default.get(wizard.refs, "".concat(wizard.wizardKey, "-").concat(pathPart));
+
+        var clickEvent = new Event('click');
+        btn.dispatchEvent(clickEvent);
+      };
+
+      var checkPage = function checkPage(pageNumber) {
+        _powerAssert.default.equal(wizard.page, pageNumber, "Should open wizard page ".concat(pageNumber + 1));
+      };
+
+      checkPage(0);
+      clickNavigationBtn('next');
+      setTimeout(function () {
+        checkPage(0);
+
+        _powerAssert.default.equal(wizard.errors.length, 1, 'Should have validation error');
+
+        _powerAssert.default.equal(wizard.refs.errorRef.length, wizard.errors.length, 'Should show alert with validation error');
+
+        wizard.getComponent('textField').setValue('valid');
+        clickNavigationBtn('next');
+        setTimeout(function () {
+          checkPage(1);
+          clickNavigationBtn('next');
+          setTimeout(function () {
+            checkPage(1);
+
+            _powerAssert.default.equal(wizard.errors.length, 1, 'Should have validation error');
+
+            _powerAssert.default.equal(wizard.refs.errorRef.length, wizard.errors.length, 'Should show alert with validation error');
+
+            clickNavigationBtn('previous');
+            setTimeout(function () {
+              checkPage(0);
+
+              _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have validation error');
+
+              _powerAssert.default.equal(!!wizard.refs.errorRef, false, 'Should not have alert with validation error');
+
+              clickNavigationBtn('next');
+              setTimeout(function () {
+                checkPage(1);
+
+                _powerAssert.default.equal(wizard.errors.length, 1, 'Should have validation error');
+
+                wizard.getComponent('checkbox').setValue(true);
+                clickNavigationBtn('next');
+                setTimeout(function () {
+                  checkPage(2);
+
+                  _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have validation error');
+
+                  clickNavigationBtn('link[0]');
+                  setTimeout(function () {
+                    checkPage(0);
+
+                    _powerAssert.default.equal(wizard.errors.length, 0, 'Should not have validation error');
+
+                    clickNavigationBtn('link[2]');
+                    setTimeout(function () {
+                      checkPage(2);
+                      done();
+                    }, 50);
+                  }, 50);
+                }, 50);
+              }, 50);
+            }, 50);
+          }, 50);
+        }, 50);
+      }, 50);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should correctly set values in HTML render mode', function (done) {
+    var formElement = document.createElement('div');
+    var formHTMLMode = new _Wizard.default(formElement, {
+      readOnly: true,
+      renderMode: 'html'
+    });
+    formHTMLMode.setForm(_wizardForHtmlRenderModeTest.default.form).then(function () {
+      formHTMLMode.setSubmission(_wizardForHtmlRenderModeTest.default.submission);
+      setTimeout(function () {
+        var numberValue = formHTMLMode.element.querySelector('[ref="value"]').textContent;
+
+        _powerAssert.default.equal(+numberValue, _wizardForHtmlRenderModeTest.default.submission.data.number);
+
+        var nextPageBtn = formHTMLMode.refs["".concat(formHTMLMode.wizardKey, "-next")];
+        var clickEvent = new Event('click');
+        nextPageBtn.dispatchEvent(clickEvent);
+        setTimeout(function () {
+          var textValue = formHTMLMode.element.querySelector('[ref="value"]').textContent;
+
+          _powerAssert.default.equal(textValue, _wizardForHtmlRenderModeTest.default.submission.data.textField);
+
+          done();
+        }, 250);
+      }, 200);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
+  it('Should show tooltip for wizard pages', function (done) {
+    var formElement = document.createElement('div');
+    var wizardWithPageTooltip = new _Wizard.default(formElement);
+    wizardWithPageTooltip.setForm(_wizardWithTooltip.default).then(function () {
+      var clickEvent = new Event('click');
+
+      _powerAssert.default.equal(wizardWithPageTooltip.tooltips.length, 1);
+
+      var pageTooltipIcon = wizardWithPageTooltip.refs["".concat(wizardWithPageTooltip.wizardKey, "-tooltip")][0];
+
+      _powerAssert.default.equal(!!pageTooltipIcon, true);
+
+      pageTooltipIcon.dispatchEvent(clickEvent);
+      setTimeout(function () {
+        var tooltipText = wizardWithPageTooltip.element.querySelector('.tooltip-inner').textContent;
+
+        _powerAssert.default.equal(tooltipText, wizardWithPageTooltip.currentPanel.tooltip);
+
+        done();
+      }, 250);
+    }).catch(function (err) {
+      return done(err);
+    });
+  });
   it('Should not clear wizard data when navigating between wizard pages with hidden panel', function (done) {
     var formElement = document.createElement('div');
     var formWithHiddenPage = new _Wizard.default(formElement);
@@ -457,6 +1604,93 @@ describe('Wizard tests', function () {
           done();
         }, 100);
       }, 100);
+    }).catch(done);
+  });
+  it('Should scroll to the top of the page when the page is changed', function (done) {
+    var formElement = document.createElement('div');
+    wizardForm = new _Wizard.default(formElement);
+    wizardForm.setForm(_wizardWithHighPages.default).then(function () {
+      wizardForm.scrollIntoView(wizardForm.refs["".concat(wizardForm.wizardKey, "-next")]);
+      wizardForm.setPage(1);
+      setTimeout(function () {
+        _powerAssert.default.equal(wizardForm.refs[wizardForm.wizardKey].scrollTop, 0, 'The top edge of the page should be aligned to the top edge of the window');
+
+        done();
+      }, 350);
+    }).catch(done);
+  });
+  it('Should show the actual page after re-rendering due to nested wizards.', function (done) {
+    var formElement = document.createElement('div');
+    wizardForm = new _Wizard.default(formElement);
+    wizardForm.setForm(_wizardWithNestedWizard.default).then(function () {
+      wizardForm.setForm(_wizardWithNestedWizard.default);
+      setTimeout(function () {
+        _powerAssert.default.equal(wizardForm.element.querySelector('.wizard-page'), wizardForm.allPages[0].components[0].element.parentNode);
+
+        done();
+      }, 350);
+    }).catch(done);
+  });
+  it('Should render all pages as a part of wizard pagination', function (done) {
+    var formElement = document.createElement('div');
+    var wizard = new _Wizard.default(formElement);
+
+    var childForm = _lodash.default.cloneDeep(_wizardChildForm.default);
+
+    var clickEvent = new Event('click');
+    wizard.setForm(_wizardParentForm.default).then(function () {
+      _powerAssert.default.equal(wizard.components.length, 2);
+
+      _powerAssert.default.equal(wizard.allPages.length, 2);
+
+      _powerAssert.default.equal(wizard.allPages[1].component.title, 'Page 3');
+
+      var radioComp = wizard.getComponent('radio1');
+      radioComp.setValue('yes');
+      wizard.render();
+      setTimeout(function () {
+        var nestedFormComp = wizard.getComponent('formNested');
+
+        nestedFormComp.loadSubForm = function () {
+          nestedFormComp.formObj = childForm;
+          nestedFormComp.subFormLoading = false;
+          return new Promise(function (resolve) {
+            return resolve(childForm);
+          });
+        };
+
+        nestedFormComp.createSubForm();
+        setTimeout(function () {
+          _powerAssert.default.equal(wizard.components.length, 3);
+
+          _powerAssert.default.equal(wizard.allPages.length, 4);
+
+          _powerAssert.default.equal(wizard.allPages[1].component.title, 'Child Page 1');
+
+          var checboxComp = wizard.getComponent('checkbox');
+          checboxComp.setValue(true);
+          wizard.render();
+          setTimeout(function () {
+            _powerAssert.default.equal(wizard.components.length, 3);
+
+            _powerAssert.default.equal(wizard.allPages.length, 5);
+
+            _powerAssert.default.equal(wizard.allPages[1].component.title, 'Page 2');
+
+            _powerAssert.default.equal(wizard.element.querySelector('input[name="data[textFieldNearForm]"]'), null);
+
+            var nextPageBtn = wizard.refs["".concat(wizard.wizardKey, "-next")];
+            nextPageBtn.dispatchEvent(clickEvent);
+            setTimeout(function () {
+              _powerAssert.default.equal(wizard.component.title, 'Page 2');
+
+              _powerAssert.default.ok(wizard.element.querySelector('input[name="data[textFieldNearForm]"]'));
+
+              done();
+            }, 200);
+          }, 200);
+        }, 200);
+      }, 200);
     }).catch(done);
   });
 });

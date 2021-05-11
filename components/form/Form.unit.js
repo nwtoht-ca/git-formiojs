@@ -22,6 +22,36 @@ describe('Form Component', function () {
   it('Should build a form component', function () {
     return _harness.default.testCreate(_Form.default, _fixtures.comp1);
   });
+  it('Test refreshOn inside NestedForm', function (done) {
+    var formElement = document.createElement('div');
+    var form = new _Webform.default(formElement);
+    form.setForm(_fixtures.comp4).then(function () {
+      var make = form.getComponent(['form', 'make']);
+      var model = form.getComponent(['form', 'model']);
+      make.setValue('ford');
+      setTimeout(function () {
+        _powerAssert.default.equal(make.dataValue, 'ford', 'Should set value');
+
+        model.setValue('Focus', {
+          modified: true
+        });
+        setTimeout(function () {
+          _powerAssert.default.equal(model.dataValue, 'Focus', 'Should set value');
+
+          make.setValue('honda', {
+            modified: true
+          });
+          setTimeout(function () {
+            _powerAssert.default.equal(make.dataValue, 'honda', 'Should set value');
+
+            _powerAssert.default.equal(model.dataValue, '', 'Should refresh and clear value');
+
+            done();
+          }, 300);
+        }, 300);
+      }, 300);
+    }).catch(done);
+  });
   describe('renderSubForm', function () {
     var formcmp = null;
     it('should set sub form parentVisible', function (done) {

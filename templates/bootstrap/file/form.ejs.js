@@ -122,9 +122,9 @@ __p += '\n        ' +
 ((__t = (ctx.t('or'))) == null ? '' : __t) +
 ' <a href="#" ref="fileBrowse" class="browse">' +
 ((__t = (ctx.t('browse'))) == null ? '' : __t) +
-'</a>\n    </div>\n  ';
+'</a>\n      <div ref="fileProcessingLoader" class="loader-wrapper">\n        <div class="loader text-center"></div>\n      </div>\n    </div>\n  ';
  } else { ;
-__p += '\n    <div>\n      <video class="video" autoplay="true" ref="videoPlayer"></video>\n    </div>\n    <button class="btn btn-primary" ref="takePictureButton"><i class="fa fa-camera"></i> ' +
+__p += '\n    <div class="video-container">\n      <video class="video" autoplay="true" ref="videoPlayer"></video>\n    </div>\n    <button class="btn btn-primary" ref="takePictureButton"><i class="fa fa-camera"></i> ' +
 ((__t = (ctx.t('Take Picture'))) == null ? '' : __t) +
 '</button>\n    <button class="btn btn-primary" ref="toggleCameraMode">' +
 ((__t = (ctx.t('Switch to file upload'))) == null ? '' : __t) +

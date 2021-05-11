@@ -2,24 +2,42 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _Field2 = _interopRequireDefault(require("../_classes/field/Field"));
 
@@ -45,7 +63,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -61,12 +79,69 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
   }
 
   _createClass(CheckBoxComponent, [{
+    key: "defaultSchema",
+    get: function get() {
+      return CheckBoxComponent.schema();
+    }
+  }, {
+    key: "defaultValue",
+    get: function get() {
+      var name = this.component.name;
+      return name ? this.component[name] || this.emptyValue : (this.component.defaultValue || false).toString() === 'true';
+    }
+  }, {
+    key: "labelClass",
+    get: function get() {
+      var className = '';
+
+      if (this.isInputComponent && !this.options.inputsOnly && this.component.validate && this.component.validate.required) {
+        className += ' field-required';
+      }
+
+      return "".concat(className);
+    }
+  }, {
+    key: "hasSetValue",
+    get: function get() {
+      return this.hasValue();
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(CheckBoxComponent.prototype), "elementInfo", this).call(this);
+
+      info.type = 'input';
+      info.changeEvent = 'click';
+      info.attr.type = this.component.inputType || 'checkbox';
+      info.attr.class = 'form-check-input';
+
+      if (this.component.name) {
+        info.attr.name = "data[".concat(this.component.name, "]");
+      }
+
+      info.attr.value = this.component.value ? this.component.value : 0;
+      info.label = this.t(this.component.label, {
+        _userInput: true
+      });
+      info.labelClass = this.labelClass;
+      return info;
+    }
+  }, {
+    key: "labelInfo",
+    get: function get() {
+      return {
+        hidden: true
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "render", this).call(this, this.renderTemplate('checkbox', {
         input: this.inputInfo,
         checked: this.checked,
-        tooltip: this.interpolate(this.t(this.component.tooltip) || '').replace(/(?:\r\n|\r|\n)/g, '<br />')
+        tooltip: this.interpolate(this.t(this.component.tooltip) || '', {
+          _userInput: true
+        }).replace(/(?:\r\n|\r|\n)/g, '<br />')
       }));
     }
   }, {
@@ -102,10 +177,20 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       _get(_getPrototypeOf(CheckBoxComponent.prototype), "detach", this).call(this);
     }
   }, {
+    key: "emptyValue",
+    get: function get() {
+      return this.component.inputType === 'radio' ? null : false;
+    }
+  }, {
     key: "isEmpty",
     value: function isEmpty() {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataValue;
       return _get(_getPrototypeOf(CheckBoxComponent.prototype), "isEmpty", this).call(this, value) || value === false;
+    }
+  }, {
+    key: "key",
+    get: function get() {
+      return this.component.name ? this.component.name : _get(_getPrototypeOf(CheckBoxComponent.prototype), "key", this);
     }
   }, {
     key: "getValueAt",
@@ -126,6 +211,15 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       } else {
         return value === '' ? this.dataValue : !!value;
       }
+    }
+  }, {
+    key: "checked",
+    get: function get() {
+      if (this.component.name) {
+        return this.dataValue === this.component.value;
+      }
+
+      return !!this.dataValue;
     }
   }, {
     key: "setCheckedState",
@@ -171,6 +265,11 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
       return false;
     }
   }, {
+    key: "getValueAsString",
+    value: function getValueAsString(value) {
+      return value ? 'Yes' : 'No';
+    }
+  }, {
     key: "updateValue",
     value: function updateValue(value, flags) {
       this.setChecked();
@@ -190,83 +289,6 @@ var CheckBoxComponent = /*#__PURE__*/function (_Field) {
           this.removeClass(this.refs.formCheck, checkBoxChecked);
         }
       }
-    }
-  }, {
-    key: "getValueAsString",
-    value: function getValueAsString(value) {
-      return value ? 'Yes' : 'No';
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return CheckBoxComponent.schema();
-    }
-  }, {
-    key: "defaultValue",
-    get: function get() {
-      var name = this.component.name;
-      return name ? this.component[name] || this.emptyValue : (this.component.defaultValue || false).toString() === 'true';
-    }
-  }, {
-    key: "labelClass",
-    get: function get() {
-      var className = '';
-
-      if (this.isInputComponent && !this.options.inputsOnly && this.component.validate && this.component.validate.required) {
-        className += ' field-required';
-      }
-
-      return "".concat(className);
-    }
-  }, {
-    key: "hasSetValue",
-    get: function get() {
-      return this.hasValue();
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(CheckBoxComponent.prototype), "elementInfo", this).call(this);
-
-      info.type = 'input';
-      info.changeEvent = 'click';
-      info.attr.type = this.component.inputType || 'checkbox';
-      info.attr.class = 'form-check-input';
-
-      if (this.component.name) {
-        info.attr.name = "data[".concat(this.component.name, "]");
-      }
-
-      info.attr.value = this.component.value ? this.component.value : 0;
-      info.label = this.t(this.component.label);
-      info.labelClass = this.labelClass;
-      return info;
-    }
-  }, {
-    key: "labelInfo",
-    get: function get() {
-      return {
-        hidden: true
-      };
-    }
-  }, {
-    key: "emptyValue",
-    get: function get() {
-      return this.component.inputType === 'radio' ? null : false;
-    }
-  }, {
-    key: "key",
-    get: function get() {
-      return this.component.name ? this.component.name : _get(_getPrototypeOf(CheckBoxComponent.prototype), "key", this);
-    }
-  }, {
-    key: "checked",
-    get: function get() {
-      if (this.component.name) {
-        return this.dataValue === this.component.value;
-      }
-
-      return !!this.dataValue;
     }
   }], [{
     key: "schema",

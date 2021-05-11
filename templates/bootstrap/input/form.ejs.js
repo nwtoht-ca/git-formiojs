@@ -13,11 +13,11 @@ __p += '\n';
 __p += '\n<div class="input-group-prepend" ref="prefix">\n  <span class="input-group-text">\n    ';
  if(ctx.prefix instanceof HTMLElement){ ;
 __p += '\n      ' +
-((__t = ( ctx.t(ctx.prefix.outerHTML) )) == null ? '' : __t) +
+((__t = ( ctx.t(ctx.prefix.outerHTML, { _userInput: true }) )) == null ? '' : __t) +
 '\n    ';
  } else{ ;
 __p += '\n      ' +
-((__t = ( ctx.t(ctx.prefix) )) == null ? '' : __t) +
+((__t = ( ctx.t(ctx.prefix, { _userInput: true }) )) == null ? '' : __t) +
 '\n    ';
  } ;
 __p += '\n  </span>\n</div>\n';
@@ -63,11 +63,11 @@ __p += '\n';
 __p += '\n<div class="input-group-append" ref="suffix">\n  <span class="input-group-text">\n    ';
  if(ctx.suffix instanceof HTMLElement){ ;
 __p += '\n      ' +
-((__t = ( ctx.t(ctx.suffix.outerHTML) )) == null ? '' : __t) +
+((__t = ( ctx.t(ctx.suffix.outerHTML, { _userInput: true }) )) == null ? '' : __t) +
 '\n    ';
  } else{ ;
 __p += '\n      ' +
-((__t = ( ctx.t(ctx.suffix) )) == null ? '' : __t) +
+((__t = ( ctx.t(ctx.suffix, { _userInput: true }) )) == null ? '' : __t) +
 '\n    ';
  } ;
 __p += '\n  </span>\n</div>\n';

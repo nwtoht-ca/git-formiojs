@@ -1,10 +1,8 @@
 "use strict";
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/es.regexp.exec.js");
 
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.string.match");
+require("core-js/modules/es.string.match.js");
 
 var _harness = _interopRequireDefault(require("../../../test/harness"));
 
@@ -20,12 +18,7 @@ describe('TextField Builder', function () {
     // Incrise Events limit for this tests set
     _harness.default.builderBefore(done, {
       editForm: {
-        events: new _EventEmitter.default({
-          wildcard: false,
-          maxListeners: 0,
-          loadLimit: 250,
-          log: true
-        })
+        events: new _EventEmitter.default()
       }
     });
   });

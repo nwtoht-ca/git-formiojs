@@ -1,62 +1,16 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.symbol.description");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.symbol.iterator");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.array.from.js");
 
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.includes");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.slice");
-
-require("core-js/modules/es.array.some");
-
-require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.number.to-fixed");
-
-require("core-js/modules/es.object.assign");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.match");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.starts-with");
-
-require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/es.object.keys.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -108,6 +62,7 @@ var _exportNames = {
   withSwitch: true,
   observeOverload: true,
   getContextComponents: true,
+  translateHTMLTemplate: true,
   sanitize: true,
   fastCloneDeep: true,
   interpolate: true,
@@ -117,6 +72,7 @@ var _exportNames = {
   getStringFromComponentPath: true,
   round: true,
   getIEBrowserVersion: true,
+  getBrowserInfo: true,
   getComponentPathWithoutIndicies: true,
   getComponentPath: true,
   getDataParentComponent: true,
@@ -170,6 +126,7 @@ exports.unfold = unfold;
 exports.withSwitch = withSwitch;
 exports.observeOverload = observeOverload;
 exports.getContextComponents = getContextComponents;
+exports.translateHTMLTemplate = translateHTMLTemplate;
 exports.sanitize = sanitize;
 exports.fastCloneDeep = fastCloneDeep;
 exports.isInputComponent = isInputComponent;
@@ -178,6 +135,7 @@ exports.hasInvalidComponent = hasInvalidComponent;
 exports.getStringFromComponentPath = getStringFromComponentPath;
 exports.round = round;
 exports.getIEBrowserVersion = getIEBrowserVersion;
+exports.getBrowserInfo = getBrowserInfo;
 exports.getComponentPathWithoutIndicies = getComponentPathWithoutIndicies;
 exports.getComponentPath = getComponentPath;
 exports.getDataParentComponent = getDataParentComponent;
@@ -206,6 +164,52 @@ Object.defineProperty(exports, "Evaluator", {
   }
 });
 exports.interpolate = exports.firstNonNil = void 0;
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.string.match.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.string.starts-with.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.object.assign.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.number.constructor.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.number.to-fixed.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -240,6 +244,18 @@ Object.keys(_formUtils).forEach(function (key) {
 var _Evaluator = _interopRequireDefault(require("./Evaluator"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -526,6 +542,30 @@ function checkJsonConditional(component, json, row, data, form, onError) {
     return onError;
   }
 }
+
+function getRow(component, row, instance, conditional) {
+  var _condition$when;
+
+  var condition = conditional || component.conditional; // If no component's instance passed (happens only in 6.x server), calculate its path based on the schema
+
+  if (!instance) {
+    instance = _lodash.default.cloneDeep(component);
+    setPathToComponentAndPerentSchema(instance);
+  }
+
+  var dataParent = getDataParentComponent(instance);
+  var parentPath = dataParent ? getComponentPath(dataParent) : null;
+
+  if (dataParent && (_condition$when = condition.when) !== null && _condition$when !== void 0 && _condition$when.startsWith(parentPath)) {
+    var newRow = {};
+
+    _lodash.default.set(newRow, parentPath, row);
+
+    row = newRow;
+  }
+
+  return row;
+}
 /**
  * Checks the conditions for a provided component and data.
  *
@@ -547,23 +587,7 @@ function checkCondition(component, row, data, form, instance) {
   if (customConditional) {
     return checkCustomConditional(component, customConditional, row, data, form, 'show', true, instance);
   } else if (conditional && conditional.when) {
-    // If no component's instance passed (happens only in 6.x server), calculate its path based on the schema
-    if (!instance) {
-      instance = _lodash.default.cloneDeep(component);
-      setPathToComponentAndPerentSchema(instance);
-    }
-
-    var dataParent = getDataParentComponent(instance);
-    var parentPathWithoutIndicies = dataParent !== null && dataParent !== void 0 && dataParent.path ? getComponentPathWithoutIndicies(dataParent.path) : null;
-
-    if (dataParent && conditional.when.startsWith(parentPathWithoutIndicies)) {
-      var newRow = {};
-
-      _lodash.default.set(newRow, parentPathWithoutIndicies, row);
-
-      row = newRow;
-    }
-
+    row = getRow(component, row, instance);
     return checkSimpleConditional(component, conditional, row, data);
   } else if (conditional && conditional.json) {
     return checkJsonConditional(component, conditional.json, row, data, form, true);
@@ -591,6 +615,7 @@ function checkTrigger(component, trigger, row, data, form, instance) {
 
   switch (trigger.type) {
     case 'simple':
+      row = getRow(component, row, instance, trigger.simple);
       return checkSimpleConditional(component, trigger.simple, row, data);
 
     case 'javascript':
@@ -1007,11 +1032,12 @@ function convertFormatToMask(format) {
 /**
  * Returns an input mask that is compatible with the input mask library.
  * @param {string} mask - The Form.io input mask.
+ * @param {string} placeholderChar - Char which is used as a placeholder.
  * @returns {Array} - The input mask for the mask library.
  */
 
 
-function getInputMask(mask) {
+function getInputMask(mask, placeholderChar) {
   if (mask instanceof Array) {
     return mask;
   }
@@ -1039,6 +1065,12 @@ function getInputMask(mask) {
         maskArray.numeric = false;
         maskArray.push(/[a-zA-Z0-9]/);
         break;
+      // If char which is used inside mask placeholder was used in the mask, replace it with space to prevent errors
+
+      case placeholderChar:
+        maskArray.numeric = false;
+        maskArray.push(' ');
+        break;
 
       default:
         maskArray.numeric = false;
@@ -1061,7 +1093,7 @@ function matchInputMask(value, inputMask) {
   }
 
   for (var i = 0; i < inputMask.length; i++) {
-    var char = value[i];
+    var char = value[i] || '';
     var charPart = inputMask[i];
 
     if (!(_lodash.default.isRegExp(charPart) && charPart.test(char) || charPart === char)) {
@@ -1379,6 +1411,99 @@ function getContextComponents(context) {
     }
   });
   return values;
+} // Tags that could be in text, that should be ommited or handled in a special way
+
+
+var inTextTags = ['#text', 'A', 'B', 'EM', 'I', 'SMALL', 'STRONG', 'SUB', 'SUP', 'INS', 'DEL', 'MARK', 'CODE'];
+/**
+ * Helper function for 'translateHTMLTemplate'. Translates text value of the passed html element.
+ *
+ * @param {HTMLElement} elem
+ * @param {Function} translate
+ *
+ * @returns {String}
+ *   Translated element template.
+ */
+
+function translateElemValue(elem, translate) {
+  var elemValue = elem.innerText.replace(_Evaluator.default.templateSettings.interpolate, '').replace(/\s\s+/g, ' ').trim();
+  var translatedValue = translate(elemValue);
+
+  if (elemValue !== translatedValue) {
+    var links = elem.innerHTML.match(/<a[^>]*>(.*?)<\/a>/g);
+
+    if (links && links.length) {
+      if (links.length === 1 && links[0].length === elem.innerHTML.length) {
+        return elem.innerHTML.replace(elemValue, translatedValue);
+      }
+
+      var translatedLinks = links.map(function (link) {
+        var linkElem = document.createElement('a');
+        linkElem.innerHTML = link;
+        return translateElemValue(linkElem, translate);
+      });
+      return "".concat(translatedValue, " (").concat(translatedLinks.join(', '), ")");
+    } else {
+      return elem.innerText.replace(elemValue, translatedValue);
+    }
+  } else {
+    return elem.innerHTML;
+  }
+}
+/**
+ * Helper function for 'translateHTMLTemplate'. Goes deep through html tag children and calls function to translate their text values.
+ *
+ * @param {HTMLElement} tag
+ * @param {Function} translate
+ *
+ * @returns {void}
+ */
+
+
+function translateDeepTag(tag, translate) {
+  var children = tag.children.length && _toConsumableArray(tag.children);
+
+  var shouldTranslateEntireContent = children && children.every(function (child) {
+    return child.children.length === 0 && inTextTags.some(function (tag) {
+      return child.nodeName === tag;
+    });
+  });
+
+  if (!children || shouldTranslateEntireContent) {
+    tag.innerHTML = translateElemValue(tag, translate);
+  } else {
+    children.forEach(function (child) {
+      return translateDeepTag(child, translate);
+    });
+  }
+}
+/**
+ * Translates text values in html template.
+ *
+ * @param {String} template
+ * @param {Function} translate
+ *
+ * @returns {String}
+ *   Html template with translated values.
+ */
+
+
+function translateHTMLTemplate(template, translate) {
+  var isHTML = /<[^>]*>/.test(template);
+
+  if (!isHTML) {
+    return translate(template);
+  }
+
+  var tempElem = document.createElement('div');
+  tempElem.innerHTML = template;
+
+  if (tempElem.innerText && tempElem.children.length) {
+    translateDeepTag(tempElem, translate);
+    return tempElem.innerHTML;
+  }
+
+  return template;
 }
 /**
  * Sanitize an html string.
@@ -1520,11 +1645,60 @@ function round(number, precision) {
 
 
 function getIEBrowserVersion() {
-  if (typeof document === 'undefined' || !('documentMode' in document)) {
-    return null;
+  var _getBrowserInfo = getBrowserInfo(),
+      ie = _getBrowserInfo.ie,
+      version = _getBrowserInfo.version;
+
+  return ie ? version : null;
+}
+/**
+ * Get browser name and version (modified from 'jquery-browser-plugin')
+ *
+ * @return {Object} -- {{browser name, version, isWebkit?}}
+ * Possible browser names: chrome, safari, ie, edge, opera, mozilla, yabrowser
+ */
+
+
+function getBrowserInfo() {
+  var browser = {};
+
+  if (typeof window === 'undefined') {
+    return browser;
   }
 
-  return document['documentMode'];
+  var ua = window.navigator.userAgent.toLowerCase();
+  var match = /(edge|edg)\/([\w.]+)/.exec(ua) || /(opr)[/]([\w.]+)/.exec(ua) || /(yabrowser)[ /]([\w.]+)/.exec(ua) || /(chrome)[ /]([\w.]+)/.exec(ua) || /(iemobile)[/]([\w.]+)/.exec(ua) || /(version)(applewebkit)[ /]([\w.]+).*(safari)[ /]([\w.]+)/.exec(ua) || /(webkit)[ /]([\w.]+).*(version)[ /]([\w.]+).*(safari)[ /]([\w.]+)/.exec(ua) || /(webkit)[ /]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ /]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || ua.indexOf('trident') >= 0 && /(rv)(?::| )([\w.]+)/.exec(ua) || ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
+  var matched = {
+    browser: match[5] || match[3] || match[1] || '',
+    version: match[4] || match[2] || '0'
+  };
+
+  if (matched.browser) {
+    browser[matched.browser] = true;
+    browser.version = parseInt(matched.version, 10);
+  } // Chrome, Opera 15+, Safari and Yandex.Browser are webkit based browsers
+
+
+  if (browser.chrome || browser.opr || browser.safari || browser.edg || browser.yabrowser) {
+    browser.isWebkit = true;
+  } // IE11 has a new token so we will assign it ie to avoid breaking changes
+
+
+  if (browser.rv || browser.iemobile) {
+    browser.ie = true;
+  } // Edge has a new token since it became webkit based
+
+
+  if (browser.edg) {
+    browser.edge = true;
+  } // Opera 15+ are identified as opr
+
+
+  if (browser.opr) {
+    browser.opera = true;
+  }
+
+  return browser;
 }
 
 function getComponentPathWithoutIndicies() {
@@ -1538,13 +1712,16 @@ function getComponentPathWithoutIndicies() {
 
 
 function getComponentPath(component) {
+  var _component$_form;
+
   var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
-  if (!component || !component.key) {
+  if (!component || !component.key || (component === null || component === void 0 ? void 0 : (_component$_form = component._form) === null || _component$_form === void 0 ? void 0 : _component$_form.display) === 'wizard') {
+    // unlike the Webform, the Wizard has the key and it is a duplicate of the panel key
     return path;
   }
 
-  path = component.input === true ? "".concat(component.key).concat(path ? '.' : '').concat(path) : path;
+  path = component.isInputComponent || component.input === true ? "".concat(component.key).concat(path ? '.' : '').concat(path) : path;
   return getComponentPath(component.parent, path);
 }
 /**

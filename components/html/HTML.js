@@ -2,16 +2,36 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _Component2 = _interopRequireDefault(require("../_classes/component/Component"));
 
@@ -39,7 +59,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -55,6 +75,32 @@ var HTMLComponent = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(HTMLComponent, [{
+    key: "defaultSchema",
+    get: function get() {
+      return HTMLComponent.schema();
+    }
+  }, {
+    key: "content",
+    get: function get() {
+      if (this.builderMode) {
+        return this.component.content;
+      }
+
+      var submission = _lodash.default.get(this.root, 'submission', {});
+
+      return this.component.content ? this.interpolate(this.component.content, {
+        metadata: submission.metadata || {},
+        submission: submission,
+        data: this.rootValue,
+        row: this.data
+      }) : '';
+    }
+  }, {
+    key: "singleTags",
+    get: function get() {
+      return ['br', 'img', 'hr'];
+    }
+  }, {
     key: "checkRefreshOn",
     value: function checkRefreshOn(changed) {
       _get(_getPrototypeOf(HTMLComponent.prototype), "checkRefreshOn", this).call(this, changed);
@@ -100,32 +146,6 @@ var HTMLComponent = /*#__PURE__*/function (_Component) {
         html: 'single'
       });
       return _get(_getPrototypeOf(HTMLComponent.prototype), "attach", this).call(this, element);
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return HTMLComponent.schema();
-    }
-  }, {
-    key: "content",
-    get: function get() {
-      if (this.builderMode) {
-        return this.component.content;
-      }
-
-      var submission = _lodash.default.get(this.root, 'submission', {});
-
-      return this.component.content ? this.interpolate(this.component.content, {
-        metadata: submission.metadata || {},
-        submission: submission,
-        data: this.rootValue,
-        row: this.data
-      }) : '';
-    }
-  }, {
-    key: "singleTags",
-    get: function get() {
-      return ['br', 'img', 'hr'];
     }
   }], [{
     key: "schema",

@@ -2,34 +2,56 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.reflect.set.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.string.pad-start");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/es.array.slice.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.from.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.string.pad-start.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -47,7 +69,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -77,7 +99,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -93,6 +115,72 @@ var DayComponent = /*#__PURE__*/function (_Field) {
   }
 
   _createClass(DayComponent, [{
+    key: "emptyValue",
+    get:
+    /**
+     * The empty value for day component.
+     *
+     * @return {'00/00/0000'}
+     */
+    function get() {
+      return '00/00/0000';
+    }
+  }, {
+    key: "valueMask",
+    get: function get() {
+      return /^\d{2}\/\d{2}\/\d{4}$/;
+    }
+  }, {
+    key: "dayRequired",
+    get: function get() {
+      return this.showDay && _lodash.default.get(this.component, 'fields.day.required', false);
+    }
+  }, {
+    key: "showDay",
+    get: function get() {
+      return !_lodash.default.get(this.component, 'fields.day.hide', false);
+    }
+  }, {
+    key: "monthRequired",
+    get: function get() {
+      return this.showMonth && _lodash.default.get(this.component, 'fields.month.required', false);
+    }
+  }, {
+    key: "showMonth",
+    get: function get() {
+      return !_lodash.default.get(this.component, 'fields.month.hide', false);
+    }
+  }, {
+    key: "yearRequired",
+    get: function get() {
+      return this.showYear && _lodash.default.get(this.component, 'fields.year.required', false);
+    }
+  }, {
+    key: "showYear",
+    get: function get() {
+      return !_lodash.default.get(this.component, 'fields.year.hide', false);
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return DayComponent.schema();
+    }
+  }, {
+    key: "shouldDisabled",
+    get: function get() {
+      return _get(_getPrototypeOf(DayComponent.prototype), "shouldDisabled", this) || this.parentDisabled;
+    }
+  }, {
+    key: "inputInfo",
+    get: function get() {
+      var info = _get(_getPrototypeOf(DayComponent.prototype), "elementInfo", this).call(this);
+
+      info.type = 'input';
+      info.attr.type = 'hidden';
+      info.changeEvent = 'input';
+      return info;
+    }
+  }, {
     key: "inputDefinition",
     value: function inputDefinition(name) {
       var min, max;
@@ -140,6 +228,99 @@ var DayComponent = /*#__PURE__*/function (_Field) {
           lang: this.options.language
         }
       };
+    }
+  }, {
+    key: "days",
+    get: function get() {
+      if (this._days) {
+        return this._days;
+      }
+
+      this._days = [{
+        value: '',
+        label: _lodash.default.get(this.component, 'fields.day.placeholder', '')
+      }];
+
+      for (var x = 1; x <= 31; x++) {
+        this._days.push({
+          value: x,
+          label: x.toString()
+        });
+      }
+
+      return this._days;
+    }
+  }, {
+    key: "months",
+    get: function get() {
+      if (this._months) {
+        return this._months;
+      }
+
+      this._months = [{
+        value: '',
+        label: _lodash.default.get(this.component, 'fields.month.placeholder') || (this.hideInputLabels ? this.t('Month') : '')
+      }, {
+        value: 1,
+        label: 'January'
+      }, {
+        value: 2,
+        label: 'February'
+      }, {
+        value: 3,
+        label: 'March'
+      }, {
+        value: 4,
+        label: 'April'
+      }, {
+        value: 5,
+        label: 'May'
+      }, {
+        value: 6,
+        label: 'June'
+      }, {
+        value: 7,
+        label: 'July'
+      }, {
+        value: 8,
+        label: 'August'
+      }, {
+        value: 9,
+        label: 'September'
+      }, {
+        value: 10,
+        label: 'October'
+      }, {
+        value: 11,
+        label: 'November'
+      }, {
+        value: 12,
+        label: 'December'
+      }];
+      return this._months;
+    }
+  }, {
+    key: "years",
+    get: function get() {
+      if (this._years) {
+        return this._years;
+      }
+
+      this._years = [{
+        value: '',
+        label: _lodash.default.get(this.component, 'fields.year.placeholder', '')
+      }];
+      var minYears = _lodash.default.get(this.component, 'fields.year.minYear', 1900) || 1900;
+      var maxYears = _lodash.default.get(this.component, 'fields.year.maxYear', 2030) || 2030;
+
+      for (var x = minYears; x <= maxYears; x++) {
+        this._years.push({
+          value: x,
+          label: x.toString()
+        });
+      }
+
+      return this._years;
     }
   }, {
     key: "setErrorClasses",
@@ -298,6 +479,25 @@ var DayComponent = /*#__PURE__*/function (_Field) {
       return !this.isEmpty(value);
     }
   }, {
+    key: "disabled",
+    set: function set(disabled) {
+      _set(_getPrototypeOf(DayComponent.prototype), "disabled", disabled, this, true);
+
+      if (!this.refs.year || !this.refs.month || !this.refs.day) {
+        return;
+      }
+
+      if (disabled) {
+        this.refs.year.setAttribute('disabled', 'disabled');
+        this.refs.month.setAttribute('disabled', 'disabled');
+        this.refs.day.setAttribute('disabled', 'disabled');
+      } else {
+        this.refs.year.removeAttribute('disabled');
+        this.refs.month.removeAttribute('disabled');
+        this.refs.day.removeAttribute('disabled');
+      }
+    }
+  }, {
     key: "normalizeValue",
     value: function normalizeValue(value) {
       if (!value || this.valueMask.test(value)) {
@@ -391,14 +591,53 @@ var DayComponent = /*#__PURE__*/function (_Field) {
       return !_lodash.default.isNaN(val) && _lodash.default.isNumber(val) ? val : 0;
     }
   }, {
-    key: "getDate",
+    key: "parts",
+    get: function get() {
+      return {
+        day: this.getFieldValue('day'),
+        month: this.getFieldValue('month'),
+        year: this.getFieldValue('year')
+      };
+    }
+    /**
+     * Get the format for the value string.
+     * @returns {string}
+     */
 
+  }, {
+    key: "format",
+    get: function get() {
+      var format = '';
+
+      if (this.component.dayFirst && this.showDay) {
+        format += 'D/';
+      }
+
+      if (this.showMonth) {
+        format += 'M/';
+      }
+
+      if (!this.component.dayFirst && this.showDay) {
+        format += 'D/';
+      }
+
+      if (this.showYear) {
+        format += 'YYYY';
+        return format;
+      } else {
+        // Trim off the "/" from the end of the format string.
+        return format.length ? format.substring(0, format.length - 1) : format;
+      }
+    }
     /**
      * Return the date for this component.
      *
      * @param value
      * @return {*}
      */
+
+  }, {
+    key: "getDate",
     value: function getDate(value) {
       var defaults = [],
           day,
@@ -469,6 +708,11 @@ var DayComponent = /*#__PURE__*/function (_Field) {
      */
 
   }, {
+    key: "date",
+    get: function get() {
+      return this.getDate();
+    }
+  }, {
     key: "normalizeMinMaxDates",
     value: function normalizeMinMaxDates() {
       return [this.component.minDate, this.component.maxDate].map(function (date) {
@@ -481,6 +725,17 @@ var DayComponent = /*#__PURE__*/function (_Field) {
      * @returns {Date}
      */
 
+  }, {
+    key: "validationValue",
+    get: function get() {
+      var _ref3 = this.dayFirst ? this.normalizeMinMaxDates() : [this.component.minDate, this.component.maxDate];
+
+      var _ref4 = _slicedToArray(_ref3, 2);
+
+      this.component.minDate = _ref4[0];
+      this.component.maxDate = _ref4[1];
+      return this.dataValue;
+    }
   }, {
     key: "getValue",
     value: function getValue() {
@@ -524,11 +779,17 @@ var DayComponent = /*#__PURE__*/function (_Field) {
     key: "focus",
     value: function focus() {
       if (this.dayFirst && this.showDay || !this.dayFirst && !this.showMonth && this.showDay) {
-        this.refs.day.focus();
+        var _this$refs$day;
+
+        (_this$refs$day = this.refs.day) === null || _this$refs$day === void 0 ? void 0 : _this$refs$day.focus();
       } else if (this.dayFirst && !this.showDay && this.showMonth || !this.dayFirst && this.showMonth) {
-        this.refs.month.focus();
+        var _this$refs$month;
+
+        (_this$refs$month = this.refs.month) === null || _this$refs$month === void 0 ? void 0 : _this$refs$month.focus();
       } else if (!this.showDay && !this.showDay && this.showYear) {
-        this.refs.year.focus();
+        var _this$refs$year;
+
+        (_this$refs$year = this.refs.year) === null || _this$refs$year === void 0 ? void 0 : _this$refs$year.focus();
       }
     }
   }, {
@@ -538,247 +799,19 @@ var DayComponent = /*#__PURE__*/function (_Field) {
         return false;
       }
 
-      var _ref3 = this.component.dayFirst ? [0, 1, 2] : [1, 0, 2],
-          _ref4 = _slicedToArray(_ref3, 3),
-          DAY = _ref4[0],
-          MONTH = _ref4[1],
-          YEAR = _ref4[2];
+      var _ref5 = this.component.dayFirst ? [0, 1, 2] : [1, 0, 2],
+          _ref6 = _slicedToArray(_ref5, 3),
+          DAY = _ref6[0],
+          MONTH = _ref6[1],
+          YEAR = _ref6[2];
 
       var values = value.split('/');
       return values[DAY] === '00' || values[MONTH] === '00' || values[YEAR] === '0000';
     }
   }, {
-    key: "emptyValue",
-
-    /**
-     * The empty value for day component.
-     *
-     * @return {'00/00/0000'}
-     */
-    get: function get() {
-      return '00/00/0000';
-    }
-  }, {
-    key: "valueMask",
-    get: function get() {
-      return /^\d{2}\/\d{2}\/\d{4}$/;
-    }
-  }, {
-    key: "dayRequired",
-    get: function get() {
-      return this.showDay && _lodash.default.get(this.component, 'fields.day.required', false);
-    }
-  }, {
-    key: "showDay",
-    get: function get() {
-      return !_lodash.default.get(this.component, 'fields.day.hide', false);
-    }
-  }, {
-    key: "monthRequired",
-    get: function get() {
-      return this.showMonth && _lodash.default.get(this.component, 'fields.month.required', false);
-    }
-  }, {
-    key: "showMonth",
-    get: function get() {
-      return !_lodash.default.get(this.component, 'fields.month.hide', false);
-    }
-  }, {
-    key: "yearRequired",
-    get: function get() {
-      return this.showYear && _lodash.default.get(this.component, 'fields.year.required', false);
-    }
-  }, {
-    key: "showYear",
-    get: function get() {
-      return !_lodash.default.get(this.component, 'fields.year.hide', false);
-    }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return DayComponent.schema();
-    }
-  }, {
-    key: "shouldDisabled",
-    get: function get() {
-      return _get(_getPrototypeOf(DayComponent.prototype), "shouldDisabled", this) || this.parentDisabled;
-    }
-  }, {
-    key: "inputInfo",
-    get: function get() {
-      var info = _get(_getPrototypeOf(DayComponent.prototype), "elementInfo", this).call(this);
-
-      info.type = 'input';
-      info.attr.type = 'hidden';
-      info.changeEvent = 'input';
-      return info;
-    }
-  }, {
-    key: "days",
-    get: function get() {
-      if (this._days) {
-        return this._days;
-      }
-
-      this._days = [{
-        value: '',
-        label: _lodash.default.get(this.component, 'fields.day.placeholder', '')
-      }];
-
-      for (var x = 1; x <= 31; x++) {
-        this._days.push({
-          value: x,
-          label: x.toString()
-        });
-      }
-
-      return this._days;
-    }
-  }, {
-    key: "months",
-    get: function get() {
-      if (this._months) {
-        return this._months;
-      }
-
-      this._months = [{
-        value: '',
-        label: _lodash.default.get(this.component, 'fields.month.placeholder') || (this.hideInputLabels ? this.t('Month') : '')
-      }, {
-        value: 1,
-        label: 'January'
-      }, {
-        value: 2,
-        label: 'February'
-      }, {
-        value: 3,
-        label: 'March'
-      }, {
-        value: 4,
-        label: 'April'
-      }, {
-        value: 5,
-        label: 'May'
-      }, {
-        value: 6,
-        label: 'June'
-      }, {
-        value: 7,
-        label: 'July'
-      }, {
-        value: 8,
-        label: 'August'
-      }, {
-        value: 9,
-        label: 'September'
-      }, {
-        value: 10,
-        label: 'October'
-      }, {
-        value: 11,
-        label: 'November'
-      }, {
-        value: 12,
-        label: 'December'
-      }];
-      return this._months;
-    }
-  }, {
-    key: "years",
-    get: function get() {
-      if (this._years) {
-        return this._years;
-      }
-
-      this._years = [{
-        value: '',
-        label: _lodash.default.get(this.component, 'fields.year.placeholder', '')
-      }];
-      var minYears = _lodash.default.get(this.component, 'fields.year.minYear', 1900) || 1900;
-      var maxYears = _lodash.default.get(this.component, 'fields.year.maxYear', 2030) || 2030;
-
-      for (var x = minYears; x <= maxYears; x++) {
-        this._years.push({
-          value: x,
-          label: x.toString()
-        });
-      }
-
-      return this._years;
-    }
-  }, {
-    key: "disabled",
-    set: function set(disabled) {
-      _set(_getPrototypeOf(DayComponent.prototype), "disabled", disabled, this, true);
-
-      if (!this.refs.year || !this.refs.month || !this.refs.day) {
-        return;
-      }
-
-      if (disabled) {
-        this.refs.year.setAttribute('disabled', 'disabled');
-        this.refs.month.setAttribute('disabled', 'disabled');
-        this.refs.day.setAttribute('disabled', 'disabled');
-      } else {
-        this.refs.year.removeAttribute('disabled');
-        this.refs.month.removeAttribute('disabled');
-        this.refs.day.removeAttribute('disabled');
-      }
-    }
-  }, {
-    key: "parts",
-    get: function get() {
-      return {
-        day: this.getFieldValue('day'),
-        month: this.getFieldValue('month'),
-        year: this.getFieldValue('year')
-      };
-    }
-    /**
-     * Get the format for the value string.
-     * @returns {string}
-     */
-
-  }, {
-    key: "format",
-    get: function get() {
-      var format = '';
-
-      if (this.component.dayFirst && this.showDay) {
-        format += 'D/';
-      }
-
-      if (this.showMonth) {
-        format += 'M/';
-      }
-
-      if (!this.component.dayFirst && this.showDay) {
-        format += 'D/';
-      }
-
-      if (this.showYear) {
-        format += 'YYYY';
-        return format;
-      } else {
-        // Trim off the "/" from the end of the format string.
-        return format.length ? format.substring(0, format.length - 1) : format;
-      }
-    }
-  }, {
-    key: "date",
-    get: function get() {
-      return this.getDate();
-    }
-  }, {
-    key: "validationValue",
-    get: function get() {
-      var _ref5 = this.dayFirst ? this.normalizeMinMaxDates() : [this.component.minDate, this.component.maxDate];
-
-      var _ref6 = _slicedToArray(_ref5, 2);
-
-      this.component.minDate = _ref6[0];
-      this.component.maxDate = _ref6[1];
-      return this.dataValue;
+    key: "getValidationFormat",
+    value: function getValidationFormat() {
+      return this.dayFirst ? 'DD-MM-YYYY' : 'MM-DD-YYYY';
     }
   }], [{
     key: "schema",

@@ -2,66 +2,78 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.find-index");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
-require("core-js/modules/es.array.from");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.includes");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.slice");
-
-require("core-js/modules/es.array.some");
-
-require("core-js/modules/es.array.splice");
-
-require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.map");
-
-require("core-js/modules/es.object.get-prototype-of");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/es.symbol.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.string.match.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.from.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.array.find-index.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.map.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.string.starts-with.js");
+
+require("core-js/modules/es.regexp.flags.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
 var _Webform = _interopRequireDefault(require("./Webform"));
 
 var _Component2 = _interopRequireDefault(require("./components/_classes/component/Component"));
-
-var _dragula = _interopRequireDefault(require("dragula/dist/dragula"));
 
 var _tooltip = _interopRequireDefault(require("tooltip.js"));
 
@@ -89,13 +101,13 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -121,11 +133,18 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 require('./components/builder');
+
+var dragula;
+
+if (typeof window !== 'undefined') {
+  // Import from "dist" because it would require and "global" would not be defined in Angular apps.
+  dragula = require('dragula/dist/dragula');
+}
 
 var WebformBuilder = /*#__PURE__*/function (_Component) {
   _inherits(WebformBuilder, _Component);
@@ -156,15 +175,6 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     _this.repeatablePaths = [];
     _this.sideBarScroll = _lodash.default.get(_this.options, 'sideBarScroll', true);
     _this.sideBarScrollOffset = _lodash.default.get(_this.options, 'sideBarScrollOffset', 0);
-    _this.fieldsList = {
-      title: 'Result fields',
-      key: 'searchFields',
-      weight: 0,
-      subgroups: [],
-      default: true,
-      components: {},
-      componentOrder: []
-    };
     _this.dragDropEnabled = true; // Setup the builder options.
 
     _this.builder = _lodash.default.defaultsDeep({}, _this.options.builder, _this.defaultGroups); // Turn off if explicitely said to do so...
@@ -223,7 +233,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     // Add the components in each group.
 
 
-    var _loop2 = function _loop2(_group) {
+    for (var _group in _this.groups) {
       var info = _this.groups[_group];
 
       for (var key in info.components) {
@@ -237,29 +247,14 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           _this.schemas[key] = comp.schema;
           info.components[key] = comp;
           info.components[key].key = key;
-          _this.fieldsList.components[key] = info.components[key];
         } else {
           // Do not include this component in the components array.
           delete info.components[key];
         }
-      } // Order the compoennts.
+      } // Order the components.
 
 
-      if (info.components) {
-        info.componentOrder = Object.keys(info.components).map(function (key) {
-          return info.components[key];
-        }).filter(function (component) {
-          return component && !component.ignore && !component.ignoreForForm;
-        }).sort(function (a, b) {
-          return a.weight - b.weight;
-        }).map(function (component) {
-          return component.key;
-        });
-      }
-    };
-
-    for (var _group in _this.groups) {
-      _loop2(_group);
+      _this.orderComponents(info);
     }
 
     _this.options.hooks = _this.options.hooks || {};
@@ -267,7 +262,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     _this.options.hooks.renderComponent = function (html, _ref) {
       var _self$component;
 
-      var self = _ref.self;
+      var component = _ref.component,
+          self = _ref.self;
 
       if (self.type === 'form' && !self.key) {
         // The main webform shouldn't have this class as it adds extra styles.
@@ -280,7 +276,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       return _this.renderTemplate('builderComponent', {
         html: html,
-        disableBuilderActions: self === null || self === void 0 ? void 0 : (_self$component = self.component) === null || _self$component === void 0 ? void 0 : _self$component.disableBuilderActions
+        disableBuilderActions: self === null || self === void 0 ? void 0 : (_self$component = self.component) === null || _self$component === void 0 ? void 0 : _self$component.disableBuilderActions,
+        childComponent: component
       });
     };
 
@@ -364,88 +361,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
     };
 
-    _this.options.hooks.attachComponent = function (element, component) {
-      // Add component to element for later reference.
-      element.formioComponent = component;
-      component.loadRefs(element, {
-        removeComponent: 'single',
-        editComponent: 'single',
-        moveComponent: 'single',
-        copyComponent: 'single',
-        pasteComponent: 'single',
-        editJson: 'single'
-      });
-
-      if (component.refs.copyComponent) {
-        new _tooltip.default(component.refs.copyComponent, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Copy')
-        });
-        component.addEventListener(component.refs.copyComponent, 'click', function () {
-          return _this.copyComponent(component);
-        });
-      }
-
-      if (component.refs.pasteComponent) {
-        var pasteToolTip = new _tooltip.default(component.refs.pasteComponent, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Paste below')
-        });
-        component.addEventListener(component.refs.pasteComponent, 'click', function () {
-          pasteToolTip.hide();
-
-          _this.pasteComponent(component);
-        });
-      }
-
-      if (component.refs.moveComponent) {
-        new _tooltip.default(component.refs.moveComponent, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Move')
-        });
-      }
-
-      var parent = _this.getParentElement(element);
-
-      if (component.refs.editComponent) {
-        new _tooltip.default(component.refs.editComponent, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Edit')
-        });
-        component.addEventListener(component.refs.editComponent, 'click', function () {
-          return _this.editComponent(component.schema, parent, false, false, component.component);
-        });
-      }
-
-      if (component.refs.editJson) {
-        new _tooltip.default(component.refs.editJson, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Edit JSON')
-        });
-        component.addEventListener(component.refs.editJson, 'click', function () {
-          return _this.editComponent(component.schema, parent, false, true, component.component);
-        });
-      }
-
-      if (component.refs.removeComponent) {
-        new _tooltip.default(component.refs.removeComponent, {
-          trigger: 'hover',
-          placement: 'top',
-          title: _this.t('Remove')
-        });
-        component.addEventListener(component.refs.removeComponent, 'click', function () {
-          return _this.removeComponent(component.schema, parent, component.component);
-        });
-      }
-
-      return element;
-    }; // Load resources tagged as 'builder'
-
+    _this.options.hooks.attachComponent = _this.attachComponent.bind(_assertThisInitialized(_this)); // Load resources tagged as 'builder'
 
     var query = {
       params: {
@@ -463,6 +379,11 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
     var formio = new _Formio.default(_Formio.default.projectUrl);
     var isResourcesDisabled = _this.options.builder && _this.options.builder.resource === false;
+    formio.loadProject().then(function (project) {
+      if (project && _lodash.default.get(project, 'settings.addConfigToForms', false)) {
+        _this.options.formConfig = project.config || {};
+      }
+    });
 
     if (!formio.noProject && !isResourcesDisabled) {
       var resourceOptions = _this.options.builder && _this.options.builder.resource;
@@ -543,13 +464,84 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
               isNew: true
             })
           });
-          _this2.fieldsList.components[component.key] = subgroup.components[component.key];
         }, true);
 
         _this2.groups.resource.subgroups.push(subgroup);
       });
 
       this.triggerRedraw();
+    }
+  }, {
+    key: "attachTooltip",
+    value: function attachTooltip(component, title) {
+      return new _tooltip.default(component, {
+        trigger: 'hover focus',
+        placement: 'top',
+        title: title
+      });
+    }
+  }, {
+    key: "attachComponent",
+    value: function attachComponent(element, component) {
+      var _this3 = this;
+
+      // Add component to element for later reference.
+      element.formioComponent = component;
+      component.loadRefs(element, {
+        removeComponent: 'single',
+        editComponent: 'single',
+        moveComponent: 'single',
+        copyComponent: 'single',
+        pasteComponent: 'single',
+        editJson: 'single'
+      });
+
+      if (component.refs.copyComponent) {
+        this.attachTooltip(component.refs.copyComponent, this.t('Copy'));
+        component.addEventListener(component.refs.copyComponent, 'click', function () {
+          return _this3.copyComponent(component);
+        });
+      }
+
+      if (component.refs.pasteComponent) {
+        var pasteToolTip = this.attachTooltip(component.refs.pasteComponent, this.t('Paste below'));
+        component.addEventListener(component.refs.pasteComponent, 'click', function () {
+          pasteToolTip.hide();
+
+          _this3.pasteComponent(component);
+        });
+      }
+
+      if (component.refs.moveComponent) {
+        this.attachTooltip(component.refs.moveComponent, this.t('Move'));
+      }
+
+      var parent = this.getParentElement(element);
+
+      if (component.refs.editComponent) {
+        this.attachTooltip(component.refs.editComponent, this.t('Edit'));
+        component.addEventListener(component.refs.editComponent, 'click', function () {
+          return _this3.editComponent(component.schema, parent, false, false, component.component, {
+            inDataGrid: component.isInDataGrid
+          });
+        });
+      }
+
+      if (component.refs.editJson) {
+        this.attachTooltip(component.refs.editJson, this.t('Edit JSON'));
+        component.addEventListener(component.refs.editJson, 'click', function () {
+          return _this3.editComponent(component.schema, parent, false, true, component.component);
+        });
+      }
+
+      if (component.refs.removeComponent) {
+        this.attachTooltip(component.refs.removeComponent, this.t('Remove'));
+        component.addEventListener(component.refs.removeComponent, 'click', function () {
+          return _this3.removeComponent(component.schema, parent, component.component);
+        });
+      }
+
+      return element;
     }
   }, {
     key: "createForm",
@@ -575,18 +567,68 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
      */
 
   }, {
+    key: "ready",
+    get: function get() {
+      return this.webform.ready;
+    }
+  }, {
+    key: "defaultGroups",
+    get: function get() {
+      return {
+        basic: {
+          title: 'Basic',
+          weight: 0,
+          default: true
+        },
+        advanced: {
+          title: 'Advanced',
+          weight: 10
+        },
+        layout: {
+          title: 'Layout',
+          weight: 20
+        },
+        data: {
+          title: 'Data',
+          weight: 30
+        },
+        premium: {
+          title: 'Premium',
+          weight: 40
+        }
+      };
+    }
+  }, {
     key: "redraw",
     value: function redraw() {
       return _Webform.default.prototype.redraw.call(this);
     }
   }, {
-    key: "findNamespaceRoot",
-
+    key: "form",
+    get: function get() {
+      return this.webform.form;
+    },
+    set: function set(value) {
+      this.setForm(value);
+    }
+  }, {
+    key: "schema",
+    get: function get() {
+      return this.webform.schema;
+    }
+  }, {
+    key: "container",
+    get: function get() {
+      return this.webform.form.components;
+    }
     /**
      * When a component sets its api key, we need to check if it is unique within its namespace. Find the namespace root
      * so we can calculate this correctly.
      * @param component
      */
+
+  }, {
+    key: "findNamespaceRoot",
     value: function findNamespaceRoot(component) {
       // First get the component with nested parents.
       var comp = (0, _formUtils.getComponent)(this.webform.form.components, component.key, true);
@@ -614,7 +656,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       } // Some components are their own namespace.
 
 
-      if (['address', 'container', 'datagrid', 'editgrid', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
+      if (['address', 'container', 'datagrid', 'editgrid', 'dynamicWizard', 'tree'].includes(component.type) || component.tree || component.arrayTree) {
         return component.key;
       } // Anything else, keep going up.
 
@@ -624,7 +666,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return this.renderTemplate('builder', {
         sidebar: this.renderTemplate('builderSidebar', {
@@ -632,12 +674,12 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           groupOrder: this.groupOrder,
           groupId: "builder-sidebar-".concat(this.id),
           groups: this.groupOrder.map(function (groupKey) {
-            return _this3.renderTemplate('builderSidebarGroup', {
-              group: _this3.groups[groupKey],
+            return _this4.renderTemplate('builderSidebarGroup', {
+              group: _this4.groups[groupKey],
               groupKey: groupKey,
-              groupId: "builder-sidebar-".concat(_this3.id),
-              subgroups: _this3.groups[groupKey].subgroups.map(function (group) {
-                return _this3.renderTemplate('builderSidebarGroup', {
+              groupId: "builder-sidebar-".concat(_this4.id),
+              subgroups: _this4.groups[groupKey].subgroups.map(function (group) {
+                return _this4.renderTemplate('builderSidebarGroup', {
                   group: group,
                   groupKey: group.key,
                   groupId: "group-container-".concat(groupKey),
@@ -653,13 +695,13 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "attach",
     value: function attach(element) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.on('change', function (form) {
-        _this4.populateRecaptchaSettings(form);
+        _this5.populateRecaptchaSettings(form);
       });
       return _get(_getPrototypeOf(WebformBuilder.prototype), "attach", this).call(this, element).then(function () {
-        _this4.loadRefs(element, {
+        _this5.loadRefs(element, {
           form: 'single',
           sidebar: 'single',
           'sidebar-search': 'single',
@@ -670,32 +712,32 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           'sidebar-container': 'multiple'
         });
 
-        if (_this4.sideBarScroll && _Templates.default.current.handleBuilderSidebarScroll) {
-          _Templates.default.current.handleBuilderSidebarScroll.call(_this4, _this4);
+        if (_this5.sideBarScroll && _Templates.default.current.handleBuilderSidebarScroll) {
+          _Templates.default.current.handleBuilderSidebarScroll.call(_this5, _this5);
         } // Add the paste status in form
 
 
-        if (window.sessionStorage) {
+        if (typeof window !== 'undefined' && window.sessionStorage) {
           var data = window.sessionStorage.getItem('formio.clipboard');
 
           if (data) {
-            _this4.addClass(_this4.refs.form, 'builder-paste-mode');
+            _this5.addClass(_this5.refs.form, 'builder-paste-mode');
           }
         }
 
-        if (!(0, _utils.bootstrapVersion)(_this4.options)) {
+        if (!(0, _utils.bootstrapVersion)(_this5.options)) {
           // Initialize
-          _this4.refs['sidebar-group'].forEach(function (group) {
+          _this5.refs['sidebar-group'].forEach(function (group) {
             group.style.display = group.getAttribute('data-default') === 'true' ? 'inherit' : 'none';
           }); // Click event
 
 
-          _this4.refs['sidebar-anchor'].forEach(function (anchor, index) {
-            _this4.addEventListener(anchor, 'click', function () {
+          _this5.refs['sidebar-anchor'].forEach(function (anchor, index) {
+            _this5.addEventListener(anchor, 'click', function () {
               var clickedParentId = anchor.getAttribute('data-parent').slice('#builder-sidebar-'.length);
               var clickedId = anchor.getAttribute('data-target').slice('#group-'.length);
 
-              _this4.refs['sidebar-group'].forEach(function (group, groupIndex) {
+              _this5.refs['sidebar-group'].forEach(function (group, groupIndex) {
                 var openByDefault = group.getAttribute('data-default') === 'true';
                 var groupId = group.getAttribute('id').slice('group-'.length);
                 var groupParent = group.getAttribute('data-parent').slice('#builder-sidebar-'.length);
@@ -705,26 +747,28 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           });
         }
 
-        _this4.addEventListener(_this4.refs['sidebar-search'], 'input', function (e) {
+        _this5.addEventListener(_this5.refs['sidebar-search'], 'input', _lodash.default.debounce(function (e) {
           var searchString = e.target.value;
 
-          _this4.searchFields(searchString);
-        });
+          _this5.searchFields(searchString);
+        }, 300));
 
-        if (_this4.dragDropEnabled) {
-          _this4.initDragula();
+        if (_this5.dragDropEnabled) {
+          _this5.initDragula();
         }
 
-        if (_this4.refs.form) {
-          return _this4.webform.attach(_this4.refs.form);
+        if (_this5.refs.form) {
+          return _this5.webform.attach(_this5.refs.form);
         }
       });
     }
   }, {
     key: "searchFields",
-    value: function searchFields(searchString) {
-      var _this5 = this;
+    value: function searchFields() {
+      var _this6 = this;
 
+      var searchString = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchValue = searchString.toLowerCase();
       var sidebar = this.refs['sidebar'];
       var sidebarGroups = this.refs['sidebar-groups'];
 
@@ -732,42 +776,75 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         return;
       }
 
-      if (searchString) {
-        var filteredComponentsOrder = [];
+      var filterGroupBy = function filterGroupBy(group) {
+        var searchValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
-        for (var type in this.fieldsList.components) {
-          var builderInfo = this.fieldsList.components[type];
+        var result = _lodash.default.toPlainObject(group);
 
-          if (builderInfo.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1) {
-            filteredComponentsOrder.push(type);
+        var _result$subgroups = result.subgroups,
+            subgroups = _result$subgroups === void 0 ? [] : _result$subgroups,
+            components = result.components;
+        var filteredComponents = [];
+
+        for (var key in components) {
+          var isMatchedToTitle = components[key].title.toLowerCase().match(searchValue);
+          var isMatchedToKey = components[key].key.toLowerCase().match(searchValue);
+
+          if (isMatchedToTitle || isMatchedToKey) {
+            filteredComponents.push(components[key]);
           }
         }
 
-        this.fieldsList.componentOrder = filteredComponentsOrder;
-        sidebarGroups.innerHTML = this.renderTemplate('builderSidebarGroup', {
-          group: this.fieldsList,
-          groupKey: 'searchFields',
-          groupId: "builder-sidebar-".concat(this.id),
-          subgroups: []
-        });
-      } else {
-        sidebarGroups.innerHTML = this.groupOrder.map(function (groupKey) {
-          return _this5.renderTemplate('builderSidebarGroup', {
-            group: _this5.groups[groupKey],
-            groupKey: groupKey,
-            groupId: sidebar.id || sidebarGroups.id,
-            subgroups: _this5.groups[groupKey].subgroups.map(function (group) {
-              return _this5.renderTemplate('builderSidebarGroup', {
-                group: group,
-                groupKey: group.key,
-                groupId: "group-container-".concat(groupKey),
-                subgroups: []
-              });
-            })
-          });
-        }).join('');
-      }
+        _this6.orderComponents(result, filteredComponents);
 
+        if (searchValue) {
+          result.default = true;
+        }
+
+        if (result.componentOrder.length || subgroups.length) {
+          return result;
+        }
+
+        return null;
+      };
+
+      var filterGroupOrder = function filterGroupOrder(groupOrder, searchValue) {
+        var result = _lodash.default.cloneDeep(groupOrder);
+
+        return result.filter(function (key) {
+          return filterGroupBy(_this6.groups[key], searchValue);
+        });
+      };
+
+      var filterSubgroups = function filterSubgroups(groups, searchValue) {
+        var result = _lodash.default.clone(groups);
+
+        return result.map(function (subgroup) {
+          return filterGroupBy(subgroup, searchValue);
+        }).filter(function (subgroup) {
+          return !_lodash.default.isNull(subgroup);
+        });
+      };
+
+      var toTemplate = function toTemplate(groupKey) {
+        return {
+          group: filterGroupBy(_this6.groups[groupKey], searchValue),
+          groupKey: groupKey,
+          groupId: sidebar.id || sidebarGroups.id,
+          subgroups: filterSubgroups(_this6.groups[groupKey].subgroups, searchValue).map(function (group) {
+            return _this6.renderTemplate('builderSidebarGroup', {
+              group: group,
+              groupKey: group.key,
+              groupId: "group-container-".concat(groupKey),
+              subgroups: []
+            });
+          })
+        };
+      };
+
+      sidebarGroups.innerHTML = filterGroupOrder(this.groupOrder, searchValue).map(function (groupKey) {
+        return _this6.renderTemplate('builderSidebarGroup', toTemplate(groupKey));
+      }).join('');
       this.loadRefs(this.element, {
         'sidebar-groups': 'single',
         'sidebar-anchor': 'multiple',
@@ -775,6 +852,23 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         'sidebar-container': 'multiple'
       });
       this.updateDragAndDrop();
+    }
+  }, {
+    key: "orderComponents",
+    value: function orderComponents(groupInfo, foundComponents) {
+      var components = foundComponents || groupInfo.components;
+
+      if (components) {
+        groupInfo.componentOrder = Object.keys(components).map(function (key) {
+          return components[key];
+        }).filter(function (component) {
+          return component && !component.ignore && !component.ignoreForForm;
+        }).sort(function (a, b) {
+          return a.weight - b.weight;
+        }).map(function (component) {
+          return component.key;
+        });
+      }
     }
   }, {
     key: "updateDragAndDrop",
@@ -790,7 +884,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "initDragula",
     value: function initDragula() {
-      var _this6 = this;
+      var _this7 = this;
 
       var options = this.options;
 
@@ -801,7 +895,12 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       var containersArray = Array.prototype.slice.call(this.refs['sidebar-container']).filter(function (item) {
         return item.id !== 'group-container-resource';
       });
-      this.dragula = (0, _dragula.default)(containersArray, {
+
+      if (!dragula) {
+        return;
+      }
+
+      this.dragula = dragula(containersArray, {
         moves: function moves(el) {
           var moves = true;
           var list = Array.from(el.classList).filter(function (item) {
@@ -828,7 +927,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           return !el.contains(target) && !target.classList.contains('no-drop');
         }
       }).on('drop', function (element, target, source, sibling) {
-        return _this6.onDrop(element, target, source, sibling);
+        return _this7.onDrop(element, target, source, sibling);
       });
     }
   }, {
@@ -859,9 +958,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         if (groupComponents.hasOwnProperty(key)) {
           info = (0, _utils.fastCloneDeep)(groupComponents[key].schema);
         }
-      }
-
-      if (group.slice(0, group.indexOf('-')) === 'resource') {
+      } else if (group.slice(0, group.indexOf('-')) === 'resource') {
         // This is an existing resource field.
         var resourceGroups = this.groups.resource.subgroups;
 
@@ -872,10 +969,24 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         if (resourceGroup && resourceGroup.components.hasOwnProperty(key)) {
           info = (0, _utils.fastCloneDeep)(resourceGroup.components[key].schema);
         }
+      } else if (group === 'searchFields') {
+        //Search components go into this group
+        var _resourceGroups = this.groups.resource.subgroups;
+
+        for (var ix = 0; ix < _resourceGroups.length; ix++) {
+          var _resourceGroup = _resourceGroups[ix];
+
+          if (_resourceGroup.components.hasOwnProperty(key)) {
+            info = (0, _utils.fastCloneDeep)(_resourceGroup.components[key].schema);
+            break;
+          }
+        }
       }
 
       if (info) {
-        info.key = _lodash.default.camelCase(info.key || info.title || info.label || info.placeholder || info.type);
+        if (!info.key) {
+          info.key = _lodash.default.camelCase(info.key || info.title || info.label || info.placeholder || info.type);
+        }
       }
 
       return info;
@@ -934,7 +1045,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     key: "onDrop",
     value: function onDrop(element, target, source, sibling) {
       var _this$groups$group,
-          _this7 = this;
+          _this8 = this;
 
       if (!target) {
         return;
@@ -1037,8 +1148,12 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         parent.addChildComponent(info, element, target, source, sibling);
       }
 
+      var componentInDataGrid = parent.type === 'datagrid';
+
       if (isNew && !this.options.noNewEdit && !info.noNewEdit) {
-        this.editComponent(info, target, isNew);
+        this.editComponent(info, target, isNew, null, null, {
+          inDataGrid: componentInDataGrid
+        });
       } // Only rebuild the parts needing to be rebuilt.
 
 
@@ -1066,17 +1181,17 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       }
 
       return rebuild.then(function () {
-        _this7.emit('addComponent', info, parent, path, index, isNew && !_this7.options.noNewEdit && !info.noNewEdit);
+        _this8.emit('addComponent', info, parent, path, index, isNew && !_this8.options.noNewEdit && !info.noNewEdit);
 
-        if (!isNew || _this7.options.noNewEdit || info.noNewEdit) {
-          _this7.emit('change', _this7.form);
+        if (!isNew || _this8.options.noNewEdit || info.noNewEdit) {
+          _this8.emit('change', _this8.form);
         }
       });
     }
   }, {
     key: "setForm",
     value: function setForm(form) {
-      var _this8 = this;
+      var _this9 = this;
 
       if (!form.components) {
         form.components = [];
@@ -1099,17 +1214,19 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       if (this.webform) {
         var shouldRebuild = !this.webform.form.components || form.components.length !== this.webform.form.components.length;
-        return this.webform.setForm(form).then(function () {
-          if (_this8.refs.form) {
-            _this8.builderHeight = _this8.refs.form.offsetHeight;
+        return this.webform.setForm(form, {
+          keepAsReference: true
+        }).then(function () {
+          if (_this9.refs.form) {
+            _this9.builderHeight = _this9.refs.form.offsetHeight;
           }
 
           if (!shouldRebuild) {
-            return _this8.form;
+            return _this9.form;
           }
 
-          return _this8.rebuild().then(function () {
-            return _this8.form;
+          return _this9.rebuild().then(function () {
+            return _this9.form;
           });
         });
       }
@@ -1144,16 +1261,17 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "removeComponent",
     value: function removeComponent(component, parent, original) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (!parent) {
         return;
       }
 
       var remove = true;
+      var removingComponentsGroup = !component.skipRemoveConfirm && (Array.isArray(component.components) && component.components.length || Array.isArray(component.rows) && component.rows.length || Array.isArray(component.columns) && component.columns.length);
 
-      if (!component.skipRemoveConfirm && (Array.isArray(component.components) && component.components.length || Array.isArray(component.rows) && component.rows.length || Array.isArray(component.columns) && component.columns.length)) {
-        var message = 'Removing this component will also remove all of its children. Are you sure you want to do this?';
+      if (this.options.alwaysConfirmComponentRemoval || removingComponentsGroup) {
+        var message = removingComponentsGroup ? 'Removing this component will also remove all of its children. Are you sure you want to do this?' : 'Are you sure you want to remove this component?';
         remove = window.confirm(this.t(message));
       }
 
@@ -1177,9 +1295,9 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         var rebuild = parent.formioComponent.rebuild() || _nativePromiseOnly.default.resolve();
 
         rebuild.then(function () {
-          _this9.emit('removeComponent', component, parent.formioComponent.schema, path, index);
+          _this10.emit('removeComponent', component, parent.formioComponent.schema, path, index);
 
-          _this9.emit('change', _this9.form);
+          _this10.emit('change', _this10.form);
         });
       }
 
@@ -1191,7 +1309,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       // Update the preview.
       if (this.preview) {
         this.preview.form = {
-          components: [_lodash.default.omit(component, ['hidden', 'conditional', 'calculateValue', 'logic', 'autofocus', 'customConditional'])]
+          components: [_lodash.default.omit(_objectSpread({}, component), ['hidden', 'conditional', 'calculateValue', 'logic', 'autofocus', 'customConditional'])],
+          config: this.options.formConfig || {}
         };
         var previewElement = this.componentEdit.querySelector('[ref="preview"]');
 
@@ -1202,13 +1321,13 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       } // Change the "default value" field to be reflective of this component.
 
 
-      var defaultValueComponent = (0, _formUtils.getComponent)(this.editForm.components, 'defaultValue');
+      var defaultValueComponent = (0, _formUtils.getComponent)(this.editForm.components, 'defaultValue', true);
 
       if (defaultValueComponent && component.type !== 'hidden') {
         var defaultChanged = changed && (changed.component && changed.component.key === 'defaultValue' || changed.instance && defaultValueComponent.hasComponent && defaultValueComponent.hasComponent(changed.instance));
 
         if (!defaultChanged) {
-          _lodash.default.assign(defaultValueComponent.component, _lodash.default.omit(component, ['key', 'label', 'placeholder', 'tooltip', 'hidden', 'autofocus', 'validate', 'disabled', 'defaultValue', 'customDefaultValue', 'calculateValue', 'conditional', 'customConditional']));
+          _lodash.default.assign(defaultValueComponent.component, _lodash.default.omit(_objectSpread({}, component), ['key', 'label', 'placeholder', 'tooltip', 'hidden', 'autofocus', 'validate', 'disabled', 'defaultValue', 'customDefaultValue', 'calculateValue', 'conditional', 'customConditional', 'id']));
 
           var parentComponent = defaultValueComponent.parent;
           var tabIndex = -1;
@@ -1275,11 +1394,20 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
     key: "highlightInvalidComponents",
     value: function highlightInvalidComponents() {
       var repeatablePaths = this.findRepeatablePaths();
-      (0, _formUtils.eachComponent)(this.webform.getComponents(), function (comp, path) {
+      var hasInvalidComponents = false;
+      this.webform.everyComponent(function (comp) {
+        var _comp$error, _comp$error$message;
+
+        var path = comp.path;
+
         if (repeatablePaths.includes(path)) {
           comp.setCustomValidity("API Key is not unique: ".concat(comp.key));
+          hasInvalidComponents = true;
+        } else if ((_comp$error = comp.error) !== null && _comp$error !== void 0 && (_comp$error$message = _comp$error.message) !== null && _comp$error$message !== void 0 && _comp$error$message.startsWith('API Key is not unique')) {
+          comp.setCustomValidity('');
         }
       });
+      this.emit('builderFormValidityChange', hasInvalidComponents);
     }
     /**
      * Called when a new component is saved.
@@ -1292,7 +1420,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
   }, {
     key: "saveComponent",
     value: function saveComponent(component, parent, isNew, original) {
-      var _this10 = this;
+      var _this11 = this;
 
       this.editForm.detach();
       var parentContainer = parent ? parent.formioContainer : this.container;
@@ -1319,15 +1447,16 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         });
         var originalComp = comp.component;
         var originalComponentSchema = comp.schema;
+        var isParentSaveChildMethod = this.isParentSaveChildMethod(parent.formioComponent);
 
-        if (parentContainer) {
+        if (parentContainer && !isParentSaveChildMethod) {
           parentContainer[index] = submissionData;
 
           if (comp) {
             comp.component = submissionData;
           }
-        } else if (parentComponent && parentComponent.saveChildComponent) {
-          parentComponent.saveChildComponent(submissionData);
+        } else if (isParentSaveChildMethod) {
+          parent.formioComponent.saveChildComponent(submissionData);
         }
 
         var rebuild = parentComponent.rebuild() || _nativePromiseOnly.default.resolve();
@@ -1335,11 +1464,11 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         return rebuild.then(function () {
           var schema = parentContainer ? parentContainer[index] : comp ? comp.schema : [];
 
-          _this10.emit('saveComponent', schema, originalComp, parentComponent.schema, path, index, isNew, originalComponentSchema);
+          _this11.emitSaveComponentEvent(schema, originalComp, parentComponent.schema, path, index, isNew, originalComponentSchema);
 
-          _this10.emit('change', _this10.form);
+          _this11.emit('change', _this11.form);
 
-          _this10.highlightInvalidComponents();
+          _this11.highlightInvalidComponents();
         });
       }
 
@@ -1347,9 +1476,16 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       return _nativePromiseOnly.default.resolve();
     }
   }, {
+    key: "emitSaveComponentEvent",
+    value: function emitSaveComponentEvent(schema, originalComp, parentComponentSchema, path, index, isNew, originalComponentSchema) {
+      this.emit('saveComponent', schema, originalComp, parentComponentSchema, path, index, isNew, originalComponentSchema);
+    }
+  }, {
     key: "editComponent",
     value: function editComponent(component, parent, isNew, isJsonEdit, original) {
-      var _this11 = this;
+      var _this12 = this;
+
+      var flags = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
 
       if (!component.key) {
         return;
@@ -1380,6 +1516,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
 
       editFormOptions.editForm = this.form;
       editFormOptions.editComponent = component;
+      editFormOptions.flags = flags;
       this.editForm = new _Webform.default(_objectSpread(_objectSpread({}, _lodash.default.omit(this.options, ['hooks', 'builder', 'events', 'attachMode', 'skipInit'])), {}, {
         language: this.options.language
       }, editFormOptions));
@@ -1393,12 +1530,17 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           key: 'componentJson',
           label: 'Component JSON',
           tooltip: 'Edit the JSON for this component.'
+        }, {
+          type: 'checkbox',
+          key: 'showFullSchema',
+          label: 'Full Schema'
         }]
       } : ComponentClass.editForm(_lodash.default.cloneDeep(overrides));
       var instance = new ComponentClass(componentCopy);
       this.editForm.submission = isJsonEdit ? {
         data: {
-          componentJson: instance.component
+          componentJson: component,
+          showFullSchema: this.options.showFullJsonSchema
         }
       } : {
         data: instance.component
@@ -1429,7 +1571,18 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
       this.updateComponent(componentCopy);
       this.editForm.on('change', function (event) {
         if (event.changed) {
-          // See if this is a manually modified key. Treat custom component keys as manually modified
+          if (event.changed.component && event.changed.component.key === 'showFullSchema') {
+            var value = event.changed.value;
+            _this12.editForm.submission = {
+              data: {
+                componentJson: value ? instance.component : component,
+                showFullSchema: value
+              }
+            };
+            return;
+          } // See if this is a manually modified key. Treat custom component keys as manually modified
+
+
           if (event.changed.component && event.changed.component.key === 'key' || isJsonEdit) {
             componentCopy.keyModified = true;
           }
@@ -1438,7 +1591,7 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
             // Ensure this component has a key.
             if (isNew) {
               if (!event.data.keyModified) {
-                _this11.editForm.everyComponent(function (component) {
+                _this12.editForm.everyComponent(function (component) {
                   if (component.key === 'key' && component.parent.component.key === 'tabs') {
                     component.setValue(_lodash.default.camelCase(event.data.title || event.data.label || event.data.placeholder || event.data.type).replace(/^[0-9]*/, ''));
                     return false;
@@ -1446,8 +1599,8 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
                 });
               }
 
-              if (_this11.form) {
-                var formComponents = _this11.findNamespaceRoot(parent.formioComponent.component); // excluding component which key uniqueness is to be checked to prevent the comparing of the same keys
+              if (_this12.form) {
+                var formComponents = _this12.findNamespaceRoot(parent.formioComponent.component); // excluding component which key uniqueness is to be checked to prevent the comparing of the same keys
 
 
                 formComponents = formComponents.filter(function (comp) {
@@ -1460,68 +1613,68 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           } // Update the component.
 
 
-          _this11.updateComponent(event.data.componentJson || event.data, event.changed);
+          _this12.updateComponent(event.data.componentJson || event.data, event.changed);
         }
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="cancelButton"]'), 'click', function (event) {
         event.preventDefault();
 
-        _this11.editForm.detach();
+        _this12.editForm.detach();
 
-        _this11.emit('cancelComponent', component);
+        _this12.emit('cancelComponent', component);
 
-        _this11.dialog.close();
+        _this12.dialog.close();
 
-        _this11.highlightInvalidComponents();
+        _this12.highlightInvalidComponents();
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="removeButton"]'), 'click', function (event) {
         event.preventDefault(); // Since we are already removing the component, don't trigger another remove.
 
         saved = true;
 
-        _this11.editForm.detach();
+        _this12.editForm.detach();
 
-        _this11.removeComponent(component, parent, original);
+        _this12.removeComponent(component, parent, original);
 
-        _this11.dialog.close();
+        _this12.dialog.close();
 
-        _this11.highlightInvalidComponents();
+        _this12.highlightInvalidComponents();
       });
       this.addEventListener(this.componentEdit.querySelector('[ref="saveButton"]'), 'click', function (event) {
         event.preventDefault();
 
-        if (!_this11.editForm.checkValidity(_this11.editForm.data, true, _this11.editForm.data)) {
-          _this11.editForm.setPristine(false);
+        if (!_this12.editForm.checkValidity(_this12.editForm.data, true, _this12.editForm.data)) {
+          _this12.editForm.setPristine(false);
 
-          _this11.editForm.showErrors();
+          _this12.editForm.showErrors();
 
           return false;
         }
 
         saved = true;
 
-        _this11.saveComponent(component, parent, isNew, original);
+        _this12.saveComponent(component, parent, isNew, original);
       });
 
       var dialogClose = function dialogClose() {
-        _this11.editForm.destroy(true);
+        _this12.editForm.destroy(true);
 
-        if (_this11.preview) {
-          _this11.preview.destroy(true);
+        if (_this12.preview) {
+          _this12.preview.destroy(true);
 
-          _this11.preview = null;
+          _this12.preview = null;
         }
 
         if (isNew && !saved) {
-          _this11.removeComponent(component, parent, original);
+          _this12.removeComponent(component, parent, original);
 
-          _this11.highlightInvalidComponents();
+          _this12.highlightInvalidComponents();
         } // Clean up.
 
 
-        _this11.removeEventListener(_this11.dialog, 'close', dialogClose);
+        _this12.removeEventListener(_this12.dialog, 'close', dialogClose);
 
-        _this11.dialog = null;
+        _this12.dialog = null;
       };
 
       this.addEventListener(this.dialog, 'close', dialogClose); // Called when we edit a component.
@@ -1566,24 +1719,33 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
           var schema = JSON.parse(data);
           var parent = this.getParentElement(component.element);
 
-          _builder.default.uniquify(this.findNamespaceRoot(parent.formioComponent.component), schema);
+          if (parent) {
+            _builder.default.uniquify(this.findNamespaceRoot(parent.formioComponent.component), schema);
 
-          var path = '';
-          var index = 0;
+            var path = '';
+            var index = 0;
+            var isParentSaveChildMethod = this.isParentSaveChildMethod(parent.formioComponent);
 
-          if (parent.formioContainer) {
-            index = parent.formioContainer.indexOf(component.component);
-            path = this.getComponentsPath(schema, parent.formioComponent.component);
-            parent.formioContainer.splice(index + 1, 0, schema);
-          } else if (parent.formioComponent && parent.formioComponent.saveChildComponent) {
-            parent.formioComponent.saveChildComponent(schema, false);
+            if (parent.formioContainer && !isParentSaveChildMethod) {
+              index = parent.formioContainer.indexOf(component.component);
+              path = this.getComponentsPath(schema, parent.formioComponent.component);
+              parent.formioContainer.splice(index + 1, 0, schema);
+            } else if (isParentSaveChildMethod) {
+              parent.formioComponent.saveChildComponent(schema, false);
+            }
+
+            parent.formioComponent.rebuild();
+            this.emitSaveComponentEvent(schema, schema, parent.formioComponent.component, path, index + 1, true, schema);
           }
 
-          parent.formioComponent.rebuild();
-          this.emit('saveComponent', schema, schema, parent.formioComponent.components, path, index + 1, true);
           this.emit('change', this.form);
         }
       }
+    }
+  }, {
+    key: "isParentSaveChildMethod",
+    value: function isParentSaveChildMethod(parentComp) {
+      return !!(parentComp && parentComp.saveChildComponent);
     }
   }, {
     key: "getParentElement",
@@ -1610,7 +1772,6 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         groupInfo.components[component.key] = component;
       }
 
-      this.fieldsList.components[component.key] = component;
       return component;
     }
   }, {
@@ -1656,56 +1817,6 @@ var WebformBuilder = /*#__PURE__*/function (_Component) {
         this.groups[name] = group;
         this.triggerRedraw();
       }
-    }
-  }, {
-    key: "ready",
-    get: function get() {
-      return this.webform.ready;
-    }
-  }, {
-    key: "defaultGroups",
-    get: function get() {
-      return {
-        basic: {
-          title: 'Basic',
-          weight: 0,
-          default: true
-        },
-        advanced: {
-          title: 'Advanced',
-          weight: 10
-        },
-        layout: {
-          title: 'Layout',
-          weight: 20
-        },
-        data: {
-          title: 'Data',
-          weight: 30
-        },
-        premium: {
-          title: 'Premium',
-          weight: 40
-        }
-      };
-    }
-  }, {
-    key: "form",
-    get: function get() {
-      return this.webform.form;
-    },
-    set: function set(value) {
-      this.setForm(value);
-    }
-  }, {
-    key: "schema",
-    get: function get() {
-      return this.webform.schema;
-    }
-  }, {
-    key: "container",
-    get: function get() {
-      return this.webform.form.components;
     }
   }]);
 

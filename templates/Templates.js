@@ -23,6 +23,15 @@ var Templates = /*#__PURE__*/function () {
   }
 
   _createClass(Templates, null, [{
+    key: "templates",
+    get: function get() {
+      if (!Templates._templates) {
+        Templates._templates = _index.default;
+      }
+
+      return Templates._templates;
+    }
+  }, {
     key: "addTemplate",
     value: function addTemplate(name, template) {
       Templates.templates[name] = template;
@@ -38,26 +47,17 @@ var Templates = /*#__PURE__*/function () {
       Templates.addTemplate(name, template);
     }
   }, {
-    key: "templates",
-    get: function get() {
-      if (!Templates._templates) {
-        Templates._templates = _index.default;
-      }
-
-      return Templates._templates;
-    }
-  }, {
     key: "current",
-    set: function set(templates) {
-      var defaultTemplates = Templates.current;
-      Templates._current = _lodash.default.merge({}, defaultTemplates, templates);
-    },
     get: function get() {
       if (Templates._current) {
         return Templates._current;
       }
 
       return Templates.defaultTemplates;
+    },
+    set: function set(templates) {
+      var defaultTemplates = Templates.current;
+      Templates._current = _lodash.default.merge({}, defaultTemplates, templates);
     }
   }, {
     key: "defaultTemplates",
@@ -66,14 +66,14 @@ var Templates = /*#__PURE__*/function () {
     }
   }, {
     key: "framework",
+    get: function get() {
+      return Templates._framework;
+    },
     set: function set(framework) {
       if (Templates.templates.hasOwnProperty(framework)) {
         Templates._framework = framework;
         Templates._current = Templates.templates[framework];
       }
-    },
-    get: function get() {
-      return Templates._framework;
     }
   }]);
 

@@ -1,18 +1,16 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es.array.concat.js");
 
-require("core-js/modules/es.symbol.description");
+require("core-js/modules/es.string.starts-with.js");
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.string.starts-with");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.for-each.js");
 
 var _Formio = _interopRequireDefault(require("./Formio"));
 
@@ -2317,6 +2315,58 @@ describe('Formio.js Tests', function () {
           _powerAssert.default.equal(textField.element.querySelector('[ref=value]').innerHTML, 'textField');
 
           _powerAssert.default.equal(phoneNumber.element.querySelector('[ref=value]').innerHTML, '88005553535');
+
+          done();
+        }, 300);
+      }).catch(done);
+    });
+    it('Should render after form submission if renderMode = \'html\' with Nested Form', function (done) {
+      var formJson = {
+        components: [{
+          label: 'Form',
+          key: 'form',
+          type: 'form',
+          input: true,
+          components: [{
+            label: 'Text Field',
+            key: 'textField',
+            type: 'textfield',
+            input: true
+          }, {
+            label: 'Password',
+            key: 'password',
+            type: 'password',
+            input: true
+          }]
+        }, {
+          label: 'Checkbox',
+          type: 'checkbox',
+          input: true
+        }]
+      };
+      var element = document.createElement('div');
+
+      _Formio.default.createForm(element, formJson, {
+        renderMode: 'html'
+      }).then(function (form) {
+        _powerAssert.default.equal(form.getComponent('textField').element.querySelector('[ref=value]').innerHTML, '-');
+
+        _powerAssert.default.equal(form.getComponent('password').element.querySelector('[ref=value]').innerHTML, '-');
+
+        form.submission = {
+          data: {
+            form: {
+              data: {
+                textField: 'textField',
+                password: 'password'
+              }
+            }
+          }
+        };
+        setTimeout(function () {
+          _powerAssert.default.equal(form.getComponent('textField').element.querySelector('[ref=value]').innerHTML, 'textField');
+
+          _powerAssert.default.equal(form.getComponent('password').element.querySelector('[ref=value]').innerHTML, 'password');
 
           done();
         }, 300);

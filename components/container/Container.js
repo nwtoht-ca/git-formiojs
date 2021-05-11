@@ -2,16 +2,34 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -23,13 +41,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -41,7 +59,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -50,45 +68,13 @@ var ContainerComponent = /*#__PURE__*/function (_NestedDataComponent) {
 
   var _super = _createSuper(ContainerComponent);
 
-  _createClass(ContainerComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _NestedDataComponent2.default.schema.apply(_NestedDataComponent2.default, [{
-        label: 'Container',
-        type: 'container',
-        key: 'container',
-        clearOnHide: true,
-        input: true,
-        tree: true,
-        hideLabel: true,
-        components: []
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Container',
-        icon: 'folder-open',
-        group: 'data',
-        documentation: '/userguide/#container',
-        weight: 10,
-        schema: ContainerComponent.schema()
-      };
-    }
-  }]);
-
   function ContainerComponent() {
     var _this;
 
     _classCallCheck(this, ContainerComponent);
 
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
     _this = _super.call.apply(_super, [this].concat(args));
@@ -100,6 +86,21 @@ var ContainerComponent = /*#__PURE__*/function (_NestedDataComponent) {
     key: "addComponents",
     value: function addComponents(data, options) {
       return _get(_getPrototypeOf(ContainerComponent.prototype), "addComponents", this).call(this, this.dataValue, options);
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return ContainerComponent.schema();
+    }
+  }, {
+    key: "emptyValue",
+    get: function get() {
+      return {};
+    }
+  }, {
+    key: "templateName",
+    get: function get() {
+      return 'container';
     }
   }, {
     key: "componentContext",
@@ -139,20 +140,35 @@ var ContainerComponent = /*#__PURE__*/function (_NestedDataComponent) {
         return comp.checkData(data, flags, _this2.dataValue) && valid;
       }, _Component.default.prototype.checkData.call(this, data, flags, row));
     }
-  }, {
-    key: "defaultSchema",
-    get: function get() {
-      return ContainerComponent.schema();
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len2 = arguments.length, extend = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        extend[_key2] = arguments[_key2];
+      }
+
+      return _NestedDataComponent2.default.schema.apply(_NestedDataComponent2.default, [{
+        label: 'Container',
+        type: 'container',
+        key: 'container',
+        clearOnHide: true,
+        input: true,
+        tree: true,
+        hideLabel: true,
+        components: []
+      }].concat(extend));
     }
   }, {
-    key: "emptyValue",
+    key: "builderInfo",
     get: function get() {
-      return {};
-    }
-  }, {
-    key: "templateName",
-    get: function get() {
-      return 'container';
+      return {
+        title: 'Container',
+        icon: 'folder-open',
+        group: 'data',
+        documentation: '/userguide/#container',
+        weight: 10,
+        schema: ContainerComponent.schema()
+      };
     }
   }]);
 

@@ -14,17 +14,19 @@ __p += '<table class="table\n    ' +
 ((__t = ( ctx.component.condensed ? 'table-sm' : '')) == null ? '' : __t) +
 '\n  ">\n  ';
  if (ctx.component.header && ctx.component.header.length > 0) { ;
-__p += '\n  <thead>\n    <tr>\n      ';
+__p += '\n  <thead>\n    <tr class="row">\n      ';
  ctx.component.header.forEach(function(header) { ;
-__p += '\n      <th>' +
-((__t = (ctx.t(header))) == null ? '' : __t) +
+__p += '\n      <th class="col-md-' +
+((__t = (ctx.colWidth)) == null ? '' : __t) +
+'">' +
+((__t = (ctx.t(header, { _userInput: true }))) == null ? '' : __t) +
 '</th>\n      ';
  }) ;
 __p += '\n    </tr>\n  </thead>\n  ';
  } ;
 __p += '\n  <tbody>\n    ';
  ctx.tableComponents.forEach(function(row, rowIndex) { ;
-__p += '\n    <tr ref="row-' +
+__p += '\n    <tr class="row" ref="row-' +
 ((__t = (ctx.id)) == null ? '' : __t) +
 '">\n      ';
  row.forEach(function(column, colIndex) { ;
@@ -36,6 +38,8 @@ __p += '\n      <td ref="' +
  if (ctx.cellClassName) { ;
 __p += ' class="' +
 ((__t = (ctx.cellClassName)) == null ? '' : __t) +
+' col-md-' +
+((__t = (ctx.colWidth)) == null ? '' : __t) +
 '"';
  } ;
 __p += '>' +

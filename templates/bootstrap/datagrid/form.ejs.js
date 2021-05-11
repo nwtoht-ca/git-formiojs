@@ -11,7 +11,7 @@ __p += '<table class="table datagrid-table table-bordered\n    ' +
 '\n    ' +
 ((__t = ( ctx.component.condensed ? 'table-sm' : '')) == null ? '' : __t) +
 '\n    " ';
- if (ctx.component.layoutFixed) { ;
+ if (ctx.layoutFixed) { ;
 __p += 'style="table-layout: fixed;"';
  } ;
 __p += '>\n  ';
@@ -25,14 +25,16 @@ __p += '\n      ';
 __p += '\n        <th class="' +
 ((__t = (col.validate && col.validate.required ? 'field-required' : '')) == null ? '' : __t) +
 '">\n          ' +
-((__t = ( col.hideLabel ? '' : ctx.t(col.label || col.title) )) == null ? '' : __t) +
+((__t = ( col.hideLabel ? '' : ctx.t(col.label || col.title, { _userInput: true }) )) == null ? '' : __t) +
 '\n          ';
  if (col.tooltip) { ;
 __p += ' <i ref="tooltip" data-title="' +
 ((__t = (col.tooltip)) == null ? '' : __t) +
 '" class="' +
 ((__t = (ctx.iconClass('question-sign'))) == null ? '' : __t) +
-' text-muted"></i>';
+' text-muted" data-tooltip="' +
+((__t = (col.tooltip)) == null ? '' : __t) +
+'"></i>';
  } ;
 __p += '\n        </th>\n      ';
  }) ;
@@ -47,7 +49,7 @@ __p += '\n        <button class="btn btn-primary formio-button-add-row" ref="' +
 '">\n          <i class="' +
 ((__t = (ctx.iconClass('plus'))) == null ? '' : __t) +
 '"></i>' +
-((__t = (ctx.t(ctx.component.addAnother || 'Add Another'))) == null ? '' : __t) +
+((__t = (ctx.t(ctx.component.addAnother || 'Add Another', { _userInput: true }))) == null ? '' : __t) +
 '\n        </button>\n        ';
  } ;
 __p += '\n      </th>\n      ';
@@ -56,7 +58,9 @@ __p += '\n    </tr>\n  </thead>\n  ';
  } ;
 __p += '\n  <tbody ref="' +
 ((__t = (ctx.datagridKey)) == null ? '' : __t) +
-'-tbody">\n    ';
+'-tbody" data-key="' +
+((__t = (ctx.datagridKey)) == null ? '' : __t) +
+'">\n    ';
  ctx.rows.forEach(function(row, index) { ;
 __p += '\n    ';
  if (ctx.hasGroups && ctx.groups[index]) { ;
@@ -76,7 +80,9 @@ __p += '\n    <tr ref="' +
 ((__t = (ctx.datagridKey)) == null ? '' : __t) +
 '-row">\n      ';
  if (ctx.component.reorder) { ;
-__p += '\n        <td>\n          <button type="button" class="formio-drag-button btn btn-default fa fa-bars"></button>\n        </td>\n      ';
+__p += '\n        <td>\n          <button type="button" class="formio-drag-button btn btn-default fa fa-bars" data-key="' +
+((__t = (ctx.datagridKey)) == null ? '' : __t) +
+'"></button>\n        </td>\n      ';
  } ;
 __p += '\n      ';
  ctx.columns.forEach(function(col) { ;
@@ -121,7 +127,7 @@ __p += '\n  <tfoot>\n    <tr>\n      <td colspan="' +
 '">\n          <i class="' +
 ((__t = (ctx.iconClass('plus'))) == null ? '' : __t) +
 '"></i> ' +
-((__t = (ctx.t(ctx.component.addAnother || 'Add Another'))) == null ? '' : __t) +
+((__t = (ctx.t(ctx.component.addAnother || 'Add Another', { _userInput: true }))) == null ? '' : __t) +
 '\n        </button>\n      </td>\n    </tr>\n  </tfoot>\n  ';
  } ;
 __p += '\n</table>\n';

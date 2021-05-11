@@ -2,34 +2,60 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.number.constructor");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.number.is-nan");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.regexp.exec");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.string.replace");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.string.split");
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.array.slice.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.from.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.number.is-nan.js");
+
+require("core-js/modules/es.number.constructor.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
 var _textMaskAddons = require("text-mask-addons");
 
-var _vanillaTextMask = require("vanilla-text-mask");
+var _vanillaTextMask = require("@formio/vanilla-text-mask");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -43,7 +69,7 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -55,19 +81,19 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -79,7 +105,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -87,33 +113,6 @@ var CurrencyComponent = /*#__PURE__*/function (_NumberComponent) {
   _inherits(CurrencyComponent, _NumberComponent);
 
   var _super = _createSuper(CurrencyComponent);
-
-  _createClass(CurrencyComponent, null, [{
-    key: "schema",
-    value: function schema() {
-      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
-        extend[_key] = arguments[_key];
-      }
-
-      return _Number.default.schema.apply(_Number.default, [{
-        type: 'currency',
-        label: 'Currency',
-        key: 'currency'
-      }].concat(extend));
-    }
-  }, {
-    key: "builderInfo",
-    get: function get() {
-      return {
-        title: 'Currency',
-        group: 'advanced',
-        icon: 'usd',
-        documentation: '/userguide/#currency',
-        weight: 70,
-        schema: CurrencyComponent.schema()
-      };
-    }
-  }]);
 
   function CurrencyComponent(component, options, data) {
     _classCallCheck(this, CurrencyComponent);
@@ -175,8 +174,14 @@ var CurrencyComponent = /*#__PURE__*/function (_NumberComponent) {
       input.setAttribute('pattern', numberPattern);
       input.mask = (0, _vanillaTextMask.maskInput)({
         inputElement: input,
-        mask: this.numberMask || ''
+        mask: this.numberMask || '',
+        shadowRoot: this.root ? this.root.shadowRoot : null
       });
+    }
+  }, {
+    key: "defaultSchema",
+    get: function get() {
+      return CurrencyComponent.schema();
     }
   }, {
     key: "parseNumber",
@@ -290,10 +295,30 @@ var CurrencyComponent = /*#__PURE__*/function (_NumberComponent) {
         element.value = _this.getValueAsString(_this.addZerosAndFormatValue(_this.parseValue(element.value)));
       });
     }
+  }], [{
+    key: "schema",
+    value: function schema() {
+      for (var _len = arguments.length, extend = new Array(_len), _key = 0; _key < _len; _key++) {
+        extend[_key] = arguments[_key];
+      }
+
+      return _Number.default.schema.apply(_Number.default, [{
+        type: 'currency',
+        label: 'Currency',
+        key: 'currency'
+      }].concat(extend));
+    }
   }, {
-    key: "defaultSchema",
+    key: "builderInfo",
     get: function get() {
-      return CurrencyComponent.schema();
+      return {
+        title: 'Currency',
+        group: 'advanced',
+        icon: 'usd',
+        documentation: '/userguide/#currency',
+        weight: 70,
+        schema: CurrencyComponent.schema()
+      };
     }
   }]);
 

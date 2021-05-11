@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
+
+require("core-js/modules/es.array.concat.js");
 
 var _TextField = _interopRequireDefault(require("../textfield/TextField.form"));
 

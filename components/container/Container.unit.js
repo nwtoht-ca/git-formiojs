@@ -1,8 +1,8 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.array.concat.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 

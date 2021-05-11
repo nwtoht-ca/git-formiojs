@@ -1,6 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.string.trim.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 

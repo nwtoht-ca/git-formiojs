@@ -1,10 +1,6 @@
 "use strict";
 
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.for-each.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
@@ -62,6 +58,17 @@ describe('Radio Component', function () {
       _powerAssert.default.equal(spans[2].innerHTML, 'Blue');
 
       _powerAssert.default.equal(spans[3].innerHTML, 'Yellow');
+    });
+  });
+  it('Should set false as defaultValue correctly', function (done) {
+    _harness.default.testCreate(_Radio.default, _fixtures.comp4).then(function (component) {
+      _powerAssert.default.equal(component.dataValue, false, 'Should be equal to false');
+
+      var input = component.element.querySelector('input[value="false"]');
+
+      _powerAssert.default.equal(input.getAttribute('checked'), 'true', 'Should be checked');
+
+      done();
     });
   });
 });

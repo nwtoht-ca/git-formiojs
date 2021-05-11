@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.function.name");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.function.name.js");
 
 var _uuid = require("uuid");
 
@@ -106,6 +106,7 @@ var indexeddb = function indexeddb() {
 
               reader.onload = function (event) {
                 result.url = event.target.result;
+                result.storage = file.storage;
                 resolve(result);
               };
 
@@ -119,6 +120,34 @@ var indexeddb = function indexeddb() {
 
           store.onerror = function () {
             return reject(_this2);
+          };
+        });
+      });
+    },
+    deleteFile: function deleteFile(file, options) {
+      var _this3 = this;
+
+      return new _nativePromiseOnly.default(function (resolve) {
+        var request = indexedDB.open(options.indexeddb, 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          resolve(db);
+        };
+      }).then(function (db) {
+        return new _nativePromiseOnly.default(function (resolve, reject) {
+          var trans = db.transaction([options.indexeddbTable], 'readwrite');
+          var store = trans.objectStore(options.indexeddbTable).delete(file.id);
+
+          store.onsuccess = function () {
+            trans.oncomplete = function () {
+              var result = store.result;
+              resolve(result);
+            };
+          };
+
+          store.onerror = function () {
+            return reject(_this3);
           };
         });
       });

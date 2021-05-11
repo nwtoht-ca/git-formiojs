@@ -2,32 +2,50 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.find-index");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.index-of");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.array.splice");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.object.keys");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.find-index.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.splice.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _WebformBuilder2 = _interopRequireDefault(require("./WebformBuilder"));
 
@@ -36,6 +54,8 @@ var _Webform = _interopRequireDefault(require("./Webform"));
 var _builder = _interopRequireDefault(require("./utils/builder"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
+
+var _utils = require("./utils/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59,7 +79,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -190,6 +210,52 @@ var WizardBuilder = /*#__PURE__*/function (_WebformBuilder) {
       return this.webform && this.webform.refs && this.webform.refs.webform === element ? false : true;
     }
   }, {
+    key: "pages",
+    get: function get() {
+      return _lodash.default.filter(this._form.components, {
+        type: 'panel'
+      });
+    }
+  }, {
+    key: "currentPage",
+    get: function get() {
+      var pages = this.pages;
+      return pages && pages.length >= this.page ? pages[this.page] : null;
+    }
+  }, {
+    key: "form",
+    get: function get() {
+      return this._form;
+    },
+    set: function set(value) {
+      this._form = value;
+
+      if (!this._form.components || !Array.isArray(this._form.components)) {
+        this._form.components = [];
+      }
+
+      if (this.pages.length === 0) {
+        var components = this._form.components.filter(function (component) {
+          return component.type !== 'button';
+        });
+
+        this._form.components = [this.getPageConfig(1, components)];
+      }
+
+      this.rebuild();
+    }
+  }, {
+    key: "schema",
+    get: function get() {
+      _lodash.default.assign(this.currentPage, this.webform._form.components[0]);
+
+      var webform = new _Webform.default(this.options);
+      webform.setForm(this._form, {
+        noEmit: true
+      });
+      return webform.schema;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -259,15 +325,14 @@ var WizardBuilder = /*#__PURE__*/function (_WebformBuilder) {
     }
   }, {
     key: "addPage",
-    value: function addPage() {
-      var pageNum = this.pages.length + 1;
-      var newPage = this.getPageConfig(pageNum);
+    value: function addPage(page) {
+      var newPage = page && page.schema ? (0, _utils.fastCloneDeep)(page.schema) : this.getPageConfig(this.pages.length + 1);
 
       _builder.default.uniquify(this._form.components, newPage);
 
       this._form.components.push(newPage);
 
-      this.emit('saveComponent', newPage, this._form.components);
+      this.emitSaveComponentEvent(newPage, newPage, this._form, 'components', this._form.components.length - 1, true, newPage);
       this.emit('change', this._form);
       return this.rebuild();
     }
@@ -320,53 +385,13 @@ var WizardBuilder = /*#__PURE__*/function (_WebformBuilder) {
         return;
       }
 
-      return _get(_getPrototypeOf(WizardBuilder.prototype), "pasteComponent", this).call(this, component);
-    }
-  }, {
-    key: "pages",
-    get: function get() {
-      return _lodash.default.filter(this._form.components, {
-        type: 'panel'
-      });
-    }
-  }, {
-    key: "currentPage",
-    get: function get() {
-      var pages = this.pages;
-      return pages && pages.length >= this.page ? pages[this.page] : null;
-    }
-  }, {
-    key: "form",
-    set: function set(value) {
-      this._form = value;
-
-      if (!this._form.components || !Array.isArray(this._form.components)) {
-        this._form.components = [];
+      if (this._form.components.find(function (comp) {
+        return _lodash.default.isEqual(component.component, comp);
+      })) {
+        this.addPage(component);
+      } else {
+        return _get(_getPrototypeOf(WizardBuilder.prototype), "pasteComponent", this).call(this, component);
       }
-
-      if (this.pages.length === 0) {
-        var components = this._form.components.filter(function (component) {
-          return component.type !== 'button';
-        });
-
-        this._form.components = [this.getPageConfig(1, components)];
-      }
-
-      this.rebuild();
-    },
-    get: function get() {
-      return this._form;
-    }
-  }, {
-    key: "schema",
-    get: function get() {
-      _lodash.default.assign(this.currentPage, this.webform._form.components[0]);
-
-      var webform = new _Webform.default(this.options);
-      webform.setForm(this._form, {
-        noEmit: true
-      });
-      return webform.schema;
     }
   }]);
 

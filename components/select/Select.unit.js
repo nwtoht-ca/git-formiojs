@@ -1,20 +1,32 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es.array.slice.js");
 
-require("core-js/modules/es.symbol.description");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.symbol.iterator");
+require("core-js/modules/es.array.from.js");
 
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es.object.assign.js");
 
-require("core-js/modules/es.object.assign");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.object.to-string");
+require("core-js/modules/es.promise.js");
 
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es.string.ends-with.js");
 
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
@@ -28,6 +40,10 @@ var _chai = require("chai");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
+var _Formio = _interopRequireDefault(require("./../../Formio"));
+
+var _lodash = _interopRequireDefault(require("lodash"));
+
 var _fixtures = require("./fixtures");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40,7 +56,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -53,16 +69,17 @@ describe('Select Component', function () {
         value: 'a',
         label: 'A'
       });
+      setTimeout(function () {
+        _powerAssert.default.equal(component.choices._currentState.items[0].value.value, 'a');
 
-      _powerAssert.default.equal(component.choices._currentState.items[0].value.value, 'a');
+        _powerAssert.default.equal(_typeof(component.choices._currentState.items[0].value), 'object');
 
-      _powerAssert.default.equal(_typeof(component.choices._currentState.items[0].value), 'object');
+        _powerAssert.default.equal(component.dataValue.value, 'a');
 
-      _powerAssert.default.equal(component.dataValue.value, 'a');
+        _powerAssert.default.equal(_typeof(component.dataValue), 'object');
 
-      _powerAssert.default.equal(_typeof(component.dataValue), 'object');
-
-      done();
+        done();
+      }, 100);
     });
   });
   it('should return string value for different value types', function (done) {
@@ -351,6 +368,568 @@ describe('Select Component', function () {
 
       _powerAssert.default.equal(component.choices.dropdown.isActive, false);
     });
+  });
+  it('Should render and set values in selects with different widget types', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp7);
+
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var selectHTML = form.getComponent('selectHtml');
+      var selectChoices = form.getComponent('selectChoices');
+
+      _powerAssert.default.equal(!!selectHTML.choices, false);
+
+      _powerAssert.default.equal(!!selectChoices.choices, true);
+
+      setTimeout(function () {
+        _powerAssert.default.equal(selectChoices.element.querySelectorAll('.choices__item--choice').length, 3);
+
+        var value = 'b';
+        selectHTML.setValue(value);
+        selectChoices.setValue(value);
+        setTimeout(function () {
+          _powerAssert.default.equal(selectHTML.dataValue, value);
+
+          _powerAssert.default.equal(selectChoices.dataValue, value);
+
+          _powerAssert.default.equal(selectHTML.getValue(), value);
+
+          _powerAssert.default.equal(selectChoices.getValue(), value);
+
+          done();
+        }, 200);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should clear select value when "clear value on refresh options" and "refresh options on" is enable and number component is changed   ', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp8);
+
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var numberComp = form.getComponent('number');
+      var value = 'b';
+      select.setValue(value);
+      setTimeout(function () {
+        _powerAssert.default.equal(select.dataValue, value);
+
+        _powerAssert.default.equal(select.getValue(), value);
+
+        var numberInput = numberComp.refs.input[0];
+        var numberValue = 5;
+        var inputEvent = new Event('input');
+        numberInput.value = numberValue;
+        numberInput.dispatchEvent(inputEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(numberComp.dataValue, numberValue);
+
+          _powerAssert.default.equal(numberComp.getValue(), numberValue);
+
+          _powerAssert.default.equal(select.dataValue, '');
+
+          _powerAssert.default.equal(select.getValue(), '');
+
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should update select items when "refresh options on" is enable and number component is changed', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function (formio, type, url) {
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan'
+        }, {
+          name: 'Mike'
+        }];
+
+        if (url.endsWith('5')) {
+          values = [{
+            name: 'Kate'
+          }, {
+            name: 'Ann'
+          }, {
+            name: 'Lana'
+          }];
+        }
+
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var numberComp = form.getComponent('number');
+      setTimeout(function () {
+        _powerAssert.default.equal(select.selectOptions.length, 2);
+
+        _powerAssert.default.deepEqual(select.selectOptions[0].value, {
+          name: 'Ivan'
+        });
+
+        var numberValue = 5;
+        var inputEvent = new Event('input');
+        var numberInput = numberComp.refs.input[0];
+        numberInput.value = numberValue;
+        numberInput.dispatchEvent(inputEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(numberComp.dataValue, numberValue);
+
+          _powerAssert.default.equal(numberComp.getValue(), numberValue);
+
+          _powerAssert.default.equal(select.selectOptions.length, 3);
+
+          _powerAssert.default.deepEqual(select.selectOptions[0].value, {
+            name: 'Kate'
+          });
+
+          _Formio.default.makeRequest = originalMakeRequest;
+          done();
+        }, 500);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should update select items when "refresh options on blur" is enable and number component is changed', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    form.components[1].refreshOn = null;
+    form.components[1].refreshOnBlur = 'number';
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function (formio, type, url) {
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan'
+        }, {
+          name: 'Mike'
+        }];
+
+        if (url.endsWith('5')) {
+          values = [{
+            name: 'Kate'
+          }, {
+            name: 'Ann'
+          }, {
+            name: 'Lana'
+          }];
+        }
+
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var numberComp = form.getComponent('number');
+      setTimeout(function () {
+        _powerAssert.default.equal(select.selectOptions.length, 2);
+
+        _powerAssert.default.deepEqual(select.selectOptions[0].value, {
+          name: 'Ivan'
+        });
+
+        var numberValue = 5;
+        var inputEvent = new Event('input');
+        var focusEvent = new Event('focus');
+        var blurEvent = new Event('blur');
+        var numberInput = numberComp.refs.input[0];
+        numberInput.dispatchEvent(focusEvent);
+        numberInput.value = numberValue;
+        numberInput.dispatchEvent(inputEvent);
+        numberInput.dispatchEvent(blurEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(numberComp.dataValue, numberValue);
+
+          _powerAssert.default.equal(numberComp.getValue(), numberValue);
+
+          _powerAssert.default.equal(select.selectOptions.length, 3);
+
+          _powerAssert.default.deepEqual(select.selectOptions[0].value, {
+            name: 'Kate'
+          });
+
+          _Formio.default.makeRequest = originalMakeRequest;
+          done();
+        }, 500);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should be able to search if static search is enable', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp10);
+
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var searchField = select.element.querySelector('.choices__input.choices__input--cloned');
+      var focusEvent = new Event('focus');
+      searchField.dispatchEvent(focusEvent);
+      setTimeout(function () {
+        _powerAssert.default.equal(select.choices.dropdown.isActive, true);
+
+        var items = select.choices.choiceList.element.children;
+
+        _powerAssert.default.equal(items.length, 5);
+
+        var keyupEvent = new Event('keyup');
+        var searchField = select.element.querySelector('.choices__input.choices__input--cloned');
+        searchField.value = 'par';
+        searchField.dispatchEvent(keyupEvent);
+        setTimeout(function () {
+          var items = select.choices.choiceList.element.children;
+
+          _powerAssert.default.equal(items.length, 1);
+
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should not be able to search if static search is disable', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp10);
+
+    form.components[0].searchEnabled = false;
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var searchField = select.element.querySelector('.choices__input.choices__input--cloned');
+
+      _powerAssert.default.equal(searchField, null);
+
+      done();
+    }).catch(done);
+  });
+  it('Should save correct value if value property and item template property are different', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    form.components[1].refreshOn = null;
+    form.components[1].valueProperty = 'age';
+    form.components[1].lazyLoad = true;
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function () {
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan',
+          age: 35
+        }, {
+          name: 'Mike',
+          age: 41
+        }];
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+
+      _powerAssert.default.equal(select.selectOptions.length, 0);
+
+      select.choices.showDropdown();
+      setTimeout(function () {
+        _powerAssert.default.equal(select.selectOptions.length, 2);
+
+        _powerAssert.default.deepEqual(select.selectOptions[0].value, 35);
+
+        _powerAssert.default.deepEqual(select.selectOptions[0].label, '<span>Ivan</span>');
+
+        var items = select.choices.choiceList.element.children;
+
+        _powerAssert.default.equal(items.length, 2);
+
+        _powerAssert.default.equal(items[0].textContent.trim(), 'Ivan');
+
+        select.setValue(41);
+        setTimeout(function () {
+          _powerAssert.default.equal(select.getValue(), 41);
+
+          _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].children[0].textContent, 'Mike');
+
+          _Formio.default.makeRequest = originalMakeRequest;
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should set custom header when sending request in select url', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    form.components[1].refreshOn = null;
+    form.components[1].lazyLoad = true;
+    form.components[1].data.headers = [{
+      key: 'testHeader',
+      value: 'test'
+    }];
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function (formio, type, url, method, data, opts) {
+      _powerAssert.default.equal(opts.header.get('testHeader'), 'test');
+
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan',
+          age: 35
+        }, {
+          name: 'Mike',
+          age: 41
+        }];
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+
+      _powerAssert.default.equal(select.selectOptions.length, 0);
+
+      select.choices.showDropdown();
+      setTimeout(function () {
+        _Formio.default.makeRequest = originalMakeRequest;
+        done();
+      }, 200);
+    }).catch(done);
+  });
+  it('Should set value in select url with lazy load option', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    form.components[1].refreshOn = null;
+    form.components[1].lazyLoad = true;
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function () {
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan'
+        }, {
+          name: 'Mike'
+        }];
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      select.setValue({
+        name: 'Ivan'
+      });
+      setTimeout(function () {
+        _powerAssert.default.deepEqual(select.getValue(), {
+          name: 'Ivan'
+        });
+
+        _powerAssert.default.deepEqual(select.dataValue, {
+          name: 'Ivan'
+        });
+
+        _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].children[0].textContent, 'Ivan');
+
+        _Formio.default.makeRequest = originalMakeRequest;
+        done();
+      }, 200);
+    }).catch(done);
+  });
+  it('Should set value in select url with lazy load option when value property is defined', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp9);
+
+    form.components[1].refreshOn = null;
+    form.components[1].lazyLoad = true;
+    form.components[1].valueProperty = 'name';
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function () {
+      return new Promise(function (resolve) {
+        var values = [{
+          name: 'Ivan'
+        }, {
+          name: 'Mike'
+        }];
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      select.setValue('Ivan');
+      setTimeout(function () {
+        _powerAssert.default.equal(select.getValue(), 'Ivan');
+
+        _powerAssert.default.equal(select.dataValue, 'Ivan');
+
+        _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].children[0].textContent, 'Ivan');
+
+        _Formio.default.makeRequest = originalMakeRequest;
+        done();
+      }, 200);
+    }).catch(done);
+  });
+  it('Should be able to search if static search is enable', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp10);
+
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var searchField = select.element.querySelector('.choices__input.choices__input--cloned');
+      var focusEvent = new Event('focus');
+      searchField.dispatchEvent(focusEvent);
+      setTimeout(function () {
+        _powerAssert.default.equal(select.choices.dropdown.isActive, true);
+
+        var items = select.choices.choiceList.element.children;
+
+        _powerAssert.default.equal(items.length, 5);
+
+        var keyupEvent = new Event('keyup');
+        var searchField = select.element.querySelector('.choices__input.choices__input--cloned');
+        searchField.value = 'par';
+        searchField.dispatchEvent(keyupEvent);
+        setTimeout(function () {
+          var items = select.choices.choiceList.element.children;
+
+          _powerAssert.default.equal(items.length, 1);
+
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should provide "Allow only available values" validation', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp10);
+
+    form.components[0].validate.onlyAvailableItems = true;
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var value = 'Dallas';
+      select.setValue(value);
+      setTimeout(function () {
+        _powerAssert.default.equal(select.getValue(), value);
+
+        _powerAssert.default.equal(select.dataValue, value);
+
+        var submit = form.getComponent('submit');
+        var clickEvent = new Event('click');
+        var submitBtn = submit.refs.button;
+        submitBtn.dispatchEvent(clickEvent);
+        setTimeout(function () {
+          _powerAssert.default.equal(form.errors.length, 1);
+
+          _powerAssert.default.equal(select.error.message, 'Select is an invalid value.');
+
+          document.innerHTML = '';
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should render and set value in select json', function (done) {
+    var formObj = _lodash.default.cloneDeep(_fixtures.comp11);
+
+    var element = document.createElement('div');
+
+    _Formio.default.createForm(element, formObj).then(function (form) {
+      var select = form.getComponent('select');
+
+      _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].dataset.value, formObj.components[0].placeholder);
+
+      select.choices.showDropdown();
+      setTimeout(function () {
+        var items = select.choices.choiceList.element.children;
+
+        _powerAssert.default.equal(items.length, 4);
+
+        var value = {
+          value: 'a',
+          label: 'A'
+        };
+        select.setValue(value);
+        setTimeout(function () {
+          _powerAssert.default.deepEqual(select.getValue(), value);
+
+          _powerAssert.default.deepEqual(select.dataValue, value);
+
+          _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].children[0].textContent, 'A');
+
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
+  });
+  it('Should load and set items in select resource and set value', function (done) {
+    var form = _lodash.default.cloneDeep(_fixtures.comp12);
+
+    var element = document.createElement('div');
+    var originalMakeRequest = _Formio.default.makeRequest;
+
+    _Formio.default.makeRequest = function (formio, type, url) {
+      return new Promise(function (resolve) {
+        var values = [{
+          data: {
+            name: 'Ivan'
+          }
+        }, {
+          data: {
+            name: 'Mike'
+          }
+        }];
+
+        if (url.endsWith('Ivan')) {
+          _powerAssert.default.equal(url.endsWith('/form/60114dd32cab36ad94ac4f94/submission?limit=100&skip=0&data.name__regex=Ivan'), true);
+
+          values = [{
+            data: {
+              name: 'Ivan'
+            }
+          }];
+        } else {
+          _powerAssert.default.equal(url.endsWith('/form/60114dd32cab36ad94ac4f94/submission?limit=100&skip=0'), true);
+        }
+
+        resolve(values);
+      });
+    };
+
+    _Formio.default.createForm(element, form).then(function (form) {
+      var select = form.getComponent('select');
+      var items = select.choices.choiceList.element.children;
+
+      _powerAssert.default.equal(items.length, 1);
+
+      select.setValue('Ivan');
+      setTimeout(function () {
+        _powerAssert.default.equal(select.getValue(), 'Ivan');
+
+        _powerAssert.default.equal(select.dataValue, 'Ivan');
+
+        _powerAssert.default.equal(select.choices.containerInner.element.children[1].children[0].children[0].textContent, 'Ivan');
+
+        select.choices.showDropdown();
+        setTimeout(function () {
+          var items = select.choices.choiceList.element.children;
+
+          _powerAssert.default.equal(items.length, 2);
+
+          _powerAssert.default.equal(items[0].textContent, 'Ivan');
+
+          _Formio.default.makeRequest = originalMakeRequest;
+          done();
+        }, 400);
+      }, 200);
+    }).catch(done);
   }); // it('should reset input value when called with empty value', () => {
   //   const comp = Object.assign({}, comp1);
   //   delete comp.placeholder;

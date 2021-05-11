@@ -1,33 +1,31 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.find-index");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.match");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.lessOrGreater = lessOrGreater;
 exports.checkInvalidDate = checkInvalidDate;
 exports.CALENDAR_ERROR_MESSAGES = void 0;
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.match.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.find-index.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.concat.js");
 
 var _moment = _interopRequireDefault(require("moment"));
 

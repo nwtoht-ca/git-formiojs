@@ -1,11 +1,11 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
 
 var _default = function _default(iconset, name, spinning) {
   if (iconset === 'fa') {

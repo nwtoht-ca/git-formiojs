@@ -1,23 +1,17 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.reduce");
-
-require("core-js/modules/es.array.some");
-
-require("core-js/modules/web.dom-collections.for-each");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.concat.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -72,6 +66,46 @@ var Node = /*#__PURE__*/function () {
   }
 
   _createClass(Node, [{
+    key: "value",
+    get: function get() {
+      return this.new ? null // Check the special case for empty root node.
+      : {
+        data: _lodash.default.cloneDeep(this.persistentData),
+        children: this.children.filter(function (child) {
+          return !child.new;
+        }).map(function (child) {
+          return child.value;
+        })
+      };
+    }
+  }, {
+    key: "isRoot",
+    get: function get() {
+      return this.parent === null;
+    }
+  }, {
+    key: "changing",
+    get: function get() {
+      return this.new || this.editing;
+    }
+  }, {
+    key: "hasChangingChildren",
+    get: function get() {
+      return this.changin || this.children.some(function (child) {
+        return child.hasChangingChildren;
+      });
+    }
+  }, {
+    key: "hasData",
+    get: function get() {
+      return !_lodash.default.isEmpty(this.persistentData);
+    }
+  }, {
+    key: "hasChildren",
+    get: function get() {
+      return Array.isArray(this.children) && this.children.length > 0;
+    }
+  }, {
     key: "eachChild",
     value: function eachChild(iteratee) {
       iteratee(this);
@@ -207,46 +241,6 @@ var Node = /*#__PURE__*/function () {
     value: function clearComponents() {
       this.removeComponents(this.components);
       this.components = [];
-    }
-  }, {
-    key: "value",
-    get: function get() {
-      return this.new ? null // Check the special case for empty root node.
-      : {
-        data: _lodash.default.cloneDeep(this.persistentData),
-        children: this.children.filter(function (child) {
-          return !child.new;
-        }).map(function (child) {
-          return child.value;
-        })
-      };
-    }
-  }, {
-    key: "isRoot",
-    get: function get() {
-      return this.parent === null;
-    }
-  }, {
-    key: "changing",
-    get: function get() {
-      return this.new || this.editing;
-    }
-  }, {
-    key: "hasChangingChildren",
-    get: function get() {
-      return this.changin || this.children.some(function (child) {
-        return child.hasChangingChildren;
-      });
-    }
-  }, {
-    key: "hasData",
-    get: function get() {
-      return !_lodash.default.isEmpty(this.persistentData);
-    }
-  }, {
-    key: "hasChildren",
-    get: function get() {
-      return Array.isArray(this.children) && this.children.length > 0;
     }
   }]);
 

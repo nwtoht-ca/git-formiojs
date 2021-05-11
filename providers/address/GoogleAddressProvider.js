@@ -2,12 +2,36 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.reflect.construct.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.GoogleAddressProvider = void 0;
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
+
+var _Formio = _interopRequireDefault(require("../../Formio"));
+
+var _lodash = _interopRequireDefault(require("lodash"));
 
 var _AddressProvider2 = require("./AddressProvider");
 
@@ -31,7 +55,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -41,59 +65,159 @@ var GoogleAddressProvider = /*#__PURE__*/function (_AddressProvider) {
   var _super = _createSuper(GoogleAddressProvider);
 
   function GoogleAddressProvider() {
+    var _options$params;
+
+    var _this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
     _classCallCheck(this, GoogleAddressProvider);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, options);
+
+    _this.setAutocompleteOptions();
+
+    var src = 'https://maps.googleapis.com/maps/api/js?v=quarterly&libraries=places&callback=googleMapsCallback';
+
+    if ((_options$params = options.params) !== null && _options$params !== void 0 && _options$params.key) {
+      src += "&key=".concat(options.params.key);
+    }
+
+    _Formio.default.requireLibrary(_this.getLibraryName(), 'google.maps.places', src);
+
+    return _this;
   }
 
   _createClass(GoogleAddressProvider, [{
-    key: "makeRequest",
-    value: function makeRequest() {
-      var _this = this;
+    key: "displayValueProperty",
+    get: function get() {
+      return 'formattedPlace';
+    }
+  }, {
+    key: "alternativeDisplayValueProperty",
+    get: function get() {
+      return 'formatted_address';
+    }
+  }, {
+    key: "autocompleteOptions",
+    get: function get() {
+      return this._autocompleteOptions;
+    },
+    set: function set(options) {
+      this._autocompleteOptions = options;
+    }
+  }, {
+    key: "setAutocompleteOptions",
+    value: function setAutocompleteOptions() {
+      var options = _lodash.default.get(this.options, 'params.autocompleteOptions', {});
 
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return new _nativePromiseOnly.default(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', _this.getRequestUrl(options), true);
+      if (!_lodash.default.isObject(options)) {
+        options = {};
+      }
 
-        xhr.onload = function () {
-          return resolve(JSON.parse(xhr.response));
+      this.addRequiredProviderOptions(options);
+      this.autocompleteOptions = options;
+    }
+  }, {
+    key: "beforeMergeOptions",
+    value: function beforeMergeOptions(options) {
+      // providing support of old Google Provider option
+      this.convertRegionToAutocompleteOption(options);
+    }
+  }, {
+    key: "getLibraryName",
+    value: function getLibraryName() {
+      return 'googleMaps';
+    }
+  }, {
+    key: "convertRegionToAutocompleteOption",
+    value: function convertRegionToAutocompleteOption(options) {
+      var providerOptions = options;
+
+      var region = _lodash.default.get(providerOptions, 'params.region', '');
+
+      if (region && !_lodash.default.has(options, 'params.autocompleteOptions')) {
+        region = region.toUpperCase().trim(); // providing compatibility with ISO 3166-1 Alpha-2 county codes (for checking compatibility https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+
+        var countryCodes = {
+          'UK': 'GB'
         };
 
-        xhr.onerror = reject;
-        xhr.send();
+        if (countryCodes[region]) {
+          region = countryCodes[region];
+        }
+
+        _lodash.default.set(providerOptions, 'params.autocompleteOptions.componentRestrictions.country', [region]);
+      }
+    }
+  }, {
+    key: "getRequiredAddressProperties",
+    value: function getRequiredAddressProperties() {
+      return ['address_components', 'formatted_address', 'geometry', 'place_id', 'plus_code', 'types'];
+    }
+  }, {
+    key: "addRequiredProviderOptions",
+    value: function addRequiredProviderOptions(options) {
+      var addressProperties = this.getRequiredAddressProperties();
+
+      if (_lodash.default.isArray(options.fields) && options.fields.length > 0) {
+        options.fields.forEach(function (optionalField) {
+          if (!addressProperties.some(function (addressProp) {
+            return optionalField === addressProp;
+          })) {
+            addressProperties.push(optionalField);
+          }
+        });
+      }
+
+      options.fields = addressProperties;
+    }
+  }, {
+    key: "filterPlace",
+    value: function filterPlace(place) {
+      place = place || {};
+      var filteredPlace = {};
+
+      if (this.autocompleteOptions) {
+        this.autocompleteOptions.fields.forEach(function (field) {
+          if (place[field]) {
+            filteredPlace[field] = place[field];
+          }
+        });
+      }
+
+      return filteredPlace;
+    }
+  }, {
+    key: "attachAutocomplete",
+    value: function attachAutocomplete(elem, index, onSelectAddress) {
+      var _this2 = this;
+
+      _Formio.default.libraryReady(this.getLibraryName()).then(function () {
+        var autocomplete = new google.maps.places.Autocomplete(elem, _this2.autocompleteOptions);
+        autocomplete.addListener('place_changed', function () {
+          var place = _this2.filterPlace(autocomplete.getPlace());
+
+          place.formattedPlace = _lodash.default.get(autocomplete, 'gm_accessors_.place.se.formattedPrediction', place[_this2.alternativeDisplayValueProperty]);
+          onSelectAddress(place, elem, index);
+        });
       });
     }
   }, {
-    key: "getRequestUrl",
-    value: function getRequestUrl() {
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var params = options.params;
-      return "https://maps.googleapis.com/maps/api/geocode/json?".concat(this.serialize(params));
+    key: "search",
+    value: function search() {
+      return _nativePromiseOnly.default.resolve();
     }
   }, {
-    key: "defaultOptions",
-    get: function get() {
-      return {
-        params: {
-          sensor: 'false'
-        }
-      };
+    key: "makeRequest",
+    value: function makeRequest() {
+      return _nativePromiseOnly.default.resolve();
     }
   }, {
-    key: "queryProperty",
-    get: function get() {
-      return 'address';
-    }
-  }, {
-    key: "responseProperty",
-    get: function get() {
-      return 'results';
-    }
-  }, {
-    key: "displayValueProperty",
-    get: function get() {
-      return 'formatted_address';
+    key: "getDisplayValue",
+    value: function getDisplayValue(address) {
+      var displayedProperty = _lodash.default.has(address, this.displayValueProperty) ? this.displayValueProperty : this.alternativeDisplayValueProperty;
+      return _lodash.default.get(address, displayedProperty, '');
     }
   }], [{
     key: "name",

@@ -90,6 +90,19 @@ var _default = [{
     return !context.data.allowMultipleMasks;
   }
 }, {
+  weight: 411,
+  type: 'textfield',
+  input: true,
+  key: 'inputMaskPlaceholderChar',
+  label: 'Input Mask Placeholder Char',
+  tooltip: "You can specify a char which will be used as a placeholder in the field. <br>E.g., \u02CD<br>Make note that placeholder char will be replaced by a space if it is used inside the mask",
+  validation: {
+    maxLength: 1
+  },
+  customConditional: function customConditional(context) {
+    return context.data.inputMask;
+  }
+}, {
   weight: 413,
   type: 'checkbox',
   input: true,

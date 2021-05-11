@@ -1,49 +1,63 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.array.join");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.array.some");
+require("core-js/modules/es.array.slice.js");
 
-require("core-js/modules/es.number.constructor");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.number.is-nan");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.object.values");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.match");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.array.from.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.ValidationChecker = exports.default = void 0;
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.number.is-nan.js");
+
+require("core-js/modules/es.number.constructor.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.string.trim.js");
+
+require("core-js/modules/es.string.match.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.object.values.js");
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -65,7 +79,7 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -77,7 +91,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -105,6 +119,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       required: {
         key: 'validate.required',
         method: 'validateRequired',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('required'), {
             field: component.errorLabel,
@@ -130,6 +145,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       onlyAvailableItems: {
         key: 'validate.onlyAvailableItems',
         method: 'validateValueAvailability',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('valueIsNotAvailable'), {
             field: component.errorLabel,
@@ -142,6 +158,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       unique: {
         key: 'validate.unique',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('unique'), {
             field: component.errorLabel,
@@ -169,32 +186,60 @@ var ValidationChecker = /*#__PURE__*/function () {
           return new _nativePromiseOnly.default(function (resolve) {
             var form = _this.config.form;
             var submission = _this.config.submission;
-            var path = "data.".concat(component.path); // Build the query
+            var path = "data.".concat(component.path);
+
+            var addPathQueryParams = function addPathQueryParams(pathQueryParams, query, path) {
+              var pathArray = path.split(/\[\d+\]?./);
+              var needValuesInArray = pathArray.length > 1;
+              var pathToValue = path;
+
+              if (needValuesInArray) {
+                pathToValue = pathArray.shift();
+                var pathQueryObj = {};
+
+                _lodash.default.reduce(pathArray, function (pathQueryPath, pathPart, index) {
+                  var isLastPathPart = index === pathArray.length - 1;
+
+                  var obj = _lodash.default.get(pathQueryObj, pathQueryPath, pathQueryObj);
+
+                  var addedPath = "$elemMatch['".concat(pathPart, "']");
+
+                  _lodash.default.set(obj, addedPath, isLastPathPart ? pathQueryParams : {});
+
+                  return pathQueryPath ? "".concat(pathQueryPath, ".").concat(addedPath) : addedPath;
+                }, '');
+
+                query[pathToValue] = pathQueryObj;
+              } else {
+                query[pathToValue] = pathQueryParams;
+              }
+            }; // Build the query
+
 
             var query = {
               form: form._id
             };
 
             if (_lodash.default.isString(value)) {
-              query[path] = {
+              addPathQueryParams({
                 $regex: new RegExp("^".concat((0, _utils.escapeRegExCharacters)(value), "$")),
                 $options: 'i'
-              };
+              }, query, path);
             } // FOR-213 - Pluck the unique location id
             else if (_lodash.default.isPlainObject(value) && value.address && value.address['address_components'] && value.address['place_id']) {
-                query["".concat(path, ".address.place_id")] = {
+                addPathQueryParams({
                   $regex: new RegExp("^".concat((0, _utils.escapeRegExCharacters)(value.address['place_id']), "$")),
                   $options: 'i'
-                };
+                }, query, "".concat(path, ".address.place_id"));
               } // Compare the contents of arrays vs the order.
               else if (_lodash.default.isArray(value)) {
-                  query[path] = {
+                  addPathQueryParams({
                     $all: value
-                  };
+                  }, query, path);
                 } else if (_lodash.default.isObject(value) || _lodash.default.isNumber(value)) {
-                  query[path] = {
+                  addPathQueryParams({
                     $eq: value
-                  };
+                  }, query, path);
                 } // Only search for non-deleted items
 
 
@@ -207,7 +252,12 @@ var ValidationChecker = /*#__PURE__*/function () {
                 return resolve(false);
               } else if (result) {
                 // Only OK if it matches the current submission
-                return resolve(submission._id && result._id.toString() === submission._id);
+                if (submission._id && result._id.toString() === submission._id) {
+                  resolve(true);
+                } else {
+                  component.conflictId = result._id.toString();
+                  return resolve(false);
+                }
               } else {
                 return resolve(true);
               }
@@ -219,6 +269,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       multiple: {
         key: 'validate.multiple',
+        hasLabel: true,
         message: function message(component) {
           var shouldBeArray = (0, _utils.boolValue)(component.component.multiple) || Array.isArray(component.emptyValue);
           var isRequired = component.component.validate.required;
@@ -253,6 +304,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       select: {
         key: 'validate.select',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('select'), {
             field: component.errorLabel,
@@ -350,6 +402,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       min: {
         key: 'validate.min',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('min'), {
             field: component.errorLabel,
@@ -370,6 +423,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       max: {
         key: 'validate.max',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('max'), {
             field: component.errorLabel,
@@ -409,8 +463,9 @@ var ValidationChecker = /*#__PURE__*/function () {
             }
 
             return total;
-          }, 0);
-          return count >= min;
+          }, 0); // Should not be triggered if there is no options selected at all
+
+          return !count || count >= min;
         }
       },
       maxSelectedCount: {
@@ -440,6 +495,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minLength: {
         key: 'validate.minLength',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minLength'), {
             field: component.errorLabel,
@@ -450,7 +506,7 @@ var ValidationChecker = /*#__PURE__*/function () {
         check: function check(component, setting, value) {
           var minLength = parseInt(setting, 10);
 
-          if (!minLength || typeof value !== 'string' || component.isEmpty(value)) {
+          if (!value || !minLength || typeof value !== 'string' || component.isEmpty(value)) {
             return true;
           }
 
@@ -459,6 +515,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxLength: {
         key: 'validate.maxLength',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxLength'), {
             field: component.errorLabel,
@@ -478,6 +535,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxWords: {
         key: 'validate.maxWords',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxWords'), {
             field: component.errorLabel,
@@ -497,6 +555,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minWords: {
         key: 'validate.minWords',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minWords'), {
             field: component.errorLabel,
@@ -507,7 +566,7 @@ var ValidationChecker = /*#__PURE__*/function () {
         check: function check(component, setting, value) {
           var minWords = parseInt(setting, 10);
 
-          if (!minWords || typeof value !== 'string') {
+          if (!minWords || !value || typeof value !== 'string') {
             return true;
           }
 
@@ -515,6 +574,7 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       email: {
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_email'), {
             field: component.errorLabel,
@@ -532,6 +592,7 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       url: {
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_url'), {
             field: component.errorLabel,
@@ -540,15 +601,18 @@ var ValidationChecker = /*#__PURE__*/function () {
         },
         check: function check(component, setting, value) {
           /* eslint-disable max-len */
-          // From https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
-          var re = /[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
+          // From https://stackoverflow.com/questions/8667070/javascript-regular-expression-to-validate-url
+          var re = /^(?:(?:(?:https?|ftp):)?\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i; // From http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+
+          var emailRe = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           /* eslint-enable max-len */
           // Allow urls to be valid if the component is pristine and no value is provided.
 
-          return !value || re.test(value);
+          return !value || re.test(value) && !emailRe.test(value);
         }
       },
       date: {
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_date'), {
             field: component.errorLabel,
@@ -560,6 +624,7 @@ var ValidationChecker = /*#__PURE__*/function () {
         }
       },
       day: {
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('invalid_day'), {
             field: component.errorLabel,
@@ -644,12 +709,13 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       pattern: {
         key: 'validate.pattern',
+        hasLabel: true,
         message: function message(component, setting) {
-          return component.t(_lodash.default.get(component, 'component.validate.patternMessage', component.errorMessage('pattern'), {
+          return component.t(_lodash.default.get(component, 'component.validate.patternMessage', component.errorMessage('pattern')), {
             field: component.errorLabel,
             pattern: setting,
             data: component.data
-          }));
+          });
         },
         check: function check(component, setting, value) {
           if (component.isEmpty(value)) return true;
@@ -686,6 +752,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       mask: {
         key: 'inputMask',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage('mask'), {
             field: component.errorLabel,
@@ -711,6 +778,10 @@ var ValidationChecker = /*#__PURE__*/function () {
           inputMask = inputMask ? (0, _utils.getInputMask)(inputMask) : null;
 
           if (value && inputMask && !component.skipMaskValidation) {
+            // If char which is used inside mask placeholder was used in the mask, replace it with space to prevent errors
+            inputMask = inputMask.map(function (char) {
+              return char === component.placeholderChar ? ' ' : char;
+            });
             return (0, _utils.matchInputMask)(value, inputMask);
           }
 
@@ -747,6 +818,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxDate: {
         key: 'maxDate',
+        hasLabel: true,
         message: function message(component, setting) {
           var date = (0, _utils.getDateSetting)(setting);
           return component.t(component.errorMessage('maxDate'), {
@@ -760,7 +832,7 @@ var ValidationChecker = /*#__PURE__*/function () {
             return true;
           }
 
-          var date = (0, _moment.default)(value);
+          var date = component.getValidationFormat ? (0, _moment.default)(value, component.getValidationFormat()) : (0, _moment.default)(value);
           var maxDate = (0, _utils.getDateSetting)(setting);
 
           if (_lodash.default.isNull(maxDate)) {
@@ -774,6 +846,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minDate: {
         key: 'minDate',
+        hasLabel: true,
         message: function message(component, setting) {
           var date = (0, _utils.getDateSetting)(setting);
           return component.t(component.errorMessage('minDate'), {
@@ -787,7 +860,7 @@ var ValidationChecker = /*#__PURE__*/function () {
             return true;
           }
 
-          var date = (0, _moment.default)(value);
+          var date = component.getValidationFormat ? (0, _moment.default)(value, component.getValidationFormat()) : (0, _moment.default)(value);
           var minDate = (0, _utils.getDateSetting)(setting);
 
           if (_lodash.default.isNull(minDate)) {
@@ -801,6 +874,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       minYear: {
         key: 'minYear',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('minYear'), {
             field: component.errorLabel,
@@ -821,6 +895,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       },
       maxYear: {
         key: 'maxYear',
+        hasLabel: true,
         message: function message(component, setting) {
           return component.t(component.errorMessage('maxYear'), {
             field: component.errorLabel,
@@ -842,6 +917,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       calendar: {
         key: 'validate.calendar',
         messageText: '',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage(this.validators.calendar.messageText), {
             field: component.errorLabel,
@@ -892,6 +968,7 @@ var ValidationChecker = /*#__PURE__*/function () {
       time: {
         key: 'validate.time',
         messageText: 'Invalid time',
+        hasLabel: true,
         message: function message(component) {
           return component.t(component.errorMessage(this.validators.time.messageText), {
             field: component.errorLabel
@@ -951,18 +1028,29 @@ var ValidationChecker = /*#__PURE__*/function () {
       var resultOrPromise = this.checkValidator(component, validator, setting, value, data, index, row, async);
 
       var processResult = function processResult(result) {
-        return result ? {
-          message: (0, _utils.unescapeHTML)(_lodash.default.get(result, 'message', result)),
-          level: _lodash.default.get(result, 'level') === 'warning' ? 'warning' : 'error',
-          path: (0, _utils.getArrayFromComponentPath)(component.path || ''),
-          context: {
-            validator: validatorName,
-            setting: setting,
-            key: component.key,
-            label: component.label,
-            value: value
+        if (result) {
+          var resultData = {
+            message: (0, _utils.unescapeHTML)(_lodash.default.get(result, 'message', result)),
+            level: _lodash.default.get(result, 'level') === 'warning' ? 'warning' : 'error',
+            path: (0, _utils.getArrayFromComponentPath)(component.path || ''),
+            context: {
+              validator: validatorName,
+              hasLabel: validator.hasLabel,
+              setting: setting,
+              key: component.key,
+              label: component.label,
+              value: value
+            }
+          };
+
+          if (validatorName === 'unique' && component.conflictId) {
+            resultData.conflictId = component.conflictId;
           }
-        } : false;
+
+          return resultData;
+        } else {
+          return false;
+        }
       };
 
       if (async) {
@@ -1055,6 +1143,7 @@ var ValidationChecker = /*#__PURE__*/function () {
               row: row,
               error: result
             });
+            result.context.hasLabel = false;
           });
         }
 
@@ -1144,6 +1233,11 @@ var ValidationChecker = /*#__PURE__*/function () {
       return results.length === 0 ? false : results;
     }
   }, {
+    key: "check",
+    get: function get() {
+      return this.checkComponent;
+    }
+  }, {
     key: "get",
     value: function get() {
       _lodash.default.get.call(this, arguments);
@@ -1157,11 +1251,6 @@ var ValidationChecker = /*#__PURE__*/function () {
     key: "has",
     value: function has() {
       _lodash.default.has.call(this, arguments);
-    }
-  }, {
-    key: "check",
-    get: function get() {
-      return this.checkComponent;
     }
   }]);
 

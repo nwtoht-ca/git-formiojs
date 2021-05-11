@@ -10,6 +10,10 @@ var _default = {
     'custom': '',
     'required': false
   },
+  'shortcutButtons': [{
+    'label': 'Today',
+    'onClick': 'date = new Date(\'2020-10-10T00:00:00\');'
+  }],
   'persistent': true,
   'protected': false,
   'timePicker': {

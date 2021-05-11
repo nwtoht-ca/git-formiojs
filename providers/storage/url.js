@@ -1,15 +1,13 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.function.name");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.function.name.js");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -18,14 +16,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var url = function url(formio) {
-  var xhrRequest = function xhrRequest(url, name, query, data, options, onprogress) {
+  var xhrRequest = function xhrRequest(url, name, query, data, options, progressCallback, abortCallback) {
     return new _nativePromiseOnly.default(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
       var json = typeof data === 'string';
       var fd = new FormData();
 
-      if (typeof onprogress === 'function') {
-        xhr.upload.onprogress = onprogress;
+      if (typeof progressCallback === 'function') {
+        xhr.upload.onprogress = progressCallback;
+      }
+
+      if (typeof abortCallback === 'function') {
+        abortCallback(function () {
+          return xhr.abort();
+        });
       }
 
       if (!json) {
@@ -108,7 +112,7 @@ var url = function url(formio) {
   return {
     title: 'Url',
     name: 'url',
-    uploadFile: function uploadFile(file, name, dir, progressCallback, url, options, fileKey) {
+    uploadFile: function uploadFile(file, name, dir, progressCallback, url, options, fileKey, groupPermissions, groupId, abortCallback) {
       var uploadRequest = function uploadRequest(form) {
         var _xhrRequest;
 
@@ -116,7 +120,7 @@ var url = function url(formio) {
           baseUrl: encodeURIComponent(formio.projectUrl),
           project: form ? form.project : '',
           form: form ? form._id : ''
-        }, (_xhrRequest = {}, _defineProperty(_xhrRequest, fileKey, file), _defineProperty(_xhrRequest, "name", name), _defineProperty(_xhrRequest, "dir", dir), _xhrRequest), options, progressCallback).then(function (response) {
+        }, (_xhrRequest = {}, _defineProperty(_xhrRequest, fileKey, file), _defineProperty(_xhrRequest, "name", name), _defineProperty(_xhrRequest, "dir", dir), _xhrRequest), options, progressCallback, abortCallback).then(function (response) {
           // Store the project and form url along with the metadata.
           response.data = response.data || {};
           response.data.baseUrl = formio.projectUrl;

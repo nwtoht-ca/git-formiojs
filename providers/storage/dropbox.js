@@ -1,25 +1,33 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
+require("core-js/modules/es.array.concat.js");
+
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
+
+var _xhr = require("./xhr");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var dropbox = function dropbox(formio) {
   return {
-    uploadFile: function uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId) {
+    uploadFile: function uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId, abortCallback) {
       return new _nativePromiseOnly.default(function (resolve, reject) {
         // Send the file with data.
         var xhr = new XMLHttpRequest();
 
         if (typeof progressCallback === 'function') {
           xhr.upload.onprogress = progressCallback;
+        }
+
+        if (typeof abortCallback === 'function') {
+          abortCallback(function () {
+            return xhr.abort();
+          });
         }
 
         var fd = new FormData();
@@ -49,6 +57,7 @@ var dropbox = function dropbox(formio) {
 
         xhr.onabort = reject;
         xhr.open('POST', "".concat(formio.formUrl, "/storage/dropbox"));
+        (0, _xhr.setXhrHeaders)(formio, xhr);
         var token = formio.getToken();
 
         if (token) {

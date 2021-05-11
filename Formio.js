@@ -1,61 +1,61 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es.array.slice.js");
 
-require("core-js/modules/es.symbol.description");
+require("core-js/modules/es.function.name.js");
 
-require("core-js/modules/es.symbol.iterator");
-
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.includes");
-
-require("core-js/modules/es.array.index-of");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.reduce");
-
-require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.object.assign");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.constructor");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.includes");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.match");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.search");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/web.dom-collections.for-each");
-
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/es.array.from.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.regexp.exec.js");
+
+require("core-js/modules/es.string.match.js");
+
+require("core-js/modules/es.string.search.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.regexp.constructor.js");
+
+require("core-js/modules/es.regexp.to-string.js");
+
+require("core-js/modules/es.string.replace.js");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/es.object.assign.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.number.constructor.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -83,7 +83,7 @@ require("./polyfills");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -93,7 +93,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -184,7 +184,7 @@ var Formio = /*#__PURE__*/function () {
       this.base = options.base;
     } else if (Formio.baseUrl) {
       this.base = Formio.baseUrl;
-    } else {
+    } else if (typeof window !== 'undefined') {
       this.base = window.location.href.match(/http[s]?:\/\/api./)[0];
     }
 
@@ -702,7 +702,7 @@ var Formio = /*#__PURE__*/function () {
     }
   }, {
     key: "uploadFile",
-    value: function uploadFile(storage, file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId, uploadStartCallback) {
+    value: function uploadFile(storage, file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId, uploadStartCallback, abortCallback) {
       var _this5 = this;
 
       var requestArgs = {
@@ -725,7 +725,7 @@ var Formio = /*#__PURE__*/function () {
                 uploadStartCallback();
               }
 
-              return provider.uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId);
+              return provider.uploadFile(file, fileName, dir, progressCallback, url, options, fileKey, groupPermissions, groupId, abortCallback);
             } else {
               throw 'Storage provider not found';
             }
@@ -755,6 +755,35 @@ var Formio = /*#__PURE__*/function () {
             if (Provider) {
               var provider = new Provider(_this6);
               return provider.downloadFile(file, options);
+            } else {
+              throw 'Storage provider not found';
+            }
+          }
+
+          return result || {
+            url: ''
+          };
+        });
+      });
+      return Formio.pluginAlter('wrapFileRequestPromise', request, requestArgs);
+    }
+  }, {
+    key: "deleteFile",
+    value: function deleteFile(file, options) {
+      var _this7 = this;
+
+      var requestArgs = {
+        method: 'delete',
+        file: file
+      };
+      var request = Formio.pluginWait('preRequest', requestArgs).then(function () {
+        return Formio.pluginGet('fileRequest', requestArgs).then(function (result) {
+          if (file.storage && isNil(result)) {
+            var Provider = _providers.default.getProvider('storage', file.storage);
+
+            if (Provider) {
+              var provider = new Provider(_this7);
+              return provider.deleteFile(file, options);
             } else {
               throw 'Storage provider not found';
             }
@@ -888,12 +917,12 @@ var Formio = /*#__PURE__*/function () {
   }, {
     key: "canSubmit",
     value: function canSubmit() {
-      var _this7 = this;
+      var _this8 = this;
 
       return this.userPermissions().then(function (perms) {
         // If there is user and they cannot create, then check anonymous user permissions.
         if (!perms.create && Formio.getUser()) {
-          return _this7.userPermissions(null).then(function (anonPerms) {
+          return _this8.userPermissions(null).then(function (anonPerms) {
             if (anonPerms.create) {
               Formio.setUser(null);
               return true;
@@ -987,7 +1016,7 @@ var Formio = /*#__PURE__*/function () {
       var request = getFormio().pluginWait('preRequest', requestArgs).then(function () {
         return getFormio().pluginGet('staticRequest', requestArgs).then(function (result) {
           if (isNil(result)) {
-            return getFormio().request(url, method, requestArgs.data, requestArgs.opts.header, requestArgs.opts);
+            return getFormio().request(requestArgs.url, requestArgs.method, requestArgs.data, requestArgs.opts.header, requestArgs.opts);
           }
 
           return result;
@@ -1017,7 +1046,7 @@ var Formio = /*#__PURE__*/function () {
       var request = getFormio().pluginWait('preRequest', requestArgs).then(function () {
         return getFormio().pluginGet('request', requestArgs).then(function (result) {
           if (isNil(result)) {
-            return getFormio().request(url, method, requestArgs.data, requestArgs.opts.header, requestArgs.opts);
+            return getFormio().request(requestArgs.url, requestArgs.method, requestArgs.data, requestArgs.opts.header, requestArgs.opts);
           }
 
           return result;
@@ -1031,6 +1060,8 @@ var Formio = /*#__PURE__*/function () {
       if (!url) {
         return _nativePromiseOnly.default.reject('No url provided');
       }
+
+      var _Formio = getFormio();
 
       method = (method || 'GET').toUpperCase(); // For reverse compatibility, if they provided the ignoreCache parameter,
       // then change it back to the options format where that is a parameter.
@@ -1048,8 +1079,8 @@ var Formio = /*#__PURE__*/function () {
 
       var cacheKey = btoa(encodeURI(url)); // Get the cached promise to save multiple loads.
 
-      if (!opts.ignoreCache && method === 'GET' && getFormio().cache.hasOwnProperty(cacheKey)) {
-        return _nativePromiseOnly.default.resolve(cloneResponse(getFormio().cache[cacheKey]));
+      if (!opts.ignoreCache && method === 'GET' && _Formio.cache.hasOwnProperty(cacheKey)) {
+        return _nativePromiseOnly.default.resolve(cloneResponse(_Formio.cache[cacheKey]));
       } // Set up and fetch request
 
 
@@ -1057,7 +1088,8 @@ var Formio = /*#__PURE__*/function () {
         'Accept': 'application/json',
         'Content-type': 'application/json'
       });
-      var token = getFormio().getToken(opts);
+
+      var token = _Formio.getToken(opts);
 
       if (token && !opts.noToken) {
         headers.append('x-jwt-token', token);
@@ -1079,30 +1111,32 @@ var Formio = /*#__PURE__*/function () {
       } // Allow plugins to alter the options.
 
 
-      options = getFormio().pluginAlter('requestOptions', options, url);
+      options = _Formio.pluginAlter('requestOptions', options, url);
 
-      if (options.namespace || getFormio().namespace) {
-        opts.namespace = options.namespace || getFormio().namespace;
+      if (options.namespace || _Formio.namespace) {
+        opts.namespace = options.namespace || _Formio.namespace;
       }
 
       var requestToken = options.headers['x-jwt-token'];
-      var result = getFormio().pluginAlter('wrapFetchRequestPromise', getFormio().fetch(url, options), {
+
+      var result = _Formio.pluginAlter('wrapFetchRequestPromise', _Formio.fetch(url, options), {
         url: url,
         method: method,
         data: data,
         opts: opts
       }).then(function (response) {
         // Allow plugins to respond.
-        response = getFormio().pluginAlter('requestResponse', response, Formio, data);
+        response = _Formio.pluginAlter('requestResponse', response, _Formio, data);
 
         if (!response.ok) {
           if (response.status === 440) {
-            getFormio().setToken(null, opts);
-            getFormio().events.emit('formio.sessionExpired', response.body);
+            _Formio.setToken(null, opts);
+
+            _Formio.events.emit('formio.sessionExpired', response.body);
           } else if (response.status === 401) {
-            getFormio().events.emit('formio.unauthorized', response.body);
+            _Formio.events.emit('formio.unauthorized', response.body);
           } else if (response.status === 416) {
-            getFormio().events.emit('formio.rangeIsNotSatisfiable', response.body);
+            _Formio.events.emit('formio.rangeIsNotSatisfiable', response.body);
           } // Parse and return the error as a rejected promise to reject this promise
 
 
@@ -1125,7 +1159,7 @@ var Formio = /*#__PURE__*/function () {
         }
 
         if (response.status >= 200 && response.status < 300 && token && token !== '' && !tokenIntroduced) {
-          getFormio().setToken(token, opts);
+          _Formio.setToken(token, opts);
         } // 204 is no content. Don't try to .json() it.
 
 
@@ -1171,14 +1205,15 @@ var Formio = /*#__PURE__*/function () {
 
 
         if (method === 'GET') {
-          getFormio().cache[cacheKey] = result;
+          _Formio.cache[cacheKey] = result;
         }
 
         return cloneResponse(result);
       }).catch(function (err) {
         if (err === 'Bad Token') {
-          getFormio().setToken(null, opts);
-          getFormio().events.emit('formio.badToken', err);
+          _Formio.setToken(null, opts);
+
+          _Formio.events.emit('formio.badToken', err);
         }
 
         if (err.message) {
@@ -1187,14 +1222,32 @@ var Formio = /*#__PURE__*/function () {
         }
 
         if (method === 'GET') {
-          delete getFormio().cache[cacheKey];
+          delete _Formio.cache[cacheKey];
         }
 
         return _nativePromiseOnly.default.reject(err);
       });
+
       return result;
     } // Needed to maintain reverse compatability...
 
+  }, {
+    key: "token",
+    get: function get() {
+      if (!getFormio().tokens) {
+        getFormio().tokens = {};
+      }
+
+      return getFormio().tokens.formioToken || '';
+    } // Needed to maintain reverse compatability...
+    ,
+    set: function set(token) {
+      if (!getFormio().tokens) {
+        getFormio().tokens = {};
+      }
+
+      getFormio().tokens.formioToken = token || '';
+    }
   }, {
     key: "setToken",
     value: function setToken() {
@@ -1406,12 +1459,17 @@ var Formio = /*#__PURE__*/function () {
   }, {
     key: "registerPlugin",
     value: function registerPlugin(plugin, name) {
-      getFormio().plugins.push(plugin);
-      getFormio().plugins.sort(function (a, b) {
+      var __Formio = getFormio();
+
+      __Formio.plugins.push(plugin);
+
+      __Formio.plugins.sort(function (a, b) {
         return (b.priority || 0) - (a.priority || 0);
       });
+
       plugin.__name = name;
-      (plugin.init || getFormio().noop).call(plugin, Formio);
+
+      (plugin.init || __Formio.noop).call(plugin, __Formio);
     }
   }, {
     key: "getPlugin",
@@ -1789,23 +1847,6 @@ var Formio = /*#__PURE__*/function () {
     value: function getPathType() {
       return getFormio().pathType;
     }
-  }, {
-    key: "token",
-    get: function get() {
-      if (!getFormio().tokens) {
-        getFormio().tokens = {};
-      }
-
-      return getFormio().tokens.formioToken || '';
-    } // Needed to maintain reverse compatability...
-    ,
-    set: function set(token) {
-      if (!getFormio().tokens) {
-        getFormio().tokens = {};
-      }
-
-      getFormio().tokens.formioToken = token || '';
-    }
   }]);
 
   return Formio;
@@ -1825,10 +1866,7 @@ Formio.cache = {};
 Formio.Providers = _providers.default;
 Formio.version = '---VERSION---';
 Formio.pathType = '';
-Formio.events = new _EventEmitter.default({
-  wildcard: false,
-  maxListeners: 0
-});
+Formio.events = new _EventEmitter.default();
 
 if (typeof global !== 'undefined') {
   Formio.addToGlobal(global);
@@ -1840,8 +1878,12 @@ if (typeof window !== 'undefined') {
 
 
 function getFormio() {
-  if (_typeof(window || global) === 'object' && typeof (window || global).Formio !== 'undefined') {
-    return (window || global).Formio;
+  if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === 'object' && typeof window.Formio !== 'undefined') {
+    return window.Formio;
+  }
+
+  if ((typeof global === "undefined" ? "undefined" : _typeof(global)) === 'object' && typeof global.Formio !== 'undefined') {
+    return global.Formio;
   }
 
   return Formio;

@@ -17,7 +17,7 @@ __p += '\n  ' +
 '"\n  ';
  } ;
 __p += '\n  >\n  ' +
-((__t = (ctx.t(ctx.option.label))) == null ? '' : __t) +
+((__t = (ctx.t(ctx.option.label, { _userInput: true }))) == null ? '' : __t) +
 '\n</option>\n';
 return __p
 }

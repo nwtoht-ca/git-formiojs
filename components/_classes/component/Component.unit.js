@@ -1,6 +1,6 @@
 'use strict';
 
-require("core-js/modules/es.string.trim");
+require("core-js/modules/es.string.trim.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 
@@ -57,7 +57,7 @@ describe('Component', function () {
           value: 'te'
         }
       }, done);
-    });
+    }).catch(done);
   });
   it('Should provide minLength validation', function (done) {
     _harness.default.testCreate(_Component.default, (0, _merge2.default)({}, _fixtures.comp1, {

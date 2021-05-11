@@ -1,14 +1,12 @@
 "use strict";
 
-require("core-js/modules/es.array.every");
+require("core-js/modules/es.array.map.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.object.keys.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.array.includes.js");
 
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.string.includes.js");
 
 var _powerAssert = _interopRequireDefault(require("power-assert"));
 

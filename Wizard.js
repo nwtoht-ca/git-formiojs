@@ -2,36 +2,58 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es.array.concat");
+require("core-js/modules/es.reflect.construct.js");
 
-require("core-js/modules/es.array.filter");
+require("core-js/modules/es.reflect.get.js");
 
-require("core-js/modules/es.array.find");
+require("core-js/modules/es.object.get-own-property-descriptor.js");
 
-require("core-js/modules/es.array.find-index");
+require("core-js/modules/es.symbol.js");
 
-require("core-js/modules/es.array.for-each");
+require("core-js/modules/es.object.get-own-property-descriptors.js");
 
-require("core-js/modules/es.array.includes");
+require("core-js/modules/es.symbol.description.js");
 
-require("core-js/modules/es.array.map");
+require("core-js/modules/es.object.to-string.js");
 
-require("core-js/modules/es.array.reduce");
+require("core-js/modules/es.symbol.iterator.js");
 
-require("core-js/modules/es.function.name");
+require("core-js/modules/es.array.iterator.js");
 
-require("core-js/modules/es.object.get-prototype-of");
+require("core-js/modules/es.string.iterator.js");
 
-require("core-js/modules/es.object.keys");
+require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.string.includes");
+require("core-js/modules/es.array.from.js");
 
-require("core-js/modules/web.dom-collections.for-each");
+require("core-js/modules/es.array.slice.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.array.includes.js");
+
+require("core-js/modules/es.string.includes.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.array.find.js");
+
+require("core-js/modules/es.function.name.js");
+
+require("core-js/modules/es.array.map.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.array.find-index.js");
+
+require("core-js/modules/es.object.get-prototype-of.js");
 
 var _nativePromiseOnly = _interopRequireDefault(require("native-promise-only"));
 
@@ -49,7 +71,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -59,13 +81,13 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -91,7 +113,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -138,6 +160,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
     _this.lastPromise = _nativePromiseOnly.default.resolve();
     _this.enabledIndex = 0;
     _this.editMode = false;
+    _this.originalOptions = _lodash.default.cloneDeep(_this.options);
     return _this;
   }
 
@@ -167,6 +190,27 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       return filteredPages;
     }
   }, {
+    key: "hasExtraPages",
+    get: function get() {
+      return !_lodash.default.isEmpty(this.subWizards);
+    }
+  }, {
+    key: "data",
+    get: function get() {
+      return _get(_getPrototypeOf(Wizard.prototype), "data", this);
+    },
+    set: function set(value) {
+      var _this3 = this;
+
+      this._data = value;
+
+      _lodash.default.each(this.getPages({
+        all: true
+      }), function (component) {
+        component.data = _this3.componentContext(component);
+      });
+    }
+  }, {
     key: "checkConditions",
     value: function checkConditions(data, flags, row) {
       this.establishPages(data);
@@ -192,7 +236,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "init",
     value: function init() {
-      var _this3 = this;
+      var _this4 = this;
 
       // Check for and initlize button settings object
       this.options.buttonSettings = _lodash.default.defaults(this.options.buttonSettings, {
@@ -201,6 +245,14 @@ var Wizard = /*#__PURE__*/function (_Webform) {
         showSubmit: true,
         showCancel: !this.options.readOnly
       });
+
+      if (!this.isSecondInit) {
+        var _this$options, _this$options$breadcr;
+
+        this.isClickableDefined = (_this$options = this.options) === null || _this$options === void 0 ? void 0 : (_this$options$breadcr = _this$options.breadcrumbSettings) === null || _this$options$breadcr === void 0 ? void 0 : _this$options$breadcr.hasOwnProperty('clickable');
+        this.isSecondInit = true;
+      }
+
       this.options.breadcrumbSettings = _lodash.default.defaults(this.options.breadcrumbSettings, {
         clickable: true
       });
@@ -216,21 +268,77 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       }
 
       this.on('subWizardsUpdated', function (subForm) {
-        var subWizard = _this3.subWizards.find(function (subWizard) {
+        var subWizard = _this4.subWizards.find(function (subWizard) {
           var _subWizard$subForm;
 
           return (subForm === null || subForm === void 0 ? void 0 : subForm.id) && ((_subWizard$subForm = subWizard.subForm) === null || _subWizard$subForm === void 0 ? void 0 : _subWizard$subForm.id) === (subForm === null || subForm === void 0 ? void 0 : subForm.id);
         });
 
-        if (_this3.subWizards.length && subWizard) {
+        if (_this4.subWizards.length && subWizard) {
           subWizard.subForm.setValue(subForm._submission, {}, true);
 
-          _this3.establishPages();
+          _this4.establishPages();
 
-          _this3.redraw();
+          _this4.redraw();
         }
       });
       return onReady;
+    }
+  }, {
+    key: "wizardKey",
+    get: function get() {
+      return "wizard-".concat(this.id);
+    }
+  }, {
+    key: "wizard",
+    get: function get() {
+      return this.form;
+    },
+    set: function set(form) {
+      this.setForm(form);
+    }
+  }, {
+    key: "buttons",
+    get: function get() {
+      var _this5 = this;
+
+      var buttons = {};
+      [{
+        name: 'cancel',
+        method: 'cancel'
+      }, {
+        name: 'previous',
+        method: 'prevPage'
+      }, {
+        name: 'next',
+        method: 'nextPage'
+      }, {
+        name: 'submit',
+        method: 'submit'
+      }].forEach(function (button) {
+        if (_this5.hasButton(button.name)) {
+          buttons[button.name] = button;
+        }
+      });
+      return buttons;
+    }
+  }, {
+    key: "renderContext",
+    get: function get() {
+      var _this$root, _this$root$component;
+
+      return {
+        wizardKey: this.wizardKey,
+        isBreadcrumbClickable: this.isBreadcrumbClickable(),
+        isSubForm: !!this.parent && !((_this$root = this.root) !== null && _this$root !== void 0 && (_this$root$component = _this$root.component) !== null && _this$root$component !== void 0 && _this$root$component.type) === 'wizard',
+        panels: this.allPages.length ? this.allPages.map(function (page) {
+          return page.component;
+        }) : this.pages.map(function (page) {
+          return page.component;
+        }),
+        buttons: this.buttons,
+        currentPage: this.page
+      };
     }
   }, {
     key: "prepareNavigationSettings",
@@ -261,14 +369,15 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
       var ctx = this.renderContext;
 
       if (this.component.key) {
         ctx.panels.map(function (panel) {
-          if (panel.key === _this4.component.key) {
-            _this4.currentPanel = panel;
+          if (panel.key === _this6.component.key) {
+            _this6.currentPanel = panel;
+            ctx.wizardPageTooltip = _this6.getFormattedTooltip(panel.tooltip);
           }
         });
       }
@@ -306,10 +415,12 @@ var Wizard = /*#__PURE__*/function (_Webform) {
         var headerElement = this.element.querySelector("#".concat(this.wizardKey, "-header"));
 
         if (headerElement) {
+          var _this$loadRefs2;
+
           this.detachHeader();
           headerElement.outerHTML = this.renderTemplate('wizardHeader', this.renderContext);
           headerElement = this.element.querySelector("#".concat(this.wizardKey, "-header"));
-          this.loadRefs(headerElement, _defineProperty({}, "".concat(this.wizardKey, "-link"), 'multiple'));
+          this.loadRefs(headerElement, (_this$loadRefs2 = {}, _defineProperty(_this$loadRefs2, "".concat(this.wizardKey, "-link"), 'multiple'), _defineProperty(_this$loadRefs2, "".concat(this.wizardKey, "-tooltip"), 'multiple'), _this$loadRefs2));
           this.attachHeader();
         }
       }
@@ -318,10 +429,10 @@ var Wizard = /*#__PURE__*/function (_Webform) {
     key: "attach",
     value: function attach(element) {
       var _this$loadRefs3,
-          _this5 = this;
+          _this7 = this;
 
       this.element = element;
-      this.loadRefs(element, (_this$loadRefs3 = {}, _defineProperty(_this$loadRefs3, this.wizardKey, 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-cancel"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-previous"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-next"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-submit"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-link"), 'multiple'), _this$loadRefs3));
+      this.loadRefs(element, (_this$loadRefs3 = {}, _defineProperty(_this$loadRefs3, this.wizardKey, 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-cancel"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-previous"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-next"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-submit"), 'single'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-link"), 'multiple'), _defineProperty(_this$loadRefs3, "".concat(this.wizardKey, "-tooltip"), 'multiple'), _this$loadRefs3));
 
       if ((this.options.readOnly || this.editMode) && !this.enabledIndex) {
         var _this$pages;
@@ -333,33 +444,50 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       this.attachNav();
       this.attachHeader();
       return promises.then(function () {
-        return _this5.emit('render', {
-          component: _this5.currentPage,
-          page: _this5.page
+        _this7.emit('render', {
+          component: _this7.currentPage,
+          page: _this7.page
         });
+
+        if (_this7.component.scrollToTop) {
+          _this7.scrollPageToTop();
+        }
       });
+    }
+  }, {
+    key: "scrollPageToTop",
+    value: function scrollPageToTop() {
+      if (!this.refs[this.wizardKey]) {
+        return;
+      }
+
+      if ('scrollIntoView' in this.refs[this.wizardKey]) {
+        this.refs[this.wizardKey].scrollIntoView(true);
+      } else {
+        this.scrollIntoView(this.refs[this.wizardKey]);
+      }
     }
   }, {
     key: "isBreadcrumbClickable",
     value: function isBreadcrumbClickable() {
-      var _this6 = this;
+      var _this8 = this;
 
       var currentPage = null;
       this.pages.map(function (page) {
-        if (_lodash.default.isEqual(_this6.currentPage.component, page.component)) {
+        if (_lodash.default.isEqual(_this8.currentPage.component, page.component)) {
           currentPage = page;
         }
       });
-      return _lodash.default.get(currentPage.component, 'breadcrumbClickable', true);
+      return this.isClickableDefined ? this.options.breadcrumbSettings.clickable : _lodash.default.get(currentPage, 'component.breadcrumbClickable', true);
     }
   }, {
     key: "isAllowPrevious",
     value: function isAllowPrevious() {
-      var _this7 = this;
+      var _this9 = this;
 
       var currentPage = null;
       this.pages.map(function (page) {
-        if (_lodash.default.isEqual(_this7.currentPage.component, page.component)) {
+        if (_lodash.default.isEqual(_this9.currentPage.component, page.component)) {
           currentPage = page;
         }
       });
@@ -368,27 +496,27 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "attachNav",
     value: function attachNav() {
-      var _this8 = this;
+      var _this10 = this;
 
       _lodash.default.each(this.buttons, function (button) {
-        var buttonElement = _this8.refs["".concat(_this8.wizardKey, "-").concat(button.name)];
+        var buttonElement = _this10.refs["".concat(_this10.wizardKey, "-").concat(button.name)];
 
-        _this8.addEventListener(buttonElement, 'click', function (event) {
+        _this10.addEventListener(buttonElement, 'click', function (event) {
           event.preventDefault(); // Disable the button until done.
 
           buttonElement.setAttribute('disabled', 'disabled');
 
-          _this8.setLoading(buttonElement, true); // Call the button method, then re-enable the button.
+          _this10.setLoading(buttonElement, true); // Call the button method, then re-enable the button.
 
 
-          _this8[button.method]().then(function () {
+          _this10[button.method]().then(function () {
             buttonElement.removeAttribute('disabled');
 
-            _this8.setLoading(buttonElement, false);
+            _this10.setLoading(buttonElement, false);
           }).catch(function () {
             buttonElement.removeAttribute('disabled');
 
-            _this8.setLoading(buttonElement, false);
+            _this10.setLoading(buttonElement, false);
           });
         });
       });
@@ -401,19 +529,22 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "attachHeader",
     value: function attachHeader() {
-      var _this9 = this;
+      var _this11 = this;
 
       var isAllowPrevious = this.isAllowPrevious();
+      this.attachTooltips(this.refs["".concat(this.wizardKey, "-tooltip")], this.currentPanel.tooltip);
 
       if (this.isBreadcrumbClickable() || isAllowPrevious) {
-        this.refs["".concat(this.wizardKey, "-link")].forEach(function (link, index) {
-          if (!isAllowPrevious || index <= _this9.enabledIndex) {
-            _this9.addEventListener(link, 'click', function (event) {
-              _this9.emit('wizardNavigationClicked', _this9.pages[index]);
+        var _this$refs$;
+
+        (_this$refs$ = this.refs["".concat(this.wizardKey, "-link")]) === null || _this$refs$ === void 0 ? void 0 : _this$refs$.forEach(function (link, index) {
+          if (!isAllowPrevious || index <= _this11.enabledIndex) {
+            _this11.addEventListener(link, 'click', function (event) {
+              _this11.emit('wizardNavigationClicked', _this11.pages[index]);
 
               event.preventDefault();
-              return _this9.setPage(index).then(function () {
-                _this9.emitWizardPageSelected(index);
+              return _this11.setPage(index).then(function () {
+                _this11.emitWizardPageSelected(index);
               });
             });
           }
@@ -423,25 +554,27 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "detachNav",
     value: function detachNav() {
-      var _this10 = this;
+      var _this12 = this;
 
       _lodash.default.each(this.buttons, function (button) {
-        _this10.removeEventListener(_this10.refs["".concat(_this10.wizardKey, "-").concat(button.name)], 'click');
+        _this12.removeEventListener(_this12.refs["".concat(_this12.wizardKey, "-").concat(button.name)], 'click');
       });
     }
   }, {
     key: "detachHeader",
     value: function detachHeader() {
-      var _this11 = this;
+      var _this13 = this;
 
-      this.refs["".concat(this.wizardKey, "-link")].forEach(function (link) {
-        _this11.removeEventListener(link, 'click');
-      });
+      if (this.refs["".concat(this.wizardKey, "-link")]) {
+        this.refs["".concat(this.wizardKey, "-link")].forEach(function (link) {
+          _this13.removeEventListener(link, 'click');
+        });
+      }
     }
   }, {
     key: "transformPages",
     value: function transformPages() {
-      var _this12 = this;
+      var _this14 = this;
 
       var allComponents = [];
       var components = this.getSortedComponents(this);
@@ -451,18 +584,24 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       var getAllComponents = function getAllComponents(nestedComp, compsArr) {
         var pushAllowed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
         var nestedPages = [];
-        var currentComponents = nestedComp !== null && nestedComp !== void 0 && nestedComp.subForm ? _this12.getSortedComponents(nestedComp.subForm) : (nestedComp === null || nestedComp === void 0 ? void 0 : nestedComp.components) || [];
+        var dataArrayComponents = ['datagrid', 'editgrid', 'dynamicWizard'];
+        var currentComponents = nestedComp !== null && nestedComp !== void 0 && nestedComp.subForm ? _this14.getSortedComponents(nestedComp.subForm) : (nestedComp === null || nestedComp === void 0 ? void 0 : nestedComp.components) || [];
         var visibleComponents = currentComponents.filter(function (comp) {
           return comp._visible;
         });
+        var filteredComponents = visibleComponents.filter(function (comp) {
+          return !dataArrayComponents.includes(comp.component.type) && (comp.type !== 'form' || comp.isNestedWizard);
+        });
         var additionalComponents = visibleComponents.filter(function (comp) {
-          return !comp.subForm;
+          var _comp$subForm;
+
+          return ((_comp$subForm = comp.subForm) === null || _comp$subForm === void 0 ? void 0 : _comp$subForm._form.display) !== 'wizard';
         });
         var hasNested = false;
-        (0, _utils.eachComponent)(visibleComponents, function (comp) {
+        (0, _utils.eachComponent)(filteredComponents, function (comp) {
           if (comp.component.type === 'panel' && comp !== null && comp !== void 0 && comp.parent.wizard && !getAllComponents(comp, compsArr, false)) {
             if (pushAllowed) {
-              _this12.setRootPanelId(comp);
+              _this14.setRootPanelId(comp);
 
               nestedPages.push(comp);
             }
@@ -470,7 +609,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
             hasNested = true;
           }
 
-          if (comp && comp.subForm) {
+          if (comp && comp.isNestedWizard && comp.subForm) {
             var hasNestedForm = getAllComponents(comp, nestedPages, pushAllowed);
 
             if (!hasNested) {
@@ -481,7 +620,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
         if (nestedComp.component.type === 'panel') {
           if (!hasNested && pushAllowed) {
-            _this12.setRootPanelId(nestedComp);
+            _this14.setRootPanelId(nestedComp);
 
             compsArr.push(nestedComp);
           }
@@ -491,7 +630,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
             newComp.components = additionalComponents;
 
-            _this12.setRootPanelId(newComp);
+            _this14.setRootPanelId(newComp);
 
             defferedComponents.push(newComp);
           }
@@ -507,7 +646,16 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
       components.forEach(function (component) {
         getAllComponents(component, allComponents);
-      }, []);
+      }, []); // recalculate pages only for root wizards, including the situation when the wizard is in a wrapper
+
+      if (this.localRoot && this.id === this.localRoot.id) {
+        allComponents.forEach(function (comp, index) {
+          comp.eachComponent(function (component) {
+            component.page = index;
+          });
+        });
+      }
+
       this.allPages = allComponents;
     }
   }, {
@@ -560,7 +708,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "establishPages",
     value: function establishPages() {
-      var _this13 = this;
+      var _this15 = this;
 
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.data;
       this.pages = [];
@@ -587,33 +735,41 @@ var Wizard = /*#__PURE__*/function (_Webform) {
             }
 
             var page = currentPages[item.key];
-            var isVisible = (0, _utils.checkCondition)(item, data, data, _this13.component, _this13) && !item.hidden;
+            var forceShow = _this15.options.show ? _this15.options.show[item.key] : false;
+            var forceHide = _this15.options.hide ? _this15.options.hide[item.key] : false;
+            var isVisible = (0, _utils.checkCondition)(item, data, data, _this15.component, _this15) && !item.hidden;
+
+            if (forceShow) {
+              isVisible = true;
+            } else if (forceHide) {
+              isVisible = false;
+            }
 
             if (isVisible) {
               visible.push(item);
 
               if (page) {
-                _this13.pages.push(page);
+                _this15.pages.push(page);
               }
             }
 
             if (!page && isVisible) {
-              page = _this13.createComponent(item, pageOptions);
+              page = _this15.createComponent(item, pageOptions);
               page.visible = isVisible;
 
-              _this13.pages.push(page);
+              _this15.pages.push(page);
 
               page.eachComponent(function (component) {
-                component.page = _this13.pages.length - 1;
+                component.page = _this15.pages.length - 1;
               });
             } else if (page && !isVisible) {
-              _this13.removeComponent(page);
+              _this15.removeComponent(page);
             }
           } else if (item.type !== 'button') {
-            if (!_this13.pages.length) {
-              _this13.prefixComps.push(_this13.createComponent(item, pageOptions));
+            if (!_this15.pages.length) {
+              _this15.prefixComps.push(_this15.createComponent(item, pageOptions));
             } else {
-              _this13.suffixComps.push(_this13.createComponent(item, pageOptions));
+              _this15.suffixComps.push(_this15.createComponent(item, pageOptions));
             }
           }
         });
@@ -626,10 +782,15 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       this.transformPages();
 
       if (this.allPages && this.allPages.length) {
-        this.pages = this.allPages;
+        this.updatePages();
       }
 
       return visible;
+    }
+  }, {
+    key: "updatePages",
+    value: function updatePages() {
+      this.pages = this.allPages;
     }
   }, {
     key: "addComponents",
@@ -639,13 +800,13 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "setPage",
     value: function setPage(num) {
-      var _this14 = this;
+      var _this16 = this;
 
       if (num === this.page) {
         return _nativePromiseOnly.default.resolve();
       }
 
-      if (!this.wizard.full && num >= 0 && num < this.pages.length) {
+      if (num >= 0 && num < this.pages.length) {
         this.page = num;
         this.pageFieldLogic(num);
         this.getNextPage();
@@ -657,7 +818,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
           if (!pageFromComponents || pageFromPages.id !== pageFromComponents.id) {
             parentNum = this.components.findIndex(function (comp) {
-              return comp.id === _this14.pages[parentNum].rootPanelId;
+              return comp.id === _this16.pages[parentNum].rootPanelId;
             });
           }
         }
@@ -667,10 +828,10 @@ var Wizard = /*#__PURE__*/function (_Webform) {
         }
 
         this.redraw().then(function () {
-          _this14.checkData(_this14.submission.data);
+          _this16.checkData(_this16.submission.data);
         });
         return _nativePromiseOnly.default.resolve();
-      } else if (this.wizard.full || !this.pages.length) {
+      } else if (!this.pages.length) {
         this.redraw();
         return _nativePromiseOnly.default.resolve();
       }
@@ -686,6 +847,13 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       this.fieldLogic(this.data); // If disabled changed, be sure to distribute the setting.
 
       this.disabled = this.shouldDisabled;
+    }
+  }, {
+    key: "currentPage",
+    get: function get() {
+      return this.pages && this.pages.length >= this.page ? this.pages[this.page] : {
+        components: []
+      };
     }
   }, {
     key: "getNextPage",
@@ -744,17 +912,17 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "beforePage",
     value: function beforePage(next) {
-      var _this15 = this;
+      var _this17 = this;
 
       return new _nativePromiseOnly.default(function (resolve, reject) {
-        _this15.hook(next ? 'beforeNext' : 'beforePrev', _this15.currentPage, _this15.submission, function (err) {
+        _this17.hook(next ? 'beforeNext' : 'beforePrev', _this17.currentPage, _this17.submission, function (err) {
           if (err) {
-            _this15.showErrors(err, true);
+            _this17.showErrors(err, true);
 
             reject(err);
           }
 
-          var form = _this15.currentPage;
+          var form = _this17.currentPage;
 
           if (form) {
             form.beforePage(next).then(resolve).catch(reject);
@@ -775,14 +943,14 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "nextPage",
     value: function nextPage() {
-      var _this16 = this;
+      var _this18 = this;
 
       // Read-only forms should not worry about validation before going to next page, nor should they submit.
       if (this.options.readOnly) {
         return this.setPage(this.getNextPage()).then(function () {
-          _this16.emit('nextPage', {
-            page: _this16.page,
-            submission: _this16.submission
+          _this18.emit('nextPage', {
+            page: _this18.page,
+            submission: _this18.submission
           });
         });
       } // Validate the form, before go to the next page
@@ -791,14 +959,14 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       if (this.checkValidity(this.submission.data, true, this.submission.data, true)) {
         this.checkData(this.submission.data);
         return this.beforePage(true).then(function () {
-          return _this16.setPage(_this16.getNextPage()).then(function () {
-            if (!(_this16.options.readOnly || _this16.editMode) && _this16.enabledIndex < _this16.page) {
-              _this16.enabledIndex = _this16.page;
+          return _this18.setPage(_this18.getNextPage()).then(function () {
+            if (!(_this18.options.readOnly || _this18.editMode) && _this18.enabledIndex < _this18.page) {
+              _this18.enabledIndex = _this18.page;
 
-              _this16.redraw();
+              _this18.redraw();
             }
 
-            _this16.emitNextPage();
+            _this18.emitNextPage();
           });
         });
       } else {
@@ -819,31 +987,35 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "prevPage",
     value: function prevPage() {
-      var _this17 = this;
+      var _this19 = this;
 
       return this.beforePage().then(function () {
-        return _this17.setPage(_this17.getPreviousPage()).then(function () {
-          _this17.emitPrevPage();
+        return _this19.setPage(_this19.getPreviousPage()).then(function () {
+          _this19.emitPrevPage();
         });
       });
     }
   }, {
     key: "cancel",
     value: function cancel(noconfirm) {
-      var _this18 = this;
+      var _this20 = this;
+
+      if (this.options.readOnly) {
+        return _nativePromiseOnly.default.resolve();
+      }
 
       if (_get(_getPrototypeOf(Wizard.prototype), "cancel", this).call(this, noconfirm)) {
         this.setPristine(true);
         return this.setPage(0).then(function () {
-          if (_this18.enabledIndex) {
-            _this18.enabledIndex = 0;
+          if (_this20.enabledIndex) {
+            _this20.enabledIndex = 0;
           }
 
-          _this18.onChange();
+          _this20.onChange();
 
-          _this18.redraw();
+          _this20.redraw();
 
-          return _this18.page;
+          return _this20.page;
         });
       }
 
@@ -862,9 +1034,14 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       return pageIndex;
     }
   }, {
+    key: "schema",
+    get: function get() {
+      return this.wizard;
+    }
+  }, {
     key: "setComponentSchema",
     value: function setComponentSchema() {
-      var _this19 = this;
+      var _this21 = this;
 
       var pageKeys = {};
       this.originalComponents = [];
@@ -872,9 +1049,16 @@ var Wizard = /*#__PURE__*/function (_Webform) {
         if (item.type === 'panel') {
           item.key = (0, _utils.uniqueKey)(pageKeys, item.key || 'panel');
           pageKeys[item.key] = true;
+
+          if (_this21.wizard.full) {
+            _this21.options.show = _this21.options.show || {};
+            _this21.options.show[item.key] = true;
+          } else if (_this21.wizard.hasOwnProperty('full') && !_lodash.default.isEqual(_this21.originalOptions.show, _this21.options.show)) {
+            _this21.options.show = _objectSpread({}, _this21.originalOptions.show || {});
+          }
         }
 
-        _this19.originalComponents.push(_lodash.default.clone(item));
+        _this21.originalComponents.push(_lodash.default.clone(item));
       });
 
       if (!Object.keys(pageKeys).length) {
@@ -905,20 +1089,23 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       this.setComponentSchema();
     }
   }, {
-    key: "pageFieldLogicHandler",
-    value: function pageFieldLogicHandler() {
-      this.pageFieldLogic(this.page);
+    key: "setEditMode",
+    value: function setEditMode(submission) {
+      if (!this.editMode && submission._id && !this.options.readOnly) {
+        this.editMode = true;
+        this.redraw();
+      }
     }
   }, {
     key: "setValue",
     value: function setValue(submission) {
-      var _this20 = this;
+      var _this22 = this;
 
       var flags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var ignoreEstablishment = arguments.length > 2 ? arguments[2] : undefined;
       this._submission = submission;
 
-      if (flags && flags.fromSubmission && (this.options.readOnly || this.editMode)) {
+      if (flags && flags.fromSubmission && (this.options.readOnly || this.editMode) && !this.isHtmlRenderMode()) {
         this._data = submission.data;
       }
 
@@ -929,15 +1116,10 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       var changed = this.getPages({
         all: true
       }).reduce(function (changed, page) {
-        return _this20.setNestedValue(page, submission.data, flags, changed) || changed;
+        return _this22.setNestedValue(page, submission.data, flags, changed) || changed;
       }, false);
-      this.pageFieldLogicHandler();
-
-      if (!this.editMode && submission._id && !this.options.readOnly) {
-        this.editMode = true;
-        this.redraw();
-      }
-
+      this.pageFieldLogic(this.page);
+      this.setEditMode(submission);
       return changed;
     }
   }, {
@@ -969,7 +1151,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
           return next && nextPage !== null && nextPage !== -1;
 
         case 'cancel':
-          return cancel;
+          return cancel && !this.options.readOnly;
 
         case 'submit':
           return submit && !this.options.readOnly && (nextPage === null || this.page === this.pages.length - 1);
@@ -993,7 +1175,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
   }, {
     key: "onChange",
     value: function onChange(flags, changed, modified, changes) {
-      var _this21 = this;
+      var _this23 = this;
 
       _get(_getPrototypeOf(Wizard.prototype), "onChange", this).call(this, flags, changed, modified, changes);
 
@@ -1026,7 +1208,7 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
         if (this.currentPanel && this.currentPanel.key) {
           this.setPage(this.currentPanels.findIndex(function (panel) {
-            return panel === _this21.currentPanel.key;
+            return panel === _this23.currentPanel.key;
           }));
         }
       }
@@ -1065,9 +1247,18 @@ var Wizard = /*#__PURE__*/function (_Webform) {
       }, true);
     }
   }, {
+    key: "errors",
+    get: function get() {
+      if (!this.isLastPage()) {
+        return this.currentPage.errors;
+      }
+
+      return _get(_getPrototypeOf(Wizard.prototype), "errors", this);
+    }
+  }, {
     key: "focusOnComponent",
     value: function focusOnComponent(key) {
-      var _this22 = this;
+      var _this24 = this;
 
       var pageIndex = 0;
 
@@ -1084,113 +1275,15 @@ var Wizard = /*#__PURE__*/function (_Webform) {
 
       if (page && page !== this.currentPage) {
         return this.setPage(pageIndex).then(function () {
-          _this22.checkValidity(_this22.submission.data, true, _this22.submission.data);
+          _this24.checkValidity(_this24.submission.data, true, _this24.submission.data);
 
-          _this22.showErrors();
+          _this24.showErrors();
 
-          _get(_getPrototypeOf(Wizard.prototype), "focusOnComponent", _this22).call(_this22, key);
+          _get(_getPrototypeOf(Wizard.prototype), "focusOnComponent", _this24).call(_this24, key);
         });
       }
 
       return _get(_getPrototypeOf(Wizard.prototype), "focusOnComponent", this).call(this, key);
-    }
-  }, {
-    key: "hasExtraPages",
-    get: function get() {
-      return !_lodash.default.isEmpty(this.subWizards);
-    }
-  }, {
-    key: "data",
-    get: function get() {
-      return _get(_getPrototypeOf(Wizard.prototype), "data", this);
-    },
-    set: function set(value) {
-      var _this23 = this;
-
-      this._data = value;
-
-      _lodash.default.each(this.getPages({
-        all: true
-      }), function (component) {
-        component.data = _this23.componentContext(component);
-      });
-    }
-  }, {
-    key: "wizardKey",
-    get: function get() {
-      return "wizard-".concat(this.id);
-    }
-  }, {
-    key: "wizard",
-    get: function get() {
-      return this.form;
-    },
-    set: function set(form) {
-      this.setForm(form);
-    }
-  }, {
-    key: "buttons",
-    get: function get() {
-      var _this24 = this;
-
-      var buttons = {};
-      [{
-        name: 'cancel',
-        method: 'cancel'
-      }, {
-        name: 'previous',
-        method: 'prevPage'
-      }, {
-        name: 'next',
-        method: 'nextPage'
-      }, {
-        name: 'submit',
-        method: 'submit'
-      }].forEach(function (button) {
-        if (_this24.hasButton(button.name)) {
-          buttons[button.name] = button;
-        }
-      });
-      return buttons;
-    }
-  }, {
-    key: "renderContext",
-    get: function get() {
-      var _this$root, _this$root$component;
-
-      return {
-        wizardKey: this.wizardKey,
-        isBreadcrumbClickable: this.isBreadcrumbClickable(),
-        isSubForm: !!this.parent && !((_this$root = this.root) !== null && _this$root !== void 0 && (_this$root$component = _this$root.component) !== null && _this$root$component !== void 0 && _this$root$component.type) === 'wizard',
-        panels: this.allPages.length ? this.allPages.map(function (page) {
-          return page.component;
-        }) : this.pages.map(function (page) {
-          return page.component;
-        }),
-        buttons: this.buttons,
-        currentPage: this.page
-      };
-    }
-  }, {
-    key: "currentPage",
-    get: function get() {
-      return this.pages && this.pages.length >= this.page ? this.pages[this.page] : {
-        components: []
-      };
-    }
-  }, {
-    key: "schema",
-    get: function get() {
-      return this.wizard;
-    }
-  }, {
-    key: "errors",
-    get: function get() {
-      if (!this.isLastPage()) {
-        return this.currentPage.errors;
-      }
-
-      return _get(_getPrototypeOf(Wizard.prototype), "errors", this);
     }
   }]);
 
